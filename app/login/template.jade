@@ -1,0 +1,11 @@
+.guitar-quest-login.container
+  .col-xs-4.col-xs-offset-4
+    .login-panel.panel.panel-default
+      .panel-body
+        h4.text-center Login
+        form(ng-submit='loginCtrl.login()')
+          input.form-control(id='inputEmail' type='email' placeholder='email' ng-model='loginCtrl.form.email')
+          input.form-control(type='password' placeholder='password' ng-model='loginCtrl.form.password')
+          button.login-btn.btn.btn-primary.btn-block(type='submit') Login
+          .text-center
+            a(href='' ui-sref='guitarQuest.creatAccount') create new account

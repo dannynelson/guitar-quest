@@ -1,0 +1,61 @@
+.gq-navbar
+  nav.navbar.navbar-default.navbar-static-top
+    .container
+      .navbar-container
+        //- .navbar-container
+        .navbar-header
+          button.navbar-toggle(type='button', ng-click='navbarCtrl.navbarVisible = !navbarCtrl.navbarVisible')
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar
+          a.navbar-brand(ui-sref='guitarQuest.landing') GuitarQuest
+        .collapse.navbar-collapse(ng-class="{'navbar-menu-show': navbarCtrl.navbarVisible}")
+          ul.nav.navbar-nav(
+            ng-click='navbarCtrl.navbarVisible = !navbarCtrl.navbarVisible'
+            ng-if='navbarCtrl.isLoggedIn()'
+          )
+            li(ng-class="{active: navbarCtrl.stateIncludes('guitarQuest.pieces')}")
+              a(ui-sref='guitarQuest.pieces') Pieces
+
+            li(ng-class="{active: navbarCtrl.stateIncludes('guitarQuest.quests')}")
+              a(ui-sref='guitarQuest.quests')
+                span Quests
+                span.badge.link-badge 2
+
+            li(ng-class="{active: navbarCtrl.stateIncludes('guitarQuest.tutorials')}")
+              a(ui-sref='guitarQuest.tutorials') Tutorials
+
+          ul.nav.navbar-nav.navbar-right(ng-if='!navbarCtrl.isLoggedIn()')
+            li(ng-class="{active: navbarCtrl.stateIncludes('guitarQuest.login')}")
+              a(ui-sref='guitarQuest.login') Login
+            li(ng-class="{active: navbarCtrl.stateIncludes('guitarQuest.createAccount')}")
+              a(ui-sref='guitarQuest.createAccount') Create Account
+
+          ul.nav.navbar-nav.navbar-right(ng-if='navbarCtrl.isLoggedIn()')
+            li(ng-click='navbarCtrl.logout()')
+              a Logout
+
+            //- li.logout.visible-xs
+            //-   a(href='#', ng-click='logout()') Log out {{credentials.google.email}}
+
+          //- ul.nav.navbar-nav.navbar-right.hidden-xs.user-info(ng-if="credentials.google.email")
+          //-   .app-version(ng-if='settings.sha && settings.sha != "unknown"')
+          //-     span(ng-if='!linkToGithub') v{{settings.sha | limitTo:7}}
+          //-     span(ng-if='linkToGithub')
+          //-       a(ng-href='https://github.com/goodeggs/ops-inventory-ui/commit/{{settings.sha}}')
+          //-         | v{{settings.sha | limitTo:7}}
+
+          //-   .outer-auth.hidden-xs
+          //-     img.user-photo(
+          //-       ng-if='credentials.google.photo'
+          //-       ng-src='{{credentials.google.photo}}'
+          //-       width='50'
+          //-       height='50'
+          //-     )
+          //-     .name-email
+          //-       .user-name {{credentials.google.displayName}}
+          //-       .user-email {{credentials.google.email}}
+          //-   .logout
+          //-     button.btn.btn-default.navbar-btn.btn-sm(type='button', ng-click='logout()')
+          //-       span.glyphicon.glyphicon-log-out
+          //-       |  Log out

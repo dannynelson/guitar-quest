@@ -1,0 +1,26 @@
+doctype html
+html(
+  lang='en'
+  ng-app='app'
+)
+  head
+    title(ng-bind="pageTitle()")
+
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1, maximum-scale=1')
+
+    //- TODO would be nice if this could resolve module dir automatically.
+    //- include ../node_modules/goodeggs-ops-common/templates/layout_settings.jade
+    //- include ../node_modules/goodeggs-ops-common/templates/layout_rollbar.jade
+
+    link(rel='stylesheet' href=assets('/bootstrap.min.css'))
+    link(rel='stylesheet' href=assets('/ngToast.css'))
+    link(rel='stylesheet' href=assets('https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css'))
+    link(rel='stylesheet' href=assets('/app.css'))
+    link(rel='icon' href=assets('/images/favicon.ico'))
+
+  body(ng-class='stateClassArray')
+    ui-view
+
+    script(src=assets('/externals.js'))
+    script(src=assets('/app.js'))
