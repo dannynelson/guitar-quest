@@ -16,6 +16,16 @@ TODO:
 - footer with copyright? other random things?
 - recruit previous students to try the app (especially mitch)
 - setup https
+- submit another video flow
+- comments within video section
+
+# Data models
+
+piece
+
+quest
+
+user
 
 http://havecamerawilltravel.com/photographer/how-allow-public-access-amazon-bucket
 
@@ -53,7 +63,7 @@ pandastream
 
 Video JS for video playback
 
-recording and saving video
+# recording and saving video
 http://stackoverflow.com/questions/16319470/html5-getusermedia-record-webcam-both-audio-and-video
-
+https://truongtx.me/2014/08/09/record-and-export-audio-video-files-in-browser-using-web-audio-api/
 

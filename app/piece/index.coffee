@@ -8,7 +8,7 @@ angular.module __filename, [
 
 .config ($stateProvider) ->
   $stateProvider.state 'guitarQuest.piece',
-    # requireAuth: true
+    requireAuth: true
     url: '/piece'
     controllerAs: 'pieceCtrl'
     template: require './template'

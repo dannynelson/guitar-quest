@@ -32,22 +32,17 @@
 
       .row.well.video-well
         .col-xs-12.text-center
-          //- div
-          //-   .btn.btn-primary(ng-click='pieceCtrl.getVideo()') Record Video
-          //- video.video-preview(ng-if='pieceCtrl.videoSelected' controls ngf-src="pieceCtrl.videoFile")
-          //- video.video-preview(ng-src="{{pieceCtrl.videoUploadSrc}}")
-          video.video-preview(ng-show='pieceCtrl.videoUploadSrc' controls)
-          .btn.btn-primary(ng-hide='pieceCtrl.videoSelected' ngf-select ngf-change="pieceCtrl.upload($file)") Upload on file change
-          .row
+          .select-video(ng-hide='pieceCtrl.videoSelected' ngf-select ngf-change="pieceCtrl.upload($file)")
+            div
+              i.fa.fa-upload.fa-5x
+            h5 Select video to submit
+          .loading.row.text-center(ng-show='pieceCtrl.videoSelected && !pieceCtrl.videoUploadSrc')
+            h5 Uploading...
             .col-xs-8.col-xs-offset-2
               progressbar(
-                ng-show='pieceCtrl.videoSelected && !pieceCtrl.videoUploadSrc'
                 max="100"
                 value="pieceCtrl.progressPercentage"
               )
-          //- div
-          //-   input(type='file' fileread='pieceCtrl.videoUpload' value='upload video')
-          //- .btn.btn-primary(ng-click='pieceCtrl.stopVideo()') Stop Video
-          //- .btn.btn-primary(ng-click='pieceCtrl.replayVideo()') Replay Video
-        //- .col-sm-6
-        //-   .btn.btn-primary.btn-block(ng-click='pieceCtrl.stopVideo()') Stop
+          .submission-successful.text-center(ng-show='pieceCtrl.videoUploadSrc')
+            video.video-preview(controls)
+            a(href='#') Submit a different video
