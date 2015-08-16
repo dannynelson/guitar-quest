@@ -56,6 +56,7 @@ app.use passport.session()
 
 # Routes
 app.use '/users', require './users'
+app.use '/s3_policy', require './s3_policy'
 
 # if options.serveLayoutAtRoot
 clientSettingsWhitelist = _.union clientSettingsWhitelist, ['env', 'appInstance', 'sha', 'rollbar.clientAccessToken']
