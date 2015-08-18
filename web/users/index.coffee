@@ -5,9 +5,6 @@ resourceConverter = require './resource_converter'
 
 module.exports = router = require('express').Router()
 
-router.get '/', (req, res, next) ->
-  res.send {test: 'user'}
-
 router.post '/register', (req, res, next) ->
   # FIXME why cant this be promisified??
   User.register new User({ email: req.body.email }), req.body.password, (err, user) ->

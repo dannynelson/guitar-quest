@@ -22,7 +22,11 @@ angular.module 'app', [
 
 .constant 'settings', window.settings
 
-.config ($stateProvider) ->
+.config ($stateProvider, $sceDelegateProvider) ->
+  $sceDelegateProvider.resourceUrlWhitelist([
+    'self'
+    'https://embed.spotify.com/**'
+  ])
 
   $stateProvider.state 'guitarQuest',
     url: ''

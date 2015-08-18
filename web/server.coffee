@@ -11,6 +11,8 @@ database = require 'local_modules/database'
 settings = require 'local_modules/settings'
 passport = require 'local_modules/passport'
 
+require './fixtures'
+
 module.exports = app = express()
 
 # app.use require('express-bunyan-logger')()
@@ -56,6 +58,7 @@ app.use passport.session()
 
 # Routes
 app.use '/users', require './users'
+app.use '/pieces', require './pieces'
 app.use '/s3_policy', require './s3_policy'
 
 # if options.serveLayoutAtRoot

@@ -1,16 +1,14 @@
 _ = require 'lodash'
 
-module.exports = ngInject (Upload, $http, User) ->
-  @max = 100
-  @dynamic = 20
+module.exports = ngInject (Upload, $http, User, $stateParams, Piece) ->
+  @piece = Piece.get({_id: $stateParams.pieceId})
+
   @videoUpload = null
 
   videoPreview = document.querySelector('video')
-  # video = document.querySelector('video')
-  videoPreview.src = 'https://guitar-quest-videos.s3-us-west-1.amazonaws.com/user_55ce24317b49a46ce46971e3/test-video.mov'
-  videoPreview.load()
 
-  mediaStream = null
+  @getSpotifySrc = =>
+    "https://embed.spotify.com/?uri=#{@piece.spotifyURI}"
 
   @upload = (file) =>
     @videoSelected = true
@@ -39,30 +37,5 @@ module.exports = ngInject (Upload, $http, User) ->
         console.log('file ' + config.file.name + 'uploaded. Response: ' + data)
       .error (data, status, headers, config) ->
         console.log('error status: ' + status)
-
-  @stopVideo = ->
-    console.log 'STOPPING'
-    video?.pause()
-    mediaStream?.stop()
-
-  @replayVideo = ->
-    video?.play()
-
-  @getVideo = ->
-    navigator.getUserMedia  = navigator.getUserMedia or navigator.webkitGetUserMedia or navigator.mozGetUserMedia or navigator.msGetUserMedia
-
-
-    if navigator.getUserMedia
-      navigator.getUserMedia {audio: true, video: true}, (stream) ->
-        mediaStream = stream
-        video.src = window.URL.createObjectURL(stream)
-        video.muted = true
-        video.controls = false
-        video.play()
-      , (err) ->
-        console.log err
-    # } else {
-    #   video.src = 'somevideo.webm'; // fallback.
-    # }
 
   return @ # http://stackoverflow.com/questions/28953289/using-controller-as-with-the-ui-router-isnt-working-as-expected

@@ -3,57 +3,29 @@
   .row.previous-and-next
     .col-xs-12
       .pull-left
-        a
+        a(href='' ng-click='piecesCtrl.goToPreviousLevel()')
           span.fa.fa-angle-double-left
           span &nbsp;Previous
       .pull-right
-        a
+        a(href='' ng-click='piecesCtrl.goToNextLevel()')
           span Next&nbsp;
           span.fa.fa-angle-double-right
   .row
     .col-xs-6
-      h5.pull-left Level 3
-    .col-xs-6
-      .points-to-next-level.pull-right 80 points to level 4
+      h5.pull-left Level {{piecesCtrl.selectedLevel}}
+    .col-xs-6(ng-if='piecesCtrl.userLevel === piecesCtrl.selectedLevel')
+      .points-to-next-level.pull-right {{piecesCtrl.getExpToNextLevel()}} exp to level {{piecesCtrl.selectedLevel + 1}}
   .row
     .col-xs-12
       progressbar(
-        max="musicCtrl.max"
-        value="musicCtrl.dynamic"
+        max="piecesCtrl.levelHelper.getTotalLevelExp(piecesCtrl.selectedLevel)"
+        value="piecesCtrl.levelHelper.getExpIntoSelectedLevel(piecesCtrl.user.exp, piecesCtrl.selectedLevel)"
       )
 
   .row
-    .col-sm-4
-      .piece-panel.panel.panel-default(ui-sref='guitarQuest.piece')
-        .piece-heading.panel-heading 20 points
+    .col-sm-4(ng-repeat='piece in piecesCtrl.pieces')
+      .piece-panel.panel.panel-default(ui-sref='guitarQuest.piece({pieceId: piece._id})')
+        .piece-heading.panel-heading {{piece.exp}} exp
         .panel-body
-          h5.piece-title Estudio Sin Luz
-          .piece-composer Andres Segovia
-    .col-sm-4
-      .piece-panel.panel.panel-success(ui-sref='guitarQuest.piece')
-        .piece-heading.panel-heading.clearfix
-          .pull-left Finished!
-          .pull-right
-            i.fa.fa-check
-        .panel-body
-          h5.piece-title Estudio Sin Luz
-          .piece-composer Andres Segovia
-    .col-sm-4
-      .piece-panel.panel.panel-warning(ui-sref='guitarQuest.piece')
-        .piece-heading.panel-heading.clearfix
-          .pull-left Waiting for response
-          .pull-right
-            i.fa.fa-question
-        .panel-body
-          h5.piece-title Estudio Sin Luz
-          .piece-composer Andres Segovia
-    .col-sm-4
-      .piece-panel.panel.panel-danger(ui-sref='guitarQuest.piece')
-        .piece-heading.panel-heading.clearfix
-          .pull-left Please retry
-          .pull-right
-            i.fa.fa-exclamation-circle
-        .panel-body
-          h5.piece-title Estudio Sin Luz
-          .piece-composer Andres Segovia
-
+          h5.piece-title {{piece.name}}
+          .piece-composer {{piece.composer}}

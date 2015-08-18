@@ -7,7 +7,8 @@ database = require 'local_modules/database'
 
 # modelSchema = require './model_json_schema'
 
-schema = new mongoose.Schema {}
+schema = new mongoose.Schema
+  exp: {type: Number, required: true, default: 0}
   # email added by passportLocalMongoose
 
 schema.plugin require('mongoose-timestamp')
