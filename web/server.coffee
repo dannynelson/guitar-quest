@@ -60,6 +60,7 @@ app.use passport.session()
 app.use '/users', require './users'
 app.use '/quests', require './quests'
 app.use '/pieces', require './pieces'
+app.use '/user_pieces', require './user_pieces'
 app.use '/s3_policy', require './s3_policy'
 
 # if options.serveLayoutAtRoot

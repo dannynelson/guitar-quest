@@ -5,6 +5,7 @@ window.angular = require 'angular'
 
 require 'angular-resource'
 require 'angular-bootstrap'
+require 'ngToast'
 
 angular.module 'app', [
   'ui.bootstrap'

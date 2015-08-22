@@ -11,7 +11,7 @@ module.exports.generate = (userId) ->
       quantityToComplete: 1
       type: 'piece'
       reward:
-        credit: 15
+        credit: 10
     }
     {
       userId: userId
@@ -20,7 +20,7 @@ module.exports.generate = (userId) ->
       quantityToComplete: 1
       type: 'tutorial'
       reward:
-        credit: 15
+        credit: 10
     }
     {
       userId: userId
@@ -29,6 +29,6 @@ module.exports.generate = (userId) ->
       quantityToComplete: 1
       type: 'lesson'
       reward:
-        credit: 15
+        credit: 10
     }
   ]

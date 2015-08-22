@@ -1,6 +1,10 @@
 .guitar-quest-piece.container
-  .panel.panel-default
-    .panel-heading {{pieceCtrl.piece.exp}} points
+  .panel.panel-default(ng-class='{"panel-warning": pieceCtrl.userPiece.status === "pending", "panel-danger": pieceCtrl.userPiece.status === "retry", "panel-success": pieceCtrl.userPiece.status === "finished"}')
+    .piece-heading.panel-heading
+      div(ng-if='pieceCtrl.userPiece.status === "unfinished"') {{pieceCtrl.piece.points}} points
+      div(ng-if='pieceCtrl.userPiece.status === "pending"') Submitted
+      div(ng-if='pieceCtrl.userPiece.status === "finished"') Finished
+      div(ng-if='pieceCtrl.userPiece.status === "retry"') Please retry
     .panel-body
       h4 {{pieceCtrl.piece.name}}
       p {{pieceCtrl.piece.composer}}
@@ -29,6 +33,8 @@
           p {{pieceCtrl.piece.description}}
 
       p To complete upload a video of you playing the piece below. The piece should be memorized, played with good technique, and played musically. Once submitted, we will review your video within 24 hours.
+
+      .btn.btn-default(ng-click='pieceCtrl.fakeUpload()') Submit Video
 
       .row.well.video-well
         .col-xs-12.text-center

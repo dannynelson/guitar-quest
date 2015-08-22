@@ -5,13 +5,18 @@ A game for learning classical guitar
 TODO:
 
 x create data structure for pieces, levels, quests, tutorials, etc.
+- completing pieces add experience
+- add toast afet video submission
 - comments within video section
 - video review page for me
-- completing pieces add experience
 - make leveling up work
+- add icons to pending, etc and extract as navbar
 - make completing quests work
+- show notifications when quests or pieces completed
 - configure heroku
+- consider how everything will possibly break, and handle error cases
 - create page for signing up for video lesson
+- show correct statuses above pieces
 - create page for tutorials
 - think of everything that can go wrong with each page
 - sendgrid - email verification and automatic email communication when pieces reviewed, skype lessons requested, skype lessons approved, etc. (or is there a better solution)
@@ -24,6 +29,9 @@ x create data structure for pieces, levels, quests, tutorials, etc.
 - submit another video flow
 - allow recording videos directly in browser
 - use actual settings for video upload
+- fix login form on initial page so that offset does not look horrible on smaller screens
+- download font awesome
+- use sass instead of less so that we can use mixins?
 
 # Data models
 
@@ -183,3 +191,9 @@ strategy
   - level specific quests are always presented in a specific order (but never run out)
   - if they advance to new level, add 2 more level specific quests (but keep any ones left over from previous levels)
   - if they complete one of these quests (for the current level, not a previous level), add another one from their current level
+
+Quests and Pieces
+- clone for each user, or use canonical copy
+- quests - if I change it, I do not want it to ruin the existing quests for all users
+  - therefore clone each quests when necessary
+- pieces - if I modify it, I want it to update for every user

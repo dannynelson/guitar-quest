@@ -20,14 +20,21 @@
   .row
     .col-xs-12
       progressbar(
-        max="piecesCtrl.levelHelper.getTotalLevelExp(piecesCtrl.selectedLevel)"
-        value="piecesCtrl.levelHelper.getExpIntoSelectedLevel(piecesCtrl.user.exp, piecesCtrl.selectedLevel)"
+        max="piecesCtrl.user.pointsIntoCurrentLevel"
+        value="piecesCtrl.levelHelper.getTotalLevelExp(piecesCtrl.selectedLevel)"
       )
 
   .row
     .col-sm-4(ng-repeat='piece in piecesCtrl.pieces')
-      .piece-panel.panel.panel-default(ui-sref='guitarQuest.piece({pieceId: piece._id})')
-        .piece-heading.panel-heading {{piece.points}} points
+      .piece-panel.panel.panel-default(
+        ui-sref='guitarQuest.piece({pieceId: piece._id})'
+        ng-class='{"panel-warning": piece.status === "pending", "panel-danger": piece.status === "retry", "panel-success": piece.status === "finished"}'
+      )
+        .piece-heading.panel-heading
+          div(ng-if='piece.status === undefined') {{piece.points}} points
+          div(ng-if='piece.status === "pending"') Submitted
+          div(ng-if='piece.status === "finished"') Finished
+          div(ng-if='piece.status === "retry"') Please retry
         .panel-body
           h5.piece-title {{piece.name}}
           .piece-composer {{piece.composer}}

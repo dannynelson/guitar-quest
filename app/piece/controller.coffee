@@ -1,14 +1,21 @@
 _ = require 'lodash'
 
-module.exports = ngInject (Upload, $http, User, $stateParams, Piece) ->
+module.exports = ngInject (Upload, $http, User, $stateParams, Piece, UserPiece) ->
   @piece = Piece.get({_id: $stateParams.pieceId})
-
-  @videoUpload = null
+  @userPiece = UserPiece.get({_id: $stateParams.pieceId})
+  user = User.getLoggedInUser()
 
   videoPreview = document.querySelector('video')
 
   @getSpotifySrc = =>
     "https://embed.spotify.com/?uri=#{@piece.spotifyURI}"
+
+  @fakeUpload = =>
+    @userPiece.submissionVideoURL = 'http://youtube.com/'
+    @userPiece.status = 'pending'
+    @userPiece.$update()
+    # ngToast.success 'Thanks! Your video has been submitted. We will review it and give you feedback  within 24 hours.'
+
 
   @upload = (file) =>
     @videoSelected = true
@@ -22,7 +29,7 @@ module.exports = ngInject (Upload, $http, User, $stateParams, Piece) ->
         url: s3Params.bucketURL
         method: 'POST'
         fields:
-          key: "user_#{User.getLoggedInUser()._id}/#{fileName}"
+          key: "user_#{user._id}/#{fileName}"
           AWSAccessKeyId: s3Params.AWSAccessKeyId
           acl: 'public-read'
           policy: s3Params.policy
@@ -33,11 +40,18 @@ module.exports = ngInject (Upload, $http, User, $stateParams, Piece) ->
         @progressPercentage = progressPercentage = parseInt(100.0 * evt.loaded / evt.total)
         console.log('progress: ' + progressPercentage + '% ' + evt.config.file.name)
       .success (data, status, headers, config) =>
-        @videoUploadSrc = "#{s3Params.bucketURL}/user_#{User.getLoggedInUser()._id}/#{fileName}"
+        @videoUploadSrc = "#{s3Params.bucketURL}/user_#{user._id}/#{fileName}"
         videoPreview.src = @videoUploadSrc
         videoPreview.load()
         console.log('file ' + config.file.name + 'uploaded. Response: ' + data)
+
+        @userPiece.submissionVideoURL = @videoUploadSrc
+        @userPiece.status = 'pending'
+        @userPiece.$update()
+        # ngToast.success 'Thanks! Your video has been submitted. We will review it and give you feedback  within 24 hours.'
+
       .error (data, status, headers, config) ->
+        ngToast.success 'Oops! Something went wrong uploading the video. Please try another file.'
         console.log('error status: ' + status)
 
   return @ # http://stackoverflow.com/questions/28953289/using-controller-as-with-the-ui-router-isnt-working-as-expected

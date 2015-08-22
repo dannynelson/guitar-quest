@@ -6,6 +6,7 @@ Piece.remove({}).then ->
   console.log 'Loading fixutres2'
   Piece.create [
     {
+      _id: "55d8a2696ce78dc3156ca8d0"
       name: 'Malaguena'
       composer: 'traditional spanish folk song'
       era: 'Contemporary'
@@ -16,6 +17,7 @@ Piece.remove({}).then ->
       description: 'Meh bespoke Odd Future, sriracha YOLO Pinterest twee +1 semiotics mumblecore XOXO put a bird on it DIY mixtape. Marfa narwhal fap, flexitarian Williamsburg beard gentrify Austin kale chips swag American Apparel cold-pressed freegan.'
     }
     {
+      _id: "55d8a2696ce78dc3156ca8d1"
       name: 'B minor Study - Op. 35, No. 22'
       composer: 'Fernando Sor'
       era: 'Classical'
@@ -26,6 +28,7 @@ Piece.remove({}).then ->
       description: 'Meh bespoke Odd Future, sriracha YOLO Pinterest twee +1 semiotics mumblecore XOXO put a bird on it DIY mixtape. Marfa narwhal fap, flexitarian Williamsburg beard gentrify Austin kale chips swag American Apparel cold-pressed freegan.'
     }
     {
+      _id: "55d8a2696ce78dc3156ca8d2"
       name: 'Adelita (Mazurka)'
       composer: 'Francisco Tarrega'
       era: 'Romantic'
