@@ -7,6 +7,7 @@ TODO:
 x create data structure for pieces, levels, quests, tutorials, etc.
 - completing pieces add experience
 - add toast afet video submission
+- add access control to accept/reject buttons
 - comments within video section
 - video review page for me
 - make leveling up work

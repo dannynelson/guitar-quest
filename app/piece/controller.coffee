@@ -16,6 +16,13 @@ module.exports = ngInject (Upload, $http, User, $stateParams, Piece, UserPiece) 
     @userPiece.$update()
     # ngToast.success 'Thanks! Your video has been submitted. We will review it and give you feedback  within 24 hours.'
 
+  @acceptPiece = =>
+    @userPiece.status = 'finished'
+    @userPiece.$update()
+
+  @rejectPiece = =>
+    @userPiece.status = 'retry'
+    @userPiece.$update()
 
   @upload = (file) =>
     @videoSelected = true

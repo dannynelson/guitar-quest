@@ -1,13 +1,18 @@
 _ = require 'lodash'
 level = require 'local_modules/level'
 
-module.exports = ngInject (User, Piece) ->
+module.exports = ngInject (User, Piece, $state) ->
   @user = User.getLoggedInUser()
   @selectedLevel = @user.level
   @levelHelper = level
 
   setPieces = (level) =>
     @pieces = Piece.query({level})
+    @levelPoints =
+      completed: if @selectedLevel is @user.level then @user.pointsIntoCurrentLevel else @levelHelper.getTotalLevelExp(@selectedLevel)
+      total: @levelHelper.getTotalLevelExp(@selectedLevel)
+    $state.reload()
+
   setPieces(@selectedLevel)
 
   @goToNextLevel = =>

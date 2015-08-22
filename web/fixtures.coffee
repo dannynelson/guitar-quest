@@ -11,7 +11,7 @@ Piece.remove({}).then ->
       composer: 'traditional spanish folk song'
       era: 'Contemporary'
       level: 1
-      points: 3
+      points: 5
       sheetMusicURL: 'http://imslp.org/wiki/Fantasie,_Op.7_(Sor,_Fernando)'
       spotifyURI: 'spotify:track:1gFOPRH492kvYMN19xnMoJ'
       description: 'Meh bespoke Odd Future, sriracha YOLO Pinterest twee +1 semiotics mumblecore XOXO put a bird on it DIY mixtape. Marfa narwhal fap, flexitarian Williamsburg beard gentrify Austin kale chips swag American Apparel cold-pressed freegan.'
@@ -21,8 +21,8 @@ Piece.remove({}).then ->
       name: 'B minor Study - Op. 35, No. 22'
       composer: 'Fernando Sor'
       era: 'Classical'
-      level: 2
-      points: 5
+      level: 1
+      points: 6
       sheetMusicURL: 'http://imslp.org/wiki/Fantasie,_Op.7_(Sor,_Fernando)'
       spotifyURI: 'spotify:track:1gFOPRH492kvYMN19xnMoJ'
       description: 'Meh bespoke Odd Future, sriracha YOLO Pinterest twee +1 semiotics mumblecore XOXO put a bird on it DIY mixtape. Marfa narwhal fap, flexitarian Williamsburg beard gentrify Austin kale chips swag American Apparel cold-pressed freegan.'
@@ -32,8 +32,8 @@ Piece.remove({}).then ->
       name: 'Adelita (Mazurka)'
       composer: 'Francisco Tarrega'
       era: 'Romantic'
-      level: 3
-      points: 5
+      level: 2
+      points: 10
       sheetMusicURL: 'http://imslp.org/wiki/Fantasie,_Op.7_(Sor,_Fernando)'
       spotifyURI: 'spotify:track:1zomhC5U7x5kRuSu10YQ8j'
       description: 'Meh bespoke Odd Future, sriracha YOLO Pinterest twee +1 semiotics mumblecore XOXO put a bird on it DIY mixtape. Marfa narwhal fap, flexitarian Williamsburg beard gentrify Austin kale chips swag American Apparel cold-pressed freegan.'

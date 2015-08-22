@@ -15,13 +15,13 @@
   .row
     .col-xs-6
       h5.pull-left Level {{piecesCtrl.selectedLevel}}
-    .col-xs-6(ng-if='piecesCtrl.user.level === piecesCtrl.selectedLevel')
-      .points-to-next-level.pull-right {{piecesCtrl.user.pointsIntoCurrentLevel}} / {{piecesCtrl.levelHelper.getTotalLevelExp(piecesCtrl.selectedLevel)}} points
+    .col-xs-6
+      .points-to-next-level.pull-right {{piecesCtrl.levelPoints.completed}} / {{piecesCtrl.levelPoints.total}} points
   .row
     .col-xs-12
       progressbar(
-        max="piecesCtrl.user.pointsIntoCurrentLevel"
-        value="piecesCtrl.levelHelper.getTotalLevelExp(piecesCtrl.selectedLevel)"
+        value="piecesCtrl.levelPoints.completed"
+        max="piecesCtrl.levelPoints.total"
       )
 
   .row

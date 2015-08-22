@@ -34,7 +34,7 @@
 
       p To complete upload a video of you playing the piece below. The piece should be memorized, played with good technique, and played musically. Once submitted, we will review your video within 24 hours.
 
-      .btn.btn-default(ng-click='pieceCtrl.fakeUpload()') Submit Video
+      .btn.btn-default.btn-block(ng-click='pieceCtrl.fakeUpload()') Submit Video
 
       .row.well.video-well
         .col-xs-12.text-center
@@ -52,3 +52,6 @@
           .submission-successful.text-center(ng-show='pieceCtrl.videoUploadSrc')
             video.video-preview(controls)
             a(href='#') Submit a different video
+
+      .btn.btn-default.btn-block(ng-click='pieceCtrl.acceptPiece()') Accept Piece
+      .btn.btn-danger.btn-block(ng-click='pieceCtrl.rejectPiece()') Reject Piece
