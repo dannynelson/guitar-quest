@@ -7,9 +7,12 @@ TODO:
 x create data structure for pieces, levels, quests, tutorials, etc.
 x completing pieces add experience
 - video review page for me
+- add ability to respond to comments and have a conversation? Should it be a two way conversation? If so, should I ben notified of all the comments? Maybe it's better if they can't leave feedback because it encourages them to take lessons. But what if thye just have a simple question (e.g. what do you mean by this...)
+- show real name on pieces page
 - comments within video section
 - add access control to accept/reject buttons
 - add toast afet video submission
+- add indexes
 - find static version of progress bar that automatically readjusts for each level
 - make leveling up work
 - add icons to pending, etc and extract as navbar

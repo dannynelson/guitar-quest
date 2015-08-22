@@ -2,6 +2,7 @@ _ = require 'lodash'
 
 module.exports = ngInject (Upload, $http, User, $stateParams, Piece, UserPiece) ->
   @piece = Piece.get({_id: $stateParams.pieceId})
+  @comment = undefined
   @userPiece = UserPiece.get({_id: $stateParams.pieceId})
   user = User.getLoggedInUser()
 

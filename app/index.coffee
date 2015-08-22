@@ -20,6 +20,7 @@ angular.module 'app', [
   require './login'
   require './create_account'
   require './initial_assessment'
+  require './pending_pieces'
 ]
 
 .constant 'settings', window.settings

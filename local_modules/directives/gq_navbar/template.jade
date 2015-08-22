@@ -25,6 +25,9 @@
             li(ng-class="{active: navbarCtrl.stateIncludes('guitarQuest.tutorials')}")
               a(ui-sref='guitarQuest.tutorials') Tutorials
 
+            li(ng-class="{active: navbarCtrl.stateIncludes('guitarQuest.pendingPieces')}")
+              a(ui-sref='guitarQuest.pendingPieces') Pending
+
           ul.nav.navbar-nav.navbar-right(ng-if='!navbarCtrl.isLoggedIn()')
             li(ng-class="{active: navbarCtrl.stateIncludes('guitarQuest.login')}")
               a(ui-sref='guitarQuest.login') Login

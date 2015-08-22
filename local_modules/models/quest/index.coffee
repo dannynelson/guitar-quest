@@ -7,6 +7,8 @@ Track user progress as they work on a quest
 schema = new mongoose.Schema
   userId: {type: mongoose.Schema.ObjectId, required: true}
   name: {type: String, required: true}
+  # need to notify the user about a status change
+  notify: {type: Boolean} # need to notify the user that they received a new quest, made progress on a quest, or finished a quest.
   # quantity of pieces with matching conditions that need to be completed
   # to finish this quest
   quantityCompleted: {type: Number, required: true, default: 0}
@@ -16,10 +18,12 @@ schema = new mongoose.Schema
   conditions: {}
   reward:
     credit: {type: Number}
+  completed: {type: Boolean}
 
 schema.plugin require('mongoose-timestamp')
 
 require('./methods')(schema)
+require('./hooks')(schema)
 
 model = database.mongooseConnection.model 'Quest', schema
 

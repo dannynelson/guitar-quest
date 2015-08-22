@@ -18,3 +18,9 @@ module.exports = (schema) ->
     .then ->
       next()
     .then null, next
+
+  # notify if piece completed or rejected
+  schema.pre 'save', (next) ->
+    if @isModified('status') and (@status is 'finished' or @status is 'retry')
+      @notify = true
+    next()

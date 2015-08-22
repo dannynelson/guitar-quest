@@ -8,9 +8,11 @@ database = require 'local_modules/database'
 # modelSchema = require './model_json_schema'
 
 schema = new mongoose.Schema
+  # email added by passportLocalMongoose
   level: {type: Number, required: true, default: 1}
   pointsIntoCurrentLevel: {type: Number, required: true, default: 0}
-  # email added by passportLocalMongoose
+  # skype lesson credit available
+  credit: {type: Number, required: true, default: 0}
 
 schema.plugin require('mongoose-timestamp')
 schema.plugin passportLocalMongoose,

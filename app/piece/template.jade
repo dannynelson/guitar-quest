@@ -8,6 +8,9 @@
     .panel-body
       h4 {{pieceCtrl.piece.name}}
       p {{pieceCtrl.piece.composer}}
+      p {{pieceCtrl.piece.description}}
+      p To complete upload a video of you playing the piece below. The piece should be memorized, played with good technique, and played musically. Once submitted, we will review your video within 24 hours.
+
       .row.actions
         .col-md-4
           iframe(
@@ -28,14 +31,6 @@
               i.fa.fa-video-camera.fa-3x
             div Request Private Lesson
 
-      .row
-        .col-xs-12
-          p {{pieceCtrl.piece.description}}
-
-      p To complete upload a video of you playing the piece below. The piece should be memorized, played with good technique, and played musically. Once submitted, we will review your video within 24 hours.
-
-      .btn.btn-default.btn-block(ng-click='pieceCtrl.fakeUpload()') Submit Video
-
       .row.well.video-well
         .col-xs-12.text-center
           .select-video(ng-hide='pieceCtrl.videoSelected' ngf-select ngf-change="pieceCtrl.upload($file)")
@@ -53,5 +48,18 @@
             video.video-preview(controls)
             a(href='#') Submit a different video
 
+      h4 Teacher Feedback
+      .panel.panel-default
+        .panel-body Overall this is very good. You just had a few little technical problems in themiddle section. Once you fix that, I will accept this piece for you.
+      .panel.panel-default
+        .panel-body Great improvement! Finished.
+
+      //- BELOW THIS POINT ONLY FOR INSTRUCTORS
+      textarea.form-control(ng-model='pieceCtrl.comment')
+      .btn.btn-block.btn-primary(ng-click='addComment()') Add Comment
+
+
+      .btn.btn-default.btn-block(ng-click='pieceCtrl.fakeUpload()') Submit Video
       .btn.btn-default.btn-block(ng-click='pieceCtrl.acceptPiece()') Accept Piece
       .btn.btn-danger.btn-block(ng-click='pieceCtrl.rejectPiece()') Reject Piece
+

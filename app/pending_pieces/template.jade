@@ -1,0 +1,12 @@
+.guitar-quest-pending.container
+
+  .text-center(ng-if='piecesCtrl.userPieces.length === 0')
+    h5 No pending pieces
+  .row
+    .col-xs-12(ng-repeat='piece in piecesCtrl.userPieces')
+      .piece-panel.panel.panel-default(
+        ui-sref='guitarQuest.piece({pieceId: piece._id})'
+      )
+        .panel-body
+          .piece-title user: {{piece.userId}}
+          .piece-composer piece: {{piece._id}}

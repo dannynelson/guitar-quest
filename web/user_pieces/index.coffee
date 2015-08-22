@@ -5,6 +5,10 @@ resourceConverter = require './resource_converter'
 
 module.exports = router = require('express').Router()
 
+router.get '/',
+  resourceConverter.get()
+  resourceConverter.send
+
 router.get '/:_id',
   (req, res, next) -> # create default if doesnt exist
     UserPiece.findById(req.params._id).then (userPiece) ->
