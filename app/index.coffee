@@ -18,6 +18,7 @@ angular.module 'app', [
   require './landing'
   require './login'
   require './create_account'
+  require './initial_assessment'
 ]
 
 .constant 'settings', window.settings

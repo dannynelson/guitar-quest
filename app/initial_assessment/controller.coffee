@@ -7,22 +7,16 @@ module.exports = ngInject (Upload, $http, User, $stateParams, Piece) ->
 
   videoPreview = document.querySelector('video')
 
-  @getSpotifySrc = =>
-    "https://embed.spotify.com/?uri=#{@piece.spotifyURI}"
-
   @upload = (file) =>
     @videoSelected = true
-    [fileName, fileSuffix] = file.name.split('.')
-    fileName = file.name = "piece_#{@piece._id}.#{fileSuffix}"
     @videoFile = file
-
     $http.get('/s3_policy?mimeType='+ file.type).then (response) =>
       s3Params = response.data
       Upload.upload
         url: s3Params.bucketURL
         method: 'POST'
         fields:
-          key: "user_#{User.getLoggedInUser()._id}/#{fileName}"
+          key: "user_#{User.getLoggedInUser()._id}/#{file.name}"
           AWSAccessKeyId: s3Params.AWSAccessKeyId
           acl: 'public-read'
           policy: s3Params.policy
@@ -33,7 +27,7 @@ module.exports = ngInject (Upload, $http, User, $stateParams, Piece) ->
         @progressPercentage = progressPercentage = parseInt(100.0 * evt.loaded / evt.total)
         console.log('progress: ' + progressPercentage + '% ' + evt.config.file.name)
       .success (data, status, headers, config) =>
-        @videoUploadSrc = "#{s3Params.bucketURL}/user_#{User.getLoggedInUser()._id}/#{fileName}"
+        @videoUploadSrc = "https://guitar-quest-videos.s3-us-west-1.amazonaws.com/user_#{User.getLoggedInUser()._id}/#{file.name}"
         videoPreview.src = @videoUploadSrc
         videoPreview.load()
         console.log('file ' + config.file.name + 'uploaded. Response: ' + data)

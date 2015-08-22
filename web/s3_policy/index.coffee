@@ -26,4 +26,9 @@ router.get '/', (req, res, next) ->
     .update(new Buffer(base64Policy, 'utf-8'))
     .digest('base64')
   AWSAccessKeyId = process.env.AWS_ACCESS_KEY_ID
-  res.json {policy: base64Policy, signature, AWSAccessKeyId}
+  res.json {
+    bucketURL: 'https://guitar-quest-videos.s3-us-west-2.amazonaws.com'
+    policy: base64Policy
+    signature: signature
+    AWSAccessKeyId: AWSAccessKeyId
+  }

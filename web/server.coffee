@@ -58,6 +58,7 @@ app.use passport.session()
 
 # Routes
 app.use '/users', require './users'
+app.use '/quests', require './quests'
 app.use '/pieces', require './pieces'
 app.use '/s3_policy', require './s3_policy'
 

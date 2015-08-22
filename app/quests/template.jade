@@ -1,17 +1,10 @@
 .guitar-quest-music.container
+  alert(type='info' close='questsCtrl.closeAlert()') Complete quests to earn lesson credits. Lesson credits can be used to get discounts on private video lessons.
   .row
-    .col-sm-4
+    .col-sm-4(ng-repeat='quest in questsCtrl.quests')
       .quest-panel.panel.panel-default
         .panel-body.text-center
-          h5 Submit 1 guitar video
+          h5 {{quest.name}}
           .reward
-            .label.label-warning $5 credit
-          .description 0 / 1 Complete
-
-    .col-sm-4
-      .quest-panel.panel.panel-default
-        .panel-body.text-center
-          h5 Complete 1 tutorial
-          .reward
-            .label.label-warning Unlock a New Piece
-          .description 0 / 1 Complete
+            .label.label-warning ${{quest.reward.credit}} lesson credit
+          .description {{quest.quantityCompleted}} / {{quest.quantityToComplete}} Complete
