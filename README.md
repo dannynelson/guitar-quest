@@ -5,13 +5,15 @@ A game for learning classical guitar
 TODO:
 
 x create data structure for pieces, levels, quests, tutorials, etc.
-- completing pieces add experience
-- add toast afet video submission
-- add access control to accept/reject buttons
-- comments within video section
+x completing pieces add experience
 - video review page for me
+- comments within video section
+- add access control to accept/reject buttons
+- add toast afet video submission
+- find static version of progress bar that automatically readjusts for each level
 - make leveling up work
 - add icons to pending, etc and extract as navbar
+- dismiss notifications (and keep track of them somehow)
 - make completing quests work
 - show notifications when quests or pieces completed
 - configure heroku
@@ -33,6 +35,7 @@ x create data structure for pieces, levels, quests, tutorials, etc.
 - fix login form on initial page so that offset does not look horrible on smaller screens
 - download font awesome
 - use sass instead of less so that we can use mixins?
+- add access control to endpoints to make sure random people wont finish pieces by editing json
 
 # Data models
 
