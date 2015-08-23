@@ -20,8 +20,8 @@
   .row
     .col-xs-12
       progressbar(
-        value="piecesCtrl.levelPoints.completed"
-        max="piecesCtrl.levelPoints.total"
+        animate="false"
+        value="(piecesCtrl.levelPoints.completed / piecesCtrl.levelPoints.total) * 100"
       )
 
   .row
@@ -31,10 +31,20 @@
         ng-class='{"panel-warning": piece.status === "pending", "panel-danger": piece.status === "retry", "panel-success": piece.status === "finished"}'
       )
         .piece-heading.panel-heading
-          div(ng-if='piece.status === undefined') {{piece.points}} points
-          div(ng-if='piece.status === "pending"') Submitted
-          div(ng-if='piece.status === "finished"') Finished
-          div(ng-if='piece.status === "retry"') Please retry
+          .row(ng-if='piece.status === undefined')
+            .col-xs-8 {{piece.points}} points
+          .row(ng-if='piece.status === "pending"')
+            .col-xs-8 Submitted
+            .col-xs-4.text-right
+              i.fa.fa-question
+          .row(ng-if='piece.status === "finished"')
+            .col-xs-8 Finished
+            .col-xs-4.text-right
+              i.fa.fa-check
+          .row(ng-if='piece.status === "retry"')
+            .col-xs-8 Please retry
+            .col-xs-4.text-right
+              i.fa.fa-exclamation
         .panel-body
           h5.piece-title {{piece.name}}
           .piece-composer {{piece.composer}}
