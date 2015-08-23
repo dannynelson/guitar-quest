@@ -1,6 +1,7 @@
 .guitar-quest-music.container
-  alert(type='info' close='questsCtrl.closeAlert()') Complete quests to earn credits for buying private video lessons.
-  alert(type='success' close='questsCtrl.closeAlert()') Congratulations! You completed the quest "Submit first guitar video" and earned $15 lesson credit.
+  .alerts
+    alert.alert(type='info' close='questsCtrl.closeAlert()') In this section, you can track the progress of all your active quests. Once you complete a quest, you will earn credits for buying private video lessons with a GuitarQuest teacher.
+    alert.alert(type='success' close='questsCtrl.closeAlert()') Congratulations! You completed the quest "Submit first guitar video" and earned $15 lesson credit.
   .row
     .col-sm-4(ng-repeat='quest in questsCtrl.quests')
       .quest-panel.panel.panel-default
