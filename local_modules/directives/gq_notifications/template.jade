@@ -1,0 +1,8 @@
+.gq-alerts
+  //- .test Hello {{notificationsCtrl.notifications.length}}
+  //- .test Hello2 {{navbarCtrl.notificationCount.quest}}
+  alert.alert(
+    ng-repeat='notification in notificationsCtrl.notifications'
+    type='{{notification.type}}'
+    close='notificationsCtrl.acknowledge(notification)'
+  ) {{notification.text}}

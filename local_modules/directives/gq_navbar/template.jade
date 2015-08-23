@@ -17,15 +17,17 @@
             li(ng-class="{active: navbarCtrl.stateIncludes('guitarQuest.pieces')}")
               a(ui-sref='guitarQuest.pieces')
                 span Pieces
-                span.badge.link-badge.badge-warning 2
+                span.badge.link-badge.badge-warning(ng-if='navbarCtrl.notificationCount.piece') {{navbarCtrl.notificationCount.piece}}
 
             li(ng-class="{active: navbarCtrl.stateIncludes('guitarQuest.quests')}")
               a(ui-sref='guitarQuest.quests')
                 span Quests
-                span.badge.link-badge.badge-warning 2
+                span.badge.link-badge.badge-warning(ng-if='navbarCtrl.notificationCount.quest') {{navbarCtrl.notificationCount.quest}}
 
             li(ng-class="{active: navbarCtrl.stateIncludes('guitarQuest.tutorials')}")
-              a(ui-sref='guitarQuest.tutorials') Tutorials
+              a(ui-sref='guitarQuest.tutorials')
+                span Tutorials
+                span.badge.link-badge.badge-warning(ng-if='navbarCtrl.notificationCount.tutorial') {{navbarCtrl.notificationCount.tutorial}}
 
             li(ng-class="{active: navbarCtrl.stateIncludes('guitarQuest.pendingPieces')}")
               a(ui-sref='guitarQuest.pendingPieces') Pending
@@ -47,8 +49,8 @@
                   a(href="#" ng-click='navbarCtrl.logout()') Logout
           .navbar-text.navbar-right(ng-if='navbarCtrl.isLoggedIn()')
             //- span.credit-summary.label.label-warning $20 Credit
-            span.text-warning ${{navbarCtrl.user.credit}} credit
-            span.level-summary Level {{navbarCtrl.user.level}}
+            span.text-warning ${{navbarCtrl.getUser().credit}} credit
+            span.level-summary Level {{navbarCtrl.getUser().level}}
 
             //- li.logout.visible-xs
             //-   a(href='#', ng-click='logout()') Log out {{credentials.google.email}}

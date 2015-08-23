@@ -9,7 +9,6 @@ schema = new mongoose.Schema
   userId: {type: mongoose.Schema.ObjectId, required: true}
   submissionVideoURL: {type: String, required: true}
   status: {type: String, enum: ['unfinished', 'pending', 'finished', 'retry'], default: 'unfinished'}
-  notify: {type: Boolean} # need to notify the user about a status change
   teacherComments: [
     text: {type: String}
     date: {type: Date}

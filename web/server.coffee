@@ -58,6 +58,7 @@ app.use passport.session()
 
 # Routes
 app.use '/users', require './users'
+app.use '/notifications', require './notifications'
 app.use '/quests', require './quests'
 app.use '/pieces', require './pieces'
 app.use '/user_pieces', require './user_pieces'

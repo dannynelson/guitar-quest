@@ -9,5 +9,12 @@ module.exports = (schema) ->
 
   schema.static 'createLevelQuests', (user) ->
     Quest = @
-    Quest.create levelQuests.generate(user)
+    newQuests = levelQuests.generate(user)
+    notification = new Notification
+      userId: @userId
+      category: 'quest'
+      type: 'info'
+      text: "You have #{newQuests.length} new quests."
+      acknowledged: false
+    Quest.create newQuests
 

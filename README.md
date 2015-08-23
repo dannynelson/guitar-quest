@@ -4,6 +4,8 @@ A game for learning classical guitar
 
 TODO:
 
+- finish a piece should actually update corresponding quests
+- protect endpoints from abuse
 x create data structure for pieces, levels, quests, tutorials, etc.
 x completing pieces add experience
 - video review page for me

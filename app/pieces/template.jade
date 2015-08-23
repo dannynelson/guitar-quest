@@ -1,9 +1,6 @@
 .guitar-quest-music.container
 
-  .alerts
-    alert.alert(type='info' close='piecesCtrl.closeAlert()') Welcome to GuitarQuest! In this section, you will learn pieces to earn experience points and progress to higher levels. With each new level, you will unlock new, more challenging pieces. If you have previous experience playing guitar, you can take the <a href='' ui-sref='guitarQuest.initialAssessment'>initial assessment</a> to start at a higher level. Otherwise, click on a piece below to get started.
-    alert.alert(type='success' close='piecesCtrl.closeAlert()') Congratulations! Your video submission for malaguena was accepted and you earned 10 points.
-    alert.alert(type='danger' close='piecesCtrl.closeAlert()') Your video submission for Malaguena was not accepted. Please review teacher feedback and submit another video.
+  gq-notifications(category='piece')
 
   .row.previous-and-next
     .col-xs-12

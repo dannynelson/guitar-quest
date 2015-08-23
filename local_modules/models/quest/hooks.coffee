@@ -3,20 +3,21 @@ Promise = require 'bluebird'
 
 module.exports = (schema) ->
 
-  # Whenever quantity changes on quest, notify user
-  schema.pre 'save', (next) ->
-    if @isModified('quantityCompleted')
-      @notify = true
-    next()
-
-
-  # When quest finished, give reward to user, and complete the quest
+  # When quest finished, give reward to user, complete the quest, and notifify user
   schema.pre 'save', (next) ->
     if @isModified('quantityCompleted') and @quantityCompleted is @quantityToComplete
       @completed = true
       User.findById(@userId).then (user) =>
         user.credit += @reward.credit
-        user.save()
+
+        notification = new Notification
+          userId: @userId
+          category: 'quest'
+          type: 'success'
+          text: "Congratulations! You completed the quest \"#{@name}\" and earned $#{@reward.credit} lesson credit."
+          acknowledged: false
+
+        notification.save().then => user.save()
       .then =>
         next()
       .then null, next
