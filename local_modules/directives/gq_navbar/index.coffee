@@ -15,6 +15,7 @@ angular.module __filename, [
   template: require './template'
   controller: ngInject ($state, User) ->
     @isLoggedIn = -> !!User.getLoggedInUser()
+    @user = User.getLoggedInUser()
     @logout = ->
       debugger
       User.logout().then -> $state.go 'guitarQuest.landing'

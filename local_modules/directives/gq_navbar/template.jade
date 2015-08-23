@@ -47,8 +47,8 @@
                   a(href="#" ng-click='navbarCtrl.logout()') Logout
           .navbar-text.navbar-right(ng-if='navbarCtrl.isLoggedIn()')
             //- span.credit-summary.label.label-warning $20 Credit
-            span.text-warning $20 Credit
-            span.level-summary Level 2
+            span.text-warning ${{navbarCtrl.user.credit}} credit
+            span.level-summary Level {{navbarCtrl.user.level}}
 
             //- li.logout.visible-xs
             //-   a(href='#', ng-click='logout()') Log out {{credentials.google.email}}

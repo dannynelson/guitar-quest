@@ -5,5 +5,6 @@ module.exports = new ResourceSchema User, {
   '_id'
   'email'
   'level'
+  'credit'
   'pointsIntoCurrentLevel'
 }
