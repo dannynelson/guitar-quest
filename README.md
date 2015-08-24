@@ -4,28 +4,34 @@ A game for learning classical guitar
 
 TODO:
 
+x add era to pieces
+- comments within video section
 - finish a piece should actually update corresponding quests
-- protect endpoints from abuse
+- bug: finishing a piece does not immediately update other pages
+- submit another video flow
+- create page for tutorials
+- tutorial/quiz page (save for later release?)
+- account page - change password/email, update mailing preferences, etc? - look at a few other sites for inspiration here
+- change "teacher feedback" to "comments" in model for more flexibility. Just teacher feedback for now although later we could add user feedback. ability to respond to comments and have a conversation? Should it be a two way conversation? If so, should I ben notified of all the comments? Maybe it's better if they can't leave feedback because it encourages them to take lessons. But what if thye just have a simple question (e.g. what do you mean by this...)
+- video review page for me
 x create data structure for pieces, levels, quests, tutorials, etc.
 x completing pieces add experience
-- video review page for me
-- add ability to respond to comments and have a conversation? Should it be a two way conversation? If so, should I ben notified of all the comments? Maybe it's better if they can't leave feedback because it encourages them to take lessons. But what if thye just have a simple question (e.g. what do you mean by this...)
+- protect endpoints from abuse
 - show real name on pieces page
-- comments within video section
 - add access control to accept/reject buttons
 - add toast afet video submission
 - add indexes
-- find static version of progress bar that automatically readjusts for each level
-- make leveling up work
-- add icons to pending, etc and extract as navbar
-- dismiss notifications (and keep track of them somehow)
+x find static version of progress bar that automatically readjusts for each level
+x make leveling up work
+x add icons to pending, etc and extract as navbar
+x dismiss notifications (and keep track of them somehow)
 - make completing quests work
 - show notifications when quests or pieces completed
 - configure heroku
 - consider how everything will possibly break, and handle error cases
 - create page for signing up for video lesson
+- invalid credentials does not show an error.
 - show correct statuses above pieces
-- create page for tutorials
 - think of everything that can go wrong with each page
 - sendgrid - email verification and automatic email communication when pieces reviewed, skype lessons requested, skype lessons approved, etc. (or is there a better solution)
 - stripe integration for subscriptions, and automatic billing
@@ -34,13 +40,13 @@ x completing pieces add experience
 - recruit previous students to try the app (especially mitch)
 - setup https
 - add a quest for completing easier pieces (add this later)
-- submit another video flow
 - allow recording videos directly in browser
 - use actual settings for video upload
 - fix login form on initial page so that offset does not look horrible on smaller screens
 - download font awesome
 - use sass instead of less so that we can use mixins?
 - add access control to endpoints to make sure random people wont finish pieces by editing json
+- add a banner image and copy to landing page
 
 # Data models
 

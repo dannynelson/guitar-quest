@@ -18,7 +18,9 @@
           i.fa.fa-exclamation
     .panel-body
       h4 {{pieceCtrl.piece.name}}
-      p {{pieceCtrl.piece.composer}}
+      .piece-info
+        .piece-composer <strong>Composer:</strong> {{pieceCtrl.piece.composer}}
+        .piece-era <strong>Musical Era:</strong> {{pieceCtrl.piece.era}}
       p {{pieceCtrl.piece.description}}
       p To complete upload a video of you playing the piece below. The piece should be memorized, played with good technique, and played musically. Once submitted, we will review your video within 24 hours.
 
