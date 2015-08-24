@@ -61,18 +61,17 @@
             video.video-preview(controls)
             a(href='#') Submit a different video
 
-      h4 Teacher Feedback
-      .panel.panel-default
-        .panel-body Overall this is very good. You just had a few little technical problems in themiddle section. Once you fix that, I will accept this piece for you.
-      .panel.panel-default
-        .panel-body Great improvement! Finished.
+      .comments(ng-if='pieceCtrl.userPiece.comments.length > 0')
+        h4 Teacher Feedback
+        .panel.panel-default(ng-repeat='comment in pieceCtrl.userPiece.comments')
+          .panel-body
+            div <strong>Danny Nelson</strong> <em>{{pieceCtrl.getTimeFromNow(comment.createdAt)}}</em>
+            div {{comment.text}}
 
       //- BELOW THIS POINT ONLY FOR INSTRUCTORS
-      textarea.form-control(ng-model='pieceCtrl.comment')
-      .btn.btn-block.btn-primary(ng-click='addComment()') Add Comment
-
-
-      .btn.btn-default.btn-block(ng-click='pieceCtrl.fakeUpload()') Submit Video
-      .btn.btn-default.btn-block(ng-click='pieceCtrl.acceptPiece()') Accept Piece
-      .btn.btn-danger.btn-block(ng-click='pieceCtrl.rejectPiece()') Reject Piece
+      textarea.form-control.comment(ng-model='pieceCtrl.comment' placeholder='Leave a comment...')
+      .btn.btn-block.btn-primary.control-btn(ng-click='pieceCtrl.addComment()') Add Comment
+      .btn.btn-default.btn-block.control-btn(ng-click='pieceCtrl.fakeUpload()') Submit Video
+      .btn.btn-success.btn-block.control-btn(ng-click='pieceCtrl.acceptPiece()') Accept Piece
+      .btn.btn-danger.btn-block.control-btn(ng-click='pieceCtrl.rejectPiece()') Reject Piece
 

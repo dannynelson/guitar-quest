@@ -5,7 +5,8 @@ A game for learning classical guitar
 TODO:
 
 x add era to pieces
-- comments within video section
+x comments within video section
+- store teacher / student name (and photo?) within profile for easier identification when communicating. Add to comments
 - finish a piece should actually update corresponding quests
 - bug: finishing a piece does not immediately update other pages
 - submit another video flow

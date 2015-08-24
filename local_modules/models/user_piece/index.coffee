@@ -4,15 +4,18 @@ database = require 'local_modules/database'
 ###
 Track user progress as they work on a piece
 ###
+commentSchema = new mongoose.Schema
+  userId: {type: mongoose.Schema.Types.ObjectId}
+  text: {type: String}
+  createdAt: {type: Date}
+
+
 schema = new mongoose.Schema
   # _id the same as the piece that it comes from
-  userId: {type: mongoose.Schema.ObjectId, required: true}
+  userId: {type: mongoose.Schema.Types.ObjectId, required: true}
   submissionVideoURL: {type: String, required: true}
   status: {type: String, enum: ['unfinished', 'pending', 'finished', 'retry'], default: 'unfinished'}
-  teacherComments: [
-    text: {type: String}
-    date: {type: Date}
-  ]
+  comments: [commentSchema]
 
 schema.plugin require('mongoose-timestamp')
 

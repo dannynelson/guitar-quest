@@ -1,12 +1,28 @@
+geomoment = require 'geomoment'
 _ = require 'lodash'
 
-module.exports = ngInject (Upload, $http, User, $stateParams, Piece, UserPiece) ->
+module.exports = ngInject (Upload, $http, User, $stateParams, Piece, UserPiece, $state) ->
   @piece = Piece.get({_id: $stateParams.pieceId})
   @comment = undefined
   @userPiece = UserPiece.get({_id: $stateParams.pieceId})
   user = User.getLoggedInUser()
 
   videoPreview = document.querySelector('video')
+
+  @getTimeFromNow = (date) ->
+    geomoment(date).from(new Date())
+
+  @addComment = =>
+    user = User.getLoggedInUser()
+    if typeof @comment is 'string' and @comment isnt ''
+      @userPiece.comments ?= []
+      @userPiece.comments.push
+        userId: user._id
+        text: @comment
+        createdAt: geomoment().toDate()
+      @userPiece.$update().then =>
+        @comment = undefined
+        $state.reload()
 
   @getSpotifySrc = =>
     "https://embed.spotify.com/?uri=#{@piece.spotifyURI}"
