@@ -12,7 +12,7 @@ module.exports = (schema) ->
 
     Promise.all([
       User.findById(@userId)
-      Piece.findById(@_id)
+      Piece.findById(@pieceId)
     ]).then ([user, piece]) =>
       user.pointsIntoCurrentLevel += piece.points
 
@@ -34,7 +34,7 @@ module.exports = (schema) ->
     Quest = require 'local_modules/models/quest'
     Piece = require 'local_modules/models/piece'
 
-    Piece.findById(@_id).then (piece) =>
+    Piece.findById(@pieceId).then (piece) =>
       Quest.checkForProgress @userId,
         userPiece: @
         piece: piece
@@ -49,7 +49,7 @@ module.exports = (schema) ->
     Notification = require 'local_modules/models/notification'
 
     if @isModified('status') and @status is 'retry'
-      Piece.findById(@_id).then (piece) =>
+      Piece.findById(@pieceId).then (piece) =>
         notification = new Notification
           userId: @userId
           category: 'piece'

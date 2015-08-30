@@ -11,7 +11,7 @@ commentSchema = new mongoose.Schema
 
 
 schema = new mongoose.Schema
-  # _id the same as the piece that it comes from
+  pieceId: {type: mongoose.Schema.Types.ObjectId, required: true}
   userId: {type: mongoose.Schema.Types.ObjectId, required: true}
   submissionVideoURL: {type: String, required: true}
   status: {type: String, enum: ['unfinished', 'pending', 'finished', 'retry'], default: 'unfinished'}

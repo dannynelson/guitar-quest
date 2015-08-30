@@ -17,10 +17,10 @@ module.exports = new ResourceSchema Piece, {
     resolve:
       'userPiecesByPieceId': ({models}, done) ->
         UserPiece.find
-          _id: {$in: models.map (model) -> model._id.toString()}
+          pieceId: {$in: models.map (model) -> model._id.toString()}
         .then (userPieces) ->
-          userPiecesById = _.indexBy(userPieces, '_id')
-          done(null, userPiecesById)
+          userPiecesByPieceId = _.indexBy(userPieces, 'pieceId')
+          done(null, userPiecesByPieceId)
         .then null, ->
           done(null, {})
     get: (pieceModel, {userPiecesByPieceId}) ->

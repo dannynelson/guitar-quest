@@ -1,45 +1,36 @@
 geomoment = require 'geomoment'
 _ = require 'lodash'
+ObjectId = require 'objectid-browser'
 
 module.exports = ngInject (Upload, $http, User, $stateParams, Piece, UserPiece, $state) ->
   @piece = Piece.get({_id: $stateParams.pieceId})
   @comment = undefined
-  @userPiece = UserPiece.get({_id: $stateParams.pieceId})
   user = User.getLoggedInUser()
+
+  UserPiece.query({pieceId: $stateParams.pieceId, userId: user._id}).$promise.then (userPieces) =>
+    @userPiece =
+      if userPieces.length is 0
+        new UserPiece
+          _id: new ObjectId().toString()
+          pieceId: $stateParams.pieceId
+          userId: user._id
+          status: 'unfinished'
+      else
+        userPieces[0]
 
   videoPreview = document.querySelector('video')
 
   @getTimeFromNow = (date) ->
     geomoment(date).from(new Date())
 
-  @addComment = =>
-    user = User.getLoggedInUser()
-    if typeof @comment is 'string' and @comment isnt ''
-      @userPiece.comments ?= []
-      @userPiece.comments.push
-        userId: user._id
-        text: @comment
-        createdAt: geomoment().toDate()
-      @userPiece.$update().then =>
-        @comment = undefined
-        $state.reload()
-
   @getSpotifySrc = =>
     "https://embed.spotify.com/?uri=#{@piece.spotifyURI}"
 
   @fakeUpload = =>
-    @userPiece.submissionVideoURL = 'http://youtube.com/'
+    @userPiece.submissionVideoURL = 'https://s3-us-west-2.amazonaws.com/guitar-quest-videos/user_55d1fa38ce020bb5c73854f4/piece_55d4fbd48b6581784392224f.mov'
     @userPiece.status = 'pending'
     @userPiece.$update()
     # ngToast.success 'Thanks! Your video has been submitted. We will review it and give you feedback  within 24 hours.'
-
-  @acceptPiece = =>
-    @userPiece.status = 'finished'
-    @userPiece.$update()
-
-  @rejectPiece = =>
-    @userPiece.status = 'retry'
-    @userPiece.$update()
 
   @upload = (file) =>
     @videoSelected = true

@@ -69,9 +69,5 @@
             div {{comment.text}}
 
       //- BELOW THIS POINT ONLY FOR INSTRUCTORS
-      textarea.form-control.comment(ng-model='pieceCtrl.comment' placeholder='Leave a comment...')
-      .btn.btn-block.btn-primary.control-btn(ng-click='pieceCtrl.addComment()') Add Comment
       .btn.btn-default.btn-block.control-btn(ng-click='pieceCtrl.fakeUpload()') Submit Video
-      .btn.btn-success.btn-block.control-btn(ng-click='pieceCtrl.acceptPiece()') Accept Piece
-      .btn.btn-danger.btn-block.control-btn(ng-click='pieceCtrl.rejectPiece()') Reject Piece
 

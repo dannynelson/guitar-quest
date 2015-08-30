@@ -62,6 +62,7 @@
     "ng-file-upload": "^6.2.1",
     "ngToast": "tameraydin/ngToast#1.5.3",
     "nib": "^1.1.0",
+    "objectid-browser": "0.0.1",
     "once-upon": "0.0.2",
     "passport": "^0.2.2",
     "passport-local": "^1.0.0",

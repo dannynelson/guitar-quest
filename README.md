@@ -7,9 +7,11 @@ TODO:
 x add era to pieces
 x comments within video section
 - comment references userId, and loads all users to display info
-- account page - change password/email, update mailing preferences, etc? - look at a few other sites for inspiration here
-- store teacher / student name (and photo?) within profile for easier identification when communicating. Add to comments
+x account page - change password/email, update mailing preferences, etc? - look at a few other sites for inspiration here
+x store teacher / student name (and photo?) within profile for easier identification when communicating. Add to comments
 - video review page for me
+- use "submitted" instead of "pending", and "completed"? instead of "finished everywhere"...
+- would google auth be better?
 - consistent status of finished or completed everywhere
 x finish a piece should actually update corresponding quests
 - make sure resource schema model save handles pre save hook errors somehow? right now they are being swollowed

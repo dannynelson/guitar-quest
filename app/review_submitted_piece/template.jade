@@ -1,0 +1,39 @@
+.guitar-quest-piece.container
+  .panel.panel-default(ng-class='{"panel-warning": reviewPieceCtrl.userPiece.status === "pending", "panel-danger": reviewPieceCtrl.userPiece.status === "retry", "panel-success": reviewPieceCtrl.userPiece.status === "finished"}')
+    .piece-heading.panel-heading
+      .row(ng-if='reviewPieceCtrl.userPiece.status === "unfinished"')
+        .col-xs-8 {{reviewPieceCtrl.piece.points}} points
+        .col-xs-4.text-right
+      .row(ng-if='reviewPieceCtrl.userPiece.status === "pending"')
+        .col-xs-8 Submitted
+        .col-xs-4.text-right
+          i.fa.fa-question
+      .row(ng-if='reviewPieceCtrl.userPiece.status === "finished"')
+        .col-xs-8 Finished
+        .col-xs-4.text-right
+          i.fa.fa-check
+      .row(ng-if='reviewPieceCtrl.userPiece.status === "retry"')
+        .col-xs-8 Please retry
+        .col-xs-4.text-right
+          i.fa.fa-exclamation
+
+    .panel-body
+      h4 {{reviewPieceCtrl.userPiece.piece.name}}
+
+      .row.well.video-well
+        .col-xs-12.text-center
+          video.video-preview(ng-src='{{reviewPieceCtrl.userPiece.submissionVideoURL}}')
+
+      .comments(ng-if='reviewPieceCtrl.userPiece.comments.length > 0')
+        h4 Teacher Feedback
+        .panel.panel-default(ng-repeat='comment in reviewPieceCtrl.userPiece.comments')
+          .panel-body
+            div <strong>Danny Nelson</strong> <em>{{reviewPieceCtrl.getTimeFromNow(comment.createdAt)}}</em>
+            div {{comment.text}}
+
+      //- BELOW THIS POINT ONLY FOR INSTRUCTORS
+      textarea.form-control.comment(ng-model='reviewPieceCtrl.comment' placeholder='Leave a comment...')
+      .btn.btn-block.btn-primary.control-btn(ng-click='reviewPieceCtrl.addComment()') Add Comment
+      .btn.btn-success.btn-block.control-btn(ng-click='reviewPieceCtrl.acceptPiece()') Accept Piece
+      .btn.btn-danger.btn-block.control-btn(ng-click='reviewPieceCtrl.rejectPiece()') Reject Piece
+

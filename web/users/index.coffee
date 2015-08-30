@@ -5,6 +5,10 @@ resourceConverter = require './resource_converter'
 
 module.exports = router = require('express').Router()
 
+router.get '/',
+  resourceConverter.get()
+  resourceConverter.send
+
 router.put '/:_id',
   resourceConverter.put('_id')
   resourceConverter.send

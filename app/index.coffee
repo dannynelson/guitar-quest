@@ -22,6 +22,7 @@ angular.module 'app', [
   require './initial_assessment'
   require './pending_pieces'
   require './account'
+  require './review_submitted_piece'
 ]
 
 .constant 'settings', window.settings
@@ -30,6 +31,7 @@ angular.module 'app', [
   $sceDelegateProvider.resourceUrlWhitelist([
     'self'
     'https://embed.spotify.com/**'
+    'https://s3-us-west-2.amazonaws.com/**'
   ])
 
   $stateProvider.state 'guitarQuest',

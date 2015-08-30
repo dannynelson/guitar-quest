@@ -10,15 +10,6 @@ router.get '/',
   resourceConverter.send
 
 router.get '/:_id',
-  (req, res, next) -> # create default if doesnt exist
-    UserPiece.findById(req.params._id).then (userPiece) ->
-      if not userPiece?
-        return res.json
-          _id: req.params._id
-          userId: req.user._id
-          status: 'unfinished'
-      else
-        next()
   resourceConverter.get('_id')
   resourceConverter.send
 
