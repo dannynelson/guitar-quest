@@ -4,57 +4,73 @@ A game for learning classical guitar
 
 TODO:
 
-x add era to pieces
-x comments within video section
 - comment references userId, and loads all users to display info
-x account page - change password/email, update mailing preferences, etc? - look at a few other sites for inspiration here
-x store teacher / student name (and photo?) within profile for easier identification when communicating. Add to comments
-- video review page for me
+- confirm email flow
 - use "submitted" instead of "pending", and "completed"? instead of "finished everywhere"...
 - would google auth be better?
 - consistent status of finished or completed everywhere
-x finish a piece should actually update corresponding quests
-- make sure resource schema model save handles pre save hook errors somehow? right now they are being swollowed
 - submit another video flow
-- create page for tutorials
-- create view for including pieces that I record myself
-- tutorial/quiz page (save for later release?)
-- display user photo next to comments
+- add toast after video submission
+
+x add era to pieces
+x comments within video section
+x account page - change password/email, update mailing preferences, etc? - look at a few other sites for inspiration here
+x store teacher / student name (and photo?) within profile for easier identification when communicating. Add to comments
+x video review page for me
+x finish a piece should actually update corresponding quests
 * change "teacher feedback" to "comments" in model for more flexibility. Just teacher feedback for now although later we could add user feedback. ability to respond to comments and have a conversation? Should it be a two way conversation? If so, should I ben notified of all the comments? Maybe it's better if they can't leave feedback because it encourages them to take lessons. But what if thye just have a simple question (e.g. what do you mean by this...)
 x create data structure for pieces, levels, quests, tutorials, etc.
 x completing pieces add experience
-- protect endpoints from abuse
-- show real name on pieces page
-- add access control to accept/reject buttons
-- add toast after video submission
-- add indexes
+x show real name on pieces page
 x find static version of progress bar that automatically readjusts for each level
 x make leveling up work
 x add icons to pending, etc and extract as navbar
 x dismiss notifications (and keep track of them somehow)
-- make completing quests work
-- show notifications when quests or pieces completed
-- configure heroku
-- consider how everything will possibly break, and handle error cases
+x make completing quests work
+x show notifications when quests or pieces completed
+
+Google auth?
+
+Request video lesson
 - create page for signing up for video lesson
+
+Deployment
+- configure and deploy to heroku
+- mongolab database
+- sendgrid
+- setup https
+- download font awesome
+
+Bug proof
+- add access control to review video pages
+- consider how everything will possibly break, and handle error cases
+- protect endpoints from abuse
+- logging service?
+- add indexes
+- make sure resource schema model save handles pre save hook errors somehow? right now they are being swollowed
 - invalid credentials does not show an error.
-- show correct statuses above pieces
-- think of everything that can go wrong with each page
+- add access control to endpoints to make sure random people wont finish pieces by editing json
+
 - sendgrid - email verification and automatic email communication when pieces reviewed, skype lessons requested, skype lessons approved, etc. (or is there a better solution)
 - stripe integration for subscriptions, and automatic billing
-* bug: finishing a piece does not immediately update other pages
-- flesh out user page to allow changing password, show a summary of current level, and all accomplishments
+x flesh out user page to allow changing password, show a summary of current level, and all accomplishments
 - footer with copyright? other random things?
 - recruit previous students to try the app (especially mitch)
-- setup https
 - add a quest for completing easier pieces (add this later)
-- allow recording videos directly in browser
-- use actual settings for video upload
 - fix login form on initial page so that offset does not look horrible on smaller screens
-- download font awesome
-- use sass instead of less so that we can use mixins?
-- add access control to endpoints to make sure random people wont finish pieces by editing json
 - add a banner image and copy to landing page
+
+Later release
+------------------------------------
+tutorials
+- create page for tutorials
+- tutorial/quiz page (save for later release?)
+
+allow recording videos directly in browser
+- use sass instead of less so that we can use mixins?
+- display user photo next to comments
+
+
 
 # Data models
 
