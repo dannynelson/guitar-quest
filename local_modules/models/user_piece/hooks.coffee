@@ -1,13 +1,13 @@
 Promise = require 'bluebird'
-UserQuest = require 'local_modules/models/quest'
-User = require 'local_modules/models/user'
-Piece = require 'local_modules/models/piece'
-Notification = require 'local_modules/models/notification'
 
 module.exports = (schema) ->
 
   # if piece finished, add experience and notification for
   schema.pre 'save', (next) ->
+    User = require 'local_modules/models/user'
+    Notification = require 'local_modules/models/notification'
+    Piece = require 'local_modules/models/piece'
+
     return next() unless @isModified('status') and @status is 'finished'
 
     Promise.all([
@@ -29,8 +29,25 @@ module.exports = (schema) ->
       next()
     .then null, next
 
+  # progress quests
+  schema.pre 'save', (next) ->
+    Quest = require 'local_modules/models/quest'
+    Piece = require 'local_modules/models/piece'
+
+    Piece.findById(@_id).then (piece) =>
+      Quest.checkForProgress @userId,
+        userPiece: @
+        piece: piece
+    .then =>
+      next()
+    .then null, (err) ->
+      next()
+
+
   # notify if piece was rejected
   schema.pre 'save', (next) ->
+    Notification = require 'local_modules/models/notification'
+
     if @isModified('status') and @status is 'retry'
       Piece.findById(@_id).then (piece) =>
         notification = new Notification

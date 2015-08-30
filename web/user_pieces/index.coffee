@@ -23,8 +23,5 @@ router.get '/:_id',
   resourceConverter.send
 
 router.put '/:_id',
-  (req, res, next) ->
-    console.log 'PUTTING'
-    next()
   resourceConverter.put('_id')
   resourceConverter.send

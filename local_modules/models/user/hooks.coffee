@@ -1,7 +1,3 @@
-initialQuests = require 'local_modules/models/quest/initial_quests'
-UserQuest = require 'local_modules/models/quest'
-Notification = require 'local_modules/models/notification'
-levelHelper = require 'local_modules/level'
 Promise = require 'bluebird'
 
 module.exports = (schema) ->
@@ -9,6 +5,8 @@ module.exports = (schema) ->
   # Level-up if experience points cross threshold
   # Note, this should come before quests
   schema.pre 'save', (next) ->
+    levelHelper = require 'local_modules/level'
+
     return next() unless @isModified('pointsIntoCurrentLevel')
     totalLevelPoints = levelHelper.getTotalLevelExp(@level)
     if @pointsIntoCurrentLevel > totalLevelPoints
@@ -18,16 +16,20 @@ module.exports = (schema) ->
 
   # Add quests when user first created or begins a new level.
   schema.pre 'save', (next) ->
+    Quest = require 'local_modules/models/quest'
+
     Promise.try =>
-      UserQuest.createInitialQuests(@_id) if @isNew
+      Quest.createInitialQuests(@_id) if @isNew
     .then =>
-      UserQuest.createLevelQuests(@) if @isModified('level') and @level isnt 1
+      Quest.createLevelQuests(@) if @isModified('level') and @level isnt 1
     .then =>
       next()
     .then null, next
 
   # Add initial notifications for new user
   schema.pre 'save', (next) ->
+    Notification = require 'local_modules/models/notification'
+
     if @isNew
       Notification.create([
         {

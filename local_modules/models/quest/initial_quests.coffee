@@ -9,26 +9,26 @@ module.exports.generate = (userId) ->
       name: 'Submit a video for a guitar piece'
       quantityCompleted: 0
       quantityToComplete: 1
-      type: 'piece'
+      conditions:
+        userPiece:
+          status: 'pending'
       reward:
         credit: 10
     }
-    {
-      userId: userId
-      name: 'Complete a tutorial'
-      quantityCompleted: 0
-      quantityToComplete: 1
-      type: 'tutorial'
-      reward:
-        credit: 10
-    }
-    {
-      userId: userId
-      name: 'Schedule a private video lesson'
-      quantityCompleted: 0
-      quantityToComplete: 1
-      type: 'lesson'
-      reward:
-        credit: 10
-    }
+    # {
+    #   userId: userId
+    #   name: 'Complete a tutorial'
+    #   quantityCompleted: 0
+    #   quantityToComplete: 1
+    #   reward:
+    #     credit: 10
+    # }
+    # {
+    #   userId: userId
+    #   name: 'Schedule a private video lesson'
+    #   quantityCompleted: 0
+    #   quantityToComplete: 1
+    #   reward:
+    #     credit: 10
+    # }
   ]

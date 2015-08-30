@@ -9,7 +9,7 @@ Piece.remove({}).then ->
       _id: "55d8a2696ce78dc3156ca8d0"
       name: 'Malaguena'
       composer: 'traditional spanish folk song'
-      era: 'Contemporary'
+      era: 'contemporary'
       level: 1
       points: 5
       sheetMusicURL: 'http://imslp.org/wiki/Fantasie,_Op.7_(Sor,_Fernando)'
@@ -20,7 +20,7 @@ Piece.remove({}).then ->
       _id: "55d8a2696ce78dc3156ca8d1"
       name: 'B minor Study - Op. 35, No. 22'
       composer: 'Fernando Sor'
-      era: 'Classical'
+      era: 'classical'
       level: 1
       points: 6
       sheetMusicURL: 'http://imslp.org/wiki/Fantasie,_Op.7_(Sor,_Fernando)'
@@ -31,7 +31,7 @@ Piece.remove({}).then ->
       _id: "55d8a2696ce78dc3156ca8d2"
       name: 'Adelita (Mazurka)'
       composer: 'Francisco Tarrega'
-      era: 'Romantic'
+      era: 'romantic'
       level: 2
       points: 10
       sheetMusicURL: 'http://imslp.org/wiki/Fantasie,_Op.7_(Sor,_Fernando)'

@@ -11,9 +11,11 @@ schema = new mongoose.Schema
   # to finish this quest
   quantityCompleted: {type: Number, required: true, default: 0}
   quantityToComplete: {type: Number, required: true}
-  type: {type: String, enum: ['piece', 'tutorial', 'lesson']}
+  # type: {type: String, enum: ['piece', 'tutorial', 'lesson']}
   # conditions for which completed pieces will fulfill this quest. If no conditions, matches any of this type
-  conditions: {}
+  conditions:
+    piece: {}
+    userPiece: {}
   reward:
     credit: {type: Number}
   completed: {type: Boolean}

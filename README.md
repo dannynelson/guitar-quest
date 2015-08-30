@@ -6,11 +6,14 @@ TODO:
 
 x add era to pieces
 x comments within video section
+- consistent status of finished or completed everywhere
 - store teacher / student name (and photo?) within profile for easier identification when communicating. Add to comments
 - finish a piece should actually update corresponding quests
+- make sure resource schema model save handles pre save hook errors somehow? right now they are being swollowed
 - bug: finishing a piece does not immediately update other pages
 - submit another video flow
 - create page for tutorials
+- create view for including pieces that I record myself
 - tutorial/quiz page (save for later release?)
 - account page - change password/email, update mailing preferences, etc? - look at a few other sites for inspiration here
 - change "teacher feedback" to "comments" in model for more flexibility. Just teacher feedback for now although later we could add user feedback. ability to respond to comments and have a conversation? Should it be a two way conversation? If so, should I ben notified of all the comments? Maybe it's better if they can't leave feedback because it encourages them to take lessons. But what if thye just have a simple question (e.g. what do you mean by this...)
