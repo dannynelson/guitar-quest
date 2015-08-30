@@ -6,24 +6,25 @@ TODO:
 
 x add era to pieces
 x comments within video section
-- consistent status of finished or completed everywhere
+- comment references userId, and loads all users to display info
+- account page - change password/email, update mailing preferences, etc? - look at a few other sites for inspiration here
 - store teacher / student name (and photo?) within profile for easier identification when communicating. Add to comments
-- finish a piece should actually update corresponding quests
+- video review page for me
+- consistent status of finished or completed everywhere
+x finish a piece should actually update corresponding quests
 - make sure resource schema model save handles pre save hook errors somehow? right now they are being swollowed
-- bug: finishing a piece does not immediately update other pages
 - submit another video flow
 - create page for tutorials
 - create view for including pieces that I record myself
 - tutorial/quiz page (save for later release?)
-- account page - change password/email, update mailing preferences, etc? - look at a few other sites for inspiration here
-- change "teacher feedback" to "comments" in model for more flexibility. Just teacher feedback for now although later we could add user feedback. ability to respond to comments and have a conversation? Should it be a two way conversation? If so, should I ben notified of all the comments? Maybe it's better if they can't leave feedback because it encourages them to take lessons. But what if thye just have a simple question (e.g. what do you mean by this...)
-- video review page for me
+- display user photo next to comments
+* change "teacher feedback" to "comments" in model for more flexibility. Just teacher feedback for now although later we could add user feedback. ability to respond to comments and have a conversation? Should it be a two way conversation? If so, should I ben notified of all the comments? Maybe it's better if they can't leave feedback because it encourages them to take lessons. But what if thye just have a simple question (e.g. what do you mean by this...)
 x create data structure for pieces, levels, quests, tutorials, etc.
 x completing pieces add experience
 - protect endpoints from abuse
 - show real name on pieces page
 - add access control to accept/reject buttons
-- add toast afet video submission
+- add toast after video submission
 - add indexes
 x find static version of progress bar that automatically readjusts for each level
 x make leveling up work
@@ -39,6 +40,7 @@ x dismiss notifications (and keep track of them somehow)
 - think of everything that can go wrong with each page
 - sendgrid - email verification and automatic email communication when pieces reviewed, skype lessons requested, skype lessons approved, etc. (or is there a better solution)
 - stripe integration for subscriptions, and automatic billing
+* bug: finishing a piece does not immediately update other pages
 - flesh out user page to allow changing password, show a summary of current level, and all accomplishments
 - footer with copyright? other random things?
 - recruit previous students to try the app (especially mitch)

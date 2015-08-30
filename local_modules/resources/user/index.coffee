@@ -9,6 +9,9 @@ angular.module __filename, ['ngResource']
       method: 'GET'
       isArray: true
 
+    update:
+      method: 'PUT'
+
   User.register = ({email, password}) ->
     $http.post('/users/register', {email, password}).then (response) ->
       loggedInUser = new User response.data
@@ -23,6 +26,11 @@ angular.module __filename, ['ngResource']
     $http.post('/users/logout').then (response) ->
       loggedInUser = null
       return null
+
+  User.changePassword = ({oldPassword, newPassword}) ->
+    $http.post('/users/change_password', {oldPassword, newPassword}).then (response) ->
+      loggedInUser = new User response.data
+      return loggedInUser
 
   User.assertLoggedIn = ->
     $http.post('/users/assert_logged_in').then (response) ->

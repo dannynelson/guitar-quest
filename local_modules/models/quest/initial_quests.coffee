@@ -9,6 +9,7 @@ module.exports.generate = (userId) ->
       name: 'Submit a video for a guitar piece'
       quantityCompleted: 0
       quantityToComplete: 1
+      completed: false
       conditions:
         userPiece:
           status: 'pending'

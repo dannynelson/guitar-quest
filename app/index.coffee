@@ -5,11 +5,11 @@ window.angular = require 'angular'
 
 require 'angular-resource'
 require 'angular-bootstrap'
-require 'ngToast'
 
 angular.module 'app', [
   'ui.bootstrap'
   require 'local_modules/services/require_auth'
+  # require 'local_modules/services/ng_toast'
   require 'local_modules/directives/gq_navbar'
   require 'local_modules/ui_router'
   require './quests'
@@ -21,6 +21,7 @@ angular.module 'app', [
   require './create_account'
   require './initial_assessment'
   require './pending_pieces'
+  require './account'
 ]
 
 .constant 'settings', window.settings

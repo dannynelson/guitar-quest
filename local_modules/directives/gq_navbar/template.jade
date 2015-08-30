@@ -45,7 +45,7 @@
                 i.caret
               ul.dropdown-menu(role="menu" aria-labelledby="single-button")
                 li(role="menuitem")
-                  a(href="#") Account
+                  a(href="#" ui-sref='guitarQuest.account') Account
                   a(href="#" ng-click='navbarCtrl.logout()') Logout
           .navbar-text.navbar-right(ng-if='navbarCtrl.isLoggedIn()')
             //- span.credit-summary.label.label-warning $20 Credit

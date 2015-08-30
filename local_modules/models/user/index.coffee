@@ -9,6 +9,7 @@ database = require 'local_modules/database'
 
 schema = new mongoose.Schema
   # email added by passportLocalMongoose
+  name: {type: String}
   level: {type: Number, required: true, default: 1}
   pointsIntoCurrentLevel: {type: Number, required: true, default: 0}
   # skype lesson credit available

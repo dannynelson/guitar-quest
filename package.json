@@ -19,8 +19,10 @@
   },
   "dependencies": {
     "angular": "^1.4.3",
+    "angular-animate": "^1.4.3",
     "angular-bootstrap": "^0.12.2",
     "angular-resource": "^1.4.3",
+    "angular-sanitize": "^1.4.3",
     "angular-ui-router": "^0.2.15",
     "aperture": "^1.1.1",
     "async": "^1.4.2",

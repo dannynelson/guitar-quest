@@ -5,6 +5,10 @@ resourceConverter = require './resource_converter'
 
 module.exports = router = require('express').Router()
 
+router.put '/:_id',
+  resourceConverter.put('_id')
+  resourceConverter.send
+
 router.post '/register', (req, res, next) ->
   # FIXME why cant this be promisified??
   User.register new User({ email: req.body.email }), req.body.password, (err, user) ->
@@ -29,6 +33,20 @@ router.post '/login',
 router.post '/logout', (req, res) ->
   req.logout()
   res.status(200).send('Logout successful')
+
+router.post '/change_password', (req, res, next) ->
+  {oldPassword, newPassword} = req.body
+  user = req.user
+  # FIXME this can't be promisified -- Unhandled rejection TypeError: Object #<Object> has no method 'get'
+  # this is changed somehow?
+  user.authenticate oldPassword, (err) ->
+    return next(err) if err
+    user.setPassword newPassword, (err, user) ->
+      return next(err) if err
+      user.save().then =>
+        resourceConverter.createResourceFromModel(user, {req, res, next})
+      .then (resource) =>
+        return res.status(200).send resource
 
 router.post '/assert_logged_in', (req, res, next) ->
   if not req.user?
