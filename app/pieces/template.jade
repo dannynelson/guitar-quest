@@ -28,7 +28,7 @@
     .col-sm-4(ng-repeat='piece in piecesCtrl.pieces')
       .piece-panel.panel.panel-default(
         ui-sref='guitarQuest.piece({pieceId: piece._id})'
-        ng-class='{"panel-warning": piece.status === "pending", "panel-danger": piece.status === "retry", "panel-success": piece.status === "finished"}'
+        ng-class='{"panel-warning": piece.status === "pending", "panel-info": piece.status === "retry", "panel-success": piece.status === "finished"}'
       )
         .piece-heading.panel-heading
           .row(ng-if='piece.status === undefined')
@@ -36,15 +36,15 @@
           .row(ng-if='piece.status === "pending"')
             .col-xs-8 Submitted
             .col-xs-4.text-right
-              i.fa.fa-question
+              i.fa.fa-upload
           .row(ng-if='piece.status === "finished"')
             .col-xs-8 Finished
             .col-xs-4.text-right
               i.fa.fa-check
           .row(ng-if='piece.status === "retry"')
-            .col-xs-8 Please retry
+            .col-xs-8 Review feedback
             .col-xs-4.text-right
-              i.fa.fa-exclamation
+              i.fa.fa-comment
         .panel-body
           h5.piece-title {{piece.name}}
           .piece-composer {{piece.composer}}

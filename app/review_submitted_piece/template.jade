@@ -1,5 +1,5 @@
 .guitar-quest-piece.container
-  .panel.panel-default(ng-class='{"panel-warning": reviewPieceCtrl.userPiece.status === "pending", "panel-danger": reviewPieceCtrl.userPiece.status === "retry", "panel-success": reviewPieceCtrl.userPiece.status === "finished"}')
+  .panel.panel-default(ng-class='{"panel-warning": reviewPieceCtrl.userPiece.status === "pending", "panel-info": reviewPieceCtrl.userPiece.status === "retry", "panel-success": reviewPieceCtrl.userPiece.status === "finished"}')
     .piece-heading.panel-heading
       .row(ng-if='reviewPieceCtrl.userPiece.status === "unfinished"')
         .col-xs-8 {{reviewPieceCtrl.piece.points}} points
@@ -7,15 +7,15 @@
       .row(ng-if='reviewPieceCtrl.userPiece.status === "pending"')
         .col-xs-8 Submitted
         .col-xs-4.text-right
-          i.fa.fa-question
+          i.fa.fa-upload
       .row(ng-if='reviewPieceCtrl.userPiece.status === "finished"')
         .col-xs-8 Finished
         .col-xs-4.text-right
           i.fa.fa-check
       .row(ng-if='reviewPieceCtrl.userPiece.status === "retry"')
-        .col-xs-8 Please retry
+        .col-xs-8 Review Feedback
         .col-xs-4.text-right
-          i.fa.fa-exclamation
+          i.fa.fa-comment
 
     .panel-body
       h4 {{reviewPieceCtrl.userPiece.piece.name}}

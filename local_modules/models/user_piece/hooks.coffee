@@ -46,6 +46,7 @@ module.exports = (schema) ->
 
   # notify if piece was rejected
   schema.pre 'save', (next) ->
+    Piece = require 'local_modules/models/piece'
     Notification = require 'local_modules/models/notification'
 
     if @isModified('status') and @status is 'retry'
@@ -53,8 +54,8 @@ module.exports = (schema) ->
         notification = new Notification
           userId: @userId
           category: 'piece'
-          type: 'danger'
-          text: "Your video submission for #{piece.name} was not accepted. Please review teacher feedback and submit another video."
+          type: 'info'
+          text: "You received teacher feedback for \"#{piece.name}\". Please review and submit another video."
           acknowledged: false
         notification.save()
       .then =>

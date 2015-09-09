@@ -6,7 +6,6 @@ angular.module __filename, [
   require 'local_modules/resources/piece'
   require 'local_modules/resources/user'
   require 'local_modules/resources/user_piece'
-  'ngFileUpload'
 ]
 
 .config ($stateProvider) ->
