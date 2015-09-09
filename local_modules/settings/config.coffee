@@ -79,3 +79,10 @@ module.exports =
       format: 'port'
       default: 8075
       env: 'PORT'
+
+  sendgrid:
+    apiKey:
+      doc: 'API key for sendgrid'
+      format: '*'
+      default: null
+      env: 'SENDGRID_API_KEY'

@@ -23,6 +23,7 @@ angular.module 'app', [
   require './pending_pieces'
   require './account'
   require './review_submitted_piece'
+  require './pricing'
 ]
 
 .constant 'settings', window.settings
