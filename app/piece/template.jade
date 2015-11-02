@@ -1,6 +1,6 @@
 .guitar-quest-piece.container
-  .col-md-10.col-md-offset-1
-    .panel.panel-default(ng-class='{"panel-warning": pieceCtrl.userPiece.status === "pending", "panel-info": pieceCtrl.userPiece.status === "retry", "panel-success": pieceCtrl.userPiece.status === "finished"}')
+  .col-md-8
+    .panel.panel-default.piece-panel(ng-class='{"panel-warning": pieceCtrl.userPiece.status === "pending", "panel-info": pieceCtrl.userPiece.status === "retry", "panel-success": pieceCtrl.userPiece.status === "finished"}')
       .piece-heading.panel-heading
         .row(ng-if='pieceCtrl.userPiece.status === "unfinished"')
           .col-xs-8 {{pieceCtrl.piece.points}} points
@@ -10,65 +10,76 @@
           .col-xs-4.text-right
             i.fa.fa-upload
         .row(ng-if='pieceCtrl.userPiece.status === "finished"')
-          .col-xs-8 Finished
+          .col-xs-8 4/5 points
           .col-xs-4.text-right
             i.fa.fa-check
         .row(ng-if='pieceCtrl.userPiece.status === "retry"')
           .col-xs-8 Review feedback
           .col-xs-4.text-right
             i.fa.fa-comment
+      .panel-body.text-center
+        .select-video(ng-hide='pieceCtrl.videoSelected' ngf-select ngf-change="pieceCtrl.upload($file)")
+          div
+            i.fa.fa-upload.fa-5x
+          h5 Upload video submission
+        .loading.row.text-center(ng-show='pieceCtrl.videoSelected && !pieceCtrl.videoUploadSrc')
+          h5 Uploading...
+          .col-xs-8.col-xs-offset-2
+            progressbar(
+              max="100"
+              value="pieceCtrl.progressPercentage"
+            )
+        .submission-successful.text-center(ng-show='pieceCtrl.videoUploadSrc')
+          video.video-preview(controls)
+          a(href='#') Submit a different video
+
+    .panel.panel-default.piece-panel
       .panel-body
         h4 {{pieceCtrl.piece.name}}
         .piece-info
-          .piece-composer {{pieceCtrl.piece.composer}}
-          .piece-era {{pieceCtrl.piece.era}} era
+          .piece-composer <strong>composer:</strong> {{pieceCtrl.piece.composer}}
+          .piece-era <strong>era:</strong> {{pieceCtrl.piece.era}}
         p {{pieceCtrl.piece.description}}
-        p To complete upload a video of you playing the piece below. The piece should be memorized, played with good technique, and played musically. Once submitted, we will review your video within 24 hours.
 
-        .row.actions
-          .col-md-4
-            a.link-btn.btn.btn-default.btn-block(ng-href='{{pieceCtrl.piece.sheetMusicURL}}' target="_blank")
-              div
-                i.fa.fa-book.fa-3x
-              div Get Sheet Music
-          .col-md-4
-            .link-btn.btn.btn-default.btn-block
-              div
-                i.fa.fa-video-camera.fa-3x
-              div Request Private Lesson
-          .col-md-4
-            iframe(
-              ng-src="{{pieceCtrl.getSpotifySrc()}}"
-              width="100%"
-              height="80"
-              frameborder="0"
-              allowtransparency="true"
-            )
+    .panel.panel-default.piece-panel
+      .panel-body
+        .comments
+          h5 Teacher Feedback
+          div(ng-if='!pieceCtrl.userPiece.comments || pieceCtrl.userPiece.comments.length === 0') No feedback yet.
+          .comment(
+            ng-if='pieceCtrl.userPiece.comments.length > 0'
+            ng-repeat='comment in pieceCtrl.userPiece.comments'
+          )
+            .comment-details <strong>Danny Nelson</strong> <em>{{pieceCtrl.getTimeFromNow(comment.createdAt)}}</em>
+            div {{comment.text}}
 
-        .row.well.video-well
-          .col-xs-12.text-center
-            .select-video(ng-hide='pieceCtrl.videoSelected' ngf-select ngf-change="pieceCtrl.upload($file)")
-              div
-                i.fa.fa-upload.fa-5x
-              h5 Select video to submit
-            .loading.row.text-center(ng-show='pieceCtrl.videoSelected && !pieceCtrl.videoUploadSrc')
-              h5 Uploading...
-              .col-xs-8.col-xs-offset-2
-                progressbar(
-                  max="100"
-                  value="pieceCtrl.progressPercentage"
-                )
-            .submission-successful.text-center(ng-show='pieceCtrl.videoUploadSrc')
-              video.video-preview(controls)
-              a(href='#') Submit a different video
+    //- BELOW THIS POINT ONLY FOR INSTRUCTORS
+    .btn.btn-default.btn-block.control-btn(ng-click='pieceCtrl.fakeUpload()') Submit Video
 
-        .comments(ng-if='pieceCtrl.userPiece.comments.length > 0')
-          h4 Teacher Feedback
-          .panel.panel-default(ng-repeat='comment in pieceCtrl.userPiece.comments')
-            .panel-body
-              div <strong>Danny Nelson</strong> <em>{{pieceCtrl.getTimeFromNow(comment.createdAt)}}</em>
-              div {{comment.text}}
+  .col-md-4
+    .panel.panel-default.piece-panel
+      .panel-body
+        h5 Submission Guidelines
+        ul
+          li Accuracy and Technique (50% of points)
+          li Interpretation (50% of points)
 
-        //- BELOW THIS POINT ONLY FOR INSTRUCTORS
-        .btn.btn-default.btn-block.control-btn(ng-click='pieceCtrl.fakeUpload()') Submit Video
+        p Remember, if you do not receive 100% points for your submission, you can review teacher feedback and submit another video!
 
+    a.panel.panel-default.piece-panel.link-panel.btn.btn-default.btn-block(ng-href='{{pieceCtrl.piece.sheetMusicURL}}' target="_blank")
+      div
+        i.link-panel-icon.fa.fa-book.fa-3x
+      div Get Sheet Music
+
+    .panel.panel-default.piece-panel.link-panel.btn.btn-default.btn-block
+      div
+        i.link-panel-icon.fa.fa-video-camera.fa-3x
+      div Request Private Lesson
+
+    iframe(
+      ng-src="{{pieceCtrl.getSpotifySrc()}}"
+      width="100%"
+      height="80"
+      frameborder="0"
+      allowtransparency="true"
+    )

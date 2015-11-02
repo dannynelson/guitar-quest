@@ -1,14 +1,14 @@
-mongoose = require 'mongoose'
-database = require 'local_modules/database'
-
 ###
 Track user progress as they work on a piece
 ###
+
+mongoose = require 'mongoose'
+database = require 'local_modules/database'
+
 commentSchema = new mongoose.Schema
   userId: {type: mongoose.Schema.Types.ObjectId}
   text: {type: String}
   createdAt: {type: Date}
-
 
 schema = new mongoose.Schema
   pieceId: {type: mongoose.Schema.Types.ObjectId, required: true}

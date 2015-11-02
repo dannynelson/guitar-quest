@@ -19,7 +19,6 @@ angular.module 'app', [
   require './landing'
   require './login'
   require './create_account'
-  require './initial_assessment'
   require './pending_pieces'
   require './account'
   require './review_submitted_piece'
