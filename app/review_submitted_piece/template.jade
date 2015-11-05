@@ -1,39 +1,43 @@
 .review-submitted-piece.container
-  .panel.panel-default(ng-class='{"panel-warning": reviewPieceCtrl.userPiece.status === "pending", "panel-info": reviewPieceCtrl.userPiece.status === "retry", "panel-success": reviewPieceCtrl.userPiece.status === "finished"}')
-    .piece-heading.panel-heading
-      .row(ng-if='reviewPieceCtrl.userPiece.status === "unfinished"')
-        .col-xs-8 {{reviewPieceCtrl.piece.points}} points
-        .col-xs-4.text-right
-      .row(ng-if='reviewPieceCtrl.userPiece.status === "pending"')
-        .col-xs-8 Submitted
-        .col-xs-4.text-right
-          i.fa.fa-upload
-      .row(ng-if='reviewPieceCtrl.userPiece.status === "finished"')
-        .col-xs-8 Finished
-        .col-xs-4.text-right
-          i.fa.fa-check
-      .row(ng-if='reviewPieceCtrl.userPiece.status === "retry"')
-        .col-xs-8 Review Feedback
-        .col-xs-4.text-right
-          i.fa.fa-comment
+  .col-md-8
+    .panel.panel-default(ng-class='{"panel-warning": ctrl.userPiece.status === "submitted", "panel-success": ctrl.userPiece.status === "graded"}')
+      .piece-heading.panel-heading
+        .row(ng-if='!ctrl.userPiece.status')
+          .col-xs-8 {{ctrl.piece.points}} points
+          .col-xs-4.text-right
+        .row(ng-if='ctrl.userPiece.status === "submitted"')
+          .col-xs-8 Submitted
+          .col-xs-4.text-right
+            i.fa.fa-upload
+        .row(ng-if='ctrl.userPiece.status === "graded"')
+          .col-xs-8 Finished
+          .col-xs-4.text-right
+            i.fa.fa-check
 
-    .panel-body
-      h4 {{reviewPieceCtrl.userPiece.piece.name}}
+      .panel-body.text-center
+        video.video-preview(ng-src='{{ctrl.userPiece.submissionVideoURL}}')
 
-      .row.well.video-well
-        .col-xs-12.text-center
-          video.video-preview(ng-src='{{reviewPieceCtrl.userPiece.submissionVideoURL}}')
+     .panel.panel-default
+        .panel-body
+          h4 {{ctrl.userPiece.piece.name}}
 
-      .comments(ng-if='reviewPieceCtrl.userPiece.comments.length > 0')
+    .panel.panel-default
+      .panel-body
         h4 Teacher Feedback
-        .panel.panel-default(ng-repeat='comment in reviewPieceCtrl.userPiece.comments')
-          .panel-body
-            div <strong>Danny Nelson</strong> <em>{{reviewPieceCtrl.getTimeFromNow(comment.createdAt)}}</em>
-            div {{comment.text}}
+        div(ng-repeat='comment in ctrl.userPiece.comments')
+          div <strong>Danny Nelson</strong> <em>{{ctrl.getTimeFromNow(comment.createdAt)}}</em>
+          div {{comment.text}}
 
-      //- BELOW THIS POINT ONLY FOR INSTRUCTORS
-      textarea.form-control.comment(ng-model='reviewPieceCtrl.comment' placeholder='Leave a comment...')
-      .btn.btn-block.btn-primary.control-btn(ng-click='reviewPieceCtrl.addComment()') Add Comment
-      .btn.btn-success.btn-block.control-btn(ng-click='reviewPieceCtrl.acceptPiece()') Accept Piece
-      .btn.btn-danger.btn-block.control-btn(ng-click='reviewPieceCtrl.rejectPiece()') Reject Piece
+        //- BELOW THIS POINT ONLY FOR INSTRUCTORS
+        textarea.form-control.comment(ng-model='ctrl.comment' placeholder='Leave a comment...')
+        .btn.btn-block.btn-primary.control-btn(ng-click='ctrl.addComment()') Add Comment
+
+  .col-md-4
+    .panel.panel-default
+      .panel-body
+        h5 Grade
+        form
+          input.form-control(type='number' ng-model='ctrl.userPiece.grade')
+          .btn.btn-primary.btn-block(ng-click='ctrl.save($event)') Save
+
 

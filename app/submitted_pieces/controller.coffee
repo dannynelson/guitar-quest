@@ -4,7 +4,7 @@ geomoment = require 'geomoment'
 module.exports = ngInject (User, UserPiece, Piece) ->
   @user = User.getLoggedInUser()
   @userPieces = UserPiece.query
-    status: 'pending'
+    status: 'submitted'
     $add: ['user', 'piece']
 
   @getTimeFromNow = (date) ->

@@ -1,4 +1,5 @@
 Promise = require 'bluebird'
+level = require 'local_modules/level'
 
 module.exports = (schema) ->
 
@@ -8,13 +9,13 @@ module.exports = (schema) ->
     Notification = require 'local_modules/models/notification'
     Piece = require 'local_modules/models/piece'
 
-    return next() unless @isModified('status') and @status is 'finished'
+    return next() unless @isModified('status') and @status is 'graded'
 
     Promise.all([
       User.findById(@userId)
       Piece.findById(@pieceId)
     ]).then ([user, piece]) =>
-      user.pointsIntoCurrentLevel += piece.points
+      user.pointsIntoCurrentLevel += level.pointsPerPiece(piece.level)
 
       notification = new Notification
         userId: @userId

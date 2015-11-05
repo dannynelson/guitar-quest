@@ -4,47 +4,43 @@
 
   .row.previous-and-next
     .col-xs-12
-      .pull-left(ng-if='piecesCtrl.selectedLevel > 1')
-        a(href='' ng-click='piecesCtrl.goToPreviousLevel()')
+      .pull-left(ng-if='ctrl.selectedLevel > 1')
+        a(href='' ng-click='ctrl.goToPreviousLevel()')
           span.fa.fa-angle-double-left
           span &nbsp;Previous
-      .pull-right(ng-if='piecesCtrl.selectedLevel < piecesCtrl.user.level')
-        a(href='' ng-click='piecesCtrl.goToNextLevel()')
+      .pull-right(ng-if='ctrl.selectedLevel < ctrl.user.level')
+        a(href='' ng-click='ctrl.goToNextLevel()')
           span Next&nbsp;
           span.fa.fa-angle-double-right
   .row
     .col-xs-6
-      h5.pull-left Level {{piecesCtrl.selectedLevel}}
+      h5.pull-left Level {{ctrl.selectedLevel}}
     .col-xs-6
-      .points-to-next-level.pull-right {{piecesCtrl.levelPoints.completed}} / {{piecesCtrl.levelPoints.total}} points
+      .points-to-next-level.pull-right {{ctrl.levelPoints.completed}} / {{ctrl.levelPoints.total}} points
   .row
     .col-xs-12
       progressbar(
         animate="false"
-        value="(piecesCtrl.levelPoints.completed / piecesCtrl.levelPoints.total) * 100"
+        value="(ctrl.levelPoints.completed / ctrl.levelPoints.total) * 100"
       )
 
   .row
-    .col-sm-4(ng-repeat='piece in piecesCtrl.pieces')
+    .col-sm-4(ng-repeat='piece in ctrl.pieces')
       .piece-panel.panel.panel-default(
         ui-sref='guitarQuest.piece({pieceId: piece._id})'
-        ng-class='{"panel-warning": piece.status === "pending", "panel-info": piece.status === "retry", "panel-success": piece.status === "finished"}'
+        ng-class='{"panel-warning": piece.status === "submitted", "panel-success": piece.status === "graded"}'
       )
         .piece-heading.panel-heading
-          .row(ng-if='piece.status === undefined')
-            .col-xs-8 {{piece.points}} points
-          .row(ng-if='piece.status === "pending"')
+          .row(ng-if='!piece.status')
+            .col-xs-8 {{ctrl.level.getPointsPerPiece(piece.level)}} points
+          .row(ng-if='piece.status === "submitted"')
             .col-xs-8 Submitted
             .col-xs-4.text-right
               i.fa.fa-upload
-          .row(ng-if='piece.status === "finished"')
+          .row(ng-if='piece.status === "graded"')
             .col-xs-8 Finished
             .col-xs-4.text-right
               i.fa.fa-check
-          .row(ng-if='piece.status === "retry"')
-            .col-xs-8 Review feedback
-            .col-xs-4.text-right
-              i.fa.fa-comment
         .panel-body
           h5.piece-title {{piece.name}}
           .piece-composer {{piece.composer}}

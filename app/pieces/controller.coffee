@@ -2,6 +2,7 @@ _ = require 'lodash'
 level = require 'local_modules/level'
 
 module.exports = ngInject (User, Piece) ->
+  @level = level
   @user = User.getLoggedInUser()
   @selectedLevel = @user.level
   @levelHelper = level

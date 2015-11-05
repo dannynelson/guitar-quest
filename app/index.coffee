@@ -19,7 +19,7 @@ angular.module 'app', [
   require './landing'
   require './login'
   require './create_account'
-  require './pending_pieces'
+  require './submitted_pieces'
   require './account'
   require './review_submitted_piece'
   require './pricing'

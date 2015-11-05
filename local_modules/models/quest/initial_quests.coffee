@@ -12,7 +12,7 @@ module.exports.generate = (userId) ->
       completed: false
       conditions:
         userPiece:
-          status: 'pending'
+          status: 'submitted'
       reward:
         credit: 10
     }

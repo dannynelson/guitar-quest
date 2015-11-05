@@ -7,9 +7,9 @@ angular.module __filename, [
 
 .config ($stateProvider) ->
 
-  $stateProvider.state 'guitarQuest.pendingPieces',
+  $stateProvider.state 'guitarQuest.submittedPieces',
     requireAuth: true
-    url: '/pending_pieces'
-    controllerAs: 'pendingPiecesCtrl'
+    url: '/submitted_pieces'
+    controllerAs: 'ctrl'
     template: require './template'
     controller: require './controller'

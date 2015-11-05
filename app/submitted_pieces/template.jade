@@ -1,0 +1,15 @@
+.guitar-quest-submitted-pieces.container
+
+  .text-center(ng-if='ctrl.userPieces.length === 0')
+    h5 No submitted pieces
+
+  .submitted-piece-panel.panel.panel-default(
+    ng-repeat='userPiece in ctrl.userPieces | orderBy:"updatedAt"'
+    ui-sref='guitarQuest.reviewSubmittedPiece({userPieceId: userPiece._id})'
+  )
+    .panel-body
+      .user-info
+        strong {{userPiece.user.name}}
+        span  {{userPiece.user.email}}
+        em  {{ctrl.getTimeFromNow(userPiece.updatedAt)}}
+      h5 {{userPiece.piece.name}}

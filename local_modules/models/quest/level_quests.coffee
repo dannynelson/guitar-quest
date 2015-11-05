@@ -11,7 +11,7 @@ module.exports.generate = (user) ->
     completed: false
     conditions:
       userPiece:
-        status: 'finished'
+        status: 'graded'
       piece:
         level: user.level
         era: era

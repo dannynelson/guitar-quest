@@ -1,22 +1,18 @@
 .guitar-quest-piece.container
   .col-md-8
-    .panel.panel-default.piece-panel(ng-class='{"panel-warning": pieceCtrl.userPiece.status === "pending", "panel-info": pieceCtrl.userPiece.status === "retry", "panel-success": pieceCtrl.userPiece.status === "finished"}')
+    .panel.panel-default.piece-panel(ng-class='{"panel-warning": pieceCtrl.userPiece.status === "submitted", "panel-success": pieceCtrl.userPiece.status === "graded"}')
       .piece-heading.panel-heading
-        .row(ng-if='pieceCtrl.userPiece.status === "unfinished"')
-          .col-xs-8 {{pieceCtrl.piece.points}} points
+        .row(ng-if='!pieceCtrl.userPiece.status')
+          .col-xs-8 {{pieceCtrl.level.getPointsPerPiece(pieceCtrl.piece.level)}} points
           .col-xs-4.text-right
-        .row(ng-if='pieceCtrl.userPiece.status === "pending"')
+        .row(ng-if='pieceCtrl.userPiece.status === "submitted"')
           .col-xs-8 Submitted
           .col-xs-4.text-right
             i.fa.fa-upload
-        .row(ng-if='pieceCtrl.userPiece.status === "finished"')
+        .row(ng-if='pieceCtrl.userPiece.status === "graded"')
           .col-xs-8 4/5 points
           .col-xs-4.text-right
             i.fa.fa-check
-        .row(ng-if='pieceCtrl.userPiece.status === "retry"')
-          .col-xs-8 Review feedback
-          .col-xs-4.text-right
-            i.fa.fa-comment
       .panel-body.text-center
         .select-video(ng-hide='pieceCtrl.videoSelected' ngf-select ngf-change="pieceCtrl.upload($file)")
           div

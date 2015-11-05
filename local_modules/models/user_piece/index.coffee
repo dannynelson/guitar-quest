@@ -14,8 +14,9 @@ schema = new mongoose.Schema
   pieceId: {type: mongoose.Schema.Types.ObjectId, required: true}
   userId: {type: mongoose.Schema.Types.ObjectId, required: true}
   submissionVideoURL: {type: String, required: true}
-  status: {type: String, enum: ['unfinished', 'pending', 'finished', 'retry'], default: 'unfinished'}
-  comments: [commentSchema]
+  grade: {type: Number} # 1 - 10, teacher rating of the student piece
+  waitingToBeGraded: {type: Boolean}
+  comments: [commentSchema] # TODO, should this save record of every submitted piece?
 
 schema.plugin require('mongoose-timestamp')
 

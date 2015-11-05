@@ -9,7 +9,6 @@ schema = new mongoose.Schema
   composer: {type: String, required: true}
   level: {type: Number, required: true}
   era: {type: String, required: true}
-  points: {type: Number, required: true}
   sheetMusicURL: {type: String, required: true}
   spotifyURI: {type: String, required: true}
   description: {type: String, required: true}

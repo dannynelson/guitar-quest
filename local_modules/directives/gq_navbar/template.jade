@@ -29,8 +29,8 @@
                 span Tutorials
                 span.badge.link-badge.badge-warning(ng-if='navbarCtrl.notificationCount.tutorial') {{navbarCtrl.notificationCount.tutorial}}
 
-            li(ng-class="{active: navbarCtrl.stateIncludes('guitarQuest.pendingPieces')}")
-              a(ui-sref='guitarQuest.pendingPieces') Pending
+            li(ng-class="{active: navbarCtrl.stateIncludes('guitarQuest.submittedPieces')}")
+              a(ui-sref='guitarQuest.submittedPieces') Submitted
 
           ul.nav.navbar-nav.navbar-right(ng-if='!navbarCtrl.isLoggedIn()')
             li(ng-class="{active: navbarCtrl.stateIncludes('guitarQuest.pricing')}")

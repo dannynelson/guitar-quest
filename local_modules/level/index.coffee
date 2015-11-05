@@ -1,8 +1,37 @@
-# when you are at a given level, how many points does it take to get to the next level
-expByLevel =
-  "1": 10
-  "2": 20
-  "3": 30
+###
+when you are at a given level, how many points does it take to get to the next level
+- all pieces will be divisible by 10 so that we can grade everything on a 10 point scale
+- it takes approximately 15 perfect pieces to get to the next level
+- most books have 40 - 45 pieces
+- every 2 levels is twice as hard as the current level (so the pieces give twice as many points)
+
+I will want to change these things, so
+- users current level should never change
+- save score for each piece, so that we can recalculate users total points/level at any time
+ based on the pieces they've completed
+
+questions
+- what if I want to add a level before level 1 (Early beginner)
+
+###
+_ = require 'lodash'
+
+perfectPiecesRequiredToProgressToNextLevel = 20
+
+piecePointsByLevel =
+  "1": 100 # each piece 100 points
+  "2": 140 # each piece about 140 points
+  "3": 200 # each piece about 200 points
+  "4": 280 # each piece about 280 points
+  "5": 400 # each piece about 400 points
+  "6": 560 # each piece about 560 points
+  "7": 800 # each piece about 800 points
+  "8": 1120 # each piece about 1120 points
+  "9": 1600 # each piece about 1600 points
+  "10": 2240 # each piece about 2240 points
+
+pointsByLevel = _.mapValues piecePointsByLevel, (pointsPerPiece) ->
+  pointsPerPiece * perfectPiecesRequiredToProgressToNextLevel
 
 module.exports =
   getExpToNextLevel: (exp, selectedLevel) ->
@@ -11,4 +40,7 @@ module.exports =
     expRequired - exp
 
   getTotalLevelExp: (level) ->
-    expByLevel[level]
+    pointsByLevel[level]
+
+  getPointsPerPiece: (level) ->
+    piecePointsByLevel[level]

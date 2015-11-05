@@ -12,7 +12,7 @@ angular.module __filename, [
   $stateProvider.state 'guitarQuest.reviewSubmittedPiece',
     requireAuth: true
     url: '/review_submitted_piece/:userPieceId'
-    controllerAs: 'reviewPieceCtrl'
+    controllerAs: 'ctrl'
     template: require './template'
     controller: require './controller'
 

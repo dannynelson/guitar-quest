@@ -18,12 +18,8 @@ module.exports = ngInject (UserPiece, User, $stateParams) ->
         @comment = undefined
         $state.reload()
 
-  @acceptPiece = =>
-    @userPiece.status = 'finished'
-    @userPiece.$update()
-
-  @rejectPiece = =>
-    @userPiece.status = 'retry'
+  @save = (e) =>
+    e.preventDefault()
     @userPiece.$update()
 
   return @ # http://stackoverflow.com/questions/28953289/using-controller-as-with-the-ui-router-isnt-working-as-expected

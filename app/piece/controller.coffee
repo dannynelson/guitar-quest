@@ -1,8 +1,10 @@
 geomoment = require 'geomoment'
 _ = require 'lodash'
+level = require 'local_modules/level'
 ObjectId = require 'objectid-browser'
 
 module.exports = ngInject (Upload, $http, User, $stateParams, Piece, UserPiece, $state) ->
+  @level = level
   @piece = Piece.get({_id: $stateParams.pieceId})
   @comment = undefined
   user = User.getLoggedInUser()
@@ -28,7 +30,7 @@ module.exports = ngInject (Upload, $http, User, $stateParams, Piece, UserPiece, 
 
   @fakeUpload = =>
     @userPiece.submissionVideoURL = 'https://s3-us-west-2.amazonaws.com/guitar-quest-videos/user_55d1fa38ce020bb5c73854f4/piece_55d4fbd48b6581784392224f.mov'
-    @userPiece.status = 'pending'
+    @userPiece.status = 'submitted'
     @userPiece.$update()
     # ngToast.success 'Thanks! Your video has been submitted. We will review it and give you feedback  within 24 hours.'
 
@@ -61,7 +63,7 @@ module.exports = ngInject (Upload, $http, User, $stateParams, Piece, UserPiece, 
         console.log('file ' + config.file.name + 'uploaded. Response: ' + data)
 
         @userPiece.submissionVideoURL = @videoUploadSrc
-        @userPiece.status = 'pending'
+        @userPiece.status = 'submitted'
         @userPiece.$update()
         # ngToast.success 'Thanks! Your video has been submitted. We will review it and give you feedback  within 24 hours.'
 
