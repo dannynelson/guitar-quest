@@ -13,7 +13,7 @@ angular.module __filename, [
   $stateProvider.state 'guitarQuest.piece',
     requireAuth: true
     url: '/pieces/:pieceId'
-    controllerAs: 'pieceCtrl'
+    controllerAs: 'ctrl'
     template: require './template'
     controller: require './controller'
 

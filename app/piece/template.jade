@@ -3,7 +3,7 @@
   .row
     .col-md-12
       .clearfix
-        h5.pull-left {{pieceCtrl.piece.name}} - {{pieceCtrl.piece.composer}}
+        h5.pull-left {{ctrl.piece.name}} - {{ctrl.piece.composer}} ({{ctrl.piece.era}})
         .points-to-next-level.pull-right <strong>30 / 100</strong> points
       .row
         .col-xs-12
@@ -12,45 +12,47 @@
             value="30"
           )
     .col-md-8
-      .panel.panel-default.piece-panel(ng-class='{"panel-warning": pieceCtrl.userPiece.status === "submitted", "panel-success": pieceCtrl.userPiece.status === "graded"}')
-        .video-panel-body.select-video.text-center(ng-hide='pieceCtrl.videoSelected' ngf-select ngf-change="pieceCtrl.upload($file)")
+      .panel.panel-default.piece-panel(ng-class='{"panel-warning": ctrl.userPiece.waitingToBeGraded, "panel-success": ctrl.userPiece.grade && !ctrl.userPiece.waitingToBeGraded}')
+        .video-submission-heading.panel-heading.clearfix(ng-if='ctrl.userPiece.submissionVideoURL')
+          .pull-left
+            a.submit-another-video click here to submit a another video
+          .pull-right
+            span.submission-status {{ctrl.getStatus(ctrl.userPiece)}}
+            i.fa.fa-upload(ng-if='ctrl.userPiece.waitingToBeGraded')
+            i.fa.fa-check(ng-if='ctrl.userPiece.grade && !ctrl.userPiece.waitingToBeGraded')
+        .video-panel-body.select-video.text-center(ng-show='!ctrl.userPiece.submissionVideoURL && !ctrl.uploading' ngf-select ngf-change="ctrl.upload($file)")
           div
             i.fa.fa-upload.fa-5x
           h5 Upload video submission
-        .video-panel-body.loading.row.text-center(ng-show='pieceCtrl.videoSelected && !pieceCtrl.videoUploadSrc')
+        .video-panel-body.loading.row.text-center(ng-show='ctrl.uploading')
           h5 Uploading...
           .col-xs-8.col-xs-offset-2
             progressbar(
               max="100"
-              value="pieceCtrl.progressPercentage"
+              value="ctrl.progressPercentage"
             )
-        .submission-successful.text-center(ng-show='pieceCtrl.videoUploadSrc')
+        .submission-successful.text-center(ng-show='ctrl.userPiece.submissionVideoURL')
           video.video-preview(controls)
           //- a(href='#') Submit a different video
-
-      //- .panel.panel-default
-      //-   .panel-heading
-      //-     .panel-title Piece Info
-      //-   .panel-body
-      //-     //- strong PIECE INFO
-      //-     .piece-composer <strong>Composer:</strong> {{pieceCtrl.piece.composer}}
-      //-     .piece-era <strong>Musical Era:</strong> {{pieceCtrl.piece.era}}
-      //-     p {{pieceCtrl.piece.description}}
+        //- .status(ng-class='{"bg-warning": ctrl.userPiece.waitingToBeGraded, "bg-success": ctrl.userPiece.grade && !ctrl.userPiece.waitingToBeGraded}')
+        //-   span bam
+        //-   i.fa.fa-upload(ng-if='ctrl.userPiece.waitingToBeGraded')
+        //-   i.fa.fa-check(ng-if='ctrl.userPiece.grade && !ctrl.userPiece.waitingToBeGraded')
 
       .panel.panel-default.piece-panel
         .panel-heading
           .panel-title Comments
         .list-group
-          .list-group-item(ng-if='!pieceCtrl.userPiece.history || pieceCtrl.userPiece.history.length === 0') No comments yet.
+          .list-group-item(ng-if='!ctrl.userPiece.history || ctrl.userPiece.history.length === 0') No comments yet.
           .list-group-item(
-            ng-if='pieceCtrl.userPiece.history.length > 0'
-            ng-repeat='historyItem in pieceCtrl.userPiece.history'
+            ng-if='ctrl.userPiece.history.length > 0'
+            ng-repeat='historyItem in ctrl.userPiece.history'
           )
-            .history-item-details <strong>Danny Nelson</strong> <em>{{pieceCtrl.getTimeFromNow(historyItem.createdAt)}}</em>
+            .history-item-details <strong>Danny Nelson</strong> <em>{{ctrl.getTimeFromNow(historyItem.createdAt)}}</em>
             div(ng-if='historyItem.text') {{historyItem.text}}
 
         //- BELOW THIS POINT ONLY FOR INSTRUCTORS
-        //- .btn.btn-default.btn-block.control-btn(ng-click='pieceCtrl.fakeUpload()') Submit Video
+        //- .btn.btn-default.btn-block.control-btn(ng-click='ctrl.fakeUpload()') Submit Video
 
     .col-md-4
       .panel.panel-default
@@ -91,7 +93,7 @@
                 span.fa.fa-angle-double-right
 
       iframe(
-        ng-src="{{pieceCtrl.getSpotifySrc()}}"
+        ng-src="{{ctrl.getSpotifySrc()}}"
         width="100%"
         height="80"
         frameborder="0"
