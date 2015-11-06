@@ -10,6 +10,7 @@ module.exports = ngInject (User, Piece) ->
   setPieces = (level) =>
     @pieces = Piece.query({level})
     @levelPoints =
+      piece: @levelHelper.getPointsPerPiece(@user.level)
       completed: if @selectedLevel is @user.level then @user.pointsIntoCurrentLevel else @levelHelper.getTotalLevelExp(@selectedLevel)
       total: @levelHelper.getTotalLevelExp(@selectedLevel)
 

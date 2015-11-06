@@ -6,7 +6,6 @@ ObjectId = require 'objectid-browser'
 module.exports = ngInject (Upload, $http, User, $stateParams, Piece, UserPiece, $state) ->
   @level = level
   @piece = Piece.get({_id: $stateParams.pieceId})
-  @comment = undefined
   user = User.getLoggedInUser()
 
   UserPiece.query({pieceId: $stateParams.pieceId, userId: user._id}).$promise.then (userPieces) =>
@@ -68,7 +67,7 @@ module.exports = ngInject (Upload, $http, User, $stateParams, Piece, UserPiece, 
         # ngToast.success 'Thanks! Your video has been submitted. We will review it and give you feedback  within 24 hours.'
 
       .error (data, status, headers, config) ->
-        ngToast.success 'Oops! Something went wrong uploading the video. Please try another file.'
+        # ngToast.success 'Oops! Something went wrong uploading the video. Please try another file.'
         console.log('error status: ' + status)
 
   return @ # http://stackoverflow.com/questions/28953289/using-controller-as-with-the-ui-router-isnt-working-as-expected

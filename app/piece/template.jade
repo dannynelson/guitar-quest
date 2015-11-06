@@ -1,24 +1,23 @@
 .guitar-quest-piece.container
-  .col-md-8
-    .panel.panel-default.piece-panel(ng-class='{"panel-warning": pieceCtrl.userPiece.status === "submitted", "panel-success": pieceCtrl.userPiece.status === "graded"}')
-      .piece-heading.panel-heading
-        .row(ng-if='!pieceCtrl.userPiece.status')
-          .col-xs-8 {{pieceCtrl.level.getPointsPerPiece(pieceCtrl.piece.level)}} points
-          .col-xs-4.text-right
-        .row(ng-if='pieceCtrl.userPiece.status === "submitted"')
-          .col-xs-8 Submitted
-          .col-xs-4.text-right
-            i.fa.fa-upload
-        .row(ng-if='pieceCtrl.userPiece.status === "graded"')
-          .col-xs-8 4/5 points
-          .col-xs-4.text-right
-            i.fa.fa-check
-      .panel-body.text-center
-        .select-video(ng-hide='pieceCtrl.videoSelected' ngf-select ngf-change="pieceCtrl.upload($file)")
+
+  .row
+    .col-md-12
+      .clearfix
+        h5.pull-left {{pieceCtrl.piece.name}} - {{pieceCtrl.piece.composer}}
+        .points-to-next-level.pull-right <strong>30 / 100</strong> points
+      .row
+        .col-xs-12
+          progressbar(
+            animate="false"
+            value="30"
+          )
+    .col-md-8
+      .panel.panel-default.piece-panel(ng-class='{"panel-warning": pieceCtrl.userPiece.status === "submitted", "panel-success": pieceCtrl.userPiece.status === "graded"}')
+        .video-panel-body.select-video.text-center(ng-hide='pieceCtrl.videoSelected' ngf-select ngf-change="pieceCtrl.upload($file)")
           div
             i.fa.fa-upload.fa-5x
           h5 Upload video submission
-        .loading.row.text-center(ng-show='pieceCtrl.videoSelected && !pieceCtrl.videoUploadSrc')
+        .video-panel-body.loading.row.text-center(ng-show='pieceCtrl.videoSelected && !pieceCtrl.videoUploadSrc')
           h5 Uploading...
           .col-xs-8.col-xs-offset-2
             progressbar(
@@ -27,55 +26,74 @@
             )
         .submission-successful.text-center(ng-show='pieceCtrl.videoUploadSrc')
           video.video-preview(controls)
-          a(href='#') Submit a different video
+          //- a(href='#') Submit a different video
 
-    .panel.panel-default.piece-panel
-      .panel-body
-        h4 {{pieceCtrl.piece.name}}
-        .piece-info
-          .piece-composer <strong>composer:</strong> {{pieceCtrl.piece.composer}}
-          .piece-era <strong>era:</strong> {{pieceCtrl.piece.era}}
-        p {{pieceCtrl.piece.description}}
+      //- .panel.panel-default
+      //-   .panel-heading
+      //-     .panel-title Piece Info
+      //-   .panel-body
+      //-     //- strong PIECE INFO
+      //-     .piece-composer <strong>Composer:</strong> {{pieceCtrl.piece.composer}}
+      //-     .piece-era <strong>Musical Era:</strong> {{pieceCtrl.piece.era}}
+      //-     p {{pieceCtrl.piece.description}}
 
-    .panel.panel-default.piece-panel
-      .panel-body
-        .comments
-          h5 Teacher Feedback
-          div(ng-if='!pieceCtrl.userPiece.comments || pieceCtrl.userPiece.comments.length === 0') No feedback yet.
-          .comment(
-            ng-if='pieceCtrl.userPiece.comments.length > 0'
-            ng-repeat='comment in pieceCtrl.userPiece.comments'
+      .panel.panel-default.piece-panel
+        .panel-heading
+          .panel-title Comments
+        .list-group
+          .list-group-item(ng-if='!pieceCtrl.userPiece.history || pieceCtrl.userPiece.history.length === 0') No comments yet.
+          .list-group-item(
+            ng-if='pieceCtrl.userPiece.history.length > 0'
+            ng-repeat='historyItem in pieceCtrl.userPiece.history'
           )
-            .comment-details <strong>Danny Nelson</strong> <em>{{pieceCtrl.getTimeFromNow(comment.createdAt)}}</em>
-            div {{comment.text}}
+            .history-item-details <strong>Danny Nelson</strong> <em>{{pieceCtrl.getTimeFromNow(historyItem.createdAt)}}</em>
+            div(ng-if='historyItem.text') {{historyItem.text}}
 
-    //- BELOW THIS POINT ONLY FOR INSTRUCTORS
-    .btn.btn-default.btn-block.control-btn(ng-click='pieceCtrl.fakeUpload()') Submit Video
+        //- BELOW THIS POINT ONLY FOR INSTRUCTORS
+        //- .btn.btn-default.btn-block.control-btn(ng-click='pieceCtrl.fakeUpload()') Submit Video
 
-  .col-md-4
-    .panel.panel-default.piece-panel
-      .panel-body
-        h5 Submission Guidelines
-        ul
-          li Accuracy and Technique (50% of points)
-          li Interpretation (50% of points)
+    .col-md-4
+      .panel.panel-default
+        .panel-body
+          strong RECOMMENDED TUTORIALS
+          ul
+            li
+              a Slurs
+            li
+              a Guide Fingers
+            li
+              a Memorizing music
+            li
+              a Playing Musically
 
-        p Remember, if you do not receive 100% points for your submission, you can review teacher feedback and submit another video!
+      .panel.panel-default
+        .panel-body
+          strong REQUEST A PRIVATE LESSON
+          .row
+            .col-xs-3.text-info.text-right
+              i.link-panel-icon.fa.fa-users.fa-3x
+            .col-xs-9
+              div Need help? Get a private video lesson from one of our teachers?
+              a
+                span View Teachers&nbsp;
+                span.fa.fa-angle-double-right
 
-    a.panel.panel-default.piece-panel.link-panel.btn.btn-default.btn-block(ng-href='{{pieceCtrl.piece.sheetMusicURL}}' target="_blank")
-      div
-        i.link-panel-icon.fa.fa-book.fa-3x
-      div Get Sheet Music
+      .panel.panel-default
+        .panel-body
+          strong BUY THE SHEET MUSIC
+          .row
+            .col-xs-3.text-info.text-right
+              i.link-panel-icon.fa.fa-book.fa-3x
+            .col-xs-9
+              div Find every GuitarQuest level 1 piece in <em>Bridges (Preparatory Level)</em>
+              a
+                span Read More&nbsp;
+                span.fa.fa-angle-double-right
 
-    .panel.panel-default.piece-panel.link-panel.btn.btn-default.btn-block
-      div
-        i.link-panel-icon.fa.fa-video-camera.fa-3x
-      div Request Private Lesson
-
-    iframe(
-      ng-src="{{pieceCtrl.getSpotifySrc()}}"
-      width="100%"
-      height="80"
-      frameborder="0"
-      allowtransparency="true"
-    )
+      iframe(
+        ng-src="{{pieceCtrl.getSpotifySrc()}}"
+        width="100%"
+        height="80"
+        frameborder="0"
+        allowtransparency="true"
+      )

@@ -2,11 +2,11 @@
   gq-notifications(category='quest')
   .row
     .no-quests.text-center(ng-if='!questsCtrl.quests.length')
-      h5 No quests! Please check back later.
+      h5 You do not have any quests right now. Please check back later.
     .col-sm-4(ng-repeat='quest in questsCtrl.quests')
       .quest-panel.panel.panel-default
         .panel-body.text-center
           h5.quest-title {{quest.name}}
           .reward
-            .label.label-warning ${{quest.reward.credit}} lesson credit
+            .label.label-warning {{quest.reward.credit}} credits
           .description {{quest.quantityCompleted}} / {{quest.quantityToComplete}} Complete

@@ -24,9 +24,9 @@
     .panel.panel-default
       .panel-body
         h4 Teacher Feedback
-        div(ng-repeat='comment in ctrl.userPiece.comments')
-          div <strong>Danny Nelson</strong> <em>{{ctrl.getTimeFromNow(comment.createdAt)}}</em>
-          div {{comment.text}}
+        div(ng-repeat='historyItem in ctrl.userPiece.history')
+          div <strong>Danny Nelson</strong> <em>{{ctrl.getTimeFromNow(historyItem.createdAt)}}</em>
+          div {{historyItem.text}}
 
         //- BELOW THIS POINT ONLY FOR INSTRUCTORS
         textarea.form-control.comment(ng-model='ctrl.comment' placeholder='Leave a comment...')

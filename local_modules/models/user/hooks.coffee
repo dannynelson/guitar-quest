@@ -36,7 +36,7 @@ module.exports = (schema) ->
           userId: @_id
           category: 'piece'
           type: 'info'
-          text: 'Welcome to GuitarQuest! In this section, you will learn pieces to earn experience points and progress to higher levels. With each new level, you will unlock new, more challenging pieces. If you have previous experience playing guitar, you can take the initial assessment to start at a higher level. Otherwise, click on a piece below to get started.'
+          text: 'Welcome to GuitarQuest! In this section, you will learn pieces to earn experience points and progress to higher levels. With each new level, you will unlock new, more challenging pieces. Click on a piece below to get started.'
           acknowledged: false
         }
         {

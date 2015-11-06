@@ -12,11 +12,9 @@
         a(href='' ng-click='ctrl.goToNextLevel()')
           span Next&nbsp;
           span.fa.fa-angle-double-right
-  .row
-    .col-xs-6
-      h5.pull-left Level {{ctrl.selectedLevel}}
-    .col-xs-6
-      .points-to-next-level.pull-right {{ctrl.levelPoints.completed}} / {{ctrl.levelPoints.total}} points
+  .clearfix
+    h5.pull-left Level {{ctrl.selectedLevel}}
+    .points-to-next-level.pull-right <strong>{{ctrl.levelPoints.completed}} / {{ctrl.levelPoints.total}}</strong> points to next level
   .row
     .col-xs-12
       progressbar(
@@ -30,18 +28,25 @@
         ui-sref='guitarQuest.piece({pieceId: piece._id})'
         ng-class='{"panel-warning": piece.status === "submitted", "panel-success": piece.status === "graded"}'
       )
-        .piece-heading.panel-heading
-          .row(ng-if='!piece.status')
-            .col-xs-8 {{ctrl.level.getPointsPerPiece(piece.level)}} points
-          .row(ng-if='piece.status === "submitted"')
-            .col-xs-8 Submitted
-            .col-xs-4.text-right
+        .panel-heading.piece-heading.clearfix
+          .pull-left <strong>30 / {{ctrl.level.getPointsPerPiece(piece.level)}}</strong> points
+          .pull-right
+            div(ng-if='piece.status === "submitted"')
+              .panel-details Submitted
               i.fa.fa-upload
-          .row(ng-if='piece.status === "graded"')
-            .col-xs-8 Finished
-            .col-xs-4.text-right
+            div(ng-if='piece.status === "graded"')
+              .panel-details Graded
               i.fa.fa-check
+        progressbar.panel-progressbar(
+          animate="false"
+          value="30"
+        )
         .panel-body
           h5.piece-title {{piece.name}}
-          .piece-composer {{piece.composer}}
-          .piece-era {{piece.era}} Era
+          .piece-composer Composer: <em>{{piece.composer}}</em>
+          .piece-era Musical Era: <em>{{piece.era}}</em>
+        //- .panel-footer.text-center
+        //-   progressbar(
+        //-     animate="false"
+        //-     value="30"
+        //-   )

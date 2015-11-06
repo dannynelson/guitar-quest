@@ -9,8 +9,8 @@ module.exports = ngInject (UserPiece, User, $stateParams) ->
   @addComment = =>
     user = User.getLoggedInUser()
     if typeof @comment is 'string' and @comment isnt ''
-      @userPiece.comments ?= []
-      @userPiece.comments.push
+      @userPiece.history ?= []
+      @userPiece.history.push
         userId: user._id
         text: @comment
         createdAt: geomoment().toDate()
