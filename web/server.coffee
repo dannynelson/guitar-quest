@@ -2,6 +2,7 @@ _ = require 'lodash'
 express = require 'express'
 bodyParser = require 'body-parser'
 session = require 'express-session'
+MongoStore = require('connect-mongo')(session)
 helmet = require 'helmet'
 crashpad = require 'crashpad'
 async = require 'async'
@@ -50,7 +51,7 @@ app.use helmet.noCache()
 app.set 'view engine', 'jade'
 app.set 'views', path.resolve(process.cwd(), 'web')
 
-app.use session({secret: 'danny likes bananas'})
+app.use session({secret: 'julian bream', store: new MongoStore({ url: settings.mongo.url })})
 
 # passport
 app.use passport.initialize()

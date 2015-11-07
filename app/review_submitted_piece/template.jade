@@ -1,25 +1,23 @@
 .review-submitted-piece.container
+  .col-md-12
+    .clearfix
+      h5.pull-left {{ctrl.piece.name}} - {{ctrl.piece.composer}} ({{ctrl.piece.era}})
+      .points-to-next-level.pull-right <strong>{{ctrl.level.displayPiecePoints(ctrl.userPiece.grade, ctrl.piece.level)}}</strong> points
+    .row
+      .col-xs-12
+        progressbar(
+          animate="false"
+          value="ctrl.userPiece.grade * 100"
+        )
   .col-md-8
-    .panel.panel-default(ng-class='{"panel-warning": ctrl.userPiece.status === "submitted", "panel-success": ctrl.userPiece.status === "graded"}')
-      .piece-heading.panel-heading
-        .row(ng-if='!ctrl.userPiece.status')
-          .col-xs-8 {{ctrl.piece.points}} points
-          .col-xs-4.text-right
-        .row(ng-if='ctrl.userPiece.status === "submitted"')
-          .col-xs-8 Submitted
-          .col-xs-4.text-right
-            i.fa.fa-upload
-        .row(ng-if='ctrl.userPiece.status === "graded"')
-          .col-xs-8 Finished
-          .col-xs-4.text-right
-            i.fa.fa-check
+    .panel.panel-default.piece-panel(ng-class='{"panel-warning": ctrl.userPiece.waitingToBeGraded, "panel-success": ctrl.userPiece.grade && !ctrl.userPiece.waitingToBeGraded}')
+      .video-submission-heading.panel-heading.piece-heading.clearfix(ng-if='ctrl.userPiece.submissionVideoURL')
+        .pull-left
+          span Click to submit a another video
+        .pull-right
+          gq-piece-status(user-piece='ctrl.userPiece')
 
-      .panel-body.text-center
-        video.video-preview(ng-src='{{ctrl.userPiece.submissionVideoURL}}')
-
-     .panel.panel-default
-        .panel-body
-          h4 {{ctrl.userPiece.piece.name}}
+      video.video-preview(controls)
 
     .panel.panel-default
       .panel-body
@@ -34,10 +32,15 @@
 
   .col-md-4
     .panel.panel-default
-      .panel-body
-        h5 Grade
-        form
-          input.form-control(type='number' ng-model='ctrl.userPiece.grade')
-          .btn.btn-primary.btn-block(ng-click='ctrl.save($event)') Save
-
-
+      .panel-body.text-center.text-info
+        h3.percent {{ctrl.percent}}%
+        rating(
+          ng-model='ctrl.userGrade'
+          max='10'
+          readonly='false'
+          on-hover='ctrl.onHover(value)'
+          on-leave='ctrl.onLeave()'
+          state-on="'fa fa-star fa-2x'"
+          state-off="'fa fa-star-o fa-2x'"
+        )
+        span.submit-grade-btn.btn.btn-default.btn-block(ng-click='ctrl.submitGrade()') submit

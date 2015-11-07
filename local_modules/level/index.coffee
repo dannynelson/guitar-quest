@@ -33,7 +33,7 @@ piecePointsByLevel =
 pointsByLevel = _.mapValues piecePointsByLevel, (pointsPerPiece) ->
   pointsPerPiece * perfectPiecesRequiredToProgressToNextLevel
 
-module.exports =
+module.exports = level =
   getExpToNextLevel: (exp, selectedLevel) ->
     nextLevel = selectedLevel +  1
     expRequired = totalExpByLevel[nextLevel]
@@ -44,3 +44,7 @@ module.exports =
 
   getPointsPerPiece: (level) ->
     piecePointsByLevel[level]
+
+  displayPiecePoints: (pieceGrade, level) ->
+    piecePoints = piecePointsByLevel[level]
+    "#{(pieceGrade * piecePoints) || 0} / #{piecePoints}"

@@ -1,0 +1,7 @@
+.gq-piece-status(
+  ng-if='ctrl.status'
+  ng-class='{"text-warning": ctrl.status === "submitted", "text-success": ctrl.status === "graded"}'
+)
+  span.status {{ctrl.status}}&nbsp;
+  i.fa.fa-upload(ng-if='ctrl.status === "submitted"')
+  i.fa.fa-check(ng-if='ctrl.status === "graded"')

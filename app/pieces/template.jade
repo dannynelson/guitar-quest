@@ -26,27 +26,17 @@
     .col-sm-4(ng-repeat='piece in ctrl.pieces')
       .piece-panel.panel.panel-default(
         ui-sref='guitarQuest.piece({pieceId: piece._id})'
-        ng-class='{"panel-warning": piece.status === "submitted", "panel-success": piece.status === "graded"}'
+        ng-class='{"panel-warning": ctrl.getStatus(userPieceByPieceId[piece._id]) === "submitted", "panel-warning": ctrl.getStatus(userPieceByPieceId[piece._id]) === "submitted"}'
       )
         .panel-heading.piece-heading.clearfix
-          .pull-left <strong>30 / {{ctrl.level.getPointsPerPiece(piece.level)}}</strong> points
+          .pull-left <strong>{{ctrl.levelHelper.displayPiecePoints(ctrl.userPieceByPieceId[piece._id].grade, piece.level)}}</strong> points
           .pull-right
-            div(ng-if='piece.status === "submitted"')
-              .panel-details Submitted
-              i.fa.fa-upload
-            div(ng-if='piece.status === "graded"')
-              .panel-details Graded
-              i.fa.fa-check
+            gq-piece-status(user-piece='ctrl.userPieceByPieceId[piece._id]')
         progressbar.panel-progressbar(
           animate="false"
-          value="30"
+          value="ctrl.userPieceByPieceId[piece._id].grade * 100"
         )
         .panel-body
           h5.piece-title {{piece.name}}
-          .piece-composer Composer: <em>{{piece.composer}}</em>
-          .piece-era Musical Era: <em>{{piece.era}}</em>
-        //- .panel-footer.text-center
-        //-   progressbar(
-        //-     animate="false"
-        //-     value="30"
-        //-   )
+          .piece-composer {{piece.composer}}
+          .piece-era <em>{{piece.era}} era</em>

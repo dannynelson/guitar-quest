@@ -11,6 +11,7 @@ angular.module 'app', [
   require 'local_modules/services/require_auth'
   # require 'local_modules/services/ng_toast'
   require 'local_modules/directives/gq_navbar'
+  require 'local_modules/directives/gq_piece_status'
   require 'local_modules/ui_router'
   require './quests'
   require './pieces'

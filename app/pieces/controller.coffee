@@ -1,11 +1,19 @@
 _ = require 'lodash'
 level = require 'local_modules/level'
+userPieceHelers = require 'local_modules/models/user_piece/helpers'
 
-module.exports = ngInject (User, Piece) ->
+module.exports = ngInject (User, UserPiece, Piece) ->
   @level = level
   @user = User.getLoggedInUser()
   @selectedLevel = @user.level
   @levelHelper = level
+  @getStatus = (userPiece) ->
+    return unless userPiece?
+    userPieceHelers.getStatus()
+  UserPiece.query({userId: @user._id}).$promise.then (userPieces) =>
+    @userPieceByPieceId = _(userPieces)
+      .indexBy('pieceId')
+      .value()
 
   setPieces = (level) =>
     @pieces = Piece.query({level})
