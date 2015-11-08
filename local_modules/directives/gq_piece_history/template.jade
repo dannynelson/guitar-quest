@@ -1,0 +1,22 @@
+.gq-piece-history
+  .panel.panel-default.piece-panel
+    .history-panel-heading.panel-heading
+      .panel-title Piece History
+    .list-group
+      .list-group-item(ng-if='!ctrl.userPiece.historyChanges || ctrl.userPiece.historyChanges.length === 0') No history yet.
+      .list-group-item(
+        ng-if='ctrl.userPiece.historyChanges.length > 0'
+        ng-repeat='historyItem in ctrl.userPiece.historyChanges.slice().reverse()'
+      )
+        .row
+          .col-xs-1
+            i.fa.fa-check.fa-3x.text-success(ng-if='historyItem.grade')
+            i.fa.fa-upload.fa-3x.text-warning(ng-if='historyItem.submissionVideoURL')
+            i.fa.fa-comment.fa-3x.text-info(ng-if='historyItem.comment')
+          .col-xs-11
+            .historyChanges-item-details <strong>{{ctrl.usersById[historyItem.updatedBy].email}}</strong> <em>{{ctrl.getTimeFromNow(historyItem.updatedAt)}}</em>
+            .history-item-commment(ng-if='historyItem.grade') Graded the piece <strong>{{historyItem.grade * 100}}%</strong>. You have earned a total of <strong>{{historyItem.grade * ctrl.level.getPointsPerPiece(ctrl.level)}}</strong> points for this piece.
+            .history-item-commment(ng-if='historyItem.comment') {{historyItem.comment}}
+            .history-item-video(ng-if='historyItem.submissionVideoURL')
+              a(ng-href='{{historyItem.submissionVideoURL}}') submitted video
+              //- video.video-preview(controls gq-autoload-video='historyItem.submissionVideoURL')

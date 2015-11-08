@@ -1,6 +1,8 @@
 async = require 'async'
+Promise = require 'bluebird'
 _ = require 'lodash'
 mongoose = require 'mongoose'
+mongoose.Promise = Promise # make mongoose use bluebird promises
 settings = require 'local_modules/settings'
 connectionManager = require('mongoose-connection-manager')(mongoose)
 

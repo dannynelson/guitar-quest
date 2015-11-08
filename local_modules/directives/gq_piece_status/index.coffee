@@ -19,5 +19,6 @@ angular.module __filename, [
   template: require './template'
   controller: ngInject (User, Notification, $rootScope, $state) ->
     return @ unless @userPiece
-    @status = userPieceHelers.getStatus(@userPiece)
+    @getStatus = (userPiece) =>
+      userPieceHelers.getStatus(@userPiece)
     return @

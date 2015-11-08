@@ -13,6 +13,7 @@ angular.module 'app', [
   require 'local_modules/directives/gq_navbar'
   require 'local_modules/directives/gq_piece_status'
   require 'local_modules/ui_router'
+  require 'local_modules/directives/gq_piece_history'
   require './quests'
   require './pieces'
   require './piece'

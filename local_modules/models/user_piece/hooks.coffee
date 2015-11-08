@@ -1,34 +1,36 @@
 Promise = require 'bluebird'
 level = require 'local_modules/level'
+_ = require 'lodash'
+geomoment = require 'geomoment'
 
 module.exports = (schema) ->
 
   # if piece finished, add experience and notification for
-  schema.pre 'save', (next) ->
-    User = require 'local_modules/models/user'
-    Notification = require 'local_modules/models/notification'
-    Piece = require 'local_modules/models/piece'
+  # schema.pre 'save', (next) ->
+  #   User = require 'local_modules/models/user'
+  #   Notification = require 'local_modules/models/notification'
+  #   Piece = require 'local_modules/models/piece'
 
-    return next() unless @isModified('status') and @status is 'graded'
+  #   return next() unless @isModified('status') and @status is 'graded'
 
-    Promise.all([
-      User.findById(@userId)
-      Piece.findById(@pieceId)
-    ]).then ([user, piece]) =>
-      user.pointsIntoCurrentLevel += level.pointsPerPiece(piece.level)
+  #   Promise.all([
+  #     User.findById(@userId)
+  #     Piece.findById(@pieceId)
+  #   ]).then ([user, piece]) =>
+  #     user.pointsIntoCurrentLevel += level.pointsPerPiece(piece.level)
 
-      notification = new Notification
-        userId: @userId
-        category: 'piece'
-        type: 'success'
-        text: "Congratulations! Your video submission for #{piece.name} was accepted and you earned #{piece.points} points."
-        acknowledged: false
+  #     notification = new Notification
+  #       userId: @userId
+  #       category: 'piece'
+  #       type: 'success'
+  #       text: "Congratulations! Your video submission for #{piece.name} was accepted and you earned #{piece.points} points."
+  #       acknowledged: false
 
-      # save notification before user so that level up notifications come afterwards
-      notification.save().then => user.save()
-    .then ->
-      next()
-    .then null, next
+  #     # save notification before user so that level up notifications come afterwards
+  #     notification.save().then => user.save()
+  #   .then ->
+  #     next()
+  #   .then null, next
 
   # progress quests
   schema.pre 'save', (next) ->
@@ -39,11 +41,7 @@ module.exports = (schema) ->
       Quest.checkForProgress @userId,
         userPiece: @
         piece: piece
-    .then =>
-      next()
-    .then null, (err) ->
-      next()
-
+    .nodeify(next)
 
   # notify if piece was rejected
   schema.pre 'save', (next) ->
@@ -59,8 +57,40 @@ module.exports = (schema) ->
           text: "You received teacher feedback for \"#{piece.name}\". Please review and submit another video."
           acknowledged: false
         notification.save()
-      .then =>
-        next()
-      .then null, next
+      .nodeify(next)
     else
       next()
+
+  # if changing submissing url, notify that the piece needs to be graded
+  schema.pre 'save', (next) ->
+    if @isModified('submissionVideoURL')
+      console.log 'setting waitingToBeGraded'
+      @waitingToBeGraded = true
+    next()
+
+  # copy current data to history
+  schema.pre 'save', (next) ->
+    if not @get('updatedBy')?
+      next new Error "Must set updatedBy whenever userPiece is saved."
+    next()
+
+  # copy current data to history
+  schema.pre 'save', (next) ->
+    @set 'updatedAt', geomoment.utc().toDate()
+    # copy on write
+    cloneAndClean = (mongooseModel) -> JSON.parse JSON.stringify mongooseModel # converts objectIds to strings
+    snapshot = cloneAndClean _.omit(@toObject({virtuals: false}), ['_id', 'userId', 'pieceId'])
+    @history.push snapshot
+    next()
+
+  # After copying `updatedNotes` and `splitFromLot`, to history, remove from doc itself.
+  # It's important that we do this for any field that we do not want to accidentally save more than
+  # once in the audit log:
+  schema.pre 'save', (next) ->
+    @set 'comment', undefined # set as empty string for default next time
+    @set 'updatedBy', undefined
+    # Note, we do not need to clear updatedAt b/c we know it will always be updated by mongoose timestamps
+    next()
+
+  return schema
+

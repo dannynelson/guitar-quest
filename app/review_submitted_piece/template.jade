@@ -10,25 +10,10 @@
           value="ctrl.userPiece.grade * 100"
         )
   .col-md-8
-    .panel.panel-default.piece-panel(ng-class='{"panel-warning": ctrl.userPiece.waitingToBeGraded, "panel-success": ctrl.userPiece.grade && !ctrl.userPiece.waitingToBeGraded}')
-      .video-submission-heading.panel-heading.piece-heading.clearfix(ng-if='ctrl.userPiece.submissionVideoURL')
-        .pull-left
-          span Click to submit a another video
-        .pull-right
-          gq-piece-status(user-piece='ctrl.userPiece')
-
+    .panel.panel-default.piece-panel
       video.video-preview(controls)
 
-    .panel.panel-default
-      .panel-body
-        h4 Teacher Feedback
-        div(ng-repeat='historyItem in ctrl.userPiece.history')
-          div <strong>Danny Nelson</strong> <em>{{ctrl.getTimeFromNow(historyItem.createdAt)}}</em>
-          div {{historyItem.text}}
-
-        //- BELOW THIS POINT ONLY FOR INSTRUCTORS
-        textarea.form-control.comment(ng-model='ctrl.comment' placeholder='Leave a comment...')
-        .btn.btn-block.btn-primary.control-btn(ng-click='ctrl.addComment()') Add Comment
+    gq-piece-history(ng-if='ctrl.userPiece && ctrl.piece.level' user-piece='ctrl.userPiece' level='ctrl.piece.level')
 
   .col-md-4
     .panel.panel-default
@@ -44,3 +29,8 @@
           state-off="'fa fa-star-o fa-2x'"
         )
         span.submit-grade-btn.btn.btn-default.btn-block(ng-click='ctrl.submitGrade()') submit
+
+    .panel.panel-default
+      .panel-body.text-center.text-info
+        textarea.comment(placeholder='Leave a comment...' ng-model='ctrl.comment')
+        span.btn.btn-default.btn-block(ng-click='ctrl.submitComment()') submit

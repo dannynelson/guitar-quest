@@ -13,15 +13,6 @@
           )
     .col-md-8
       .panel.panel-default.piece-panel.video-submission-panel
-        .video-submission-overlay.clearfix(ng-if='ctrl.userPiece.submissionVideoURL')
-          .pull-left
-            a Click to submit another video
-          .pull-right
-            gq-piece-status(user-piece='ctrl.userPiece')
-        .video-panel-body.select-video.text-center(ng-show='!ctrl.userPiece.submissionVideoURL && !ctrl.uploading' ngf-select ngf-change="ctrl.upload($file)")
-          div
-            i.fa.fa-upload.fa-5x
-          h5 Upload video submission
         .video-panel-body.loading.row.text-center(ng-show='ctrl.uploading')
           h5 Uploading...
           .col-xs-8.col-xs-offset-2
@@ -29,20 +20,23 @@
               max="100"
               value="ctrl.progressPercentage"
             )
-        .submission-successful.text-center(ng-show='ctrl.userPiece.submissionVideoURL')
-          video.video-preview(controls)
 
-      .panel.panel-default.piece-panel
-        .panel-heading.piece-heading
-          .panel-title Piece History
-        .list-group
-          .list-group-item(ng-if='!ctrl.userPiece.history || ctrl.userPiece.history.length === 0') No history yet.
-          .list-group-item(
-            ng-if='ctrl.userPiece.history.length > 0'
-            ng-repeat='historyItem in ctrl.userPiece.history'
-          )
-            .history-item-details <strong>Danny Nelson</strong> <em>{{ctrl.getTimeFromNow(historyItem.createdAt)}}</em>
-            div(ng-if='historyItem.text') {{historyItem.text}}
+        div(ng-show='!ctrl.uploading')
+          .video-panel-body.select-video.text-center(ng-if='!ctrl.userPiece.submissionVideoURL' ngf-select="ctrl.upload($file)")
+            div
+              i.fa.fa-upload.fa-5x
+            h5 Upload video submission
+
+          .video-submission-overlay.select-video.clearfix(ng-if='ctrl.userPiece.submissionVideoURL' ngf-select="ctrl.upload($file)")
+            .pull-left
+              span.text-info Click to submit another video
+            .pull-right
+              gq-piece-status(user-piece='ctrl.userPiece')
+
+          .submission-successful.text-center(ng-show='ctrl.userPiece.submissionVideoURL')
+            video.video-preview(controls)
+
+      gq-piece-history(ng-if='ctrl.userPiece && ctrl.piece.level' user-piece='ctrl.userPiece' level='ctrl.piece.level')
 
     .col-md-4
       .panel.panel-default

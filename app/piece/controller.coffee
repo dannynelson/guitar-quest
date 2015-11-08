@@ -11,7 +11,7 @@ module.exports = ngInject (Upload, $http, User, $stateParams, Piece, UserPiece, 
     userPieceHelpers.getStatus(userPiece)
   user = User.getLoggedInUser()
 
-  UserPiece.query({pieceId: $stateParams.pieceId, userId: user._id}).$promise.then (userPieces) =>
+  UserPiece.query({pieceId: $stateParams.pieceId, userId: user._id, $add: ['historyChanges']}).$promise.then (userPieces) =>
     @userPiece =
       if userPieces.length is 0
         new UserPiece
@@ -19,6 +19,7 @@ module.exports = ngInject (Upload, $http, User, $stateParams, Piece, UserPiece, 
           pieceId: $stateParams.pieceId
           userId: user._id
           status: 'unfinished'
+          historyChanges: [] # so that server will return the changes when we first submit a video
       else
         userPieces[0]
     loadVideo(@userPiece.submissionVideoURL)
@@ -29,22 +30,14 @@ module.exports = ngInject (Upload, $http, User, $stateParams, Piece, UserPiece, 
     videoPreview.src = videoUploadSrc
     videoPreview.load()
 
-  @getTimeFromNow = (date) ->
-    geomoment(date).from(new Date())
-
   @getSpotifySrc = =>
     "https://embed.spotify.com/?uri=#{@piece.spotifyURI}"
 
-  @fakeUpload = =>
-    @userPiece.submissionVideoURL = 'https://s3-us-west-2.amazonaws.com/guitar-quest-videos/user_55d1fa38ce020bb5c73854f4/piece_55d4fbd48b6581784392224f.mov'
-    @userPiece.status = 'submitted'
-    @userPiece.$update()
-    # ngToast.success 'Thanks! Your video has been submitted. We will review it and give you feedback  within 24 hours.'
-
   @upload = (file) =>
+    return unless file?
     @uploading = true
     [fileName, fileSuffix] = file.name.split('.')
-    fileName = file.name = "piece_#{@piece._id}.#{fileSuffix}"
+    fileName = file.name = "piece_#{@piece._id}_#{new ObjectId().toString()}.#{fileSuffix}"
 
     $http.get('/s3_policy?mimeType='+ file.type).then (response) =>
       s3Params = response.data
@@ -66,7 +59,6 @@ module.exports = ngInject (Upload, $http, User, $stateParams, Piece, UserPiece, 
         @uploading = false
         videoUploadSrc = "#{s3Params.bucketURL}/user_#{user._id}/#{fileName}"
         @userPiece.submissionVideoURL = videoUploadSrc
-        @userPiece.waitingToBeGraded = true
         loadVideo(videoUploadSrc)
         console.log('file ' + config.file.name + 'uploaded. Response: ' + data)
 

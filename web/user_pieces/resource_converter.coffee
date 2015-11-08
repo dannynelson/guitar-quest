@@ -44,4 +44,14 @@ _.extend schema,
         .then null, (err) ->
           throw err
 
+  'historyChanges':
+    optional: true
+    get: (model) ->
+      # a hack until I find the bug in json schema
+      new UserPiece(model).historyChanges or []
+
+  'updatedBy':
+    field: 'updatedBy'
+    set: (value, {req, res, next}) -> req.user._id
+
 module.exports = new ResourceSchema UserPiece, schema

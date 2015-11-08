@@ -6,6 +6,7 @@ angular.module __filename, ['ngResource']
 
   User = $resource '/users/:_id', {_id: '@_id'},
     query:
+      url: '/users'
       method: 'GET'
       isArray: true
 

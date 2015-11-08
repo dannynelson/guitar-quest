@@ -7,7 +7,7 @@ module.exports = ngInject (UserPiece, Piece, User, $stateParams) ->
   @level = level
   @userPiece = UserPiece.get
     _id: $stateParams.userPieceId
-    $add: ['user', 'piece']
+    $add: ['user', 'piece', 'historyChanges']
   @userPiece.$promise.then =>
     @piece = Piece.get({_id: @userPiece.pieceId})
     loadVideo(@userPiece.submissionVideoURL)
@@ -18,6 +18,7 @@ module.exports = ngInject (UserPiece, Piece, User, $stateParams) ->
     userPieceHelpers.getStatus(userPiece)
 
   @max = 10
+  @comment = null
 
   updatePercent = (grade) =>
     @percent = 100 * (grade / @max)
@@ -30,30 +31,21 @@ module.exports = ngInject (UserPiece, Piece, User, $stateParams) ->
     @overStar = null
     updatePercent(@userGrade)
 
-
   @submitGrade = =>
-    @userPiece.grade = @userGrade / 10
-    @userPiece.waitingToBeGraded = false
-    @userPiece.$update()
+    grade = @userGrade / 10
+    @userPiece.$grade({grade})
 
+  @submitComment = =>
+    return unless typeof @comment is 'string' and @comment.length
+    @userPiece.comment = @comment
+    @comment = null
+    @userPiece.$update()
 
   videoPreview = document.querySelector('video')
 
   loadVideo = (videoUploadSrc) =>
     videoPreview.src = videoUploadSrc
     videoPreview.load()
-
-  @addComment = =>
-    user = User.getLoggedInUser()
-    if typeof @comment is 'string' and @comment isnt ''
-      @userPiece.history ?= []
-      @userPiece.history.push
-        userId: user._id
-        text: @comment
-        createdAt: geomoment().toDate()
-      @userPiece.$update().then =>
-        @comment = undefined
-        $state.reload()
 
   @save = (e) =>
     e.preventDefault()

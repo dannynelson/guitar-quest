@@ -4,6 +4,7 @@ A game for learning classical guitar
 
 TODO:
 
+- submitting video immediately after creatign account fails
 - comment references userId, and loads all users to display info
 - confirm email flow
 - use "submitted" instead of "pending", and "completed"? instead of "finished everywhere"...
@@ -11,7 +12,7 @@ TODO:
 - consistent status of finished or completed everywhere
 - submit another video flow
 - add toast after video submission
-
+- don't include history in default response
 x add era to pieces
 x comments within video section
 x account page - change password/email, update mailing preferences, etc? - look at a few other sites for inspiration here

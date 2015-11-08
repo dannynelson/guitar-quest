@@ -16,3 +16,16 @@ router.get '/:_id',
 router.put '/:_id',
   resourceConverter.put('_id')
   resourceConverter.send
+
+router.post '/:_id/grade',
+  (req, res, next) ->
+    UserPiece.findById(req.params._id).then (userPiece) =>
+      grade = Number(req.query.grade)
+      userPiece.gradePiece({grade: grade, updatedBy: req.user._id})
+    .then (userPiece) =>
+      req.query.$add = ['historyChanges'] # hack
+      resourceConverter.createResourceFromModel(userPiece, {req, res, next})
+    .then (userPieceResource) =>
+      res.body = userPieceResource
+      next()
+  resourceConverter.send

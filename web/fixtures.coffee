@@ -1,14 +1,13 @@
 Promise = require 'bluebird'
 Piece = require 'local_modules/models/piece'
 
-console.log 'Loading fixutres'
 Piece.remove({}).then ->
-  console.log 'Loading fixutres2'
+  console.log 'Loading fixtures'
   Piece.create [
     {
       _id: "55d8a2696ce78dc3156ca8d0"
       name: 'Malaguena'
-      composer: 'traditional spanish folk song'
+      composer: 'Anonymous'
       era: 'contemporary'
       level: 1
       points: 5
