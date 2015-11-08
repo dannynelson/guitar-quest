@@ -6,7 +6,6 @@ angular.module __filename, [
 
 .run ngInject ($rootScope, $state, User) ->
   $rootScope.$on '$stateChangeStart', (e, toState, toStateParams) ->
-    # debugger
     return unless toState.requireAuth and !User.getLoggedInUser()
     e.preventDefault()
     # so that permissions knows not to authenticate...

@@ -1,5 +1,6 @@
 _ = require 'lodash'
 geomoment = require 'geomoment'
+level = require 'local_modules/level'
 userPieceHelers = require 'local_modules/models/user_piece/helpers'
 
 module.exports = __filename
@@ -17,6 +18,7 @@ angular.module __filename, [
   bindToController: true
   template: require './template'
   controller: ngInject (User) ->
+    @levelHelper = level
     userIds = _(@userPiece.history).pluck('updatedBy').uniq().value()
     User.query({_id: userIds, $select: ['email', '_id']}, {}).$promise.then (users) =>
       @usersById = _.indexBy users, '_id'

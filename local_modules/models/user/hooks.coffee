@@ -21,8 +21,6 @@ module.exports = (schema) ->
     Promise.try =>
       Quest.createInitialQuests(@_id) if @isNew
     .then =>
-      Quest.createLevelQuests(@) if @isModified('level') and @level isnt 1
-    .then =>
       next()
     .then null, next
 

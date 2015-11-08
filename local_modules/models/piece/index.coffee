@@ -1,4 +1,5 @@
 mongoose = require 'mongoose'
+pieceEnums = require './enums'
 database = require 'local_modules/database'
 
 ###
@@ -8,7 +9,7 @@ schema = new mongoose.Schema
   name: {type: String, required: true}
   composer: {type: String, required: true}
   level: {type: Number, required: true}
-  era: {type: String, required: true}
+  era: {type: String, required: true, enum: pieceEnums.musicalEras}
   sheetMusicURL: {type: String, required: true}
   spotifyURI: {type: String, required: true}
   description: {type: String, required: true}

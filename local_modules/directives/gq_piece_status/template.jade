@@ -2,6 +2,6 @@
   ng-if='ctrl.getStatus(ctrl.userPiece)'
   ng-class='{"text-warning": ctrl.getStatus(ctrl.userPiece) === "submitted", "text-success": ctrl.getStatus(ctrl.userPiece) === "graded"}'
 )
-  span.status {{ctrl.getStatus(ctrl.userPiece)}}&nbsp;
+  strong.status {{ctrl.getStatus(ctrl.userPiece)}}&nbsp;
   i.fa.fa-upload(ng-if='ctrl.getStatus(ctrl.userPiece) === "submitted"')
   i.fa.fa-check(ng-if='ctrl.getStatus(ctrl.userPiece) === "graded"')
