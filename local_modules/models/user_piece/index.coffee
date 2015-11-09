@@ -3,36 +3,22 @@ Track user progress as they work on a piece
 ###
 
 mongoose = require 'mongoose'
+_ = require 'lodash'
 database = require 'local_modules/database'
+JSONSchemaConverter = require 'goodeggs-json-schema-converter'
+JSONSchema = require './schema'
 
-historySchema = new mongoose.Schema
-  waitingToBeGraded: {type: Boolean}
-  submissionVideoURL: {type: String, required: true}
-  grade: {type: Number}
-  comment: {type: String}
-  updatedBy: {type: mongoose.Schema.Types.ObjectId}
-  updatedAt: {type: Date}
-, {_id: false}
+JSONSchemaClone = do ->
+  clone = _.cloneDeep(JSONSchema)
+  delete clone.properties.createdAt
+  delete clone.properties.updatedAt
+  clone
 
-schema = new mongoose.Schema
-  pieceId: {type: mongoose.Schema.Types.ObjectId, required: true}
-  userId: {type: mongoose.Schema.Types.ObjectId, required: true}
-
-  waitingToBeGraded: {type: Boolean} # note, we need this because if teacher submits same grade twice in a row, we would not now it was graded otherwise
-  submissionVideoURL: {type: String, required: true}
-  grade: {type: Number} # 1 - 10, teacher grade of the student piece
-  comment: {type: String}
-  updatedBy: {type: mongoose.Schema.Types.ObjectId}
-
-  # everything that has happened with this piece
-  history: [historySchema]
-
+schema = JSONSchemaConverter.toMongooseSchema(JSONSchemaClone, mongoose)
 schema.plugin require('mongoose-timestamp')
-
-require('./virtuals')(schema)
 require('./hooks')(schema)
+require('./virtuals')(schema)
 require('./methods')(schema)
-
 model = database.mongooseConnection.model 'UserPiece', schema
 
 module.exports = model

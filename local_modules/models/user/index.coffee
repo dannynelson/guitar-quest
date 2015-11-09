@@ -1,19 +1,11 @@
 mongoose = require 'mongoose'
 passportLocalMongoose = require 'passport-local-mongoose'
 # require('mongoose-extensions')(mongoose)
-# {toMongooseSchema} = require 'goodeggs-json-schema-converter'
-
+JSONSchemaConverter = require 'goodeggs-json-schema-converter'
+JSONSchema = require './schema'
 database = require 'local_modules/database'
 
-# modelSchema = require './model_json_schema'
-
-schema = new mongoose.Schema
-  # email added by passportLocalMongoose
-  name: {type: String}
-  level: {type: Number, required: true, default: 1}
-  pointsIntoCurrentLevel: {type: Number, required: true, default: 0}
-  # skype lesson credit available
-  credit: {type: Number, required: true, default: 0}
+schema = JSONSchemaConverter.toMongooseSchema(JSONSchema, mongoose)
 
 schema.plugin require('mongoose-timestamp')
 schema.plugin passportLocalMongoose,

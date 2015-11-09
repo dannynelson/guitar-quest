@@ -1,5 +1,11 @@
 require './chai_config'
 
+database = require "local_modules/database"
+# if database?
+#   database.setLogger? require "#{process.cwd()}/local_modules/logger"
+beforeEach 'connect database', (done) ->
+  database.connect done
+
 before ->
   @serverUp = (callback) ->
     # reload,

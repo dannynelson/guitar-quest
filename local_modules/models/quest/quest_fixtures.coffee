@@ -7,30 +7,31 @@ pieceEnums = require 'local_modules/models/piece/enums'
 selectRandomQuestLevel = (level) ->
   Math.ceil(Math.random() * level)
 
-musicalEraQuest = pieceEnums.musicalEras.map (era) ->
-  (user) ->
-    questLevel = selectRandomQuestLevel(user.level)
-    return {
-      userId: user._id
-      name: "Complete 2 level #{questLevel}, #{era} era pieces with at least an 80% grade"
-      quantityCompleted: 0
-      quantityToComplete: 2
-      conditions:
-        userPiece:
-          'grade': {gte: 0.8}
-        piece:
-          'level': questLevel
-          'era': era
-      reward:
-        credit: 5 + (questLevel * 5)
-    }
+generateMusicalEraQuest = (user, era) ->
+  questLevel = selectRandomQuestLevel(user.level)
+  return {
+    userId: user._id
+    name: "Complete 2 level #{questLevel}, #{era} era pieces with at least an 80% grade"
+    quantityToComplete: 2
+    conditions:
+      userPiece:
+        'grade': {gte: 0.8}
+      piece:
+        'level': questLevel
+        'era': era
+    reward:
+      credit: 5 + (questLevel * 5)
+  }
 
-anyPieceQuest = (user) ->
+musicalEraQuests = pieceEnums.musicalEras.map (era) ->
+  (user) ->
+    generateMusicalEraQuest(user, era)
+
+generateAnyPieceQuest = (user) ->
   questLevel = selectRandomQuestLevel(user.level)
   return {
     userId: user._id
     name: "Complete 3 level #{questLevel} pieces with at least an 80% grade"
-    quantityCompleted: 0
     quantityToComplete: 3
     conditions:
       userPiece:
@@ -41,7 +42,7 @@ anyPieceQuest = (user) ->
       credit: 5 + (questLevel * 5)
   }
 
-perfectScoreQuest = (user) ->
+generatePerfectGradeQuest = (user) ->
   questLevel = selectRandomQuestLevel(user.level)
   return {
     userId: user._id
@@ -57,9 +58,15 @@ perfectScoreQuest = (user) ->
       credit: 5 + (questLevel * 5)
   }
 
-questGenerators = musicalEraQuest.concat anyPieceQuest, perfectScoreQuest
+questGenerators = musicalEraQuest.concat generateAnyPieceQuest, generatePerfectGradeQuest
 
-module.exports.generate = (user) ->
+exports.generateRandomQuest = (user) ->
   questGenerator = questGenerators[Math.floor(Math.random()*questGenerators.length)]
   questGenerator(user)
+
+exports.generateAnyPieceQuest = generateAnyPieceQuest
+
+exports.generatePerfectGradeQuest = generatePerfectGradeQuest
+
+exports.generateMusicalEraQuest = generateMusicalEraQuest
 

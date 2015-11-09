@@ -19,21 +19,24 @@ Examples
 
 mongoose = require 'mongoose'
 database = require 'local_modules/database'
+JSONSchemaConverter = require 'goodeggs-json-schema-converter'
+JSONSchema = require './schema'
+schema = JSONSchemaConverter.toMongooseSchema(JSONSchema, mongoose)
 
-schema = new mongoose.Schema
-  userId: {type: mongoose.Schema.ObjectId, required: true}
-  name: {type: String, required: true}
-  # quantity of pieces with matching conditions that need to be completed
-  # to finish this quest
-  quantityCompleted: {type: Number, required: true, default: 0}
-  quantityToComplete: {type: Number, required: true}
-  completed: {type: Boolean} # automatically set if user completes it
-  # conditions for which completed pieces will fulfill this quest. If no conditions, matches any of this type
-  conditions:
-    piece: {}
-    userPiece: {}
-  reward:
-    credit: {type: Number}
+# schema = new mongoose.Schema
+#   userId: {type: mongoose.Schema.ObjectId, required: true}
+#   name: {type: String, required: true}
+#   # quantity of pieces with matching conditions that need to be completed
+#   # to finish this quest
+#   quantityCompleted: {type: Number, required: true, default: 0}
+#   quantityToComplete: {type: Number, required: true}
+#   completed: {type: Boolean} # automatically set if user completes it
+#   # conditions for which completed pieces will fulfill this quest. If no conditions, matches any of this type
+#   conditions:
+#     piece: {}
+#     userPiece: {}
+#   reward:
+#     credit: {type: Number}
 
 schema.plugin require('mongoose-timestamp')
 
