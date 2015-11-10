@@ -25,6 +25,7 @@ module.exports =
 
     completed:
       type: 'boolean' # automatically set if user completes it
+      default: false
 
     # conditions for which completed pieces will fulfill this quest. If no conditions, matches any of this type
     conditions:

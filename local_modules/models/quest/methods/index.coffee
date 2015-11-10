@@ -2,6 +2,7 @@ Promise = require 'bluebird'
 _ = require 'lodash'
 Piece = require 'local_modules/models/piece'
 UserPiece = require 'local_modules/models/user_piece'
+pieceEnums = require 'local_modules/models/piece/enums'
 # questFixtures = require './quest_fixtures'
 
 selectRandomQuestLevel = (level) ->
@@ -21,28 +22,35 @@ module.exports = (schema) ->
       reward:
         credit: 10
 
+  # if not already present
   schema.static 'generateMusicalEraQuest', (user) ->
     Quest = @
     questLevel = selectRandomQuestLevel(user.level)
-    Quest.create
-      userId: user._id
-      name: "Complete 2 level #{questLevel}, #{era} era pieces with at least an 80% grade"
+    musicalEra = pieceEnums.musicalEras[Math.floor(Math.random() * pieceEnums.musicalEras.length)]
+    quest =
+      userId: user.id
+      name: "Complete 2 level #{questLevel}, #{musicalEra} era pieces with at least an 80% grade."
       quantityToComplete: 2
       conditions:
         userPiece:
           'grade': {gte: 0.8}
         piece:
           'level': questLevel
-          'era': era
+          'era': musicalEra
       reward:
         credit: 5 + (questLevel * 5)
+
+    Quest.count(quest).then (count) ->
+      throw new Error 'already exists' if count >= 1
+      Quest.create quest
 
   schema.static 'generateAnyPieceQuest', (user) ->
     Quest = @
     questLevel = selectRandomQuestLevel(user.level)
-    Quest.create
-      userId: user._id
-      name: "Complete 3 level #{questLevel} pieces with at least an 80% grade"
+    console.log 'creating quest', {user}
+    quest =
+      userId: user.id
+      name: "Complete any 3 level #{questLevel} pieces with at least an 80% grade"
       quantityToComplete: 3
       conditions:
         userPiece:
@@ -51,15 +59,18 @@ module.exports = (schema) ->
           'level': questLevel
       reward:
         credit: 5 + (questLevel * 5)
+    Quest.count(quest).then (count) ->
+      throw new Error 'already exists' if count >= 1
+      Quest.create quest
 
   schema.static 'generatePerfectGradeQuest', (user) ->
     Quest = @
     questLevel = selectRandomQuestLevel(user.level)
-    Quest.create
-      userId: user._id
-      name: "Complete 2 level #{questLevel} pieces with a 100% grade"
+    quest =
+      userId: user.id
+      name: "Complete any 2 level #{questLevel} pieces with a 100% grade"
       quantityCompleted: 0
-      quantityToComplete: 3
+      quantityToComplete: 2
       conditions:
         userPiece:
           'grade': 1
@@ -67,12 +78,22 @@ module.exports = (schema) ->
           'level': questLevel
       reward:
         credit: 5 + (questLevel * 5)
+    Quest.count(quest).then (count) ->
+      throw new Error 'already exists' if count >= 1
+      Quest.create quest
 
   schema.static 'generateRandomQuest', (user) ->
     Quest = @
-    questTypes = ['generateMusicalEraQuest', 'generateAnyPieceQuest', 'generatePerfectGradeQuest']
-    questType = questTypes[Math.floor(Math.random()*questTypes.length)]
-    Quest[questType](user)
+    generateCount = 0
+    generate = ->
+      questTypes = ['generateMusicalEraQuest', 'generateAnyPieceQuest', 'generatePerfectGradeQuest']
+      questType = questTypes[Math.floor(Math.random()*questTypes.length)]
+      console.log {questType}
+      Quest[questType](user).then null, (err) ->
+        console.log {generateCount}
+        throw new Error if generateCount++ >= 20
+        generate()
+    generate()
 
   schema.static 'progressMatchingQuests', (userId, {userPiece}) ->
     Piece = require 'local_modules/models/piece'
