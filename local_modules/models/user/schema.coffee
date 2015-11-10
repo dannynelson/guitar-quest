@@ -15,8 +15,14 @@ module.exports =
       type: 'string'
 
     level:
+      description: 'users current level'
       type: 'integer'
       default: 1
+
+    points:
+      description: 'total number of points user has accumulated'
+      type: 'integer'
+      default: 0
 
     credit:
       type: 'integer'

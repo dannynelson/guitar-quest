@@ -17,32 +17,32 @@ module.exports = (schema) ->
       next new Error "Must set updatedBy whenever userPiece is saved."
     next()
 
-  # if piece finished, add experience and notification for
-  # schema.pre 'save', (next) ->
-  #   User = require 'local_modules/models/user'
-  #   Notification = require 'local_modules/models/notification'
-  #   Piece = require 'local_modules/models/piece'
+  # if piece grade changes, add experience
+  schema.pre 'save', (next) ->
+    User = require 'local_modules/models/user'
+    Notification = require 'local_modules/models/notification'
+    Piece = require 'local_modules/models/piece'
 
-  #   return next() unless @isModified('status') and @status is 'graded'
+    userPiece = @
+    return next() unless @isModified('grade')
 
-  #   Promise.all([
-  #     User.findById(@userId)
-  #     Piece.findById(@pieceId)
-  #   ]).then ([user, piece]) =>
-  #     user.pointsIntoCurrentLevel += level.pointsPerPiece(piece.level)
+    Promise.all([
+      User.findById(@userId)
+      Piece.findById(@pieceId)
+    ]).then ([user, piece]) =>
+      user.points += level.getPointsPerPiece(piece.level) * userPiece.grade
+      user.level = level.calculateCurrentLevel(user.points)
 
-  #     notification = new Notification
-  #       userId: @userId
-  #       category: 'piece'
-  #       type: 'success'
-  #       text: "Congratulations! Your video submission for #{piece.name} was accepted and you earned #{piece.points} points."
-  #       acknowledged: false
+      notification = new Notification
+        userId: @userId
+        category: 'piece'
+        type: 'success'
+        text: "Congratulations! Your video submission for #{piece.name} was accepted and you earned #{piece.points} points."
+        acknowledged: false
 
-  #     # save notification before user so that level up notifications come afterwards
-  #     notification.save().then => user.save()
-  #   .then ->
-  #     next()
-  #   .then null, next
+      # save notification before user so that level up notifications come afterwards
+      notification.save().then => user.save()
+    .nodeify(next)
 
   # progress quests
   schema.pre 'save', (next) ->

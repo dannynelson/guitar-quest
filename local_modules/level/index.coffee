@@ -13,6 +13,8 @@ I will want to change these things, so
 questions
 - what if I want to add a level before level 1 (Early beginner)
 
+FIXME: this needs refinement if someone ever maxes out level 10
+
 ###
 _ = require 'lodash'
 
@@ -33,17 +35,39 @@ piecePointsByLevel =
 pointsByLevel = _.mapValues piecePointsByLevel, (pointsPerPiece) ->
   pointsPerPiece * perfectPiecesRequiredToProgressToNextLevel
 
-module.exports = level =
-  getExpToNextLevel: (exp, selectedLevel) ->
-    nextLevel = selectedLevel +  1
-    expRequired = totalExpByLevel[nextLevel]
-    expRequired - exp
+cumulativePointsByLevel = _.mapValues pointsByLevel, (points, _level) ->
+  level = Number(_level)
+  _(_.range(1, level+1))
+    .map (l) -> pointsByLevel[l]
+    .sum()
 
-  getTotalLevelExp: (level) ->
+maxLevel = _(Object.keys(piecePointsByLevel)).map(Number).max()
+
+module.exports = level =
+  getTotalLevelPoints: (level) ->
     pointsByLevel[level]
 
   getPointsPerPiece: (level) ->
     piecePointsByLevel[level]
+
+  calculateCurrentLevel: (totalUserPoints) ->
+    level = null
+    for _level, points of pointsByLevel
+      level = Number(_level)
+      totalUserPoints -= points
+      return level if totalUserPoints < 0
+    level
+
+  calculatePointsIntoLevel: (totalUserPoints, level) ->
+    # above this level
+    if cumulativePointsByLevel[level] < totalUserPoints
+      return pointsByLevel[level]
+    # above previous level, below this level (or maxed out)
+    else if level is maxLevel or (cumulativePointsByLevel[level-1] ? 0) < totalUserPoints < cumulativePointsByLevel[level]
+      return totalUserPoints - (cumulativePointsByLevel[level - 1] ? 0)
+    # below this level, below previous level
+    else
+      return 0
 
   displayPiecePoints: (pieceGrade, level) ->
     piecePoints = piecePointsByLevel[level]

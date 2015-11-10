@@ -12,6 +12,29 @@ userPieceFactory = require 'local_modules/models/user_piece/factory'
 describe 'UserPiece hooks', ->
   beforeEach database.reset
 
+  it 'denormalizes points and level onto user', ->
+    user = null
+    quest = null
+    piece = null
+    Promise.all([
+      User.create(userFactory.create({level: 1}))
+      Piece.create(pieceFactory.create({level: 1}))
+    ]).then ([_user, _piece]) ->
+      piece = _piece
+      user = _user
+      expect(user).to.have.property 'points', 0
+      expect(user).to.have.property 'level', 1
+      UserPiece.create(userPieceFactory.create({pieceId: piece.id, userId: user.id}))
+    .then (userPiece) ->
+      userPiece.grade = 0.9
+      userPiece.updatedBy = user.id
+      userPiece.save()
+    .then (userPiece) ->
+      User.findById(user.id)
+    .then (user) ->
+      expect(user).to.have.property 'points', 90
+      expect(user).to.have.property 'level', 1
+
   it 'progresses quest if conditions met', ->
     user = null
     quest = null

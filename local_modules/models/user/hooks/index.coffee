@@ -8,7 +8,7 @@ module.exports = (schema) ->
     levelHelper = require 'local_modules/level'
 
     return next() unless @isModified('pointsIntoCurrentLevel')
-    totalLevelPoints = levelHelper.getTotalLevelExp(@level)
+    totalLevelPoints = levelHelper.getTotalLevelPoints(@level)
     if @pointsIntoCurrentLevel > totalLevelPoints
       @level++
       @pointsIntoCurrentLevel -= totalLevelPoints # keep remainder for next level

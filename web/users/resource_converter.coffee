@@ -6,6 +6,6 @@ module.exports = new ResourceSchema User, {
   'name'
   'email'
   'level'
+  'points'
   'credit'
-  'pointsIntoCurrentLevel'
 }
