@@ -15,7 +15,7 @@ Complete any 2 level 3 pieces with at least an 80% grade.
 
 Examples
 - Submit First Video - submit a video for any guitar piece
-- Submit Them All - submit any 6 videos from any level.1
+- Sight Reading - submit 3 videos in one day
 - Level {X} Practice - complete (80% or higher) any 3 level x pieces
 - Perfect Grade - get a perfect grade (100%) on any 3 level x pieces
 - {Era} Era Practice - complete (score 80% or higher) 3 level x pieces from the x era
@@ -49,21 +49,6 @@ database = require 'local_modules/database'
 JSONSchemaConverter = require 'goodeggs-json-schema-converter'
 JSONSchema = require './schema'
 schema = JSONSchemaConverter.toMongooseSchema(JSONSchema, mongoose)
-
-# schema = new mongoose.Schema
-#   userId: {type: mongoose.Schema.ObjectId, required: true}
-#   name: {type: String, required: true}
-#   # quantity of pieces with matching conditions that need to be completed
-#   # to finish this quest
-#   quantityCompleted: {type: Number, required: true, default: 0}
-#   quantityToComplete: {type: Number, required: true}
-#   completed: {type: Boolean} # automatically set if user completes it
-#   # conditions for which completed pieces will fulfill this quest. If no conditions, matches any of this type
-#   conditions:
-#     piece: {}
-#     userPiece: {}
-#   reward:
-#     credit: {type: Number}
 
 schema.plugin require('mongoose-timestamp')
 

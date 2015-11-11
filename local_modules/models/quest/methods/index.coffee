@@ -3,7 +3,6 @@ _ = require 'lodash'
 Piece = require 'local_modules/models/piece'
 UserPiece = require 'local_modules/models/user_piece'
 pieceEnums = require 'local_modules/models/piece/enums'
-# questFixtures = require './quest_fixtures'
 
 selectRandomQuestLevel = (level) ->
   Math.ceil(Math.random() * level)

@@ -1,9 +1,10 @@
 _ = require 'lodash'
+userPieceEnums = require './enums'
 
 schema =
   type: 'object'
   description: 'tracks user progress for a given piece'
-  required: ['pieceId', 'userId', 'waitingToBeGraded', 'submissionVideoURL', 'createdAt', 'updatedAt']
+  required: ['_id', 'pieceId', 'userId', 'waitingToBeGraded', 'submissionVideoURL', 'createdAt', 'updatedAt']
   properties:
     _id:
       type: 'string'
@@ -26,7 +27,7 @@ schema =
 
     grade:
       type: 'number'
-      enum: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]
+      enum: userPieceEnums.grades
 
     comment:
       type: 'string'

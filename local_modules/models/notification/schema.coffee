@@ -1,6 +1,6 @@
 module.exports =
   type: 'object'
-  required: ['userId', 'category', 'type', 'text', 'acknowledged']
+  required: ['_id', 'userId', 'category', 'type', 'text', 'acknowledged']
   properties:
     _id:
       type: 'string'

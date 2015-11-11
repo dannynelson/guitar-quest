@@ -1,7 +1,7 @@
 
 module.exports =
   type: 'object'
-  required: ['email', 'level', 'credit']
+  required: ['_id', 'email', 'level', 'credits']
   properties:
     _id:
       type: 'string'
@@ -24,6 +24,6 @@ module.exports =
       type: 'integer'
       default: 0
 
-    credit:
+    credits:
       type: 'integer'
       default: 0

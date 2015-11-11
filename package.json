@@ -60,6 +60,8 @@
     "gulp-util": "^3.0.6",
     "helmet": "^0.10.0",
     "jade": "^1.11.0",
+    "joi": "^6.10.0",
+    "joi-objectid": "^2.0.0",
     "lodash": "^3.10.1",
     "mongoose": "^4.1.2",
     "mongoose-connection-manager": "http://registry.npmjs.org/mongoose-connection-manager/-/mongoose-connection-manager-1.0.2.tgz",

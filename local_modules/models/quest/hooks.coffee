@@ -21,13 +21,13 @@ module.exports = (schema) ->
         else if @quantityCompleted is @quantityToComplete
           User.findById(@userId).then (user) =>
             @completed = true
-            user.credit += @reward.credit
+            user.credits += @reward.credits
 
             notification = new Notification
               userId: @userId
               category: 'quest'
               type: 'success'
-              text: "Congratulations! You completed the quest \"#{@name}\" and earned $#{@reward.credit} lesson credit."
+              text: "Congratulations! You completed the quest \"#{@name}\" and earned #{@reward.credits} credits."
               acknowledged: false
 
             notification.save().then => user.save()

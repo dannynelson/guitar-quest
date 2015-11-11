@@ -1,7 +1,8 @@
+questEnums = require './enums'
 
 module.exports =
   type: 'object'
-  required: ['userId', 'quantityCompleted', 'quantityToComplete']
+  required: ['_id', 'userId', 'quantityCompleted', 'quantityToComplete']
   properties:
     _id:
       type: 'string'
@@ -11,8 +12,9 @@ module.exports =
       type: 'string'
       format: 'objectid'
 
-    name:
+    type:
       type: 'string'
+      enum: questEnums.questTypes
 
     # quantity of pieces with matching conditions that need to be completed
     # to finish this quest
@@ -27,12 +29,12 @@ module.exports =
       type: 'boolean' # automatically set if user completes it
       default: false
 
-    # conditions for which completed pieces will fulfill this quest. If no conditions, matches any of this type
-    conditions:
+    params:
+      description: 'generic object that can hold any parameters necessary for a quest'
       type: 'object'
 
     reward:
       type: 'object'
       properties:
-        credit:
+        credits:
           type: 'integer'
