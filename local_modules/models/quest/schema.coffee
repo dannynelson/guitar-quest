@@ -2,7 +2,7 @@ questEnums = require './enums'
 
 module.exports =
   type: 'object'
-  required: ['_id', 'userId', 'quantityCompleted', 'quantityToComplete']
+  required: ['userId', 'quantityCompleted', 'quantityToComplete']
   properties:
     _id:
       type: 'string'

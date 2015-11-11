@@ -1,5 +1,6 @@
 require 'local_modules/test_helpers/server'
 _ = require 'lodash'
+objectIdString = require 'objectid'
 database = require 'local_modules/database'
 Quest = require 'local_modules/models/quest'
 User = require 'local_modules/models/user'
@@ -16,25 +17,10 @@ clean = (mongooseModel) ->
 describe 'Quest', ->
   beforeEach database.reset
 
-  it '.generateAnyPieceQuest(user)', ->
-    user = null
-    User.create(userFactory.create({level: 1})) # set as level 1 so that there is no randomness
-    .then (_user) ->
-      user = _user
-      Quest.generateAnyPieceQuest(user)
-    .then (quest) ->
-      expect(clean(quest)).to.deep.equal
-        userId: user.id
-        name: "Complete 3 level 1 pieces with at least an 80% grade"
-        quantityCompleted: 0
-        quantityToComplete: 3
-        conditions:
-          userPiece:
-            'grade': {gte: 0.8}
-          piece:
-            'level': 1
-        reward:
-          credit: 10
+  describe '.createRandomQuest()', ->
+    it 'doesnt fail', ->
+      User.create(userFactory.create({level: 1})).then (user) ->
+        Quest.createRandomQuest({user})
 
   it '.progressMatchingQuests(userId, {userPiece})', ->
     user = null
@@ -46,9 +32,9 @@ describe 'Quest', ->
     ]).then ([_user, _piece]) ->
       piece = _piece
       user = _user
-      Quest.generateAnyPieceQuest(user)
-    .then (_quest) ->
-      quest = _quest
+      Quest.createInitialQuests({user})
+    .then (quests) ->
+      quest = quests[0]
       expect(quest).to.have.property 'quantityCompleted', 0
       UserPiece.create(userPieceFactory.create({pieceId: piece.id, userId: user.id}))
     .then (userPiece) ->

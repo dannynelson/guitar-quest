@@ -11,6 +11,6 @@ angular.module __filename, [
   $stateProvider.state 'guitarQuest.quests',
     requireAuth: true
     url: '/quests'
-    controllerAs: 'questsCtrl'
+    controllerAs: 'ctrl'
     template: require './template'
     controller: require './controller'

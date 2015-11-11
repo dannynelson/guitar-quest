@@ -45,9 +45,9 @@ describe 'UserPiece hooks', ->
     ]).then ([_user, _piece]) ->
       piece = _piece
       user = _user
-      Quest.generateAnyPieceQuest(user)
-    .then (_quest) ->
-      quest = _quest
+      Quest.createInitialQuests({user})
+    .then (quests) ->
+      quest = quests[0]
       expect(quest).to.have.property 'quantityCompleted', 0
       UserPiece.create(userPieceFactory.create({pieceId: piece.id, userId: user.id}))
     .then (userPiece) ->

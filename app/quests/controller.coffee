@@ -1,7 +1,9 @@
 _ = require 'lodash'
+questHelpers = require 'local_modules/models/quest/helpers'
 
 module.exports = ngInject (User, Quest) ->
   user = User.getLoggedInUser()
+  @questHelpers = questHelpers
   @quests = Quest.query
     userId: user._id
     completed: false

@@ -1,12 +1,14 @@
 .guitar-quest-music.container
   gq-notifications(category='quest')
   .row
-    .no-quests.text-center(ng-if='!questsCtrl.quests.length')
-      h5 You do not have any quests right now. Please check back later.
-    .col-sm-4(ng-repeat='quest in questsCtrl.quests')
+    .no-quests.text-center(ng-if='!ctrl.quests.length')
+      h5 You do not have any quests right now. Check again next week.
+    .col-sm-4(ng-repeat='quest in ctrl.quests')
       .quest-panel.panel.panel-default
-        .panel-body.text-center
-          h5.quest-title {{quest.name}}
-          .reward
-            .label.label-warning {{quest.reward.credits}} credits
-          .description {{quest.quantityCompleted}} / {{quest.quantityToComplete}} Complete
+        .quest-panel-body.panel-body.text-center
+          h4 {{ctrl.questHelpers.getTitle(quest)}}
+          .reward.text-warning
+            i.reward-icon.fa.fa-money.fa-3x
+            .credits {{quest.reward.credits}} credits
+          .description {{ctrl.questHelpers.getDescription(quest)}}
+          h5.quantity-complete {{quest.quantityCompleted}} / {{quest.quantityToComplete}} Complete

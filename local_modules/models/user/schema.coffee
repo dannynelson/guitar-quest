@@ -1,7 +1,7 @@
 
 module.exports =
   type: 'object'
-  required: ['_id', 'email', 'level', 'credits']
+  required: ['email', 'level', 'credits']
   properties:
     _id:
       type: 'string'

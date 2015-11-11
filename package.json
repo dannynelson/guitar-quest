@@ -45,7 +45,7 @@
     "geomoment": "^0.6.1",
     "glob": "^5.0.14",
     "goodeggs-angular-browserify": "^3.0.0",
-    "goodeggs-json-schema-converter": "^1.1.0",
+    "goodeggs-json-schema-converter": "^1.1.1",
     "goodeggs-karma": "^2.4.0",
     "gulp": "^3.9.0",
     "gulp-concat": "^2.6.0",

@@ -19,7 +19,7 @@ module.exports = (schema) ->
     Quest = require 'local_modules/models/quest'
 
     Promise.try =>
-      Quest.generateInitialQuests(@_id) if @isNew
+      Quest.createInitialQuests({user: @}) if @isNew
     .then =>
       next()
     .then null, next

@@ -4,7 +4,7 @@ userPieceEnums = require './enums'
 schema =
   type: 'object'
   description: 'tracks user progress for a given piece'
-  required: ['_id', 'pieceId', 'userId', 'waitingToBeGraded', 'submissionVideoURL', 'createdAt', 'updatedAt']
+  required: ['pieceId', 'userId', 'waitingToBeGraded', 'submissionVideoURL', 'createdAt', 'updatedAt']
   properties:
     _id:
       type: 'string'

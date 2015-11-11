@@ -3,7 +3,7 @@ pieceEnums = require './enums'
 module.exports =
   type: 'object'
   description: 'canonical information about piece shared between all users'
-  required: ['_id', 'name', 'composer', 'level', 'era']
+  required: ['name', 'composer', 'level', 'era']
   properties:
     _id:
       type: 'string'
