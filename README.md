@@ -4,6 +4,9 @@ A game for learning classical guitar
 
 TODO:
 
+- resubmitting same video progresses same quest again (store a record of all pieces that have already progressed quest so that they do not run again)
+- perfect grade quest doesn't submit
+- check to make sure user does not already have quest of a certain type before creating
 - submitting video immediately after creatign account fails
 - comment references userId, and loads all users to display info
 - confirm email flow

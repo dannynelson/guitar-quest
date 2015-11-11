@@ -57,7 +57,7 @@ questDefinitions =
       userPiece.grade >= 0.8 and piece.level is quest.params.level
 
   'era':
-    title: ({quest}) -> "Submit #{capitalize(quest.params.era)} Video"
+    title: ({quest}) -> "#{capitalize(quest.params.era)} Era Practice"
     description: ({quest}) -> "Complete any 3 pieces from the #{quest.params.era} era with at least an 80% grade."
     quest: ({user}) ->
       userId: user._id.toString()
