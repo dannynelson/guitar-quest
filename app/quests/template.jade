@@ -6,9 +6,9 @@
     .col-sm-4(ng-repeat='quest in ctrl.quests')
       .quest-panel.panel.panel-default
         .quest-panel-body.panel-body.text-center
-          h4 {{ctrl.questHelpers.getTitle(quest)}}
+          h5.quest-title {{ctrl.questHelpers.getTitle(quest)}}
           .reward.text-warning
             i.reward-icon.fa.fa-money.fa-3x
             .credits {{quest.reward.credits}} credits
           .description {{ctrl.questHelpers.getDescription(quest)}}
-          h5.quantity-complete {{quest.quantityCompleted}} / {{quest.quantityToComplete}} Complete
+          .quantity-complete {{quest.quantityCompleted}} / {{quest.quantityToComplete}} Complete
