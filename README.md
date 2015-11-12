@@ -4,18 +4,25 @@ A game for learning classical guitar
 
 TODO:
 
-- total points for level do not update until page refreshed...
+- create way for people to buy lessons with credits (and schedule the lesson?)
 - update notifications
+- handle permissions and restricting pages
+- stup email confirmation, and email notifications for piece comments/grades and new quests, lesson payment confirmation, and email unsubscribe page
 - update notification text
 - make sure username and password are secure
+- don't include history in default response
+- site still logs out pretty frequently (it should almost never log out?)
+- quest credits should be based on level
+- add a banner image and copy to landing page
+- clean up account page
+- follow all deployment and security todos below
+
+- restyle the account page to include more info (credits, level, photo?)
+- require monthly payment beyond level 2?
+- mobile view doesnt work
 - title does not populate for a couple seconds on piece page
 - handle creating account if user already exists
-- mobile view doesnt work
-- quest credits should be based on level
-- site still logs out pretty frequently (it should almost never log out?)
-- comment references userId, and loads all users to display info
-- confirm email flow
-- don't include history in default response
+- total points for level do not update until page refreshed...
 - add facebook login as another option
 x account page - change password/email, update mailing preferences, etc? - look at a few other sites for inspiration here
 x store teacher / student name (and photo?) within profile for easier identification when communicating. Add to comments
@@ -43,6 +50,7 @@ Deployment
 - sendgrid
 - setup https
 - download font awesome
+- heroku scheduler for quests
 
 Bug proof
 - add access control to review video pages
@@ -54,14 +62,10 @@ Bug proof
 - invalid credentials does not show an error.
 - add access control to endpoints to make sure random people wont finish pieces by editing json
 
-- sendgrid - email verification and automatic email communication when pieces reviewed, skype lessons requested, skype lessons approved, etc. (or is there a better solution)
 - stripe integration for subscriptions, and automatic billing
 x flesh out user page to allow changing password, show a summary of current level, and all accomplishments
 - footer with copyright? other random things?
 - recruit previous students to try the app (especially mitch)
-- add a quest for completing easier pieces (add this later)
-- fix login form on initial page so that offset does not look horrible on smaller screens
-- add a banner image and copy to landing page
 
 Later release
 ------------------------------------

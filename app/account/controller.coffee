@@ -13,8 +13,7 @@ module.exports = ngInject (Upload, User, ngToast, $log, changePasswordModal) ->
 
   @save = (field) =>
     @user[field] = @form[field]
-    @user.$update().then =>
-      ngToast.success "#{field} updated!"
+    @user.$update()
     .catch (err) =>
       $log.error err
       ngToast.danger "Could not update #{field}, please try again later."

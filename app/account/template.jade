@@ -1,58 +1,60 @@
 .guitar-quest-account.container
-  .panel.panel-default
-    .panel-body
-      h4.title Account
-      .row
-        .col-xs-12
+  .row
+    .col-md-6.col-md-offset-3
+      .panel.panel-default
+        .panel-body
+          h4.title Account
           .row
-            .col-xs-3
-              strong Name:
-            .col-xs-9
-              div(ng-if='!accountCtrl.editing.name')
-                span {{accountCtrl.user.name || 'New User'}}
-                span &nbsp;
-                a(href='' ng-click='accountCtrl.edit("name")') edit
-              form(
-                ng-if='accountCtrl.editing.name'
-                ng-submit='accountCtrl.save("name")'
-              )
-                .edit-input
-                  input.form-control.edit-input(
-                    ng-model='accountCtrl.form.name'
-                    placeholder='John Smith'
+            .col-xs-12
+              .row
+                .col-xs-3
+                  strong Name:
+                .col-xs-9
+                  div(ng-if='!accountCtrl.editing.name')
+                    span {{accountCtrl.user.name || 'New User'}}
+                    span &nbsp;
+                    a(href='' ng-click='accountCtrl.edit("name")') edit
+                  form(
+                    ng-if='accountCtrl.editing.name'
+                    ng-submit='accountCtrl.save("name")'
                   )
-                button.btn.btn-primary.btn-sm.btn-confirm-change(type='submit')
-                  i.fa.fa-check
-                .btn.btn-default.btn-sm(ng-click='accountCtrl.cancelEdit("name")')
-                  i.fa.fa-times
+                    .edit-input
+                      input.form-control.edit-input(
+                        ng-model='accountCtrl.form.name'
+                        placeholder='John Smith'
+                      )
+                    button.btn.btn-primary.btn-sm.btn-confirm-change(type='submit')
+                      i.fa.fa-check
+                    .btn.btn-default.btn-sm(ng-click='accountCtrl.cancelEdit("name")')
+                      i.fa.fa-times
 
-          hr.info-divider
-          .row
-            .col-xs-3
-              strong Email:
-            .col-xs-9
-              div(ng-if='!accountCtrl.editing.email')
-                span {{accountCtrl.user.email || 'New User'}}
-                span &nbsp;
-                a(href='' ng-click='accountCtrl.edit("email")') edit
-              form(
-                ng-if='accountCtrl.editing.email'
-                ng-submit='accountCtrl.save("email")'
-              )
-                .edit-input
-                  input.form-control.edit-input(
-                    ng-model='accountCtrl.form.email'
-                    placeholder='name@example.com'
+              hr.info-divider
+              .row
+                .col-xs-3
+                  strong Email:
+                .col-xs-9
+                  div(ng-if='!accountCtrl.editing.email')
+                    span {{accountCtrl.user.email || 'New User'}}
+                    span &nbsp;
+                    a(href='' ng-click='accountCtrl.edit("email")') edit
+                  form(
+                    ng-if='accountCtrl.editing.email'
+                    ng-submit='accountCtrl.save("email")'
                   )
-                button.btn.btn-primary.btn-sm.btn-confirm-change(type='submit')
-                  i.fa.fa-check
-                .btn.btn-default.btn-sm(ng-click='accountCtrl.cancelEdit("email")')
-                  i.fa.fa-times
-          hr.info-divider
-          .row
-            .col-xs-3
-              strong Password:
-            .col-xs-9
-              span (Hidden)
-              span  &nbsp;
-              a(href='' ng-click='accountCtrl.changePassword()') edit
+                    .edit-input
+                      input.form-control.edit-input(
+                        ng-model='accountCtrl.form.email'
+                        placeholder='name@example.com'
+                      )
+                    button.btn.btn-primary.btn-sm.btn-confirm-change(type='submit')
+                      i.fa.fa-check
+                    .btn.btn-default.btn-sm(ng-click='accountCtrl.cancelEdit("email")')
+                      i.fa.fa-times
+              hr.info-divider
+              .row
+                .col-xs-3
+                  strong Password:
+                .col-xs-9
+                  span (Hidden)
+                  span  &nbsp;
+                  a(href='' ng-click='accountCtrl.changePassword()') edit
