@@ -3,8 +3,8 @@ Helpers for working with quests
 ###
 
 _ = require 'lodash'
-
-# conditions required to complete each quest type
+joi = require 'joi'
+joi.objectId = require('joi-objectid')(joi)
 pieceEnums = require 'local_modules/models/piece/enums'
 userPieceEnums = require 'local_modules/models/user_piece/enums'
 questEnums = require 'local_modules/models/quest/enums'
@@ -15,10 +15,15 @@ chooseRandom = (items) ->
 capitalize = (string) ->
   string.charAt(0).toUpperCase() + string.slice(1)
 
-buildQuest = ({userId, type, quantityToComplete, params, credits}) ->
+buildQuest = ({userId, type, quantityToComplete, params, credits}={}) ->
+  joi.assert userId, joi.objectId().required(), 'userId'
+  joi.assert type, joi.string().valid(questEnums.questTypes).required(), 'type'
+  joi.assert quantityToComplete, joi.number().integer().required(), 'quantityToComplete'
+  joi.assert params, joi.object().required(), 'params'
+  joi.assert credits, joi.number().integer().required(), 'credits'
+
   userId: userId
   type: type
-  quantityCompleted: 0
   quantityToComplete: quantityToComplete
   completed: false
   params: params
@@ -37,7 +42,7 @@ questDefinitions =
         quantityToComplete: 1
         params: {}
         credits: 10
-    conditions: ({quest, piece, userPiece}) ->
+    conditions: ({quest, piece, userPiece, user}) ->
       userPiece.submissionVideoURL?
 
   # ==================== generic ==========================
@@ -53,21 +58,24 @@ questDefinitions =
         params:
           'level': questLevel
         credits: 8 + (2 * questLevel)
-    conditions: ({quest, piece, userPiece}) ->
+    conditions: ({quest, piece, userPiece, user}) ->
       userPiece.grade >= 0.8 and piece.level is quest.params.level
 
   'era':
     title: ({quest}) -> "#{capitalize(quest.params.era)} Era Practice"
-    description: ({quest}) -> "Complete any 3 pieces from the #{quest.params.era} era with at least an 80% grade."
+    description: ({quest}) -> "Complete any 2 #{quest.params.era} era pieces from your current level with at least an 80% grade."
     quest: ({user}) ->
       userId: user._id.toString()
       type: 'era'
-      quantityToComplete: 3
+      quantityToComplete: 2
       params:
         'era': chooseRandom(pieceEnums.musicalEras)
       credits: chooseRandom([10, 15])
-    conditions: ({quest, piece, userPiece}) ->
-      userPiece.grade >= 0.8 and piece.era is quest.params.era
+    conditions: ({quest, piece, userPiece, user}) ->
+      isCurrentLevel = piece.level is user.level
+      isCorrectEra = piece.era is quest.params.era
+      isGoodGrade = userPiece.grade >= 0.8
+      return isCurrentLevel and isGoodGrade and isCorrectEra
 
   'sightReading':
     title: ({quest}) -> "Sight Reading Practice"
@@ -79,12 +87,13 @@ questDefinitions =
         quantityToComplete: 6
         params: {}
         credits: chooseRandom([10, 15])
-    conditions: ({quest, piece, userPiece}) ->
-      userPiece.submissionVideoURL?
+    conditions: ({quest, piece, userPiece, user}) ->
+      isSubmitted = userPiece.submissionVideoURL?
+      return isSubmitted
 
   'perfectGrade':
     title: ({quest}) -> "Perfect Grade"
-    description: ({quest}) -> "Complete any 2 pieces with a 100% grade."
+    description: ({quest}) -> "Complete any 2 pieces from your current level with a 100% grade."
     quest: ({user}) ->
       buildQuest
         userId: user._id.toString()
@@ -92,8 +101,10 @@ questDefinitions =
         quantityToComplete: 2
         params: {}
         credits: chooseRandom([10, 15])
-    conditions: ({quest, piece, userPiece}) ->
-      piece.grade is _.max(userPieceEnums.grades)
+    conditions: ({quest, piece, userPiece, user}) ->
+      isCurrentLevel = piece.level is user.level
+      isPerfectGrade = userPiece.grade is 1
+      return isCurrentLevel and isPerfectGrade
 
   # 'technique':
 
@@ -101,34 +112,30 @@ questDefinitions =
 
 module.exports = questHelpers =
   getTitle: (quest) ->
+    joi.assert quest, joi.object().required(), 'quest'
     questDefinitions[quest.type]?.title({quest})
 
   getDescription: (quest) ->
+    joi.assert quest, joi.object().required(), 'quest'
     questDefinitions[quest.type]?.description({quest})
 
   generateQuest: (type, {user}) ->
+    joi.assert user, joi.object().required(), 'user'
     questDefinitions[type].quest({user})
 
   generateInitialQuests: ({user}) ->
+    joi.assert user, joi.object().required(), 'user'
     questEnums.initialQuestTypes.map (questType) ->
       questHelpers.generateQuest(questType, {user})
 
   generateRandomQuest: ({user}) ->
+    joi.assert user, joi.object().required(), 'user'
     questType = chooseRandom(questEnums.genericQuestTypes)
     questHelpers.generateQuest(questType, {user})
 
-  matchesConditions: (quest, {piece, userPiece}) ->
-    questDefinitions[quest.type].conditions({quest, piece, userPiece})
-
-  ## very complicated: does not seem worth it. Just give them a random one, and the can cancel it if it is not completable
-  # (which should never happen since they can resubmit old pieces that have already been submitted)
-  # generateQuestThatIsCompletable: (quest, {pieces, userPieces}) ->
-  #   userPiecesById = _.indexBy userPieces, '_id'
-  #   pieceAndUserPiecePairs = pieces.map (piece) ->
-  #     piece: piece
-  #     userPiece: userPiecesById[piece._id.toString()]
-  #   # filter for pieces that user has access to
-  #   # generate every possible quest combination given the param enums
-  #   # given each quest possible, do a find an all piece/userPiece pairs to count number of matches of each
-  #   # filter all matches for ones that are greater than the required quantity
-  #   # of all the ones remaining, choose a random one
+  matchesConditions: (quest, {piece, userPiece, user}) ->
+    joi.assert quest, joi.object().required(), 'quest'
+    joi.assert piece, joi.object().required(), 'piece'
+    joi.assert userPiece, joi.object().required(), 'userPiece'
+    joi.assert user, joi.object().required(), 'user'
+    questDefinitions[quest.type].conditions({quest, piece, userPiece, user})

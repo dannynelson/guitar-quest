@@ -2,7 +2,7 @@ questEnums = require './enums'
 
 module.exports =
   type: 'object'
-  required: ['userId', 'quantityCompleted', 'quantityToComplete']
+  required: ['userId', 'quantityCompleted', 'quantityToComplete', 'piecesCompleted']
   properties:
     _id:
       type: 'string'
@@ -38,3 +38,10 @@ module.exports =
       properties:
         credits:
           type: 'integer'
+
+    piecesCompleted:
+      description: 'Pieces that have already been counted toward this quest'
+      type: 'array'
+      items:
+        type: 'string'
+        format: 'objectid'

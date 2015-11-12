@@ -1,4 +1,5 @@
 require 'local_modules/test_helpers/chai_config'
+_ = require 'lodash'
 objectIdString = require 'objectid'
 questEnums = require 'local_modules/models/quest/enums'
 userFactory = require 'local_modules/models/user/factory'
@@ -15,7 +16,6 @@ describe 'questHelpers', ->
       expect(quest).to.deep.equal
         userId: userId
         type: 'firstVideo'
-        quantityCompleted: 0
         quantityToComplete: 1
         completed: false
         params: {}
@@ -60,7 +60,6 @@ describe 'questHelpers', ->
       expect(quests[0]).to.deep.equal
         userId: userId
         type: 'firstVideo'
-        quantityCompleted: 0
         quantityToComplete: 1
         completed: false
         params: {}
@@ -73,7 +72,7 @@ describe 'questHelpers', ->
       user = userFactory.create({_id: userId})
       quest = questHelpers.generateRandomQuest({user})
       expect(quest).to.have.property 'userId', userId
-      expect(quest).to.have.property 'quantityCompleted', 0
+      expect(quest).to.have.property 'quantityToComplete'
 
   describe '.matchesConditions()', ->
     it 'returns true if piece and userPiece meet conditions', ->
@@ -81,7 +80,7 @@ describe 'questHelpers', ->
       piece = pieceFactory.create()
       userPiece = userPieceFactory.create()
       quest = questHelpers.generateQuest('sightReading', {user})
-      expect(questHelpers.matchesConditions(quest, {piece, userPiece})).to.equal true
+      expect(questHelpers.matchesConditions(quest, {piece, userPiece, user})).to.equal true
 
     it 'returns false if piece and userPiece do not meet conditions', ->
       user = userFactory.create({_id: objectIdString()})
@@ -89,4 +88,96 @@ describe 'questHelpers', ->
       piece.grade = 0.2 # below condition requirement
       userPiece = userPieceFactory.create()
       quest = questHelpers.generateQuest('level', {user})
-      expect(questHelpers.matchesConditions(quest, {piece, userPiece})).to.equal false
+      expect(questHelpers.matchesConditions(quest, {piece, userPiece, user})).to.equal false
+
+    describe 'quest types', ->
+      itMatchesConditions = (trueOrFalse, questType, {piece, userPiece, user, quest, questParams}={}) ->
+        it "#{if trueOrFalse then "matches" else "does not match"} conditions for #{questType}", ->
+          user._id = objectIdString()
+          user = userFactory.create(user)
+          piece = pieceFactory.create(piece)
+          piece._id = objectIdString()
+          userPiece = userPieceFactory.create(userPiece)
+          userPiece.pieceId = piece._id
+          userPiece.userId = user._id
+          generatedQuest = questHelpers.generateQuest(questType, {piece, userPiece, user})
+          generatedQuest = _.merge(generatedQuest, {params: questParams}) # override any custom params
+          expect(questHelpers.matchesConditions(generatedQuest, {piece, userPiece, user})).to.equal trueOrFalse
+
+      itMatchesConditions true, 'firstVideo',
+        user: {}
+        piece: {}
+        userPiece: {}
+        questParams: {}
+
+      itMatchesConditions true, 'level',
+        user: {level: 1}
+        piece: {level: 1}
+        userPiece: {grade: 0.8}
+        questParams: {}
+
+      # grade too low
+      itMatchesConditions false, 'level',
+        user: {level: 1}
+        piece: {level: 1}
+        userPiece: {grade: 0.7}
+        questParams: {}
+
+      # wrong level
+      itMatchesConditions false, 'level',
+        user: {level: 2}
+        piece: {level: 2}
+        userPiece: {grade: 0.8}
+        questParams: {level: 1}
+
+      itMatchesConditions true, 'era',
+        user: {level: 1}
+        piece: {level: 1, era: 'baroque'}
+        userPiece: {grade: 0.8}
+        questParams: {era: 'baroque'}
+
+      # not current level
+      itMatchesConditions false, 'era',
+        user: {level: 2}
+        piece: {level: 1, era: 'baroque'}
+        userPiece: {grade: 0.8}
+        questParams: {era: 'baroque'}
+
+      # not correct era
+      itMatchesConditions false, 'era',
+        user: {level: 1}
+        piece: {level: 1, era: 'baroque'}
+        userPiece: {grade: 0.8}
+        questParams: {era: 'classical'}
+
+      # grade too low
+      itMatchesConditions false, 'era',
+        user: {level: 1}
+        piece: {level: 1, era: 'baroque'}
+        userPiece: {grade: 0.7}
+        questParams: {era: 'baroque'}
+
+      itMatchesConditions true, 'sightReading',
+        user: {}
+        piece: {}
+        userPiece: {}
+        questParams: {}
+
+      itMatchesConditions true, 'perfectGrade',
+        user: {level: 1}
+        piece: {level: 1}
+        userPiece: {grade: 1}
+        questParams: {}
+
+      # not current level
+      itMatchesConditions false, 'perfectGrade',
+        user: {level: 2}
+        piece: {level: 1}
+        userPiece: {grade: 1}
+        questParams: {}
+
+      itMatchesConditions false, 'perfectGrade',
+        user: {level: 1}
+        piece: {level: 1}
+        userPiece: {grade: 0.9}
+        questParams: {}

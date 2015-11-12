@@ -1,6 +1,14 @@
 Promise = require 'bluebird'
+logger = require 'local_modules/logger'
 
 module.exports = (schema) ->
+
+  schema.pre 'save', (next) ->
+    if @isModified('quantityCompleted')
+      logger.warn 'Do not set quantityCompleted. It is automatically set as the sum of completed pieces.'
+    @piecesCompleted ?= []
+    @quantityCompleted = @piecesCompleted.length
+    next()
 
   # Notify if progress made on quest, and if a quest is completed, give the user credit
   schema.pre 'save', (next) ->
