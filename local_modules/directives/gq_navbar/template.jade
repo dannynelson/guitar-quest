@@ -36,9 +36,9 @@
             li(ng-class="{active: navbarCtrl.stateIncludes('guitarQuest.pricing')}")
               a(ui-sref='guitarQuest.pricing') Pricing
             li(ng-class="{active: navbarCtrl.stateIncludes('guitarQuest.login')}")
-              a(ui-sref='guitarQuest.login') Login
+              a(ui-sref='guitarQuest.login') Log in
             li(ng-class="{active: navbarCtrl.stateIncludes('guitarQuest.createAccount')}")
-              a(ui-sref='guitarQuest.createAccount') Create Account
+              a(ui-sref='guitarQuest.createAccount') Sign up
 
           ul.nav.navbar-nav.navbar-right(ng-if='navbarCtrl.isLoggedIn()')
             li(dropdown)

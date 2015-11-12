@@ -3,7 +3,9 @@
   .row
     .col-md-12
       .clearfix
-        h4.pull-left {{ctrl.piece.name}} - {{ctrl.piece.composer}} ({{ctrl.piece.era}})
+        h4.pull-left
+          span {{ctrl.piece.name}}
+          span.composer by {{ctrl.piece.composer}}
         .points-to-next-level.pull-right <strong>{{ctrl.level.displayPiecePoints(ctrl.userPiece.grade, ctrl.piece.level)}}</strong> points
       .row
         .col-xs-12

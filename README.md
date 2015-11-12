@@ -4,19 +4,19 @@ A game for learning classical guitar
 
 TODO:
 
-- perfect grade quest doesn't submit
-- check to make sure user does not already have quest of a certain type before creating
-- submitting video immediately after creatign account fails
+- total points for level do not update until page refreshed...
+- update notifications
+- update notification text
+- make sure username and password are secure
+- title does not populate for a couple seconds on piece page
+- handle creating account if user already exists
+- mobile view doesnt work
+- quest credits should be based on level
+- site still logs out pretty frequently (it should almost never log out?)
 - comment references userId, and loads all users to display info
 - confirm email flow
-- use "submitted" instead of "pending", and "completed"? instead of "finished everywhere"...
-- would google auth be better?
-- consistent status of finished or completed everywhere
-- submit another video flow
-- add toast after video submission
 - don't include history in default response
-x add era to pieces
-x comments within video section
+- add facebook login as another option
 x account page - change password/email, update mailing preferences, etc? - look at a few other sites for inspiration here
 x store teacher / student name (and photo?) within profile for easier identification when communicating. Add to comments
 x video review page for me
