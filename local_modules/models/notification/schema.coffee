@@ -12,7 +12,7 @@ module.exports =
 
     category:
       type: 'string'
-      enum: ['piece', 'quest', 'tutorial']
+      enum: ['piece', 'quest']
 
     type:
       type: 'string'

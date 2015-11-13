@@ -14,7 +14,7 @@
             ng-click='navbarCtrl.navbarVisible = !navbarCtrl.navbarVisible'
             ng-if='navbarCtrl.isLoggedIn()'
           )
-            li(ng-class="{active: navbarCtrl.stateIncludes('guitarQuest.pieces')}")
+            li.pieces(ng-class="{active: navbarCtrl.stateIncludes('guitarQuest.pieces')}")
               a(ui-sref='guitarQuest.pieces')
                 span Pieces
                 span.badge.link-badge.badge-warning(ng-if='navbarCtrl.notificationCount.piece') {{navbarCtrl.notificationCount.piece}}
@@ -23,11 +23,6 @@
               a(ui-sref='guitarQuest.quests')
                 span Quests
                 span.badge.link-badge.badge-warning(ng-if='navbarCtrl.notificationCount.quest') {{navbarCtrl.notificationCount.quest}}
-
-            li(ng-class="{active: navbarCtrl.stateIncludes('guitarQuest.tutorials')}")
-              a(ui-sref='guitarQuest.tutorials')
-                span Tutorials
-                span.badge.link-badge.badge-warning(ng-if='navbarCtrl.notificationCount.tutorial') {{navbarCtrl.notificationCount.tutorial}}
 
             li(ng-class="{active: navbarCtrl.stateIncludes('guitarQuest.submittedPieces')}")
               a(ui-sref='guitarQuest.submittedPieces') Submitted

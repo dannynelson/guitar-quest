@@ -16,6 +16,8 @@ TODO:
 - add a banner image and copy to landing page
 - clean up account page
 - follow all deployment and security todos below
+- always center quests
+- allow filtering pieces
 
 - restyle the account page to include more info (credits, level, photo?)
 - require monthly payment beyond level 2?

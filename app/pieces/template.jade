@@ -13,7 +13,7 @@
           span Next&nbsp;
           span.fa.fa-angle-double-right
   .clearfix
-    h4.pull-left Level {{ctrl.selectedLevel}}
+    h4.pull-left.user-level Level {{ctrl.selectedLevel}}
     .points-to-next-level.pull-right <strong>{{ctrl.levelPoints.completed}} / {{ctrl.levelPoints.total}}</strong> points to next level
   .row
     .col-xs-12
@@ -23,13 +23,13 @@
       )
 
   .row
-    .col-sm-4(ng-repeat='piece in ctrl.pieces')
+    .col-sm-4.piece(ng-repeat='piece in ctrl.pieces')
       .piece-panel.panel.panel-default(
         ui-sref='guitarQuest.piece({pieceId: piece._id})'
         ng-class='{"panel-warning": ctrl.getStatus(userPieceByPieceId[piece._id]) === "submitted", "panel-warning": ctrl.getStatus(userPieceByPieceId[piece._id]) === "submitted"}'
       )
         .panel-heading.piece-heading.clearfix
-          .pull-left <strong>{{ctrl.levelHelper.displayPiecePoints(ctrl.userPieceByPieceId[piece._id].grade, piece.level)}}</strong> points
+          .pull-left.piece-points <strong>{{ctrl.levelHelper.displayPiecePoints(ctrl.userPieceByPieceId[piece._id].grade, piece.level)}}</strong> points
           .pull-right
             gq-piece-status(user-piece='ctrl.userPieceByPieceId[piece._id]')
         progressbar.panel-progressbar(

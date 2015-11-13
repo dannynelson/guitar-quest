@@ -32,31 +32,24 @@ module.exports = (schema) ->
   schema.pre 'save', (next) ->
     Notification = require 'local_modules/models/notification'
 
-    if @isNew
-      Notification.create([
-        {
-          userId: @_id
-          category: 'piece'
-          type: 'info'
-          text: 'Welcome to GuitarQuest! In this section, you will learn pieces to earn experience points and progress to higher levels. With each new level, you will unlock new, more challenging pieces. Click on a piece below to get started.'
-          acknowledged: false
-        }
-        {
-          userId: @_id
-          category: 'quest'
-          type: 'info'
-          text: 'In this section, you can track the progress of all your active quests. Once you complete a quest, you will earn credits for buying private video lessons with a GuitarQuest teacher.'
-          acknowledged: false
-        }
-        {
-          userId: @_id
-          category: 'tutorial'
-          type: 'info'
-          text: 'Use these tutorials as a resource to help you while learn new pieces.'
-          acknowledged: false
-        }
-      ]).then =>
-        next()
-      .then null, next
-    else
-      next()
+    # if @isNew
+    #   Notification.create([
+    #     {
+    #       userId: @_id
+    #       category: 'piece'
+    #       type: 'info'
+    #       text: 'Welcome to GuitarQuest! In this section, you will find a collection of all the guitar pieces you can learn.  you will learn pieces to earn experience points and progress to higher levels. With each new level, you will unlock new, more challenging pieces. Click on a piece below to get started.'
+    #       acknowledged: false
+    #     }
+    #     {
+    #       userId: @_id
+    #       category: 'quest'
+    #       type: 'info'
+    #       text: 'Complete quests to earn lesson credits and other rewards.'
+    #       acknowledged: false
+    #     }
+    #   ]).then =>
+    #     next()
+    #   .then null, next
+    # else
+    #   next()

@@ -1,15 +1,16 @@
 # helper for ngAnnotate
 window.ngInject = (f) -> f
 
+window.jQuery = require 'jquery'
 window.angular = require 'angular'
 
 require 'angular-resource'
 require 'angular-bootstrap'
+require 'bootstrap-tour/build/js/bootstrap-tour-standalone.min.js'
 
 angular.module 'app', [
   'ui.bootstrap'
   require 'local_modules/services/require_auth'
-  # require 'local_modules/services/ng_toast'
   require 'local_modules/directives/gq_navbar'
   require 'local_modules/directives/gq_piece_status'
   require 'local_modules/ui_router'
@@ -17,7 +18,6 @@ angular.module 'app', [
   require './quests'
   require './pieces'
   require './piece'
-  require './tutorials'
   require './landing'
   require './login'
   require './create_account'
