@@ -1,9 +1,9 @@
-.guitar-quest-music.container
+.guitar-quest-quests.container
   gq-notifications(category='quest')
   .row
     .no-quests.text-center(ng-if='!ctrl.quests.length')
       h5 You do not have any quests right now. Check again next week.
-    .col-sm-4(ng-repeat='quest in ctrl.quests')
+    .quest.col-sm-4(ng-repeat='quest in ctrl.quests')
       .quest-panel.panel.panel-default
         .quest-panel-body.panel-body.text-center
           h5.quest-title {{ctrl.questHelpers.getTitle(quest)}}

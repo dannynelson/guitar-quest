@@ -4,7 +4,7 @@ level = require 'local_modules/level'
 ObjectId = require 'objectid-browser'
 userPieceHelpers = require 'local_modules/models/user_piece/helpers'
 
-module.exports = ngInject (Upload, $http, User, $stateParams, Piece, UserPiece, $state) ->
+module.exports = ngInject (Upload, $http, User, $stateParams, Piece, UserPiece, $state, tour) ->
   @level = level
   @piece = Piece.get({_id: $stateParams.pieceId})
   @getStatus = (userPiece) ->
@@ -22,6 +22,8 @@ module.exports = ngInject (Upload, $http, User, $stateParams, Piece, UserPiece, 
           historyChanges: [] # so that server will return the changes when we first submit a video
       else
         userPieces[0]
+    tour.init()
+    tour.start()
     loadVideo(@userPiece.submissionVideoURL)
 
   videoPreview = document.querySelector('video')

@@ -4,7 +4,7 @@
     .col-md-12
       .clearfix
         h4.pull-left
-          span {{ctrl.piece.name}}
+          span.piece-name {{ctrl.piece.name}}
           span.composer by {{ctrl.piece.composer}}
         .points-to-next-level.pull-right <strong>{{ctrl.level.displayPiecePoints(ctrl.userPiece.grade, ctrl.piece.level)}}</strong> points
       .row
@@ -27,7 +27,7 @@
           .video-panel-body.select-video.text-center(ng-if='!ctrl.userPiece.submissionVideoURL' ngf-select="ctrl.upload($file)")
             div
               i.fa.fa-upload.fa-5x
-            h5 Upload video submission
+            h5.upload-video Upload video submission
 
           .video-submission-overlay.select-video.clearfix(ng-if='ctrl.userPiece.submissionVideoURL' ngf-select="ctrl.upload($file)")
             .pull-left
@@ -66,7 +66,7 @@
                 span View Teachers&nbsp;
                 span.fa.fa-angle-double-right
 
-      .panel.panel-default
+      .panel.panel-default.buy-sheet-music-panel
         .panel-body
           strong BUY THE SHEET MUSIC
           .row

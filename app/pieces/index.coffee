@@ -4,6 +4,7 @@ angular.module __filename, [
   require 'local_modules/ui_router'
   require 'local_modules/resources/piece'
   require 'local_modules/directives/gq_notifications'
+  require 'local_modules/services/tour'
 ]
 
 .config ($stateProvider) ->

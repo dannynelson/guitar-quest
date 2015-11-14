@@ -3,7 +3,7 @@ gulp = require 'gulp'
 
 require('./tasks/boot_processes')(gulp)
 require('./tasks/build_assets')(gulp, {
-  staticFiles: ['node_modules/ngToast/dist/ngToast.css', 'public/bootstrap.min.css', 'public/hover-min.css', 'public/guitar.jpg']
+  staticFiles: ['public/bootstrap.min.css']
 })
 require('./tasks/test')(gulp)
 require('./tasks/console')(gulp)

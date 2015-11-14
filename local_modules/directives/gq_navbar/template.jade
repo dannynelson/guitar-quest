@@ -19,7 +19,7 @@
                 span Pieces
                 span.badge.link-badge.badge-warning(ng-if='navbarCtrl.notificationCount.piece') {{navbarCtrl.notificationCount.piece}}
 
-            li(ng-class="{active: navbarCtrl.stateIncludes('guitarQuest.quests')}")
+            li.quests(ng-class="{active: navbarCtrl.stateIncludes('guitarQuest.quests')}")
               a(ui-sref='guitarQuest.quests')
                 span Quests
                 span.badge.link-badge.badge-warning(ng-if='navbarCtrl.notificationCount.quest') {{navbarCtrl.notificationCount.quest}}
