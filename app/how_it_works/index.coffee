@@ -2,15 +2,14 @@ module.exports = __filename
 angular.module __filename, [
   'ui.bootstrap'
   require 'local_modules/ui_router'
-  require 'local_modules/resources/quest'
-  require 'local_modules/directives/gq_notifications'
+  require 'local_modules/resources/user'
 ]
 
 .config ($stateProvider) ->
-
-  $stateProvider.state 'guitarQuest.quests',
-    requireAuth: true
-    url: '/quests'
+  $stateProvider.state 'guitarQuest.howItWorks',
+    url: '/how_it_works'
     controllerAs: 'ctrl'
     template: require './template'
     controller: require './controller'
+
+

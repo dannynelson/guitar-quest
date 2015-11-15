@@ -22,8 +22,6 @@ module.exports = ngInject (Upload, $http, User, $stateParams, Piece, UserPiece, 
           historyChanges: [] # so that server will return the changes when we first submit a video
       else
         userPieces[0]
-    tour.init()
-    tour.start()
     loadVideo(@userPiece.submissionVideoURL)
 
   videoPreview = document.querySelector('video')

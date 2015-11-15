@@ -18,9 +18,6 @@ module.exports = ngInject (User, UserPiece, Piece) ->
 
   setPieces = (level) =>
     @pieces = Piece.query({level})
-    @pieces.$promise.then =>
-      tour.init()
-      tour.start()
     @levelPoints =
       piece: @levelHelper.getPointsPerPiece(@selectedLevel)
       completed: @levelHelper.calculatePointsIntoLevel(@user.points, @selectedLevel)

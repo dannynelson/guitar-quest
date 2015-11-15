@@ -14,7 +14,7 @@ angular.module 'app', [
   require 'local_modules/directives/gq_piece_status'
   require 'local_modules/ui_router'
   require 'local_modules/directives/gq_piece_history'
-  require './quests'
+  require './challenges'
   require './pieces'
   require './piece'
   require './landing'
@@ -22,6 +22,7 @@ angular.module 'app', [
   require './create_account'
   require './submitted_pieces'
   require './account'
+  require './how_it_works'
   require './review_submitted_piece'
   require './pricing'
 ]
