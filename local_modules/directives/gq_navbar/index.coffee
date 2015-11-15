@@ -1,4 +1,5 @@
 _ = require 'lodash'
+levelHelper = require 'local_modules/level'
 
 module.exports = __filename
 angular.module __filename, [
@@ -7,10 +8,11 @@ angular.module __filename, [
 ]
 
 .directive 'gqNavbar', ->
-  controllerAs: 'navbarCtrl'
+  controllerAs: 'ctrl'
   bindToController: true
   template: require './template'
   controller: ngInject ($state, User, Notification, $rootScope) ->
+    @levelHelper = levelHelper
     @isLoggedIn = -> !!User.getLoggedInUser()
     @getUser = -> User.getLoggedInUser()
     @updateNotificationCount = =>

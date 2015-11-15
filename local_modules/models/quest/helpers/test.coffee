@@ -74,6 +74,12 @@ describe 'questHelpers', ->
       expect(quest).to.have.property 'userId', userId
       expect(quest).to.have.property 'quantityToComplete'
 
+    it 'allows excludes types', ->
+      userId = objectIdString()
+      user = userFactory.create({_id: userId})
+      quest = questHelpers.generateRandomQuest({user, excludeQuestTypes: ['level', 'era', 'perfectGrade']})
+      expect(quest).to.have.property 'type', 'sightReading'
+
   describe '.matchesConditions()', ->
     it 'returns true if piece and userPiece meet conditions', ->
       user = userFactory.create({_id: objectIdString()})

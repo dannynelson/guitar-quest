@@ -4,38 +4,38 @@
       .navbar-container
         //- .navbar-container
         .navbar-header
-          button.navbar-toggle(type='button', ng-click='navbarCtrl.navbarVisible = !navbarCtrl.navbarVisible')
+          button.navbar-toggle(type='button', ng-click='ctrl.navbarVisible = !ctrl.navbarVisible')
             span.icon-bar
             span.icon-bar
             span.icon-bar
           a.navbar-brand(ui-sref='guitarQuest.landing') GuitarQuest
-        .collapse.navbar-collapse(ng-class="{'navbar-menu-show': navbarCtrl.navbarVisible}")
+        .collapse.navbar-collapse(ng-class="{'navbar-menu-show': ctrl.navbarVisible}")
           ul.nav.navbar-nav(
-            ng-click='navbarCtrl.navbarVisible = !navbarCtrl.navbarVisible'
-            ng-if='navbarCtrl.isLoggedIn()'
+            ng-click='ctrl.navbarVisible = !ctrl.navbarVisible'
+            ng-if='ctrl.isLoggedIn()'
           )
-            li.pieces(ng-class="{active: navbarCtrl.stateIncludes('guitarQuest.pieces')}")
+            li.pieces(ng-class="{active: ctrl.stateIncludes('guitarQuest.pieces')}")
               a(ui-sref='guitarQuest.pieces')
                 span Pieces
-                span.badge.link-badge.badge-warning(ng-if='navbarCtrl.notificationCount.piece') {{navbarCtrl.notificationCount.piece}}
+                span.badge.link-badge.badge-warning(ng-if='ctrl.notificationCount.piece') {{ctrl.notificationCount.piece}}
 
-            li.quests(ng-class="{active: navbarCtrl.stateIncludes('guitarQuest.quests')}")
+            li.quests(ng-class="{active: ctrl.stateIncludes('guitarQuest.quests')}")
               a(ui-sref='guitarQuest.quests')
                 span Quests
-                span.badge.link-badge.badge-warning(ng-if='navbarCtrl.notificationCount.quest') {{navbarCtrl.notificationCount.quest}}
+                span.badge.link-badge.badge-warning(ng-if='ctrl.notificationCount.quest') {{ctrl.notificationCount.quest}}
 
-            li(ng-class="{active: navbarCtrl.stateIncludes('guitarQuest.submittedPieces')}")
+            li(ng-class="{active: ctrl.stateIncludes('guitarQuest.submittedPieces')}")
               a(ui-sref='guitarQuest.submittedPieces') Submitted
 
-          ul.nav.navbar-nav.navbar-right(ng-if='!navbarCtrl.isLoggedIn()')
-            li(ng-class="{active: navbarCtrl.stateIncludes('guitarQuest.pricing')}")
+          ul.nav.navbar-nav.navbar-right(ng-if='!ctrl.isLoggedIn()')
+            li(ng-class="{active: ctrl.stateIncludes('guitarQuest.pricing')}")
               a(ui-sref='guitarQuest.pricing') Pricing
-            li(ng-class="{active: navbarCtrl.stateIncludes('guitarQuest.login')}")
+            li(ng-class="{active: ctrl.stateIncludes('guitarQuest.login')}")
               a(ui-sref='guitarQuest.login') Log in
-            li(ng-class="{active: navbarCtrl.stateIncludes('guitarQuest.createAccount')}")
+            li(ng-class="{active: ctrl.stateIncludes('guitarQuest.createAccount')}")
               a(ui-sref='guitarQuest.createAccount') Sign up
 
-          ul.nav.navbar-nav.navbar-right(ng-if='navbarCtrl.isLoggedIn()')
+          ul.nav.navbar-nav.navbar-right(ng-if='ctrl.isLoggedIn()')
             li(dropdown)
               a.icon-link(dropdown-toggle)
                 i.fa.fa-user
@@ -43,11 +43,11 @@
               ul.dropdown-menu(role="menu" aria-labelledby="single-button")
                 li(role="menuitem")
                   a(href="#" ui-sref='guitarQuest.account') Account
-                  a(href="#" ng-click='navbarCtrl.logout()') Logout
-          .navbar-text.navbar-right(ng-if='navbarCtrl.isLoggedIn()')
+                  a(href="#" ng-click='ctrl.logout()') Logout
+          .navbar-text.navbar-right(ng-if='ctrl.isLoggedIn()')
             //- span.credit-summary.label.label-warning $20 Credit
-            span.text-warning {{navbarCtrl.getUser().credits}} credits
-            span.level-summary Level {{navbarCtrl.getUser().level}}
+            span.text-warning ${{ctrl.getUser().credits}} lesson credits
+            span.level-summary {{ctrl.levelHelper.getLevelName(ctrl.getUser().level)}}
 
             //- li.logout.visible-xs
             //-   a(href='#', ng-click='logout()') Log out {{credentials.google.email}}

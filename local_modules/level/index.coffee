@@ -50,6 +50,13 @@ module.exports = level =
   getPointsPerPiece: (level) ->
     piecePointsByLevel[level]
 
+  getLevelName: (level) ->
+    level = Number(level)
+    if level is 1
+      return 'Preparatory Level'
+    else
+      return "Level #{level - 1}"
+
   calculateCurrentLevel: (totalUserPoints) ->
     level = null
     for _level, points of pointsByLevel

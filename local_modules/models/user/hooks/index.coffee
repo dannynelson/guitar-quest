@@ -27,29 +27,3 @@ module.exports = (schema) ->
     .then =>
       next()
     .then null, next
-
-  # Add initial notifications for new user
-  schema.pre 'save', (next) ->
-    Notification = require 'local_modules/models/notification'
-
-    # if @isNew
-    #   Notification.create([
-    #     {
-    #       userId: @_id
-    #       category: 'piece'
-    #       type: 'info'
-    #       text: 'Welcome to GuitarQuest! In this section, you will find a collection of all the guitar pieces you can learn.  you will learn pieces to earn experience points and progress to higher levels. With each new level, you will unlock new, more challenging pieces. Click on a piece below to get started.'
-    #       acknowledged: false
-    #     }
-    #     {
-    #       userId: @_id
-    #       category: 'quest'
-    #       type: 'info'
-    #       text: 'Complete quests to earn lesson credits and other rewards.'
-    #       acknowledged: false
-    #     }
-    #   ]).then =>
-    #     next()
-    #   .then null, next
-    # else
-    #   next()

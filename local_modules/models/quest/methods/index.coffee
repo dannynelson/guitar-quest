@@ -13,17 +13,15 @@ module.exports = (schema) ->
     Quest = @
     Quest.create questHelpers.generateInitialQuests({user})
 
-  schema.static 'createRandomQuest', ({user}) ->
-    Quest = @
-    Quest.create questHelpers.generateRandomQuest({user})
-
   schema.static 'createQuest', (type, {user}) ->
     Quest = @
     Quest.create questHelpers.generateQuest(type, {user})
 
   schema.static 'createRandomQuest', ({user}) ->
     Quest = @
-    Quest.create questHelpers.generateRandomQuest({user})
+    Quest.find({completed: {$ne: true}}).distinct('type').exec()
+    .then (existingQuestTypes) ->
+      Quest.create questHelpers.generateRandomQuest({user, excludeQuestTypes: existingQuestTypes})
 
   schema.static 'progressMatchingQuests', (userId, {userPiece}) ->
     Piece = require 'local_modules/models/piece'

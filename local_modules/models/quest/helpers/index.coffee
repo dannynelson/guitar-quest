@@ -128,9 +128,12 @@ module.exports = questHelpers =
     questEnums.initialQuestTypes.map (questType) ->
       questHelpers.generateQuest(questType, {user})
 
-  generateRandomQuest: ({user}) ->
+  generateRandomQuest: ({user, excludeQuestTypes}={}) ->
+    excludeQuestTypes ?= []
     joi.assert user, joi.object().required(), 'user'
-    questType = chooseRandom(questEnums.genericQuestTypes)
+    joi.assert excludeQuestTypes, joi.array().items(joi.string().valid(questEnums.questTypes)), 'excludeQuestTypes'
+    availableQuestTypes = _.difference(questEnums.genericQuestTypes, excludeQuestTypes)
+    questType = chooseRandom(availableQuestTypes)
     questHelpers.generateQuest(questType, {user})
 
   matchesConditions: (quest, {piece, userPiece, user}) ->
