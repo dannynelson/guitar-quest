@@ -1,0 +1,35 @@
+.lesson-checkout-lesson
+  .row
+    h5 Choose Your Lesson Preferences
+    .panel.panel-default
+      .panel-heading
+        .panel-title Select lesson length
+      .list-group
+        .list-group-item(ng-click='ctrl.set("minutes", 60)')
+          i.fa.fa-check.select-check(ng-class='{"text-success": ctrl.get("minutes") === 60, "text-faded": ctrl.get("minutes") !== 60}')
+          span 60 minutes
+          span.pull-right.text-warning $55
+        .list-group-item(ng-click='ctrl.set("minutes", 30)')
+          i.fa.fa-check.select-check(ng-class='{"text-success": ctrl.get("minutes") === 30, "text-faded": ctrl.get("minutes") !== 30}')
+          span 30 minutes
+          span.pull-right.text-warning $30
+
+    .panel.panel-default
+      .panel-heading
+        .panel-title Select lesson interval
+      .list-group
+        .list-group-item(ng-click='ctrl.set("weekly", true)')
+          i.fa.fa-check.select-check(ng-class='{"text-success": ctrl.get("weekly") === true, "text-faded": ctrl.get("weekly") !== true}')
+          span Weekly
+        .list-group-item(ng-click='ctrl.set("weekly", false)')
+          i.fa.fa-check.select-check(ng-class='{"text-success": ctrl.get("weekly") === false, "text-faded": ctrl.get("weekly") !== false}')
+          span One-Time
+
+    .panel.panel-default
+      .panel-heading
+        .panel-title Choose time preference
+      .panel-body
+        select.form-control(placeholder='Day')
+        select.form-control(placeholder='Time of Day')
+
+    .btn.btn-primary.btn-block Next

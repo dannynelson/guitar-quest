@@ -23,4 +23,7 @@ html(
     ui-view
 
     script(src=assets('/externals.js'))
+    script(type="text/javascript" src="https://js.stripe.com/v2/")
+    script.
+      Stripe.setPublishableKey('pk_test_R70JOrGIXkfE6fYGcdJSoODS');
     script(src=assets('/app.js'))

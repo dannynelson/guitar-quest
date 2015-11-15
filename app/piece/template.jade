@@ -41,18 +41,18 @@
       gq-piece-history(ng-if='ctrl.userPiece && ctrl.piece.level' user-piece='ctrl.userPiece' level='ctrl.piece.level')
 
     .col-md-4
-      .panel.panel-default
-        .panel-body
-          strong RECOMMENDED TUTORIALS
-          ul
-            li
-              a Slurs
-            li
-              a Guide Fingers
-            li
-              a Memorizing music
-            li
-              a Playing Musically
+      //- .panel.panel-default
+      //-   .panel-body
+      //-     strong RECOMMENDED TUTORIALS
+      //-     ul
+      //-       li
+      //-         a Slurs
+      //-       li
+      //-         a Guide Fingers
+      //-       li
+      //-         a Memorizing music
+      //-       li
+      //-         a Playing Musically
 
       .panel.panel-default
         .panel-body
@@ -62,7 +62,7 @@
               i.link-panel-icon.fa.fa-users.fa-3x
             .col-xs-9
               div Need help? Get a private video lesson from one of our teachers?
-              a
+              a(ui-sref='guitarQuest.privateLessons')
                 span View Teachers&nbsp;
                 span.fa.fa-angle-double-right
 

@@ -1,0 +1,27 @@
+.lesson-checkout
+  nav.navbar.navbar-default.navbar-static-top
+    .container
+      .navbar-container
+        //- .navbar-container
+        .navbar-header
+          a.navbar-brand(ui-sref='guitarQuest.landing') GuitarQuest
+  //- Lesson
+    //- (choose a teacher)
+    //- choose a lesson length / price
+    //- (choose a time)
+    //- (weekly or one time)
+  //- Contact
+    //- Email / Skype
+  //- Payment
+    //- enter payment information
+  //- show summary (lesson price minus credits)
+  //- submit
+  .text-center.steps
+    span.step(ng-class='{"current-step": ctrl.stateIncludes("lessonCheckout.lesson")}') 1. Lesson
+    span.step(ng-class='{"current-step": ctrl.stateIncludes("lessonCheckout.contact")}') 2. Contact
+    span.step(ng-class='{"current-step": ctrl.stateIncludes("lessonCheckout.payment")}') 3. Payment
+    span.step(ng-class='{"current-step": ctrl.stateIncludes("lessonCheckout.review")}') 4. Review
+
+  .col-md-4.col-md-offset-4
+    ui-view
+

@@ -1,0 +1,79 @@
+.guitar-quest-private-lessons.container
+  .row
+    .col-md-4.col-md-offset-4
+      .panel.panel-default
+        .panel-heading Lesson Info
+        .panel-body
+          .btn-group
+            .btn.btn-default 30 Minutes
+            .btn.btn-default 60 Minutes
+
+          .btn-group
+            .btn.btn-default One-Time
+            .btn.btn-default Weekly
+
+      .panel.panel-default
+        .panel-body
+          h4
+            span Contact Info
+
+          input.form-control(type='text') Skype Username
+
+          .btn-group
+            .btn.btn-default One-Time
+            .btn.btn-default Weekly
+
+      .panel.panel-default
+        .panel-body
+          h4
+            span Payment Details
+
+          .cards-accepted
+            span We accept all major credit cards.
+            span.pull-right.text-info.cards
+              i.fa.fa-cc-discover.card
+              i.fa.fa-cc-visa.card
+              i.fa.fa-cc-mastercard.card
+              i.fa.fa-cc-amex.card
+
+
+          form(
+            name='paymentForm'
+            stripe-form='ctrl.submitPayment'
+          )
+            //- span.payment-errors
+
+            input.number.form-control(
+              ng-model='number'
+              type="text"
+              placeholder='Card Number'
+              payments-validate="card"
+              payments-format="card"
+              payments-type-model='type'
+            )
+
+            .form-inline
+              input.exp-month.form-control(
+                ng-model='expMonth'
+                type="text"
+                placeholder='MM'
+              )
+
+              span &nbsp;/&nbsp;
+
+              input.exp-year.form-control(
+                ng-model='expYear'
+                type="text"
+                placeholder='YYYY'
+              )
+
+              input.cvc.form-control.pull-right(
+                ng-model="cvc"
+                type="text"
+                placeholder='CVC'
+                size="4"
+                payments-validate="cvc"
+                payments-format="cvc"
+              )
+
+            button.payment-btn.btn.btn-primary.btn-block(type='submit') Pay $60

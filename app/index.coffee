@@ -25,6 +25,8 @@ angular.module 'app', [
   require './how_it_works'
   require './review_submitted_piece'
   require './pricing'
+  # require './private_lessons'
+  require './lesson_checkout'
 ]
 
 .constant 'settings', window.settings
