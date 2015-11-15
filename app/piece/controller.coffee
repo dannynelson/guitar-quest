@@ -4,7 +4,7 @@ level = require 'local_modules/level'
 ObjectId = require 'objectid-browser'
 userPieceHelpers = require 'local_modules/models/user_piece/helpers'
 
-module.exports = ngInject (Upload, $http, User, $stateParams, Piece, UserPiece, $state, tour) ->
+module.exports = ngInject (Upload, $http, User, $stateParams, Piece, UserPiece, $state) ->
   @level = level
   @piece = Piece.get({_id: $stateParams.pieceId})
   @getStatus = (userPiece) ->

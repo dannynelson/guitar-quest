@@ -3,7 +3,7 @@ gulp = require 'gulp'
 
 require('./tasks/boot_processes')(gulp)
 require('./tasks/build_assets')(gulp, {
-  staticFiles: ['public/bootstrap.min.css']
+  staticFiles: ['public/**']
 })
 require('./tasks/test')(gulp)
 require('./tasks/console')(gulp)

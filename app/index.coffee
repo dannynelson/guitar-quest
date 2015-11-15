@@ -6,7 +6,6 @@ window.angular = require 'angular'
 
 require 'angular-resource'
 require 'angular-bootstrap'
-require 'bootstrap-tour/build/js/bootstrap-tour-standalone.min.js'
 
 angular.module 'app', [
   'ui.bootstrap'

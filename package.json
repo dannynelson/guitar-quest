@@ -30,7 +30,6 @@
     "async": "^1.4.2",
     "bluebird": "^2.9.34",
     "body-parser": "^1.13.3",
-    "bootstrap-tour": "^0.10.1",
     "bunyan": "^1.4.0",
     "byline": "^4.2.1",
     "chai": "^3.4.1",
