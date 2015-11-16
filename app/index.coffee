@@ -27,6 +27,7 @@ angular.module 'app', [
   require './pricing'
   # require './private_lessons'
   require './lesson_checkout'
+  require './confirm_email'
 ]
 
 .constant 'settings', window.settings

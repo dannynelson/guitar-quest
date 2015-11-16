@@ -1,5 +1,6 @@
 Promise = require 'bluebird'
 sendgrid = require 'local_modules/sendgrid'
+settings = require 'local_modules/settings'
 
 module.exports = (schema) ->
   schema.static 'send', (notification, {sendEmail}={}) ->
@@ -13,13 +14,13 @@ module.exports = (schema) ->
         return User.findById(notification.userId).then (user) ->
           sendgrid.send
             to: user.email
-            from: 'danny.edward.nelson@gmail.com'
+            from: settings.guitarQuestEmail
             subject: notification.title
             html: "
               Hello,<br><br>
               #{notification.text}.<br><br>
               Log in to guitar quest to view more info.<br>
-              https://www.guitarquest.com<br><br>
+              #{settings.server.url}<br><br>
               Thanks,<br>
-              GuitarQuest Team
+              The GuitarQuest Team
             "

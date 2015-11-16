@@ -86,3 +86,9 @@ module.exports =
       format: '*'
       default: null
       env: 'SENDGRID_API_KEY'
+
+  guitarQuestEmail:
+    doc: 'from email for all guitarquest emails'
+    format: '*'
+    default: 'danny.edward.nelson@gmail.com'
+    env: 'GUITAR_QUEST_EMAIL'

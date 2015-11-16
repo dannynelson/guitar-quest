@@ -22,7 +22,9 @@ x add a banner image and copy to landing page
 - quest credits should be based on level
 - update notification text
 - create page for adding pieces
+- send comment and grade in one request. Include comment in email that is sent to user
 
+- once a week clean up temp users
 - add about and features on landing page
 - restyle the account page to include more info (credits, level, photo?)
 - require monthly payment beyond level 2?

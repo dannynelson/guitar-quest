@@ -15,14 +15,17 @@ angular.module __filename, ['ngResource']
 
   User.register = ({email, password}) ->
     $http.post('/users/register', {email, password}).then (response) ->
-      loggedInUser = new User response.data
-      return loggedInUser
+      return response.data
 
   User::$reload = ->
     user = @
     $http.get("/users/#{user._id}").then (response) ->
       updatedUser = new User response.data
       angular.copy updatedUser, user
+
+  User.confirmEmail = ({tempUserId}) ->
+    $http.post("/users/confirm_email/#{tempUserId}").then (response) ->
+      return response.data # {email, password}
 
   User.login = ({email, password}) ->
     $http.post('/users/login', {email, password}).then (response) ->

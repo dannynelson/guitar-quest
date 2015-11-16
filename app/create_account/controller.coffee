@@ -7,8 +7,6 @@ module.exports = ngInject (User, $state) ->
 
   @register = =>
     User.register(@form).then =>
-      User.login(@form)
-    .then =>
-      $state.go 'guitarQuest.pieces'
+      $state.go 'guitarQuest.confirmEmail'
 
   return @ # http://stackoverflow.com/questions/28953289/using-controller-as-with-the-ui-router-isnt-working-as-expected

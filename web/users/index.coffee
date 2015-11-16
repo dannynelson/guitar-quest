@@ -1,6 +1,9 @@
 Promise = require 'bluebird'
+settings = require 'local_modules/settings'
 User = require 'local_modules/models/user'
+TempUser = require 'local_modules/models/temp_user'
 passport = require 'local_modules/passport'
+sendgrid = require 'local_modules/sendgrid'
 resourceConverter = require './resource_converter'
 
 module.exports = router = require('express').Router()
@@ -14,17 +17,42 @@ router.put '/:_id',
   resourceConverter.send
 
 router.post '/register', (req, res, next) ->
-  # FIXME why cant this be promisified??
-  User.register new User({ email: req.body.email }), req.body.password, (err, user) ->
-    Promise.try ->
-      throw err if err
-    .then ->
-      resourceConverter.createResourceFromModel(user, {req, res, next})
-    .then (resource) ->
-      res.status(201)
-      res.send resource
-    .then null, (err) ->
-      next(err)
+  TempUser.create({email: req.body.email, password: req.body.password}).then (tempUser) ->
+    sendgrid.send
+      to: tempUser.email
+      from: settings.guitarQuestEmail
+      subject: 'Confirm GuitarQuest Email'
+      html: "
+        Hello,<br><br>
+        Welcome to GuitarQuest! Click the link below to confirm your email.<br>
+        #{settings.server.url}/#/confirm_email?id=#{tempUser._id}<br><br>
+        Thanks,<br>
+        The GuitarQuest Team
+      "
+    , (err) ->
+      console.log err if err?
+    res.status(201)
+    res.send({})
+  .then null, next
+
+router.post '/confirm_email/:tempUserId', (req, res, next) ->
+  TempUser.findById(req.params.tempUserId)
+  .then (tempUser) ->
+    return res.send({}) unless tempUser
+    {email, password} = tempUser
+    # FIXME why cant this be promisified??
+    User.register new User({ email: tempUser.email }), tempUser.password, (err, user) ->
+      Promise.try ->
+        throw err if err
+      .then ->
+        tempUser.remove()
+      .then ->
+        resourceConverter.createResourceFromModel(user, {req, res, next})
+      .then (resource) ->
+        res.status(201)
+        res.send({email, password}) # so that we can immediately log in
+      .then null, (err) ->
+        next(err)
 
 router.post '/login',
   passport.authenticate('local')
