@@ -4,21 +4,26 @@ A game for learning classical guitar
 
 TODO:
 
-- create way for people to buy lessons with credits (and schedule the lesson?)
-- update notifications
+x send notifcations from a guitarquest email
+x update notifications
 - handle permissions and restricting pages
 - stup email confirmation, and email notifications for piece comments/grades and new quests, lesson payment confirmation, and email unsubscribe page
-- update notification text
 - make sure username and password are secure
-- don't include history in default response
+x don't include history in default response
 - site still logs out pretty frequently (it should almost never log out?)
-- quest credits should be based on level
-- add a banner image and copy to landing page
+x add a banner image and copy to landing page
 - clean up account page
 - follow all deployment and security todos below
 - always center quests
 - allow filtering pieces
+- rename quest to challenge everywhere
+- create way for people to buy lessons with credits (and schedule the lesson?)
+- email confirmation when subscribing
+- quest credits should be based on level
+- update notification text
+- create page for adding pieces
 
+- add about and features on landing page
 - restyle the account page to include more info (credits, level, photo?)
 - require monthly payment beyond level 2?
 - mobile view doesnt work

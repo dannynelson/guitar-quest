@@ -21,7 +21,7 @@ module.exports = (schema) ->
     Promise.try =>
       if @isNew
         Promise.all [
-          Quest.createInitialQuests({user: @})
+          # Quest.createInitialQuests({user: @})
           Quest.createQuest('level', {user: @})
         ]
     .then =>

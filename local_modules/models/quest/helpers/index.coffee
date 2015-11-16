@@ -5,6 +5,7 @@ Helpers for working with quests
 _ = require 'lodash'
 joi = require 'joi'
 joi.objectId = require('joi-objectid')(joi)
+levelHelper = require 'local_modules/level'
 pieceEnums = require 'local_modules/models/piece/enums'
 userPieceEnums = require 'local_modules/models/user_piece/enums'
 questEnums = require 'local_modules/models/quest/enums'
@@ -15,12 +16,15 @@ chooseRandom = (items) ->
 capitalize = (string) ->
   string.charAt(0).toUpperCase() + string.slice(1)
 
-buildQuest = ({userId, type, quantityToComplete, params, credits}={}) ->
+buildQuest = ({userId, type, quantityToComplete, params, credits, points}={}) ->
   joi.assert userId, joi.objectId().required(), 'userId'
   joi.assert type, joi.string().valid(questEnums.questTypes).required(), 'type'
   joi.assert quantityToComplete, joi.number().integer().required(), 'quantityToComplete'
   joi.assert params, joi.object().required(), 'params'
-  joi.assert credits, joi.number().integer().required(), 'credits'
+  joi.assert credits, joi.number().integer(), 'credits'
+  joi.assert credits, joi.number().integer(), 'points'
+  if not credits? and not points?
+    throw new Error 'Must specify a reward'
 
   userId: userId
   type: type
@@ -29,6 +33,7 @@ buildQuest = ({userId, type, quantityToComplete, params, credits}={}) ->
   params: params
   reward:
     credits: credits
+    points: points
 
 questDefinitions =
   # ================== initial =========================
@@ -57,7 +62,7 @@ questDefinitions =
         quantityToComplete: 3
         params:
           'level': questLevel
-        credits: 8 + (2 * questLevel)
+        credits: chooseRandom([5, 10])
     conditions: ({quest, piece, userPiece, user}) ->
       userPiece.grade >= 0.8 and piece.level is quest.params.level
 
@@ -70,7 +75,7 @@ questDefinitions =
       quantityToComplete: 2
       params:
         'era': chooseRandom(pieceEnums.musicalEras)
-      credits: chooseRandom([10, 15])
+      credits: chooseRandom([5, 10])
     conditions: ({quest, piece, userPiece, user}) ->
       isCurrentLevel = piece.level is user.level
       isCorrectEra = piece.era is quest.params.era
@@ -86,7 +91,7 @@ questDefinitions =
         type: 'sightReading'
         quantityToComplete: 6
         params: {}
-        credits: chooseRandom([10, 15])
+        credits: chooseRandom([5, 10])
     conditions: ({quest, piece, userPiece, user}) ->
       isSubmitted = userPiece.submissionVideoURL?
       return isSubmitted
@@ -100,7 +105,7 @@ questDefinitions =
         type: 'perfectGrade'
         quantityToComplete: 2
         params: {}
-        credits: chooseRandom([10, 15])
+        credits: chooseRandom([5, 10])
     conditions: ({quest, piece, userPiece, user}) ->
       isCurrentLevel = piece.level is user.level
       isPerfectGrade = userPiece.grade is 1

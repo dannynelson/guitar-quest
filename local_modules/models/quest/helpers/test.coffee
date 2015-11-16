@@ -73,6 +73,7 @@ describe 'questHelpers', ->
       quest = questHelpers.generateRandomQuest({user})
       expect(quest).to.have.property 'userId', userId
       expect(quest).to.have.property 'quantityToComplete'
+      console.log {quest}
 
     it 'allows excludes types', ->
       userId = objectIdString()
@@ -163,11 +164,11 @@ describe 'questHelpers', ->
         userPiece: {grade: 0.7}
         questParams: {era: 'baroque'}
 
-      itMatchesConditions true, 'sightReading',
-        user: {}
-        piece: {}
-        userPiece: {}
-        questParams: {}
+      # itMatchesConditions true, 'sightReading',
+      #   user: {}
+      #   piece: {}
+      #   userPiece: {}
+      #   questParams: {}
 
       itMatchesConditions true, 'perfectGrade',
         user: {level: 1}

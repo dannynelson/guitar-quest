@@ -18,6 +18,12 @@ angular.module __filename, ['ngResource']
       loggedInUser = new User response.data
       return loggedInUser
 
+  User::$reload = ->
+    user = @
+    $http.get("/users/#{user._id}").then (response) ->
+      updatedUser = new User response.data
+      angular.copy updatedUser, user
+
   User.login = ({email, password}) ->
     $http.post('/users/login', {email, password}).then (response) ->
       loggedInUser = new User response.data

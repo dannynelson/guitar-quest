@@ -1,5 +1,6 @@
 Promise = require 'bluebird'
 logger = require 'local_modules/logger'
+questHelpers = require './helpers'
 
 module.exports = (schema) ->
 
@@ -18,27 +19,37 @@ module.exports = (schema) ->
     if @isModified('quantityCompleted')
       Promise.try =>
         if 0 < @quantityCompleted < @quantityToComplete
-          notification = new Notification
+          return Notification.send
             userId: @userId
             category: 'quest'
             type: 'info'
-            text: "You completed #{@quantityCompleted}/#{@quantityToComplete} of the quest \"#{@name}\""
-            acknowledged: false
-          notification.save()
+            title: 'GuitarQuest challenge progress'
+            text: "You completed #{@quantityCompleted}/#{@quantityToComplete} of the challenge \"#{questHelpers.getTitle(@type)}\""
 
         else if @quantityCompleted is @quantityToComplete
           User.findById(@userId).then (user) =>
             @completed = true
-            user.credits += @reward.credits
 
-            notification = new Notification
-              userId: @userId
-              category: 'quest'
-              type: 'success'
-              text: "Congratulations! You completed the quest \"#{@name}\" and earned #{@reward.credits} credits."
-              acknowledged: false
+            if @reward.credits?
+              user.credits += @reward.credits
+              return Notification.send
+                userId: @userId
+                category: 'quest'
+                type: 'success'
+                title: 'GuitarQuest challenge progress'
+                text: "Congratulations! You completed the challenge \"#{questHelpers.getTitle(@type)}\" and earned #{@reward.credits} credits."
 
-            notification.save().then => user.save()
+            if @reward.points?
+              user.points += @reward.points if @reward.points?
+              return Notification.send
+                userId: @userId
+                category: 'quest'
+                type: 'success'
+                title: 'GuitarQuest challenge progress'
+                text: "Congratulations! You completed the challenge \"#{questHelpers.getTitle(@type)}\" and earned #{@reward.points} points."
+
+      .then =>
+        user.save()
       .then =>
         next()
       .then null, (err) =>

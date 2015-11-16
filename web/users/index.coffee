@@ -2,7 +2,6 @@ Promise = require 'bluebird'
 User = require 'local_modules/models/user'
 passport = require 'local_modules/passport'
 resourceConverter = require './resource_converter'
-sendgrid = require 'local_modules/sendgrid'
 
 module.exports = router = require('express').Router()
 
@@ -22,14 +21,6 @@ router.post '/register', (req, res, next) ->
     .then ->
       resourceConverter.createResourceFromModel(user, {req, res, next})
     .then (resource) ->
-      sendgrid.send
-        to: user.email
-        from: 'danny.edward.nelson@gmail.com'
-        subject: 'Confirm Email'
-        text: 'It works'
-      , (err, json) ->
-        if (err) then return console.error(err)
-        console.log json
       res.status(201)
       res.send resource
     .then null, (err) ->

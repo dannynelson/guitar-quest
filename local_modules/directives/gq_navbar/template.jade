@@ -51,7 +51,7 @@
                   a(href="#" ng-click='ctrl.logout()') Logout
           .navbar-text.navbar-right(ng-if='ctrl.isLoggedIn()')
             //- span.credit-summary.label.label-warning $20 Credit
-            span.text-warning ${{ctrl.getUser().credits}} lesson credits
+            //- span.text-warning ${{ctrl.getUser().credits}} lesson credits
             span.level-summary {{ctrl.levelHelper.getLevelName(ctrl.getUser().level)}}
 
             //- li.logout.visible-xs

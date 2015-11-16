@@ -5,7 +5,7 @@ Piece = require 'local_modules/models/piece'
 User = require 'local_modules/models/user'
 
 schema = Object.keys(UserPiece.schema.paths).reduce (obj, path) ->
-  obj[path] = path
+  obj[path] = path unless path is 'history'
   obj
 , {}
 

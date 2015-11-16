@@ -5,6 +5,7 @@ JSONSchema = require './schema'
 
 schema = jsonSchemaConverter.toMongooseSchema(JSONSchema, mongoose)
 schema.plugin require('mongoose-timestamp')
+require('./methods')(schema)
 model = database.mongooseConnection.model 'Notification', schema
 
 module.exports = model

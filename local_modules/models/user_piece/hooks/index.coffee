@@ -33,16 +33,24 @@ module.exports = (schema) ->
       user.points += level.getPointsPerPiece(piece.level) * userPiece.grade
       user.level = level.calculateCurrentLevel(user.points)
 
-      notification = new Notification
+      notification =
         userId: @userId
         category: 'piece'
         type: 'success'
-        text: "Congratulations! Your video submission for #{piece.name} was accepted and you earned #{piece.points} points."
-        acknowledged: false
+        title: 'GuitarQuest video submission graded'
+        text: "
+          Your video submission for #{piece.name} was graded
+          #{userPiece.grade * 100}% and you earned #{level.getPointsPerPiece(piece.level) * userPiece.grade} points.
+        "
+
+      Notification.send(notification, {sendEmail: true})
 
       # save notification before user so that level up notifications come afterwards
-      notification.save().then => user.save()
-    .nodeify(next)
+      .then =>
+        user.save()
+    .then ->
+      next()
+    .then null, next
 
   # progress quests
   schema.pre 'save', (next) ->
@@ -55,24 +63,6 @@ module.exports = (schema) ->
     .then (piece) =>
       Quest.progressMatchingQuests @userId, {userPiece: @}
     .nodeify(next)
-
-  # notify if piece was rejected
-  # schema.pre 'save', (next) ->
-  #   Piece = require 'local_modules/models/piece'
-  #   Notification = require 'local_modules/models/notification'
-
-  #   if @isModified('status') and @status is 'retry'
-  #     Piece.findById(@pieceId).then (piece) =>
-  #       notification = new Notification
-  #         userId: @userId
-  #         category: 'piece'
-  #         type: 'info'
-  #         text: "You received teacher feedback for \"#{piece.name}\". Please review and submit another video."
-  #         acknowledged: false
-  #       notification.save()
-  #     .nodeify(next)
-  #   else
-  #     next()
 
   # copy current data to history
   schema.pre 'save', (next) ->

@@ -41,6 +41,18 @@
       gq-piece-history(ng-if='ctrl.userPiece && ctrl.piece.level' user-piece='ctrl.userPiece' level='ctrl.piece.level')
 
     .col-md-4
+      .panel.panel-default.buy-sheet-music-panel
+        .panel-body
+          strong SUBMISSION GUIDELINES
+          .row
+            .col-xs-3.text-info.text-center
+              i.link-panel-icon.fa.fa-book.fa-3x
+            .col-xs-9
+              div Find every GuitarQuest level 1 piece in <em>Bridges (Preparatory Level)</em>
+              a
+                span Read More&nbsp;
+                span.fa.fa-angle-double-right
+
       //- .panel.panel-default
       //-   .panel-body
       //-     strong RECOMMENDED TUTORIALS
@@ -54,17 +66,17 @@
       //-       li
       //-         a Playing Musically
 
-      .panel.panel-default
-        .panel-body
-          strong REQUEST A PRIVATE LESSON
-          .row
-            .col-xs-3.text-info.text-center
-              i.link-panel-icon.fa.fa-users.fa-3x
-            .col-xs-9
-              div Need help? Get a private video lesson from one of our teachers?
-              a(ui-sref='guitarQuest.privateLessons')
-                span View Teachers&nbsp;
-                span.fa.fa-angle-double-right
+      //- .panel.panel-default
+      //-   .panel-body
+      //-     strong REQUEST A PRIVATE LESSON
+      //-     .row
+      //-       .col-xs-3.text-info.text-center
+      //-         i.link-panel-icon.fa.fa-users.fa-3x
+      //-       .col-xs-9
+      //-         div Need help? Get a private video lesson from one of our teachers?
+      //-         a(ui-sref='guitarQuest.privateLessons')
+      //-           span View Teachers&nbsp;
+      //-           span.fa.fa-angle-double-right
 
       .panel.panel-default.buy-sheet-music-panel
         .panel-body

@@ -2,13 +2,16 @@
   gq-notifications(category='quest')
   .row
     .no-quests.text-center(ng-if='!ctrl.quests.length')
-      h5 You do not have any quests right now. Check again next week.
+      h5 You do not have any challenges right now. Check again next week.
     .quest.col-sm-4(ng-repeat='quest in ctrl.quests')
       .quest-panel.panel.panel-default
         .quest-panel-body.panel-body.text-center
           h5.quest-title {{ctrl.questHelpers.getTitle(quest)}}
-          .reward.text-warning
-            i.reward-icon.fa.fa-money.fa-3x
-            .credits ${{quest.reward.credits}} lesson credits
+          .reward.text-warning(ng-if='quest.reward.credits')
+            i.reward-credits-icon.fa.fa-money.fa-3x
+            .reward-text ${{quest.reward.credits}} lesson credits
+          .reward.text-warning(ng-if='quest.reward.points')
+            i.reward-points-icon.fa.fa-star.fa-3x
+            .reward-text {{quest.reward.points}} points
           .description {{ctrl.questHelpers.getDescription(quest)}}
           .quantity-complete {{quest.quantityCompleted}} / {{quest.quantityToComplete}} Complete
