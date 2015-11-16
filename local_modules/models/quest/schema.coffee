@@ -39,9 +39,9 @@ module.exports =
         credits:
           description: 'credits to use for buying lessons'
           type: 'integer'
-        points:
-          description: 'points to help user get to the next level faster'
-          type: 'integer'
+        # points:
+        #   description: 'points to help user get to the next level faster'
+        #   type: 'integer'
 
     piecesCompleted:
       description: 'Pieces that have already been counted toward this quest'

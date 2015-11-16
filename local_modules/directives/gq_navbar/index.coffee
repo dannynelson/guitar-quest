@@ -14,6 +14,10 @@ angular.module __filename, [
   controller: ngInject ($state, User, Notification, $rootScope) ->
     @levelHelper = levelHelper
     @isLoggedIn = -> !!User.getLoggedInUser()
+    @hasRole = (role) ->
+      user = User.getLoggedInUser()
+      user.roles ?= []
+      role in user.roles
     @getUser = -> User.getLoggedInUser()
     @updateNotificationCount = =>
       user = User.getLoggedInUser()

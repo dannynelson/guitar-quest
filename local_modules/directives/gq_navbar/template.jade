@@ -31,7 +31,10 @@
                 span Challenges
                 span.badge.link-badge.badge-warning(ng-if='ctrl.notificationCount.quest') {{ctrl.notificationCount.quest}}
 
-            li(ng-class="{active: ctrl.stateIncludes('guitarQuest.submittedPieces')}")
+            li(
+              ng-if='ctrl.hasRole("teacher")'
+              ng-class="{active: ctrl.stateIncludes('guitarQuest.submittedPieces')}"
+            )
               a(ui-sref='guitarQuest.submittedPieces') Submitted
 
           ul.nav.navbar-nav.navbar-right(ng-if='!ctrl.isLoggedIn()')

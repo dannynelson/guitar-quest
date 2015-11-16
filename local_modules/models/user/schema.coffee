@@ -14,6 +14,12 @@ module.exports =
     name:
       type: 'string'
 
+    roles:
+      type: 'array'
+      items:
+        type: 'string'
+        enum: ['teacher']
+
     level:
       description: 'users current level'
       type: 'integer'

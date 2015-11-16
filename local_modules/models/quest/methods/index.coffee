@@ -1,5 +1,7 @@
 Promise = require 'bluebird'
 _ = require 'lodash'
+settings = require 'local_modules/settings'
+sendgrid = require 'local_modules/sendgrid'
 Piece = require 'local_modules/models/piece'
 UserPiece = require 'local_modules/models/user_piece'
 pieceEnums = require 'local_modules/models/piece/enums'
@@ -17,11 +19,28 @@ module.exports = (schema) ->
     Quest = @
     Quest.create questHelpers.generateQuest(type, {user})
 
-  schema.static 'createRandomQuest', ({user}) ->
+  schema.static 'createRandomQuest', ({user, sendEmail}={}) ->
+    sendEmail ?= false
     Quest = @
     Quest.find({completed: {$ne: true}}).distinct('type').exec()
     .then (existingQuestTypes) ->
       Quest.create questHelpers.generateRandomQuest({user, excludeQuestTypes: existingQuestTypes})
+    .then (quest) ->
+      if sendEmail
+        sendgrid.send
+          to: user.email
+          from: settings.guitarQuestEmail
+          subject: 'New GuitarQuest challenge!'
+          html: "
+            Hello,<br><br>
+            You just received a new GuitarQuest challenge, <strong>#{questHelpers.getTitle(quest)}</strong>! Log into to GuitarQuest to learn more:
+            #{settings.server.url}/#/quests<br><br>
+            Thanks,<br>
+            The GuitarQuest Team
+          "
+        , (err) ->
+          console.log err if err?
+      return quest
 
   schema.static 'progressMatchingQuests', (userId, {userPiece}) ->
     Piece = require 'local_modules/models/piece'

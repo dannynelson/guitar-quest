@@ -6,8 +6,8 @@ TODO:
 
 x send notifcations from a guitarquest email
 x update notifications
-- handle permissions and restricting pages
-- stup email confirmation, and email notifications for piece comments/grades and new quests, lesson payment confirmation, and email unsubscribe page
+x handle permissions and restricting pages
+x stup email confirmation, and email notifications for piece comments/grades and new quests,
 - make sure username and password are secure
 x don't include history in default response
 - site still logs out pretty frequently (it should almost never log out?)
@@ -24,6 +24,9 @@ x add a banner image and copy to landing page
 - create page for adding pieces
 - send comment and grade in one request. Include comment in email that is sent to user
 
+- restrict pages and files based on permissions
+- lesson payment confirmation, and email unsubscribe page
+- send email when quest is created
 - once a week clean up temp users
 - add about and features on landing page
 - restyle the account page to include more info (credits, level, photo?)

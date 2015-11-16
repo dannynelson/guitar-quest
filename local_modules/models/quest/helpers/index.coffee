@@ -26,14 +26,16 @@ buildQuest = ({userId, type, quantityToComplete, params, credits, points}={}) ->
   if not credits? and not points?
     throw new Error 'Must specify a reward'
 
-  userId: userId
-  type: type
-  quantityToComplete: quantityToComplete
-  completed: false
-  params: params
-  reward:
-    credits: credits
-    points: points
+  return {
+    userId: userId
+    type: type
+    quantityToComplete: quantityToComplete
+    completed: false
+    params: params
+    reward:
+      credits: credits
+  }
+
 
 questDefinitions =
   # ================== initial =========================
@@ -70,12 +72,13 @@ questDefinitions =
     title: ({quest}) -> "#{capitalize(quest.params.era)} Era Practice"
     description: ({quest}) -> "Complete any 2 #{quest.params.era} era pieces from your current level with at least an 80% grade."
     quest: ({user}) ->
-      userId: user._id.toString()
-      type: 'era'
-      quantityToComplete: 2
-      params:
-        'era': chooseRandom(pieceEnums.musicalEras)
-      credits: chooseRandom([5, 10])
+      buildQuest
+        userId: user._id.toString()
+        type: 'era'
+        quantityToComplete: 2
+        credits: chooseRandom([5, 10])
+        params:
+          'era': chooseRandom(pieceEnums.musicalEras)
     conditions: ({quest, piece, userPiece, user}) ->
       isCurrentLevel = piece.level is user.level
       isCorrectEra = piece.era is quest.params.era

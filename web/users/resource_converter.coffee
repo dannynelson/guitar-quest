@@ -8,4 +8,5 @@ module.exports = new ResourceSchema User, {
   'level'
   'points'
   'credits'
+  'roles'
 }
