@@ -8,7 +8,8 @@
             span.icon-bar
             span.icon-bar
             span.icon-bar
-          a.navbar-brand(ui-sref='guitarQuest.landing') GuitarQuest
+          a.navbar-brand(ng-if='!ctrl.isLoggedIn()' ui-sref='guitarQuest.landing') GuitarQuest
+          a.navbar-brand(ng-if='ctrl.isLoggedIn()' ui-sref='guitarQuest.pieces') GuitarQuest
         .collapse.navbar-collapse(ng-class="{'navbar-menu-show': ctrl.navbarVisible}")
           //- ul.nav.navbar-nav(ng-if='!ctrl.isLoggedIn()')
           //-   li(ng-class="{active: ctrl.stateIncludes('guitarQuest.howItWorks')}")

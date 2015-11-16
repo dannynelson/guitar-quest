@@ -4,7 +4,8 @@
   "description": "",
   "main": "web/index.coffee",
   "scripts": {
-    "install": "aperture link"
+    "install": "aperture link",
+    "postinstall": "gulp build_assets --prod"
   },
   "author": "",
   "license": "ISC",

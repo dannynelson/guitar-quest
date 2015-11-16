@@ -25,12 +25,6 @@ module.exports =
     default: 'guitar-quest'
     env: 'APP_NAME'
 
-  sha:
-    doc: 'Current git sha'
-    format: '*'
-    default: 'unknown'
-    env: 'SHA'
-
   mongo:
     name:
       doc: 'DB connection name'

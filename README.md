@@ -19,6 +19,7 @@ x create page for adding pieces
 - send comment and grade in one request. Include comment in email that is sent to user
 x site still logs out pretty frequently (it should almost never log out?)
 
+- password reset email
 - error when trying to register twice
 - quest credits should be based on level
 - create way for people to buy lessons with credits (and schedule the lesson?)
