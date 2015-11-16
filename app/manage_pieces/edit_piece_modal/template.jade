@@ -1,0 +1,29 @@
+form.edit-piece-modal(ng-submit='ctrl.updatePiece()')
+  .modal-header
+    h4 Edit Piece
+
+  .modal-body
+    input.form-control(
+      placeholder='name'
+      ng-model='ctrl.piece.name'
+    )
+    input.form-control(
+      placeholder='composer'
+      ng-model='ctrl.piece.composer'
+    )
+    input.form-control(
+      type='number'
+      placeholder='level'
+      ng-model='ctrl.piece.level'
+    )
+    input.form-control(
+      placeholder='era'
+      ng-model='ctrl.piece.era'
+    )
+    input.form-control(
+      placeholder='spotifyURI'
+      ng-model='ctrl.piece.spotifyURI'
+    )
+
+  .modal-footer
+    button.btn.btn-primary.btn-block(type='submit') Save

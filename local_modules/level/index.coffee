@@ -10,7 +10,7 @@ I will want to change these things, so
 - save score for each piece, so that we can recalculate users total points/level at any time
  based on the pieces they've completed
 
-questions
+challengeions
 - what if I want to add a level before level 1 (Early beginner)
 
 FIXME: this needs refinement if someone ever maxes out level 10

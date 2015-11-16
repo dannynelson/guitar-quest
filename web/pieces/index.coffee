@@ -12,3 +12,11 @@ router.get '/',
 router.get '/:_id',
   resourceConverter.get('_id')
   resourceConverter.send
+
+router.post '/',
+  resourceConverter.post()
+  resourceConverter.send
+
+router.put '/:_id',
+  resourceConverter.put('_id')
+  resourceConverter.send

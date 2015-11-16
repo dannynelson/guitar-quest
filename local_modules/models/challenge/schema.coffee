@@ -1,4 +1,4 @@
-questEnums = require './enums'
+challengeEnums = require './enums'
 
 module.exports =
   type: 'object'
@@ -14,10 +14,10 @@ module.exports =
 
     type:
       type: 'string'
-      enum: questEnums.questTypes
+      enum: challengeEnums.challengeTypes
 
     # quantity of pieces with matching conditions that need to be completed
-    # to finish this quest
+    # to finish this challenge
     quantityCompleted:
       type: 'integer'
       default: 0
@@ -30,7 +30,7 @@ module.exports =
       default: false
 
     params:
-      description: 'generic object that can hold any parameters necessary for a quest'
+      description: 'generic object that can hold any parameters necessary for a challenge'
       type: 'object'
 
     reward:
@@ -44,7 +44,7 @@ module.exports =
         #   type: 'integer'
 
     piecesCompleted:
-      description: 'Pieces that have already been counted toward this quest'
+      description: 'Pieces that have already been counted toward this challenge'
       type: 'array'
       items:
         type: 'string'

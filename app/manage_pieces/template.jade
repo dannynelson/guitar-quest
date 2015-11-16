@@ -1,0 +1,14 @@
+.guitar-quest-pieces.container
+
+  .row.clearfix
+    .col-xs-12
+      h4.pull-left Manage Pieces
+      .btn.btn-primary.pull-right.pull-right(ng-click='ctrl.editPiece()') Create New Piece
+
+  .row
+    .col-md-4(ng-repeat='piece in ctrl.pieces')
+      .panel.panel-default
+        .panel-body
+          h5 {{piece.name}}
+          p {{piece.composer}}
+          .btn.btn-default(ng-click='ctrl.editPiece(piece)') Edit

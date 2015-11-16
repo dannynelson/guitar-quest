@@ -8,6 +8,10 @@ angular.module __filename, ['ngResource']
       isArray: true
     get:
       method: 'GET'
+    update:
+      method: 'PUT'
+    save:
+      method: 'POST'
 
   Piece
 

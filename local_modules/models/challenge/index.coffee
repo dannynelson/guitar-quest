@@ -1,11 +1,11 @@
 ###
-Database of available user quests
+Database of available user challenges
 
-user can have up to three quests.
-- randomly assigned a new quest every day based on their current level
-- can abandon up to one quest per day.
+user can have up to three challenges.
+- randomly assigned a new challenge every day based on their current level
+- can abandon up to one challenge per day.
 - the reward is a base reward multiplied by the difficulty of the level
-- always check to make sure quests are completable before assigning them
+- always check to make sure challenges are completable before assigning them
 
 Perfect Grade
 level 3
@@ -27,20 +27,20 @@ In the future (probably dont' want to do this, just reward pieces)
 - First Tutorial - schedule a lesson with a teacher
 
 Questions
-- how to prevent duplicate quests
+- how to prevent duplicate challenges
   - assign a type, and query to see if any match type and level before creating
-- how to prevent assigning quests that are not completable
+- how to prevent assigning challenges that are not completable
 - is it worth having them be level specific? for some yes, for some no
 
 strategy
 - keep trying until something doesn't fail
-  - each type of quest fails if it already existins
-- try to gather all data and intelligently create a quest we know wont fail
-  - Find all existing, active, non complete quests for user, and use that to deduce which type of quest the user does not have
+  - each type of challenge fails if it already existins
+- try to gather all data and intelligently create a challenge we know wont fail
+  - Find all existing, active, non complete challenges for user, and use that to deduce which type of challenge the user does not have
   - Find all matching pieces for user level and below. Group all pieces and userPieces, and run each potential
-    quest to make sure they have a set of matches
+    challenge to make sure they have a set of matches
   - from the remaining options, choose a random one
-- allow cancelling a quest and let them select another one if they can't complete it
+- allow cancelling a challenge and let them select another one if they can't complete it
 
 ###
 
@@ -55,6 +55,6 @@ schema.plugin require('mongoose-timestamp')
 require('./methods')(schema)
 require('./hooks')(schema)
 
-model = database.mongooseConnection.model 'Quest', schema
+model = database.mongooseConnection.model 'Challenge', schema
 
 module.exports = model

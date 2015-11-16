@@ -1,7 +1,7 @@
 require 'local_modules/test_helpers/server'
 objectIdString = require 'objectid'
 database = require 'local_modules/database'
-Quest = require 'local_modules/models/quest'
+Challenge = require 'local_modules/models/challenge'
 User = require 'local_modules/models/user'
 userFactory = require 'local_modules/models/user/factory'
 Piece = require 'local_modules/models/piece'
@@ -14,7 +14,7 @@ describe 'UserPiece hooks', ->
 
   it 'denormalizes points and level onto user', ->
     user = null
-    quest = null
+    challenge = null
     piece = null
     Promise.all([
       User.create(userFactory.create({level: 1}))
@@ -35,9 +35,9 @@ describe 'UserPiece hooks', ->
       expect(user).to.have.property 'points', 90
       expect(user).to.have.property 'level', 1
 
-  it 'progresses quest if conditions met', ->
+  it 'progresses challenge if conditions met', ->
     user = null
-    quest = null
+    challenge = null
     piece = null
     Promise.all([
       User.create(userFactory.create({level: 1}))
@@ -45,19 +45,19 @@ describe 'UserPiece hooks', ->
     ]).then ([_user, _piece]) ->
       piece = _piece
       user = _user
-      Quest.createInitialQuests({user})
-    .then (quests) ->
-      quest = quests[0]
-      expect(quest).to.have.property 'quantityCompleted', 0
+      Challenge.createInitialChallenges({user})
+    .then (challenges) ->
+      challenge = challenges[0]
+      expect(challenge).to.have.property 'quantityCompleted', 0
       UserPiece.create(userPieceFactory.create({pieceId: piece.id, userId: user.id}))
     .then (userPiece) ->
       userPiece.grade = 0.9
       userPiece.updatedBy = user.id
       userPiece.save()
     .then (userPiece) ->
-      Quest.findById(quest.id)
-    .then (quest) ->
-      expect(quest).to.have.property 'quantityCompleted', 1
+      Challenge.findById(challenge.id)
+    .then (challenge) ->
+      expect(challenge).to.have.property 'quantityCompleted', 1
 
   it 'sets waitingToBeGraded: true if video submitted', ->
     userPiece = userPieceFactory.create({submissionVideoURL: 'http://test.com'})

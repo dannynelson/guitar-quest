@@ -6,8 +6,8 @@ database = require 'local_modules/database'
 
 schema = JSONSchemaConverter.toMongooseSchema(JSONSchema, mongoose)
 schema.plugin require('mongoose-timestamp')
+schema.index({'email': 1}, {unique: true})
 
 model = database.mongooseConnection.model 'TempUser', schema
-schema.index({'email': 1}, { unique: true })
 
 module.exports = model

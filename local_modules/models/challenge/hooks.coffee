@@ -1,6 +1,6 @@
 Promise = require 'bluebird'
 logger = require 'local_modules/logger'
-questHelpers = require './helpers'
+challengeHelpers = require './helpers'
 
 module.exports = (schema) ->
 
@@ -11,7 +11,7 @@ module.exports = (schema) ->
     @quantityCompleted = @piecesCompleted.length
     next()
 
-  # Notify if progress made on quest, and if a quest is completed, give the user credit
+  # Notify if progress made on challenge, and if a challenge is completed, give the user credit
   schema.pre 'save', (next) ->
     Notification = require 'local_modules/models/notification'
     User = require 'local_modules/models/user'
@@ -21,10 +21,10 @@ module.exports = (schema) ->
         if 0 < @quantityCompleted < @quantityToComplete
           return Notification.send
             userId: @userId
-            category: 'quest'
+            category: 'challenge'
             type: 'info'
             title: 'GuitarQuest challenge progress'
-            text: "You completed #{@quantityCompleted}/#{@quantityToComplete} of the challenge \"#{questHelpers.getTitle(@type)}\""
+            text: "You completed #{@quantityCompleted}/#{@quantityToComplete} of the challenge \"#{challengeHelpers.getTitle(@type)}\""
 
         else if @quantityCompleted is @quantityToComplete
           User.findById(@userId).then (user) =>
@@ -34,19 +34,19 @@ module.exports = (schema) ->
               user.credits += @reward.credits
               return Notification.send
                 userId: @userId
-                category: 'quest'
+                category: 'challenge'
                 type: 'success'
                 title: 'GuitarQuest challenge progress'
-                text: "Congratulations! You completed the challenge \"#{questHelpers.getTitle(@type)}\" and earned #{@reward.credits} credits."
+                text: "Congratulations! You completed the challenge \"#{challengeHelpers.getTitle(@type)}\" and earned #{@reward.credits} credits."
 
             if @reward.points?
               user.points += @reward.points if @reward.points?
               return Notification.send
                 userId: @userId
-                category: 'quest'
+                category: 'challenge'
                 type: 'success'
                 title: 'GuitarQuest challenge progress'
-                text: "Congratulations! You completed the challenge \"#{questHelpers.getTitle(@type)}\" and earned #{@reward.points} points."
+                text: "Congratulations! You completed the challenge \"#{challengeHelpers.getTitle(@type)}\" and earned #{@reward.points} points."
 
       .then =>
         user.save()

@@ -8,7 +8,7 @@ angular.module __filename, [
 .config ($stateProvider) ->
   $stateProvider.state 'guitarQuest.createAccount',
     url: '/create_account'
-    controllerAs: 'createAccountCtrl'
+    controllerAs: 'ctrl'
     template: require './template'
     controller: require './controller'
 

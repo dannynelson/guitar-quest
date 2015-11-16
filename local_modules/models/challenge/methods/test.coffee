@@ -2,7 +2,7 @@ require 'local_modules/test_helpers/server'
 _ = require 'lodash'
 objectIdString = require 'objectid'
 database = require 'local_modules/database'
-Quest = require 'local_modules/models/quest'
+Challenge = require 'local_modules/models/challenge'
 User = require 'local_modules/models/user'
 userFactory = require 'local_modules/models/user/factory'
 Piece = require 'local_modules/models/piece'
@@ -14,23 +14,23 @@ clean = (mongooseModel) ->
   object = JSON.parse JSON.stringify mongooseModel
   _.omit object, ['__v', 'createdAt', 'updatedAt', '_id']
 
-describe 'Quest', ->
+describe 'Challenge', ->
   beforeEach database.reset
 
-  describe '.createRandomQuest()', ->
+  describe '.createRandomChallenge()', ->
     it 'doesnt fail', ->
       User.create(userFactory.create({level: 1})).then (user) ->
-        Quest.createRandomQuest({user})
+        Challenge.createRandomChallenge({user})
 
-  describe '.createQuest()', ->
+  describe '.createChallenge()', ->
     it 'doesnt fail', ->
       User.create(userFactory.create({level: 1})).then (user) ->
-        Quest.createQuest('level', {user})
+        Challenge.createChallenge('level', {user})
 
-  describe '.progressMatchingQuests()', ->
+  describe '.progressMatchingChallenges()', ->
     it 'works', ->
       user = null
-      quest = null
+      challenge = null
       piece = null
       Promise.all([
         User.create(userFactory.create({level: 1}))
@@ -38,24 +38,24 @@ describe 'Quest', ->
       ]).then ([_user, _piece]) ->
         piece = _piece
         user = _user
-        Quest.createInitialQuests({user})
-      .then (quests) ->
-        quest = quests[0]
-        expect(quest).to.have.property 'quantityCompleted', 0
+        Challenge.createInitialChallenges({user})
+      .then (challenges) ->
+        challenge = challenges[0]
+        expect(challenge).to.have.property 'quantityCompleted', 0
         UserPiece.create(userPieceFactory.create({pieceId: piece.id, userId: user.id}))
       .then (userPiece) ->
         userPiece.grade = 0.9
         userPiece.updatedBy = user.id
-        Quest.progressMatchingQuests(user.id, {userPiece})
+        Challenge.progressMatchingChallenges(user.id, {userPiece})
       .then ->
-        Quest.findById(quest.id)
-      .then (quest) ->
-        expect(quest).to.have.property 'quantityCompleted', 1
+        Challenge.findById(challenge.id)
+      .then (challenge) ->
+        expect(challenge).to.have.property 'quantityCompleted', 1
 
-    it 'does not count the same piece more than once for each quest', ->
+    it 'does not count the same piece more than once for each challenge', ->
       user = null
-      quest = null
-      quest2 = null
+      challenge = null
+      challenge2 = null
       piece = null
       piece2 = null
       userPiece = null
@@ -67,37 +67,37 @@ describe 'Quest', ->
         piece = _piece
         piece2 = _piece2
         user = _user
-        Quest.createQuest('level', {user})
-      .then (_quest) ->
-        quest = _quest
-        expect(quest).to.have.property 'quantityCompleted', 0
+        Challenge.createChallenge('level', {user})
+      .then (_challenge) ->
+        challenge = _challenge
+        expect(challenge).to.have.property 'quantityCompleted', 0
         UserPiece.create(userPieceFactory.create({pieceId: piece.id, userId: user.id}))
       .then (_userPiece) ->
         userPiece = _userPiece
         userPiece.grade = 0.9
         userPiece.updatedBy = user.id
-        Quest.progressMatchingQuests(user.id, {userPiece})
+        Challenge.progressMatchingChallenges(user.id, {userPiece})
       .then ->
-        Quest.findById(quest.id)
-      .then (quest) ->
-        expect(quest).to.have.property 'quantityCompleted', 1
-        expect(quest.piecesCompleted).to.have.length 1
+        Challenge.findById(challenge.id)
+      .then (challenge) ->
+        expect(challenge).to.have.property 'quantityCompleted', 1
+        expect(challenge.piecesCompleted).to.have.length 1
         userPiece.grade = 1
         userPiece.updatedBy = user.id
-        Quest.progressMatchingQuests(user.id, {userPiece})
+        Challenge.progressMatchingChallenges(user.id, {userPiece})
       .then ->
-        Quest.findById(quest.id)
-      .then (quest) ->
-        expect(quest).to.have.property 'quantityCompleted', 1
-        expect(quest.piecesCompleted).to.have.length 1
+        Challenge.findById(challenge.id)
+      .then (challenge) ->
+        expect(challenge).to.have.property 'quantityCompleted', 1
+        expect(challenge.piecesCompleted).to.have.length 1
         UserPiece.create(userPieceFactory.create({pieceId: piece2.id, userId: user.id}))
       .then (_userPiece) ->
         userPiece = _userPiece
         userPiece.grade = 0.8
         userPiece.updatedBy = user.id
-        Quest.progressMatchingQuests(user.id, {userPiece})
+        Challenge.progressMatchingChallenges(user.id, {userPiece})
       .then ->
-        Quest.findById(quest.id)
-      .then (quest) ->
-        expect(quest).to.have.property 'quantityCompleted', 2
-        expect(quest.piecesCompleted).to.have.length 2
+        Challenge.findById(challenge.id)
+      .then (challenge) ->
+        expect(challenge).to.have.property 'quantityCompleted', 2
+        expect(challenge.piecesCompleted).to.have.length 2

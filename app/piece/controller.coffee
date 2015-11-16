@@ -70,4 +70,4 @@ module.exports = ngInject (Upload, $http, User, $stateParams, Piece, UserPiece, 
         # ngToast.success 'Oops! Something went wrong uploading the video. Please try another file.'
         console.log('error status: ' + status)
 
-  return @ # http://stackoverflow.com/questions/28953289/using-controller-as-with-the-ui-router-isnt-working-as-expected
+  return @ # http://stackoverflow.com/challengeions/28953289/using-controller-as-with-the-ui-router-isnt-working-as-expected

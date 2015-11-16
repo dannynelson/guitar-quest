@@ -52,16 +52,16 @@ module.exports = (schema) ->
       next()
     .then null, next
 
-  # progress quests
+  # progress challenges
   schema.pre 'save', (next) ->
-    Quest = null
+    Challenge = null
     Piece = null
     Promise.try =>
-      Quest = require 'local_modules/models/quest'
+      Challenge = require 'local_modules/models/challenge'
       Piece = require 'local_modules/models/piece'
       Piece.findById(@pieceId)
     .then (piece) =>
-      Quest.progressMatchingQuests @userId, {userPiece: @}
+      Challenge.progressMatchingChallenges @userId, {userPiece: @}
     .nodeify(next)
 
   # copy current data to history

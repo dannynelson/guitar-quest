@@ -13,8 +13,9 @@ schema.plugin passportLocalMongoose,
 
 require('./hooks')(schema)
 
+schema.index({'email': 1}, { unique: true })
+
 model = database.mongooseConnection.model 'User', schema
 
-schema.index({'email': 1}, { unique: true })
 
 module.exports = model

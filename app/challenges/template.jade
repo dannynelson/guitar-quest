@@ -1,17 +1,17 @@
-.guitar-quest-quests.container
-  gq-notifications(category='quest')
+.guitar-quest-challenges.container
+  gq-notifications(category='challenge')
   .row
-    .no-quests.text-center(ng-if='!ctrl.quests.length')
+    .no-challenges.text-center(ng-if='!ctrl.challenges.length')
       h5 You do not have any challenges right now. Check again next week.
-    .quest.col-sm-4(ng-repeat='quest in ctrl.quests')
-      .quest-panel.panel.panel-default
-        .quest-panel-body.panel-body.text-center
-          h5.quest-title {{ctrl.questHelpers.getTitle(quest)}}
-          .reward.text-warning(ng-if='quest.reward.credits')
+    .challenge.col-sm-4(ng-repeat='challenge in ctrl.challenges')
+      .challenge-panel.panel.panel-default
+        .challenge-panel-body.panel-body.text-center
+          h5.challenge-title {{ctrl.challengeHelpers.getTitle(challenge)}}
+          .reward.text-warning(ng-if='challenge.reward.credits')
             i.reward-credits-icon.fa.fa-money.fa-3x
-            .reward-text ${{quest.reward.credits}} lesson credits
-          .reward.text-warning(ng-if='quest.reward.points')
+            .reward-text ${{challenge.reward.credits}} lesson credits
+          .reward.text-warning(ng-if='challenge.reward.points')
             i.reward-points-icon.fa.fa-star.fa-3x
-            .reward-text {{quest.reward.points}} points
-          .description {{ctrl.questHelpers.getDescription(quest)}}
-          .quantity-complete {{quest.quantityCompleted}} / {{quest.quantityToComplete}} Complete
+            .reward-text {{challenge.reward.points}} points
+          .description {{ctrl.challengeHelpers.getDescription(challenge)}}
+          .quantity-complete {{challenge.quantityCompleted}} / {{challenge.quantityToComplete}} Complete

@@ -6,7 +6,10 @@ module.exports = ngInject (User, $state) ->
     password: null
 
   @register = =>
-    User.register(@form).then =>
+    User.register(@form)
+    .then =>
       $state.go 'guitarQuest.confirmEmail'
+    .catch (rejection) =>
+      @error = "#{rejection.data?.message or rejection.data}"
 
-  return @ # http://stackoverflow.com/questions/28953289/using-controller-as-with-the-ui-router-isnt-working-as-expected
+  return @ # http://stackoverflow.com/challengeions/28953289/using-controller-as-with-the-ui-router-isnt-working-as-expected

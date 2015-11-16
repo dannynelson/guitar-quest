@@ -10,4 +10,4 @@ module.exports = ngInject ($state, User) ->
       $state.go 'guitarQuest.pieces'
 
 
-  return @ # http://stackoverflow.com/questions/28953289/using-controller-as-with-the-ui-router-isnt-working-as-expected
+  return @ # http://stackoverflow.com/challengeions/28953289/using-controller-as-with-the-ui-router-isnt-working-as-expected

@@ -1,5 +1,6 @@
 Promise = require 'bluebird'
 settings = require 'local_modules/settings'
+joi = require 'joi'
 User = require 'local_modules/models/user'
 TempUser = require 'local_modules/models/temp_user'
 passport = require 'local_modules/passport'
@@ -21,6 +22,14 @@ router.put '/:_id',
   resourceConverter.send
 
 router.post '/register', (req, res, next) ->
+  if joi.validate(req.body.email, joi.string().email().required()).error
+    return res.status(400).send 'Invalid email.'
+  if req.body.password.length < 8
+    return res.status(400).send 'Password must be at least 8 characters long.'
+  # http://stackoverflow.com/questions/19605150/regex-for-password-must-be-contain-at-least-8-characters-least-1-number-and-bot
+  if not /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/.test(req.body.password)
+    return res.status(400).send 'Password must contain at least 1 letter, 1 number, and 1 special character.'
+
   TempUser.create({email: req.body.email, password: req.body.password}).then (tempUser) ->
     sendgrid.send
       to: tempUser.email

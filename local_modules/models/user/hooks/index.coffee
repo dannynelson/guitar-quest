@@ -3,7 +3,7 @@ Promise = require 'bluebird'
 module.exports = (schema) ->
 
   # Level-up if experience points cross threshold
-  # Note, this should come before quests
+  # Note, this should come before challenges
   schema.pre 'save', (next) ->
     levelHelper = require 'local_modules/level'
 
@@ -14,15 +14,15 @@ module.exports = (schema) ->
       @pointsIntoCurrentLevel -= totalLevelPoints # keep remainder for next level
     next()
 
-  # Add quests when user first created or begins a new level.
+  # Add challenges when user first created or begins a new level.
   schema.pre 'save', (next) ->
-    Quest = require 'local_modules/models/quest'
+    Challenge = require 'local_modules/models/challenge'
 
     Promise.try =>
       if @isNew
         Promise.all [
-          # Quest.createInitialQuests({user: @})
-          Quest.createQuest('level', {user: @})
+          # Challenge.createInitialChallenges({user: @})
+          Challenge.createChallenge('level', {user: @})
         ]
     .then =>
       next()

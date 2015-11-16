@@ -19,7 +19,7 @@ module.exports = (schema) ->
             html: "
               Hello,<br><br>
               #{notification.text}.<br><br>
-              Log in to guitar quest to view more info.<br>
+              Log in to guitar challenge to view more info.<br>
               #{settings.server.url}<br><br>
               Thanks,<br>
               The GuitarQuest Team

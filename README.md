@@ -10,20 +10,21 @@ x handle permissions and restricting pages
 x stup email confirmation, and email notifications for piece comments/grades and new quests,
 - make sure username and password are secure
 x don't include history in default response
-- site still logs out pretty frequently (it should almost never log out?)
 x add a banner image and copy to landing page
-- clean up account page
 - follow all deployment and security todos below
-- always center quests
-- allow filtering pieces
-- rename quest to challenge everywhere
-- create way for people to buy lessons with credits (and schedule the lesson?)
-- email confirmation when subscribing
-- quest credits should be based on level
-- update notification text
-- create page for adding pieces
+x rename quest to challenge everywhere
+x email confirmation when subscribing
+x update notification text
+x create page for adding pieces
 - send comment and grade in one request. Include comment in email that is sent to user
+x site still logs out pretty frequently (it should almost never log out?)
 
+- error when trying to register twice
+- quest credits should be based on level
+- create way for people to buy lessons with credits (and schedule the lesson?)
+- allow filtering pieces
+- always center quests
+- clean up account page
 - restrict pages and files based on permissions
 - lesson payment confirmation, and email unsubscribe page
 - send email when quest is created
