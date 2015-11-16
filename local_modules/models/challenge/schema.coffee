@@ -36,6 +36,7 @@ module.exports =
     reward:
       type: 'object'
       properties:
+        # other potential rewards: points, pieces
         credits:
           description: 'credits to use for buying lessons'
           type: 'integer'

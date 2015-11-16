@@ -1,5 +1,19 @@
 ###
 Database of available user challenges
+- piece = short term goal (1 day - 1 week)
+- challenges = medium term goal (1 week - 1 month)
+- level-up = long-term goal (1 month - 6 months)
+
+# Challenges
+small, easily achievable goals, based on the user's current level
+- encourage
+option to decline quest, so that they can get rid of more difficult ones?
+- higher credit awarded with each level, since higher level pieces usually take longer to learn
+reward - lesson credit
+- why not pieces? - b/c workflow is confusing (how do they see which piece they unlocked? what if the piece was an earlier level? And if they don't like the piece, it is not really an award. Easiest if pieces are only unlocked by leveling up).
+- why not experience? - b/c realistically, experience only comes from learning pieces
+- why not tutorials? - b/c realistically, experience only comes from learning pieces
+- why not arbitrary money that they can use to buy subscriptions? - b/c I want them to focus on getting lessons.
 
 user can have up to three challenges.
 - randomly assigned a new challenge every day based on their current level
