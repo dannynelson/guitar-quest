@@ -1,12 +1,14 @@
-.guitar-quest-login.container
-  .col-xs-12.col-md-4.col-md-offset-4
-    .login-panel.panel.panel-default
-      .panel-body
-        h4.text-center.title Log in
-        alert(type='danger' ng-if='ctrl.error' close='ctrl.error = null') {{ctrl.error}}
-        form(ng-submit='ctrl.login()')
-          input.form-control(id='inputEmail' type='email' placeholder='email' ng-model='ctrl.form.email')
-          input.form-control(type='password' placeholder='password' ng-model='ctrl.form.password')
-          button.login-btn.btn.btn-primary.btn-block(type='submit') Log in
-          .text-center
-            a(href='' ui-sref='guitarQuest.creatAccount') create new account
+.guitar-quest-login
+  .guitar-background
+    .container
+      .col-xs-12.col-md-4.col-md-offset-4
+        .login-panel.panel.panel-default
+          .panel-body
+            h4.text-center.title Log in
+            alert(type='danger' ng-if='ctrl.error' close='ctrl.error = null') {{ctrl.error}}
+            form(ng-submit='ctrl.login()')
+              input.form-control(id='inputEmail' type='email' placeholder='email' ng-model='ctrl.form.email')
+              input.form-control(type='password' placeholder='password' ng-model='ctrl.form.password')
+              button.login-btn.btn.btn-primary.btn-block(type='submit') Log in
+              .text-center
+                a(href='' ui-sref='guitarQuest.creatAccount') create new account
