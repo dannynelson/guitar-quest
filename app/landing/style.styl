@@ -2,40 +2,48 @@
   .guitar-background
     margin-top -23px
     margin-bottom -23px
-    background-image url("/guitar.jpg")
-    background-position: 0% 25%
+    // background-position: 0% 25%
+    background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url("/guitar.jpg")
     background-size: cover
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover
     background-repeat: no-repeat
-    height 650px
+    height 640px
     border-bottom 2px solid #C6C6C6
+    width: 100%
+    // background-position: center top
 
   .title
-    font-weight 400
-    color #575757
+    font-weight 500
     character-spacing -1px
+    margin-top 30px
     margin-bottom 40px
+    color white
+    // text-shadow: 2px 2px 3px rgba(0,0,0,0.6)
 
   .subtitle
-    font-size 31px
-    color #575757
     font-weight 400
-    margin-top 0px
+    color white
 
   .action-btn
     margin-top 25px
-    width 350px
-    font-size 20px
+    width 500px
+    font-size 25px
     text-transform none
-    background-color #5278A9
 
-  .how-it-works-banner
-    background-color white
+  .landing-page-section
+    padding-top 30px
+    padding-bottom 50px
 
-  .description
-    font-size 18px
+  .description-text
+    color #999999
+    font-size 17px
+    line-height 27px
 
   .how-it-works-icon
-    font-size 50px
+    font-size 75px
+    margin-bottom 10px
 
   .details
     color #AD9F9E
@@ -52,3 +60,15 @@
   .sign-up-btn
     margin-bottom 10px
     margin-top 30px
+
+  .section-title
+    margin-bottom 50px
+
+  .background-white
+    background-color white
+
+  .resources
+    font-size 17px
+
+  .resource
+    margin-bottom 20px

@@ -11,89 +11,79 @@
   .jumbotron.guitar-background
     .container
       .row
-        .col-xs-6
-          h3.title Learn classical guitar interactively
-          .row.description-block
-            .col-xs-2.text-center.text-warning
-              i.fa.fa-book.how-it-works-icon
-            .col-xs-9
-              .description
-                div.details-header
-                  strong Step 1: Learn a piece&nbsp;
-                div.details With help from tutorials and private lessons.
-          .row.description-block
-            .col-xs-2.text-center.text-warning
-              i.fa.fa-upload.how-it-works-icon
-            .col-xs-9
-              .description
-                div.details-header
-                  strong Step 2: Upload a video performance&nbsp;
-                div.details Receive teacher feedback and earn points.
-          .row.description-block
-            .col-xs-2.text-center.text-warning
-              i.fa.fa-star.how-it-works-icon
-            .col-xs-9
-              .description
-                div.details-header
-                  strong Step 3: See your progress&nbsp;
-                div.details Advance to higher levels and unlock more challenging pieces.
-          //- .col-md-4
-          //-   .panel.panel-default
-          //-     .panel-body
-          //-       h5 Step 1: Learn a Piece
-          //-       i.fa.fa-book.how-it-works-icon.text-info
-          //-       p Learn a GuitarQuest piece from your current level. Access tutorials and private lessons if you need help.
-          //- .col-md-4
-          //-   .panel.panel-default
-          //-     .panel-body
-          //-       h5 Step 2: Submit a Video
-          //-       i.fa.fa-upload.how-it-works-icon.text-success
-          //-       p Upload a video of you playing the piece. Receive teacher feedback and earn points for your video.
-          //- .col-md-4
-          //-   .panel.panel-default
-          //-     .panel-body
-          //-       h5 Step 3: See your progress
-          //-       i.fa.fa-star.how-it-works-icon.text-warning
-          //-       p Once you earn enough points, you will progress to the next level to unlock more challenging pieces to
-          //- .row
-          //- .col-md-3
-          //-   i.fa.fa-book.how-it-works-icon.text-info
-          //- .col-md-9
-          //-   div <strong>Choose a piece</div> from your current level. Access tutorials and
-          //-   p Every GuitarQuest player starts out at the Preparatory level, and levels up as they get more advanced
-          //- .action-btn.btn.btn-primary.btn-lg(ui-sref='guitarQuest.createAccount') Start Learning for Free
+        .col-md-8.col-md-offset-2.text-center
+          h2.title
+            div Take your classical guitar playing
+            div to the next level
+          .action-btn.btn.btn-warning.btn-lg Join for Free
 
-        .col-xs-4
-          .panel.panel-default
-            .panel-body
-              h3.sign-up-title Sign up for free
-              input.form-control.input-lg(id='inputEmail' type='email' placeholder='first name' ng-model='ctrl.form.email')
-              input.form-control.input-lg(id='inputEmail' type='email' placeholder='last name' ng-model='ctrl.form.email')
-              input.form-control.input-lg(id='inputEmail' type='email' placeholder='email' ng-model='ctrl.form.email')
-              input.form-control.input-lg(type='password' placeholder='password' ng-model='ctrl.form.password')
-              button.create-account-btn.btn.btn-primary.btn-block.btn-lg.sign-up-btn(type='submit') Sign up
+  .landing-page-section.background-white
+    .container.text-center
+      .row
+        //- .text-center
+        h3.section-title How GuitarQuest Works
+        .col-md-4
+          i.fa.fa-book.how-it-works-icon.text-info
+          h4 1. Learn a Piece
+          p.description-text Choose a GuitarQuest piece from your current level. Learn at your own pace. Watch video tutorials or request a private lesson if you need help.
+        .col-md-4
+          i.fa.fa-upload.how-it-works-icon.text-success
+          h4 2. Submit a Video
+          p.description-text Upload a video performance of the piece. Receive written teacher feedback and earn points for your video.
+        .col-md-4
+          i.fa.fa-star.how-it-works-icon.text-warning
+          h4 3. See your progress
+          p.description-text Once you earn enough points, you will progress to the next level to unlock new, more challenging pieces to learn.
 
-  //- .how-it-works-banner
+  .landing-page-section
+    .container
+      h3.section-title.text-center All the resources you need to learn
+
+      .col-md-6.resources
+        .row.resource
+          .col-xs-2.text-right
+            i.fa.fa-check.fa-2x.text-success
+          .col-xs-10
+            div <strong>Written Feedback</strong>
+            div Receive written feedback whenever you submit a video. See all of your video submissions and feedback in one centralized place.
+        .resource
+          .row.resource
+            .col-xs-2.text-right
+              i.fa.fa-check.fa-2x.text-success
+            .col-xs-10
+              div <strong>Private lessons</strong>
+              div Buy a private video lesson to get personalized feedback from a GuitarQuest teacher.
+        .resource
+          .row.resource
+            .col-xs-2.text-right
+              i.fa.fa-check.fa-2x.text-success
+            .col-xs-10
+              div <strong>Tutorials</strong>
+              div Access video tutorials and articles about classical guitar fundamentals.
+
+      .col-md-6.resources
+        .resource
+          .row.resource
+            .col-xs-2.text-right
+              i.fa.fa-check.fa-2x.text-success
+            .col-xs-10
+              div <strong>Recordings</strong>
+              div Listen to recordings of the pieces that you are learning.
+
+        .row.resource
+          .col-xs-2.text-right
+            i.fa.fa-check.fa-2x.text-success
+          .col-xs-10
+            div <strong>Graded Pieces</strong>
+            div Pieces are graded by level to perfectly match your current abilities.
+
+        .row.resource
+          .col-xs-2.text-right
+            i.fa.fa-check.fa-2x.text-success
+          .col-xs-10
+            div <strong>Challenges</strong>
+            div Challenges encourage you to explore new styles, composers, and techniques.
+
+  //- A section with quotes, etc
+  //- .landing-page-section.background-white
   //-   .container.text-center
-  //-     .row
-  //-       //- .text-center
-  //-       h4 How GuitarQuest Works
-  //-       .col-md-4
-  //-         .panel.panel-default
-  //-           .panel-body
-  //-             h5 Step 1: Learn a Piece
-  //-             i.fa.fa-book.how-it-works-icon.text-info
-  //-             p Learn a GuitarQuest piece from your current level. Access tutorials and private lessons if you need help.
-  //-       .col-md-4
-  //-         .panel.panel-default
-  //-           .panel-body
-  //-             h5 Step 2: Submit a Video
-  //-             i.fa.fa-upload.how-it-works-icon.text-success
-  //-             p Upload a video of you playing the piece. Receive teacher feedback and earn points for your video.
-  //-       .col-md-4
-  //-         .panel.panel-default
-  //-           .panel-body
-  //-             h5 Step 3: See your progress
-  //-             i.fa.fa-star.how-it-works-icon.text-warning
-  //-             p Once you earn enough points, you will progress to the next level to unlock more challenging pieces to learn.
-
