@@ -45,10 +45,10 @@
               a(ui-sref='guitarQuest.managePieces') Manage Pieces
 
           ul.nav.navbar-nav.navbar-right(ng-if='!ctrl.isLoggedIn()')
-            li(ng-class="{active: ctrl.stateIncludes('guitarQuest.login')}")
-              a(ui-sref='guitarQuest.login') Log in
-            li(ng-class="{active: ctrl.stateIncludes('guitarQuest.createAccount')}")
-              a(ui-sref='guitarQuest.createAccount') Sign up
+            li(ng-class="{active: ctrl.stateIncludes('guitarQuest.logIn')}")
+              a(ui-sref='guitarQuest.logIn') Log in
+            li(ng-class="{active: ctrl.stateIncludes('guitarQuest.signUp')}")
+              a(ui-sref='guitarQuest.signUp') Sign up
 
           ul.nav.navbar-nav.navbar-right(ng-if='ctrl.isLoggedIn()')
             li(dropdown)

@@ -13,8 +13,8 @@ angular.module __filename, ['ngResource']
     update:
       method: 'PUT'
 
-  User.register = ({email, password}) ->
-    $http.post('/users/register', {email, password}).then (response) ->
+  User.register = (userData) ->
+    $http.post('/users/register', userData).then (response) ->
       return response.data
 
   User::$reload = ->

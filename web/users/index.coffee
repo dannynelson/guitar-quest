@@ -30,7 +30,12 @@ router.post '/register', (req, res, next) ->
   if not /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/.test(req.body.password)
     return res.status(400).send 'Password must contain at least 1 letter, 1 number, and 1 special character.'
 
-  TempUser.create({email: req.body.email, password: req.body.password}).then (tempUser) ->
+  TempUser.create
+    firstName: req.body.firstName
+    lastName: req.body.lastName
+    email: req.body.email
+    password: req.body.password
+  .then (tempUser) ->
     sendgrid.send
       to: tempUser.email
       from: settings.guitarQuestEmail
@@ -54,7 +59,11 @@ router.post '/confirm_email/:tempUserId', (req, res, next) ->
     return res.send({}) unless tempUser
     {email, password} = tempUser
     # FIXME why cant this be promisified??
-    User.register new User({ email: tempUser.email }), tempUser.password, (err, user) ->
+    user = new User
+      firstName: tempUser.firstName
+      lastName: tempUser.lastName
+      email: tempUser.email
+    User.register user, tempUser.password, (err, user) ->
       Promise.try ->
         throw err if err
       .then ->

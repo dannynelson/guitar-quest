@@ -1,7 +1,7 @@
 
 module.exports =
   type: 'object'
-  required: ['email', 'level', 'credits']
+  required: ['firstName', 'lastName', 'email', 'level', 'credits']
   properties:
     _id:
       type: 'string'
@@ -11,7 +11,10 @@ module.exports =
     email:
       type: 'string'
 
-    name:
+    firstName:
+      type: 'string'
+
+    lastName:
       type: 'string'
 
     roles:

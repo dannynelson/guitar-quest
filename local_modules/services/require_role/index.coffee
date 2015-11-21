@@ -12,4 +12,4 @@ angular.module __filename, [
     User.assertLoggedIn().then ->
       $state.go(toState.name, toStateParams)
     .catch (err) ->
-      $state.go 'guitarQuest.login'
+      $state.go 'guitarQuest.logIn'

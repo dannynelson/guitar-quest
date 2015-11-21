@@ -2,10 +2,14 @@ _ = require 'lodash'
 
 module.exports = ngInject (User, $state) ->
   @form =
+    firstName: null
+    lastName: null
     email: null
     password: null
 
   @register = =>
+    ctrl = @
+    debugger
     User.register(@form)
     .then =>
       $state.go 'guitarQuest.confirmEmail'
