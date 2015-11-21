@@ -25,7 +25,7 @@ angular.module 'app', [
   require './how_it_works'
   require './review_submitted_piece'
   require './pricing'
-  # require './private_lessons'
+  require './lessons'
   require './lesson_checkout'
   require './manage_pieces'
   require './confirm_email'

@@ -1,42 +1,22 @@
-.guitar-quest-login.container
+.guitar-quest-pricing
+  //- .guitar-background-white
+  .container
+    .col-md-4.col-md-offset-2
+      .price-panel.panel.panel-default
+        .panel-body
+          h4.pricing-title
+            span Amateur
+            span.pull-right.text-faded Free
+          div Learn pieces up to <strong>preparatory level</strong>.
+          div Access all learning resources.
+          button.login-btn.btn.btn-primary.btn-block(href='' ui-sref='guitarQuest.creatAccount') Sign up
 
-  .col-md-4.col-md-offset-2
-    .price-panel.panel.panel-default
-      .panel-body
-        h4.text-center Amateur
-        h5.text-center.text-faded Free
-        .features
-          div
-            i.fa.fa-check
-            span  Cannot level up beyond preparatory
-          div
-            i.fa.fa-check
-            span  Unlimited video uploads
-          div
-            i.fa.fa-check
-            span  Unlimited challenges
-          div
-            i.fa.fa-check
-            span  Access to Private Lessons
-        button.login-btn.btn.btn-primary.btn-block(href='' ui-sref='guitarQuest.creatAccount') Sign up
-
-  .col-md-4
-    .price-panel.panel.panel-default
-      .panel-body
-        h4.text-center Professional
-        h5.text-center.text-faded $35/mo
-        .features
-          div
-            i.fa.fa-check
-            span  Can level up to level 8
-          div
-            i.fa.fa-check
-            span  Unlimited video uploads
-          div
-            i.fa.fa-check
-            span  Unlimited challenges
-          div
-            i.fa.fa-check
-            span  Access to Private Lessons
-        button.login-btn.btn.btn-primary.btn-block(href='' ui-sref='guitarQuest.creatAccount') Sign up
-
+    .col-md-4
+      .price-panel.panel.panel-default.professional-panel
+        .panel-body
+          h4.pricing-title
+            span Professional
+            span.pull-right.text-warning $35/mo
+          div Learn pieces up to <strong>level 8</strong>.
+          div Access all learning resources.
+          button.login-btn.btn.btn-warning.btn-block(href='' ui-sref='guitarQuest.creatAccount') Sign up

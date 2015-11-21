@@ -18,9 +18,8 @@ angular.module __filename, [
 ]
 
 .config ($stateProvider) ->
-  $stateProvider.state 'guitarQuest.privateLessons',
-    requireAuth: true
-    url: '/private_lessons'
+  $stateProvider.state 'guitarQuest.lessons',
+    url: '/lessons'
     controllerAs: 'ctrl'
     template: require './template'
     controller: require './controller'

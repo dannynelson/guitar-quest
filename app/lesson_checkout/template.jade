@@ -17,11 +17,12 @@
   //- show summary (lesson price minus credits)
   //- submit
   .text-center.steps
-    span.step(ng-class='{"current-step": ctrl.stateIncludes("lessonCheckout.lesson")}') 1. Lesson
-    span.step(ng-class='{"current-step": ctrl.stateIncludes("lessonCheckout.contact")}') 2. Contact
+    span.step(ng-class='{"current-step": ctrl.stateIncludes("lessonCheckout.lesson")}') 1. Sign up
+    span.step(ng-class='{"current-step": ctrl.stateIncludes("lessonCheckout.lesson")}') 2. Lesson info
     span.step(ng-class='{"current-step": ctrl.stateIncludes("lessonCheckout.payment")}') 3. Payment
     span.step(ng-class='{"current-step": ctrl.stateIncludes("lessonCheckout.review")}') 4. Review
 
-  .col-md-4.col-md-offset-4
-    ui-view
+  .checkout
+    .container
+      ui-view
 

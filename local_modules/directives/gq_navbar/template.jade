@@ -11,13 +11,6 @@
           a.navbar-brand(ng-if='!ctrl.isLoggedIn()' ui-sref='guitarQuest.landing') GuitarQuest
           a.navbar-brand(ng-if='ctrl.isLoggedIn()' ui-sref='guitarQuest.pieces') GuitarQuest
         .collapse.navbar-collapse(ng-class="{'navbar-menu-show': ctrl.navbarVisible}")
-          //- ul.nav.navbar-nav(ng-if='!ctrl.isLoggedIn()')
-          //-   li(ng-class="{active: ctrl.stateIncludes('guitarQuest.howItWorks')}")
-          //-     a(ui-sref='guitarQuest.howItWorks') How it Works
-
-          //-   li(ng-class="{active: ctrl.stateIncludes('guitarQuest.pricing')}")
-          //-     a(ui-sref='guitarQuest.pricing') Pricing
-
           ul.nav.navbar-nav(
             ng-click='ctrl.navbarVisible = !ctrl.navbarVisible'
             ng-if='ctrl.isLoggedIn()'
@@ -44,12 +37,6 @@
             )
               a(ui-sref='guitarQuest.managePieces') Manage Pieces
 
-          ul.nav.navbar-nav.navbar-right(ng-if='!ctrl.isLoggedIn()')
-            li(ng-class="{active: ctrl.stateIncludes('guitarQuest.logIn')}")
-              a(ui-sref='guitarQuest.logIn') Log in
-            li(ng-class="{active: ctrl.stateIncludes('guitarQuest.signUp')}")
-              a(ui-sref='guitarQuest.signUp') Sign up
-
           ul.nav.navbar-nav.navbar-right(ng-if='ctrl.isLoggedIn()')
             li(dropdown)
               a.icon-link(dropdown-toggle)
@@ -63,6 +50,18 @@
             //- span.credit-summary.label.label-warning $20 Credit
             //- span.text-warning ${{ctrl.getUser().credits}} lesson credits
             span.level-summary {{ctrl.levelHelper.getLevelName(ctrl.getUser().level)}}
+
+          ul.nav.navbar-nav.navbar-right(ng-if='!ctrl.isLoggedIn()')
+            li(ng-class="{active: ctrl.stateIncludes('guitarQuest.logIn')}")
+              a(ui-sref='guitarQuest.logIn') Log in
+            li(ng-class="{active: ctrl.stateIncludes('guitarQuest.signUp')}")
+              a(ui-sref='guitarQuest.signUp') Sign up
+
+          ul.nav.navbar-nav.navbar-right
+            li(ng-class="{active: ctrl.stateIncludes('guitarQuest.pricing')}")
+              a(ui-sref='guitarQuest.pricing') Pricing
+            li(ng-class="{active: ctrl.stateIncludes('guitarQuest.lessons')}")
+              a(ui-sref='guitarQuest.lessons') Lessons
 
             //- li.logout.visible-xs
             //-   a(href='#', ng-click='logout()') Log out {{credentials.google.email}}
