@@ -1,6 +1,7 @@
 _ = require 'lodash'
 
-module.exports = ngInject ($state) ->
-  @stateIncludes = (state) ->
-    $state.includes(state)
+module.exports = ngInject ($state, lessonCheckoutData) ->
+  @lesson = lessonCheckoutData.payment
+
+  return @
 

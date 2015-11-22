@@ -1,10 +1,14 @@
 .lesson-checkout
-  nav.navbar.navbar-default.navbar-static-top
-    .container
-      .navbar-container
-        //- .navbar-container
-        .navbar-header
-          a.navbar-brand(ui-sref='guitarQuest.landing') GuitarQuest
+  //- http://www.smashingmagazine.com/2009/05/12-tips-for-designing-an-excellent-checkout-process/
+  //- .checkout-navbar.text-center
+  //-   a GuitarQuest
+
+  //- nav.navbar.navbar-default.navbar-static-top
+  //-   .container
+  //-     .navbar-container.text-center
+  //-       //- .navbar-container
+  //-       .navbar-header
+  //-     a.navbar-brand(ui-sref='guitarQuest.landing') GuitarQuest
   //- Lesson
     //- (choose a teacher)
     //- choose a lesson length / price
@@ -16,13 +20,16 @@
     //- enter payment information
   //- show summary (lesson price minus credits)
   //- submit
-  .text-center.steps
-    span.step(ng-class='{"current-step": ctrl.stateIncludes("lessonCheckout.lesson")}') 1. Sign up
-    span.step(ng-class='{"current-step": ctrl.stateIncludes("lessonCheckout.lesson")}') 2. Lesson info
-    span.step(ng-class='{"current-step": ctrl.stateIncludes("lessonCheckout.payment")}') 3. Payment
-    span.step(ng-class='{"current-step": ctrl.stateIncludes("lessonCheckout.review")}') 4. Review
 
-  .checkout
+  .checkout-nav.bg-primary
     .container
-      ui-view
+      div.checkout-brand GuitarQuest
+      .text-center.steps
+        span.step(ng-class='{"current-step": ctrl.stateIncludes("lessonCheckout.signUp")}') 1. Sign up
+        span.step(ng-class='{"current-step": ctrl.stateIncludes("lessonCheckout.lesson")}') 2. Lesson info
+        span.step(ng-class='{"current-step": ctrl.stateIncludes("lessonCheckout.payment")}') 3. Payment
+        span.step(ng-class='{"current-step": ctrl.stateIncludes("lessonCheckout.review")}') 4. Review
+
+  .container
+    ui-view
 

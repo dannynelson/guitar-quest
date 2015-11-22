@@ -1,12 +1,13 @@
 _ = require 'lodash'
 
 module.exports = ngInject ($state, lessonCheckoutData) ->
-  debugger
-  @set = (key, value) ->
-    debugger
-    lessonCheckoutData.contact[key] = value
+  @lesson = lessonCheckoutData.lesson
 
-  @get = (key) ->
-    debugger
-    lessonCheckoutData.contact[key]
+  @days = [
+    'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'
+  ]
+  @timesOfDay = [
+    'morning', 'afternoon', 'evening'
+  ]
+
   return @ # http://stackoverflow.com/challengeions/28953289/using-controller-as-with-the-ui-router-isnt-working-as-expected

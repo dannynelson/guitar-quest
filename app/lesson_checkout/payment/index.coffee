@@ -5,8 +5,8 @@ angular.module __filename, [
 ]
 
 .config ($stateProvider) ->
-  $stateProvider.state 'lessonCheckout',
-    url: '/lesson_checkout'
+  $stateProvider.state 'lessonCheckout.payment',
+    url: '/payment'
     controllerAs: 'ctrl'
     template: require './template'
     controller: require './controller'

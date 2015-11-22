@@ -1,26 +1,20 @@
-.guitar-quest-lesson-checkout
-  nav.navbar.navbar-default.navbar-static-top
-    .container
-      .navbar-container
-        //- .navbar-container
-        .navbar-header
-          a.navbar-brand(ui-sref='guitarQuest.landing') GuitarQuest
-  //- Lesson
-    //- (choose a teacher)
-    //- choose a lesson length / price
-    //- (choose a time)
-    //- (weekly or one time)
-  //- Contact
-    //- Email / Skype
-  //- Payment
-    //- enter payment information
-  //- show summary (lesson price minus credits)
-  //- submit
-  .text-center.steps
-    span.step(ng-class='{"current-step": ctrl.stateIncludes("lesson")}') 1. Lesson
-    span.step(ng-class='{"current-step": ctrl.stateIncludes("contact")}') 2. Contact
-    span.step(ng-class='{"current-step": ctrl.stateIncludes("payment")}') 3. Payment
-    span.step(ng-class='{"current-step": ctrl.stateIncludes("review")}') 4. Review
+.lesson-checkout-payment
+  .row
+    .col-md-6.col-md-offset-3
+      .panel.panel-default
+        .panel-heading
+          .panel-title We accept all major credit cards.
+        .panel-body
+          input.form-control(placeholder='Number')
+          .form-inline
+            input.form-control.exp-month(placeholder='MM')
+            span &nbsp;/&nbsp;
+            input.form-control.exp-year(placeholder='YYYY')
+            input.form-control.csv.pull-right(placeholder='CSV')
 
-    ui-view
+        .panel-footer
+          .clearfix
+            .btn.btn-default Back
+            .btn.btn-primary.pull-right Save & Continue
+
 

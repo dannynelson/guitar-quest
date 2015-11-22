@@ -1,12 +1,41 @@
 .lesson-checkout
-  .steps
-    margin-bottom 20px
+  .checkout-nav
+    // background-color #4CAF50
+    position relative
+    padding-top: 15px;
+    margin-bottom: 25px;
+    color: white;
+    padding-bottom: 15px;
+  .checkout-brand
+    position absolute
+    left 30px
+    top 5px
+    font-size 25px
   .step
     margin-right 30px
-    font-size 18px
+    font-size 16px
     margin-bottom 2px solid gray
   .current-step
-    font-weight 600
+    display inline-block
+    font-weight 700
+    position: relative;
+    &:after, &:before {
+      bottom: -50%;
+      left: 50%;
+      border: solid transparent;
+      content: " ";
+      height: 0;
+      width: 0;
+      position: absolute;
+      pointer-events: none;
+    }
 
-  .checkout
-    background-color white
+    &:after {
+      border-color: rgba(136, 183, 213, 0);
+      border-bottom-color: #F2F2F2
+      border-width: 13px;
+      margin-left: -10px;
+    }
+
+  // .checkout
+  //   background-color white

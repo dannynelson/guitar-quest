@@ -1,26 +1,31 @@
-.guitar-quest-lesson-checkout
-  nav.navbar.navbar-default.navbar-static-top
-    .container
-      .navbar-container
-        //- .navbar-container
-        .navbar-header
-          a.navbar-brand(ui-sref='guitarQuest.landing') GuitarQuest
-  //- Lesson
-    //- (choose a teacher)
-    //- choose a lesson length / price
-    //- (choose a time)
-    //- (weekly or one time)
-  //- Contact
-    //- Email / Skype
-  //- Payment
-    //- enter payment information
-  //- show summary (lesson price minus credits)
-  //- submit
-  .text-center.steps
-    span.step(ng-class='{"current-step": ctrl.stateIncludes("lesson")}') 1. Lesson
-    span.step(ng-class='{"current-step": ctrl.stateIncludes("contact")}') 2. Contact
-    span.step(ng-class='{"current-step": ctrl.stateIncludes("payment")}') 3. Payment
-    span.step(ng-class='{"current-step": ctrl.stateIncludes("review")}') 4. Review
+.lesson-checkout-review
+  .row
+    .col-md-6.col-md-offset-3
+      .panel.panel-default
+        .panel-heading
+          .panel-title Your Lesson
+        .panel-body
+          div 60 Minute, Weekly Lesson
+          div Sunday Afternoon
+      .panel.panel-default
+        .panel-heading
+          .panel-title Your Contact Info
+        .panel-body
+          div <strong>email:</strong> danny.edward.nelson@gmail.com
+          div <strong>skype:</strong> danielnelsonguitar
+      .panel.panel-default
+        .panel-heading
+          .panel-title Your Payment
+        .panel-body
+          div AMERiCAN EXPRESS 2008 exp 06/20
 
-    ui-view
+      .panel.panel-default
+        .panel-heading
+          .panel-title Order Summary
+        .panel-body
+          div $60
+
+        .panel-footer
+          .btn.btn-primary.pull-right Place Order
+
 

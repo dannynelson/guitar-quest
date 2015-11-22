@@ -1,37 +1,55 @@
 .lesson-checkout-lesson
   .row
-    h4.text-center Lesson Info
-    .panel.panel-default
-      .panel-heading
-        .panel-title What lesson length?
-      .list-group
-        .list-group-item(ng-click='ctrl.set("minutes", 60)')
-          i.fa.fa-check.select-check(ng-class='{"text-success": ctrl.get("minutes") === 60, "text-faded": ctrl.get("minutes") !== 60}')
-          span 60 minutes
-          span.pull-right.text-warning $60
-        .list-group-item(ng-click='ctrl.set("minutes", 30)')
-          i.fa.fa-check.select-check(ng-class='{"text-success": ctrl.get("minutes") === 30, "text-faded": ctrl.get("minutes") !== 30}')
-          span 30 minutes
-          span.pull-right.text-warning $35
+    .col-md-6.col-md-offset-3
+      .panel.panel-default
+        .panel-heading
+          .panel-title What length lesson do you want?
+        .panel-body
+          .radio
+            label
+              input(type='radio')
+              |  30 Minutes - $35
+          .radio
+            label
+              input(type='radio')
+              |  60 Minutes - $60
 
-    .panel.panel-default
-      .panel-heading
-        .panel-title How often?
-      .list-group
-        .list-group-item(ng-click='ctrl.set("weekly", true)')
-          i.fa.fa-check.select-check(ng-class='{"text-success": ctrl.get("weekly") === true, "text-faded": ctrl.get("weekly") !== true}')
-          span Weekly
-        .list-group-item(ng-click='ctrl.set("weekly", false)')
-          i.fa.fa-check.select-check(ng-class='{"text-success": ctrl.get("weekly") === false, "text-faded": ctrl.get("weekly") !== false}')
-          span One-Time
+        .panel-heading
+          .panel-title How frequently do you want this lesson?
+        .panel-body
+          .radio
+            label
+              input(type='radio')
+              | Weekly
+          .radio
+            label
+              input(type='radio')
+              | One-Time
 
-    .panel.panel-default
-      .panel-heading
-        .panel-title Choose time preference
-      .panel-body
-        select.form-control(placeholder='Day')
-        select.form-control(placeholder='Time of Day')
+        .panel-heading
+          .panel-title What time do you prefer?
+        .panel-body
+          .row
+            .col-md-6
+              select.form-control(
+                ng-options="day as day for day in ctrl.days"
+                ng-model='ctrl.lesson.day'
+              )
+            .col-md-6
+              select.form-control(
+                ng-options="timeOfDay as timeOfDay for timeOfDay in ctrl.timesOfDay"
+                ng-model='ctrl.lesson.timeOfDay'
+              )
 
-    .clearfix
-      .btn.btn-default Back
-      .btn.btn-primary Save & Continue
+        .panel-heading
+          .panel-title What is your contact info?
+        .panel-body
+          input.form-control(placeholder='Email')
+          input.form-control.skype-username(placeholder='Skype Username')
+
+        .panel-footer
+          .clearfix
+            .btn.btn-default Back
+            .btn.btn-primary.pull-right Save & Continue
+
+

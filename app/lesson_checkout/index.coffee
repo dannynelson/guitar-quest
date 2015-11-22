@@ -3,6 +3,8 @@ angular.module __filename, [
   'ui.bootstrap'
   require 'local_modules/ui_router'
   require './lesson'
+  require './payment'
+  require './review'
 ]
 
 .config ($stateProvider) ->
