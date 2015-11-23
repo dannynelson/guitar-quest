@@ -2,6 +2,7 @@ module.exports = __filename
 angular.module __filename, [
   'ui.bootstrap'
   require 'local_modules/ui_router'
+  require 'local_modules/directives/gq_sign_up_form'
 ]
 
 .config ($stateProvider) ->
@@ -10,5 +11,3 @@ angular.module __filename, [
     controllerAs: 'ctrl'
     template: require './template'
     controller: require './controller'
-
-

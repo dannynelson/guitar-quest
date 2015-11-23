@@ -1,21 +1,52 @@
 .subscribe-checkout-payment
   .row
     .col-md-6.col-md-offset-3
-      .panel.panel-default
+      form.panel.panel-default(
+        stripe-form='handleStripe'
+        name='paymentForm'
+      )
         .panel-heading
           .panel-title Payment Info
         .panel-body
+          .clearfix
+            .pull-left All major credit cards accepted.
+            .pull-right
+              img.card(src='/visa.png')
+              img.card(src='/mastercard.png')
+              img.card(src='/discover_network.png')
+              img.card(src='/american_express.png')
           .input-row
-            input.form-control(placeholder='Card Number')
-            div
+            input.form-control(
+              type='text'
+              placeholder='Card number'
+              ng-model="number"
+              payments-format="card"
+              payments-validate="card"
+              payments-type-model="type"
+            )
           .row
             .col-sm-6
-              input.form-control.exp-month(placeholder='Expiration date')
+              input.form-control.exp-month(
+                type='text'
+                placeholder='Expiration date'
+                ng-model="expiry"
+                payments-format="expiry"
+                payments-validate="expiry"
+              )
+              .input-helper-text MM/YYYY
             .col-sm-6
-              input.form-control.csv.pull-right(placeholder='Security Code')
+              input.form-control.csv.pull-right(
+                type='text'
+                name='cvc'
+                placeholder='Security Code'
+                ng-model="cvc"
+                payments-format="cvc"
+                payments-validate="cvc"
+              )
+              .input-helper-text 3 or 4 digit code
 
-        .panel-footer
+        .panel-footer.panel-footer-white
           .clearfix
-            .btn.btn-primary.pull-right Save & Continue
+            button.btn.btn-primary.pull-right(type='submit') Save & Continue
 
 

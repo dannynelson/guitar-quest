@@ -5,13 +5,13 @@
         .panel-heading
           .panel-title Sign up
         .panel-body
-          input.form-control(id='firstName' type='text' placeholder='first name' ng-model='ctrl.form.firstName')
-          input.form-control(id='lastName' type='text' placeholder='last name' ng-model='ctrl.form.lastName')
-          input.form-control(id='inputEmail' type='email' placeholder='email' ng-model='ctrl.form.email')
-          input.form-control(type='password' placeholder='password' ng-model='ctrl.form.password')
+          gq-sign-up-form(
+            submit='ctrl.signUp'
+            successState='subscribeCheckout.payment'
+          )
 
-        .panel-footer
+        .panel-footer.panel-footer-white
           .clearfix
-            .btn.btn-primary.pull-right Save & Continue
+            .btn.btn-primary.pull-right(ng-click='ctrl.signUp()') Sign Up & Continue
 
 

@@ -14,13 +14,19 @@ html(
     //- include ../node_modules/goodeggs-ops-common/templates/layout_rollbar.jade
 
     link(rel='stylesheet' href=assets('/bootstrap.min.css'))
-    link(rel='stylesheet' href=assets('/ngToast.css'))
     link(rel='stylesheet' href=assets('https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css'))
     link(rel='stylesheet' href=assets('/app.css'))
     link(rel='icon' href=assets('/images/favicon.ico'))
 
-  body(ng-class='stateClassArray')
+    //- embed shared Settings in app.
+    script.
+      window.settings = JSON.parse(decodeURIComponent('!{encodeURIComponent(JSON.stringify(sharedSettings))}'));
+
+  body
     ui-view
 
+    script(type="text/javascript" src="https://js.stripe.com/v2/")
+    script.
+      Stripe.setPublishableKey(settings.stripeKey)
     script(src=assets('/externals.js'))
     script(src=assets('/app.js'))

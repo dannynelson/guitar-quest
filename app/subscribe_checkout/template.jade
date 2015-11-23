@@ -1,18 +1,5 @@
 .subscribe-checkout.guitar-background-full
   //- http://www.smashingmagazine.com/2009/05/12-tips-for-designing-an-excellent-checkout-process/
-  //- .checkout-navbar.text-center
-  //-   a GuitarQuest
-
-  //- nav.navbar.navbar-default.navbar-static-top.navbar-no-margin
-  //-   .container
-  //-     .navbar-container
-  //-       a.navbar-brand(ui-sref='guitarQuest.landing') GuitarQuest
-  //-       .text-center.steps
-  //-         span.step(ng-class='{"current-step": ctrl.stateIncludes("lessonCheckout.signUp")}') 1. Sign up
-  //-         span.step(ng-class='{"current-step": ctrl.stateIncludes("lessonCheckout.lesson")}') 2. Lesson info
-  //-         span.step(ng-class='{"current-step": ctrl.stateIncludes("lessonCheckout.payment")}') 3. Payment
-  //-         span.step(ng-class='{"current-step": ctrl.stateIncludes("lessonCheckout.review")}') 4. Review
-
   .text-center.success-top
     .checkout-brand GuitarQuest
     .steps
@@ -25,27 +12,6 @@
       span.step(ng-class='{"current-step": ctrl.stateIncludes("subscribeCheckout.review")}')
         i.fa.fa-check-circle
         span   Review
-  //- Lesson
-    //- (choose a teacher)
-    //- choose a lesson length / price
-    //- (choose a time)
-    //- (weekly or one time)
-  //- Contact
-    //- Email / Skype
-  //- Payment
-    //- enter payment information
-  //- show summary (lesson price minus credits)
-  //- submit
-
-  //- .checkout-nav.bg-primary
-  //-   .container
-  //-     div.checkout-brand GuitarQuest
-  //-     .text-center.steps
-  //-       span.step(ng-class='{"current-step": ctrl.stateIncludes("lessonCheckout.signUp")}') 1. Sign up
-  //-       span.step(ng-class='{"current-step": ctrl.stateIncludes("lessonCheckout.lesson")}') 2. Lesson info
-  //-       span.step(ng-class='{"current-step": ctrl.stateIncludes("lessonCheckout.payment")}') 3. Payment
-  //-       span.step(ng-class='{"current-step": ctrl.stateIncludes("lessonCheckout.review")}') 4. Review
 
   .container
     ui-view
-

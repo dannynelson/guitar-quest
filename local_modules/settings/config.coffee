@@ -86,3 +86,9 @@ module.exports =
     format: '*'
     default: 'danny.edward.nelson@gmail.com'
     env: 'GUITAR_QUEST_EMAIL'
+
+  stripeKey:
+    doc: 'API key for communicating with Stripe'
+    format: '*'
+    default: null
+    env: 'STRIPE_KEY'

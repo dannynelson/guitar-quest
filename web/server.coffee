@@ -66,7 +66,7 @@ app.use '/user_pieces', require './user_pieces'
 app.use '/s3_policy', require './s3_policy'
 
 # if options.serveLayoutAtRoot
-clientSettingsWhitelist = _.union clientSettingsWhitelist, ['env', 'appInstance', 'sha', 'rollbar.clientAccessToken']
+clientSettingsWhitelist = _.union clientSettingsWhitelist, ['env', 'stripeKey']
 sharedSettings = {}
 for settingPath in clientSettingsWhitelist
   _.set(sharedSettings, settingPath, _.get(settings, settingPath))

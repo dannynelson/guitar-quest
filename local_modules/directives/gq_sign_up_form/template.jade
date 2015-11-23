@@ -1,0 +1,6 @@
+.gq-sign-up-form
+  form(ng-submit='ctrl.submit()')
+    input.form-control(id='firstName' type='text' placeholder='first name' ng-model='ctrl.form.firstName')
+    input.form-control(id='lastName' type='text' placeholder='last name' ng-model='ctrl.form.lastName')
+    input.form-control(id='inputEmail' type='email' placeholder='email' ng-model='ctrl.form.email')
+    input.form-control(type='password' placeholder='password' ng-model='ctrl.form.password')

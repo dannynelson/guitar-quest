@@ -17,6 +17,7 @@ Immediate Features
 - password reset email
 
 Eventually Features
+- make credit cards into icons / sprite sheet
 - clean up landing page
 - allow formatting in comments (and display correctly in both emails and piece history)
 - always center quests

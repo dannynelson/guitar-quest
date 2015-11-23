@@ -1,6 +1,9 @@
+require 'angular-payments'
+
 module.exports = __filename
 angular.module __filename, [
   'ui.bootstrap'
+  'angularPayments'
   require 'local_modules/ui_router'
 ]
 
