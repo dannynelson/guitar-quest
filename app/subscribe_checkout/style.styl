@@ -1,0 +1,56 @@
+.subscribe-checkout
+  .success-top
+    border-top 5px solid #2196F3
+  .navbar-no-margin
+    margin-bottom 0px
+  .checkout-nav
+    // background-color #4CAF50
+    position relative
+    padding-top: 15px;
+    margin-bottom: 25px;
+    color: white;
+    padding-bottom: 15px;
+  .checkout-brand
+    font-size 24px
+    position relative
+    top 1px
+    color gray
+    margin-right 35px
+    margin-left 30px
+    display inline-block
+    // position absolute
+    // top 7px
+    // left 15px
+  .steps
+    display inline-block
+    padding-bottom 20px
+    padding-top 20px
+  .step
+    font-weight 700
+    color #BBBBBB
+    margin-right 30px
+    font-size 15px
+
+  .current-step
+    color #2196F3
+    display inline-block
+    position: relative;
+    &:after, &:before {
+      top: -73%
+      left: 50%;
+      border: solid transparent;
+      content: " ";
+      height: 0;
+      width: 0;
+      position: absolute;
+      pointer-events: none;
+    }
+
+    &:after {
+      border-top-color: #2196F3
+      border-width: 13px;
+      margin-left: -13px;
+    }
+
+  // .checkout
+  //   background-color white

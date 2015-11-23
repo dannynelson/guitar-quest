@@ -27,6 +27,7 @@ angular.module 'app', [
   require './pricing'
   require './lessons'
   require './lesson_checkout'
+  require './subscribe_checkout'
   require './manage_pieces'
   require './confirm_email'
 ]

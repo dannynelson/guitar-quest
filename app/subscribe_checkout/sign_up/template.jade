@@ -1,0 +1,17 @@
+.subscribe-checkout-payment
+  .row
+    .col-md-6.col-md-offset-3
+      .panel.panel-default
+        .panel-heading
+          .panel-title Sign up
+        .panel-body
+          input.form-control(id='firstName' type='text' placeholder='first name' ng-model='ctrl.form.firstName')
+          input.form-control(id='lastName' type='text' placeholder='last name' ng-model='ctrl.form.lastName')
+          input.form-control(id='inputEmail' type='email' placeholder='email' ng-model='ctrl.form.email')
+          input.form-control(type='password' placeholder='password' ng-model='ctrl.form.password')
+
+        .panel-footer
+          .clearfix
+            .btn.btn-primary.pull-right Save & Continue
+
+
