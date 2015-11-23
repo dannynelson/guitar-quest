@@ -1,4 +1,8 @@
 .lesson-checkout
+  .success-top
+    border-top 5px solid #2196F3
+  .navbar-no-margin
+    margin-bottom 0px
   .checkout-nav
     // background-color #4CAF50
     position relative
@@ -7,20 +11,32 @@
     color: white;
     padding-bottom: 15px;
   .checkout-brand
-    position absolute
-    left 30px
-    top 5px
-    font-size 25px
-  .step
-    margin-right 30px
-    font-size 16px
-    margin-bottom 2px solid gray
-  .current-step
+    font-size 24px
+    position relative
+    top 1px
+    color gray
+    margin-right 35px
+    margin-left 30px
     display inline-block
+    // position absolute
+    // top 7px
+    // left 15px
+  .steps
+    display inline-block
+    padding-bottom 20px
+    padding-top 20px
+  .step
     font-weight 700
+    color #BBBBBB
+    margin-right 30px
+    font-size 15px
+
+  .current-step
+    color #2196F3
+    display inline-block
     position: relative;
     &:after, &:before {
-      bottom: -50%;
+      top: -73%
       left: 50%;
       border: solid transparent;
       content: " ";
@@ -31,10 +47,9 @@
     }
 
     &:after {
-      border-color: rgba(136, 183, 213, 0);
-      border-bottom-color: #F2F2F2
+      border-top-color: #2196F3
       border-width: 13px;
-      margin-left: -10px;
+      margin-left: -13px;
     }
 
   // .checkout
