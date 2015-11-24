@@ -84,6 +84,7 @@
     "run-sequence": "^1.1.2",
     "sendgrid": "^1.9.2",
     "serve-static": "^1.10.0",
+    "stripe": "^4.0.0",
     "unionized": "^4.4.0",
     "vinyl-paths": "^1.0.0"
   }

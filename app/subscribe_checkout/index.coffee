@@ -7,8 +7,10 @@ angular.module __filename, [
   require './sign_up'
 ]
 
-.config ($stateProvider) ->
+.config ($stateProvider, $urlRouterProvider) ->
+  $urlRouterProvider.when('/subscribe', '/subscribe/sign_up')
   $stateProvider.state 'subscribeCheckout',
+    abstract: true
     url: '/subscribe'
     controllerAs: 'ctrl'
     template: require './template'

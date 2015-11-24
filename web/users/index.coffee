@@ -4,6 +4,7 @@ joi = require 'joi'
 User = require 'local_modules/models/user'
 TempUser = require 'local_modules/models/temp_user'
 passport = require 'local_modules/passport'
+stripe = require 'local_modules/stripe'
 sendgrid = require 'local_modules/sendgrid'
 resourceConverter = require './resource_converter'
 
@@ -48,7 +49,6 @@ router.post '/register', (req, res, next) ->
         The GuitarQuest Team
       "
     , (err) ->
-      console.log err if err?
     res.status(201)
     res.send({})
   .then null, next
@@ -87,6 +87,31 @@ router.post '/login',
 router.post '/logout', (req, res) ->
   req.logout()
   res.status(200).send('Logout successful')
+
+router.post '/save_credit_card', (req, res, next) ->
+  user = req.user
+  return res.status(401).send('unauthorized') unless req.user?
+  return res.status(400).send('stripe token required') unless req.body?.stripeToken?
+  stripeToken = req.body.stripeToken
+  stripe.customers.create
+    source: stripeToken
+    description: 'payinguser@example.com'
+  .then (customer) ->
+    user.stripeId = customer.id
+    user.save()
+  .then ->
+    resourceConverter.createResourceFromModel(user, {req, res, next})
+  .then (resource) =>
+    return res.status(200).send resource
+
+router.post '/subscribe', (req, res, next) ->
+  user = req.user
+  return res.status(401).send('unauthorized') unless req.user?
+  return res.status(400).send('Must specify a plan') unless req.body?.plan?
+  return res.status(400).send('User does not have a credit card associated with account') unless req.user?.stripeId?
+  stripe.customers.createSubscription(req.user.stripeId, {plan: req.body.plan})
+  .then (subscription) ->
+    return res.status(200).send({})
 
 router.post '/change_password', (req, res, next) ->
   {oldPassword, newPassword} = req.body

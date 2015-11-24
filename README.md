@@ -11,6 +11,7 @@ Deployment
 - heroku scheduler for challenges
 
 Immediate Features
+- how does user enter credit card info if they are still a temp user
 - lessons checkout (and use credits)
 - subscription checkout
 - send comment and grade in one request. Include comment in email that is sent to user
@@ -24,6 +25,10 @@ Eventually Features
 - add facebook login as another option
 
 BugFixes / Security
+- have some way of capturing and tracking all errors that happen on client
+- use boom everywhere
+- separate subscriptions from user?
+- add auth requirements to user endpoints
 - landing image should be smaller (or loaded more gracefully) and served from S3.
 - mobile view doesnt work
 - do not allow level to go backwards if user points modified

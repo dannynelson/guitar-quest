@@ -1,16 +1,12 @@
 _ = require 'lodash'
 
-module.exports = ngInject ($state, $scope, lessonCheckoutData) ->
-  console.log 'loading', !!Stripe
+module.exports = ngInject ($state, $scope, lessonCheckoutData, User) ->
   $scope.handleStripe = (status, response) =>
-    debugger
     if response.error
-      console.log 'err'
-      # // there was an error. Fix it.
+      @error = 'Could not connect to our payment processor. Please try again later.'
     else
-      console.log 'success'
-      # // got stripe token, now charge it or smt
-      token = response.id
+      User.saveCreditCard({stripeToken: response.id}).then ->
+        $state.go 'subscribeCheckout.review'
 
   return @
 

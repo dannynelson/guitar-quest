@@ -36,3 +36,6 @@ module.exports =
     credits:
       type: 'integer'
       default: 0
+
+    stripeId:
+      type: 'string'

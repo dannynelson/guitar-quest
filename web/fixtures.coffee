@@ -2,7 +2,6 @@ Promise = require 'bluebird'
 Piece = require 'local_modules/models/piece'
 
 Piece.remove({}).then ->
-  console.log 'Loading fixtures'
   Piece.create [
     {
       _id: "55d8a2696ce78dc3156ca8d0"

@@ -47,8 +47,16 @@ angular.module __filename, ['ngResource']
       loggedInUser = new User response.data
       return loggedInUser
 
+  User.subscribe = ->
+    $http.post('/users/subscribe').then (response) ->
+      loggedInUser = new User response.data
+      return loggedInUser
+
+  User.saveCreditCard = ({stripeToken}) ->
+    $http.post('/users/save_credit_card', {stripeToken}).then (response) ->
+      loggedInUser = new User response.data
+      return loggedInUser
+
   User.getLoggedInUser = -> loggedInUser
 
   User
-
-

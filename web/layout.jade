@@ -27,6 +27,6 @@ html(
 
     script(type="text/javascript" src="https://js.stripe.com/v2/")
     script.
-      Stripe.setPublishableKey(settings.stripeKey)
+      Stripe.setPublishableKey(settings.stripe.publishableKey)
     script(src=assets('/externals.js'))
     script(src=assets('/app.js'))

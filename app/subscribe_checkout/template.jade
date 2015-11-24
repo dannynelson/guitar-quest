@@ -1,7 +1,7 @@
 .subscribe-checkout.guitar-background-full
   //- http://www.smashingmagazine.com/2009/05/12-tips-for-designing-an-excellent-checkout-process/
   .text-center.success-top
-    .checkout-brand GuitarQuest
+    a.checkout-brand.hidden-xs(href='' ui-sref='guitarQuest.landing') GuitarQuest
     .steps
       span.step(ng-class='{"current-step": ctrl.stateIncludes("subscribeCheckout.signUp")}')
         i.fa.fa-lock

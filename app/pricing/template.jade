@@ -1,33 +1,30 @@
 .guitar-quest-pricing
   .guitar-background-white
     .container
-      .col-md-3.col-md-offset-3
-        .price-panel.panel.panel-default.text-center
-          //- .pricing-title
-          //-   div Amateur
-          .pricing-price
-            .pricing-dollars Free
-            .pricing-name Amateur
-          .panel-body
-            div Learn guitar pieces up to the preparatory level.
-            hr.divider
-            div Access all learning resources.
-            hr.divider
-            button.login-btn.btn.btn-primary.btn-block(href='' ui-sref='guitarQuest.creatAccount') Sign up
+      .row.price-panels
+        .col-sm-4.col-sm-offset-2.col-lg-3.col-lg-offset-3
+          .price-panel.panel.panel-default.text-center
+            .pricing-price
+              .pricing-dollars Free
+              .pricing-name Amateur
+            .panel-body
+              div Learn guitar pieces up to the preparatory level.
+              hr.divider
+              div Access all learning resources.
+              hr.divider
+              a.login-btn.btn.btn-primary.btn-block(href='' ui-sref='guitarQuest.signUp') Sign up
 
-      .col-md-3
-        .price-panel.panel.panel-default.text-center
-          //- .pricing-title
-          //-   div Amateur
-          .pricing-price.pricing-warning
-            .pricing-dollars $35/mo
-            .pricing-name Professional
-          .panel-body
-            div Learn guitar pieces up to level 8, the highest level.
-            hr.divider
-            div Access all learning resources.
-            hr.divider
-            button.login-btn.btn.btn-warning.btn-block(href='' ui-sref='guitarQuest.creatAccount') Sign up
+        .col-sm-4.col-lg-3
+          .price-panel.panel.panel-default.text-center
+            .pricing-price.pricing-warning
+              .pricing-dollars $35/mo
+              .pricing-name Professional
+            .panel-body
+              div Learn guitar pieces up to level 8, the highest level.
+              hr.divider
+              div Access all learning resources.
+              hr.divider
+              a.login-btn.btn.btn-warning.btn-block(href='' ui-sref='subscribeCheckout.signUp') Subscribe
 
 
 

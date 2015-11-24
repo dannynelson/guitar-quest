@@ -6,7 +6,7 @@ angular.module __filename, [
   require 'local_modules/resources/notification'
 ]
 
-.directive 'gqSignUpForm', ->
+.directive 'gqLogInForm', ->
   scope:
     submit: '='
     successState: '@'
@@ -15,18 +15,16 @@ angular.module __filename, [
   template: require './template'
   controller: ngInject (User, $rootScope, $state) ->
     @form =
-      firstName: null
-      lastName: null
       email: null
       password: null
 
-    # overwrite the ctrl.submit method passed in
     @submit = =>
-      ctrl = @
-      User.register(@form)
-      .then =>
+      @loading = true
+      User.login(@form).then =>
         $state.go @successState
       .catch (rejection) =>
-        @error = "#{rejection.data?.message or rejection.data}"
+        if rejection.status is 401
+          @error = 'Invalid username or password.'
 
-    return @
+    return @ # http://stackoverflow.com/challengeions/28953289/using-controller-as-with-the-ui-router-isnt-working-as-expected
+

@@ -9,7 +9,6 @@ module.exports = ngInject (User, $state) ->
 
   @register = =>
     ctrl = @
-    debugger
     User.register(@form)
     .then =>
       $state.go 'guitarQuest.confirmEmail'

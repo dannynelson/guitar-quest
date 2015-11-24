@@ -1,17 +1,32 @@
-.subscribe-checkout-payment
+.subscribe-checkout-sign-up
   .row
     .col-md-6.col-md-offset-3
       .panel.panel-default
-        .panel-heading
-          .panel-title Sign up
+        .panel-header-btn.text-center(
+          ng-class='{"panel-header-btn-active": ctrl.currentlySelected === "signUp"}'
+          ng-click='ctrl.currentlySelected = "signUp"'
+        ) Sign up
+        .panel-header-btn.text-center(
+          ng-class='{"panel-header-btn-active": ctrl.currentlySelected === "logIn"}'
+          ng-click='ctrl.currentlySelected = "logIn"'
+        ) Log in
         .panel-body
           gq-sign-up-form(
-            submit='ctrl.signUp'
-            successState='subscribeCheckout.payment'
+            ng-if='ctrl.currentlySelected === "signUp"'
+            submit='ctrl.submit'
+            success-state='subscribeCheckout.payment'
+          )
+          gq-log-in-form(
+            ng-if='ctrl.currentlySelected === "logIn"'
+            submit='ctrl.submit'
+            success-state='subscribeCheckout.payment'
           )
 
         .panel-footer.panel-footer-white
           .clearfix
-            .btn.btn-primary.pull-right(ng-click='ctrl.signUp()') Sign Up & Continue
+            .btn.btn-primary.pull-right(ng-click='ctrl.submit()')
+              span(ng-if='ctrl.currentlySelected === "signUp"') Sign Up
+              span(ng-if='ctrl.currentlySelected === "logIn"') Log In
+              span  & Continue
 
 
