@@ -1,4 +1,6 @@
 .guitar-quest-landing
+  //- http://conversionlab.no/
+  //- https://www.spotify.com/us/
   //- Tagline: http://www.copyblogger.com/create-a-tagline/
   //- https://www.shopify.com/blog/16480796-how-to-create-beautiful-and-persuasive-hero-images-for-your-online-store
   //- https://ghost.org/
@@ -9,7 +11,7 @@
   //- https://www.facebook.com/
   //- https://www.coursera.org/
   .jumbotron.guitar-background
-    .container
+    .container.text-center
       .row
         .col-md-12
           h2.title Master the great works of classical guitar.
@@ -39,27 +41,35 @@
             //- Master classical guitar - too serious, would probably turn a lot of beginners away
 
             //- https://medium.com/backchannel/this-video-game-solved-the-problem-of-learning-guitar-d0fcea6f0d3b#.s2egim8cz
-          a.action-btn.btn.btn-warning.btn-lg(href='' ui-sref='guitarQuest.signUp') Start learning for free
+        .col-md-12
+          a.action-btn.btn.btn-primary.btn-lg(href='' ui-sref='guitarQuest.signUp') Start learning for free
 
-  .landing-page-section.background-white
+  .landing-page-section.background-light-gray
     .container.text-center
       .row
+        //- h3.section-title.text-center How it works
         //- .text-center
-        //- h3.section-title How GuitarQuest Works
-        .col-md-4
-          i.fa.fa-music.how-it-works-icon.text-info
-          h4 1. Learn a Piece
+        h3.section-title How it works
+        .col-sm-4
+          .fa-stack.fa-3x
+            i.fa.fa-circle.fa-stack-2x.text-info
+            i.fa.fa-music.fa-stack-1x.how-it-works-icon.text-white
+          h3.section-subtitle 1 Learn a Piece
           p.description-text Learn a GuitarQuest piece from your current level. Watch video tutorials or request a private lesson if you need help.
-        .col-md-4
-          i.fa.fa-upload.how-it-works-icon.text-warning
-          h4 2. Submit a Video
+        .col-sm-4
+          .fa-stack.fa-3x
+            i.fa.fa-circle.fa-stack-2x.text-warning
+            i.fa.fa-upload.fa-stack-1x.how-it-works-icon.text-white
+          h3.section-subtitle 2 Submit a Video
           p.description-text Upload a video performance of the piece. Receive written teacher feedback and earn points for your video.
-        .col-md-4
-          i.fa.fa-unlock-alt.how-it-works-icon.text-success
-          h4 3. Unlock Harder Pieces
+        .col-sm-4
+          .fa-stack.fa-3x
+            i.fa.fa-circle.fa-stack-2x.text-success
+            i.fa.fa-unlock-alt.fa-stack-1x.how-it-works-icon.text-white
+          h3.section-subtitle 3 Unlock Harder Pieces
           p.description-text Once you earn enough points, you will progress to the next level to unlock new, more challenging pieces to learn.
 
-  .landing-page-section
+  .landing-page-section.background-white
     .container
       h3.section-title.text-center All the resources you need to learn
 
@@ -68,22 +78,22 @@
           .col-xs-2.text-right
             i.fa.fa-check.fa-2x.text-success
           .col-xs-10
-            div <strong>Written Feedback</strong>
-            div Receive written feedback whenever you submit a video. See all of your video submissions and feedback in one centralized place.
+            .section-subtitle Written Feedback
+            .description-text Receive written feedback whenever you submit a video. See all of your video submissions and feedback in one centralized place.
         .resource
           .row.resource
             .col-xs-2.text-right
               i.fa.fa-check.fa-2x.text-success
             .col-xs-10
-              div <strong>Private lessons</strong>
-              div Buy a private video lesson to get personalized feedback from a GuitarQuest teacher.
+              .section-subtitle Private lessons
+              .description-text Buy a private video lesson to get personalized feedback from a GuitarQuest teacher.
         .resource
           .row.resource
             .col-xs-2.text-right
               i.fa.fa-check.fa-2x.text-success
             .col-xs-10
-              div <strong>Tutorials</strong>
-              div Access video tutorials and articles about classical guitar fundamentals.
+              .section-subtitle Tutorials
+              .description-text Access video tutorials and articles about classical guitar fundamentals.
 
       .col-md-6.resources
         .resource
@@ -91,23 +101,82 @@
             .col-xs-2.text-right
               i.fa.fa-check.fa-2x.text-success
             .col-xs-10
-              div <strong>Recordings</strong>
-              div Listen to recordings of the pieces that you are learning.
+              .section-subtitle Recordings
+              .description-text Listen to recordings of the pieces that you are learning.
 
         .row.resource
           .col-xs-2.text-right
             i.fa.fa-check.fa-2x.text-success
           .col-xs-10
-            div <strong>Graded Pieces</strong>
-            div Pieces are graded by level to perfectly match your current abilities.
+            .section-subtitle Graded Pieces
+            .description-text Pieces are graded by level to perfectly match your current abilities.
 
         .row.resource
           .col-xs-2.text-right
             i.fa.fa-check.fa-2x.text-success
           .col-xs-10
-            div <strong>Challenges</strong>
-            div Challenges encourage you to explore new styles, composers, and techniques.
+            .section-subtitle Challenges
+            .description-text Challenges encourage you to explore new styles, composers, and techniques.
 
-  //- A section with quotes, etc
-  //- .landing-page-section.background-white
-  //-   .container.text-center
+  .landing-page-section.background-light-gray
+    .container
+      h3.section-title.text-center Pricing
+      .col-sm-4.text-center
+        .panel.panel-default
+          .panel-body
+            .price.text-primary Free
+            .section-subtitle Amateur Account
+            p.description-text Advance up to preparatory level, with full access to all learning resources.
+
+      .col-sm-4.text-center
+        .panel.panel-default
+          .panel-body
+            .price.text-primary $35/mo
+            .section-subtitle Pro Account
+            p.description-text Advance up to level 8 (the highest level), with full access to all learning resources.
+
+      .col-sm-4.text-center
+        .panel.panel-default
+          .panel-body
+            .price.text-primary $30 - $60
+            .section-subtitle Private Lesson
+            p.description-text Buy individual a 30 or 60 minute private lessons.
+
+        //- .price-panel.panel.panel-default.text-center
+        //-   .pricing-name Amateur Account
+        //-   .pricing-price
+        //-     .pricing-dollars Free
+        //-   .panel-body
+        //-     div Advance up to preparatory level
+        //-     hr.divider
+        //-     div Teacher feedback for video uploads
+        //-     hr.divider
+        //-     div Complete challenges
+
+      //- .col-sm-4
+      //-   .price-panel.panel.panel-default.text-center
+      //-     .pricing-name Pro Account
+      //-     .pricing-price
+      //-       .pricing-dollars $35/mo
+      //-     .panel-body
+      //-       div Advance up to level 8
+      //-       hr.divider
+      //-       div Receive teacher feedback for video uploads
+      //-       hr.divider
+      //-       div Complete challenges
+
+      //- .col-sm-4
+      //-   .price-panel.panel.panel-default.text-center
+      //-     .pricing-name Private Lesson
+      //-     .pricing-price
+      //-       .pricing-dollars $30 - $60
+      //-     .panel-body
+      //-       div Pay per lesson
+      //-       hr.divider
+      //-       div 30 or 60 minute lessons available
+      //-       hr.divider
+      //-       div Choose your teacher
+
+  .landing-page-section.text-center.background-dark-gray
+    a.action-btn.btn.btn-primary.btn-lg(href='' ui-sref='guitarQuest.signUp') Start learning for free
+

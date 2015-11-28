@@ -10,5 +10,3 @@ angular.module __filename, [
     controllerAs: 'landingCtrl'
     template: require './template'
     controller: require './controller'
-
-

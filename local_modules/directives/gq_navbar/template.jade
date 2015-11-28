@@ -51,39 +51,6 @@
             //- span.text-warning ${{ctrl.getUser().credits}} lesson credits
             span.level-summary {{ctrl.levelHelper.getLevelName(ctrl.getUser().level)}}
 
-          ul.nav.navbar-nav.navbar-right(ng-if='!ctrl.isLoggedIn()')
-            li(ng-class="{active: ctrl.stateIncludes('guitarQuest.logIn')}")
-              a(ui-sref='guitarQuest.logIn') Log in
-            li(ng-class="{active: ctrl.stateIncludes('guitarQuest.signUp')}")
-              a(ui-sref='guitarQuest.signUp') Sign up
-
-          ul.nav.navbar-nav.navbar-right
-            li(ng-class="{active: ctrl.stateIncludes('guitarQuest.pricing')}")
-              a(ui-sref='guitarQuest.pricing') Pricing
-            li(ng-class="{active: ctrl.stateIncludes('guitarQuest.lessons')}")
-              a(ui-sref='guitarQuest.lessons') Lessons
-
-            //- li.logout.visible-xs
-            //-   a(href='#', ng-click='logout()') Log out {{credentials.google.email}}
-
-          //- ul.nav.navbar-nav.navbar-right.hidden-xs.user-info(ng-if="credentials.google.email")
-          //-   .app-version(ng-if='settings.sha && settings.sha != "unknown"')
-          //-     span(ng-if='!linkToGithub') v{{settings.sha | limitTo:7}}
-          //-     span(ng-if='linkToGithub')
-          //-       a(ng-href='https://github.com/goodeggs/ops-inventory-ui/commit/{{settings.sha}}')
-          //-         | v{{settings.sha | limitTo:7}}
-
-          //-   .outer-auth.hidden-xs
-          //-     img.user-photo(
-          //-       ng-if='credentials.google.photo'
-          //-       ng-src='{{credentials.google.photo}}'
-          //-       width='50'
-          //-       height='50'
-          //-     )
-          //-     .name-email
-          //-       .user-name {{credentials.google.displayName}}
-          //-       .user-email {{credentials.google.email}}
-          //-   .logout
-          //-     button.btn.btn-default.navbar-btn.btn-sm(type='button', ng-click='logout()')
-          //-       span.glyphicon.glyphicon-log-out
-          //-       |  Log out
+          .nav.navbar-nav.navbar-right(ng-if='!ctrl.isLoggedIn()')
+            a.btn.btn-default.navbar-btn(ui-sref='guitarQuest.logIn') Log in
+            a.btn.btn-primary.navbar-btn(ui-sref='guitarQuest.signUp') Sign up
