@@ -52,5 +52,5 @@
             span.level-summary {{ctrl.levelHelper.getLevelName(ctrl.getUser().level)}}
 
           .nav.navbar-nav.navbar-right(ng-if='!ctrl.isLoggedIn()')
-            a.btn.btn-default.navbar-btn(ui-sref='guitarQuest.logIn') Log in
+            a.btn-flat.login(ui-sref='guitarQuest.logIn') Log in
             a.btn.btn-primary.navbar-btn(ui-sref='guitarQuest.signUp') Sign up

@@ -4,12 +4,10 @@
       .row
         .col-sm-6.col-sm-offset-3.col-lg-4.col-lg-offset-4
           .login-panel.panel.panel-default
-            .panel-body
-              h4.text-center.title Log in
+            .panel-body.padded-panel
+              h4.text-center.title Log in to your account
               alert(type='danger' ng-if='ctrl.error' close='ctrl.error = null') {{ctrl.error}}
               form(ng-submit='ctrl.login()')
                 input.form-control(id='inputEmail' type='email' placeholder='email' ng-model='ctrl.form.email')
                 input.form-control(type='password' placeholder='password' ng-model='ctrl.form.password')
-                button.login-btn.btn.btn-primary.btn-block(type='submit') Log in
-                .text-center
-                  a(href='' ui-sref='guitarQuest.creatAccount') create new account
+                button.action-btn.btn.btn-primary.btn-block(type='submit') Log in

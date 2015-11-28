@@ -1,4 +1,5 @@
 .guitar-quest-landing
+  //- https://www.google.com/wallet/
   //- http://conversionlab.no/
   //- https://www.spotify.com/us/
   //- Tagline: http://www.copyblogger.com/create-a-tagline/
@@ -14,7 +15,7 @@
     .container.text-center
       .row
         .col-md-12
-          h2.title Master the great works of classical guitar.
+          h2.title Master the great works of classical guitar
             //- Top 2
             //- Learn classical guitar interactively
             //- Learn classical guitar by studying great pieces
@@ -42,7 +43,7 @@
 
             //- https://medium.com/backchannel/this-video-game-solved-the-problem-of-learning-guitar-d0fcea6f0d3b#.s2egim8cz
         .col-md-12
-          a.action-btn.btn.btn-primary.btn-lg(href='' ui-sref='guitarQuest.signUp') Start learning for free
+          a.action-btn.btn.btn-primary.btn-lg(href='' ui-sref='guitarQuest.signUp') Sign up for free
 
   .landing-page-section.background-light-gray
     .container.text-center
@@ -120,63 +121,45 @@
 
   .landing-page-section.background-light-gray
     .container
-      h3.section-title.text-center Pricing
+      h3.section-title.text-center Start with a free account, upgrade when you advance
       .col-sm-4.text-center
-        .panel.panel-default
+        .price-panel.panel.panel-default.text-center
+          .panel-heading.pricing-name Amateur Account
           .panel-body
-            .price.text-primary Free
-            .section-subtitle Amateur Account
-            p.description-text Advance up to preparatory level, with full access to all learning resources.
+            .pricing-dollars Free
+            hr.divider
+            div Advance up to preparatory level
+            hr.divider
+            div Get teacher feedback for video uploads
+            hr.divider
+            div Complete challenges
 
-      .col-sm-4.text-center
-        .panel.panel-default
+      .col-sm-4
+        .price-panel.panel.panel-default.text-center
+          .panel-heading.pricing-name Professional Account
           .panel-body
-            .price.text-primary $35/mo
-            .section-subtitle Pro Account
-            p.description-text Advance up to level 8 (the highest level), with full access to all learning resources.
+            .pricing-dollars $35
+            div.price-subtext per month
+            hr.divider
+            div Advance up to level 8
+            hr.divider
+            div Get teacher feedback for video uploads
+            hr.divider
+            div Complete challenges
 
-      .col-sm-4.text-center
-        .panel.panel-default
+      .col-sm-4
+        .price-panel.panel.panel-default.text-center
+          .panel-heading.pricing-name Private Lessons
           .panel-body
-            .price.text-primary $30 - $60
-            .section-subtitle Private Lesson
-            p.description-text Buy individual a 30 or 60 minute private lessons.
-
-        //- .price-panel.panel.panel-default.text-center
-        //-   .pricing-name Amateur Account
-        //-   .pricing-price
-        //-     .pricing-dollars Free
-        //-   .panel-body
-        //-     div Advance up to preparatory level
-        //-     hr.divider
-        //-     div Teacher feedback for video uploads
-        //-     hr.divider
-        //-     div Complete challenges
-
-      //- .col-sm-4
-      //-   .price-panel.panel.panel-default.text-center
-      //-     .pricing-name Pro Account
-      //-     .pricing-price
-      //-       .pricing-dollars $35/mo
-      //-     .panel-body
-      //-       div Advance up to level 8
-      //-       hr.divider
-      //-       div Receive teacher feedback for video uploads
-      //-       hr.divider
-      //-       div Complete challenges
-
-      //- .col-sm-4
-      //-   .price-panel.panel.panel-default.text-center
-      //-     .pricing-name Private Lesson
-      //-     .pricing-price
-      //-       .pricing-dollars $30 - $60
-      //-     .panel-body
-      //-       div Pay per lesson
-      //-       hr.divider
-      //-       div 30 or 60 minute lessons available
-      //-       hr.divider
-      //-       div Choose your teacher
+            .pricing-dollars $60
+            div.price-subtext per lesson
+            hr.divider
+            div Pay per lesson
+            hr.divider
+            div 30 or 60 minute lessons available
+            hr.divider
+            div Choose your teacher
 
   .landing-page-section.text-center.background-dark-gray
-    a.action-btn.btn.btn-primary.btn-lg(href='' ui-sref='guitarQuest.signUp') Start learning for free
+    a.action-btn.btn.btn-primary.btn-lg(href='' ui-sref='guitarQuest.signUp') Sign up for free
 
