@@ -6,6 +6,7 @@ angular.module __filename, [
 
 .config ($stateProvider) ->
   $stateProvider.state 'subscribeCheckout.review',
+    requireAuth: true
     url: '/review'
     controllerAs: 'ctrl'
     template: require './template'

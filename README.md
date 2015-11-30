@@ -11,20 +11,31 @@ Deployment
 - heroku scheduler for challenges
 
 Immediate Features
-- how does user enter credit card info if they are still a temp user
-- lessons checkout (and use credits)
-- subscription checkout
 - send comment and grade in one request. Include comment in email that is sent to user
 - password reset email
+- subscription checkout
+- flow of upgrading
+- be able to buy a lesson from a teacher
+x how does user enter credit card info if they are still a temp user
+- lessons checkout (and use credits)
 
 Eventually Features
+- saving one card then changin it??
+- handle expired credit cards
+- opt into no auth rather than opt into auth (so that I don't forget to secure pages)
+- add a yearly account option?
 - make credit cards into icons / sprite sheet
 - clean up landing page
 - allow formatting in comments (and display correctly in both emails and piece history)
 - always center quests
 - add facebook login as another option
+- landing page, login and sign up should be a static page, not part of the angular app
+- login in link underlines after click
+- forgot password (and email?) flow
+- hide most of submission guidelines (since once they know once, they won't need to see it again)
 
 BugFixes / Security
+- what happens if we can't connect to stripe
 - have some way of capturing and tracking all errors that happen on client
 - use boom everywhere
 - separate subscriptions from user?
@@ -64,6 +75,7 @@ Bug proof
 Later release
 ------------------------------------
 tutorials (public or internal?)
+- make landing page more mobile friendly (100% width image, relative units instead of pixels. Like google wallet landing page)
 - create page for tutorials
   - since there aren't that many, they could be public facing articles / youtube videos
   - also consider porting all old articles over and redirecting from ClassicalGuitar101 to here

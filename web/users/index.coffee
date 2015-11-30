@@ -1,3 +1,4 @@
+_ = require 'lodash'
 Promise = require 'bluebird'
 settings = require 'local_modules/settings'
 joi = require 'joi'
@@ -9,6 +10,15 @@ sendgrid = require 'local_modules/sendgrid'
 resourceConverter = require './resource_converter'
 
 module.exports = router = require('express').Router()
+
+router.get '/card', (req, res, next) ->
+  user = req.user
+  return res.status(401).send('unauthorized') unless req.user?
+  return res.status(404).send('No credit card available') unless user.stripeId
+  stripe.customers.retrieve(user.stripeId).then (customer) ->
+    creditCardInfo = _.first(customer.sources.data)
+    res.send(creditCardInfo)
+  .then null, next
 
 router.get '/',
   resourceConverter.get()
@@ -89,6 +99,7 @@ router.post '/logout', (req, res) ->
   res.status(200).send('Logout successful')
 
 router.post '/save_credit_card', (req, res, next) ->
+  stripeCustomer = null
   user = req.user
   return res.status(401).send('unauthorized') unless req.user?
   return res.status(400).send('stripe token required') unless req.body?.stripeToken?
@@ -97,12 +108,13 @@ router.post '/save_credit_card', (req, res, next) ->
     source: stripeToken
     description: 'payinguser@example.com'
   .then (customer) ->
-    user.stripeId = customer.id
+    stripeCustomer = customer
+    user.stripeId = stripeCustomer.id
     user.save()
   .then ->
-    resourceConverter.createResourceFromModel(user, {req, res, next})
-  .then (resource) =>
-    return res.status(200).send resource
+    creditCardInfo = _.first(stripeCustomer.sources.data)
+    res.status(201).send(creditCardInfo)
+  .then null, next
 
 router.post '/subscribe', (req, res, next) ->
   user = req.user

@@ -5,19 +5,23 @@
         .panel-heading.clearfix
           .panel-title.pull-left
             span Your Payment
-          .btn-flat.pull-right Edit
+          a.btn-flat.pull-right(href='' ui-sref='subscribeCheckout.editPayment') Edit
         .panel-body
-          div AMERICAN EXPRESS 2008 exp 06/20
+          gq-card-summary(card='ctrl.card')
 
         .panel-heading
           .panel-title Order Summary
         .panel-body
           .clearfix
-            .pull-left GuitarQuest professional subscription
-            .pull-right <strong>$35 per month</strong>
-
-        .panel-footer
+            .pull-left <strong>Professional Monthly Subscription</strong>
+            .pull-right <strong>$35</strong>
+          hr.order-divider
           .clearfix
-            .btn.btn-primary.pull-right Subscribe
+            .pull-left <strong>Total:
+            .pull-right <strong>$35</strong>
+
+        .panel-footer.panel-footer-white
+          .clearfix
+            .btn.btn-primary.pull-right(ng-click='ctrl.submit()') Subscribe
 
 

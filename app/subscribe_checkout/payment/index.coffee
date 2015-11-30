@@ -9,6 +9,7 @@ angular.module __filename, [
 
 .config ($stateProvider) ->
   $stateProvider.state 'subscribeCheckout.payment',
+    requireAuth: true
     url: '/payment'
     controllerAs: 'ctrl'
     template: require './template'

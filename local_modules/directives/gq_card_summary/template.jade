@@ -1,0 +1,6 @@
+.gq-card-summary
+  img.card(ng-if='ctrl.card.brand === "Visa"' src='/visa.png')
+  img.card(ng-if='ctrl.card.brand === "American Express"' src='/american_express.png')
+  img.card(ng-if='ctrl.card.brand === "MasterCard"' src='/mastercard.png')
+  img.card(ng-if='ctrl.card.brand === "Discover"' src='/discover_network.png')
+  span  {{ctrl.card.brand | uppercase}} {{ctrl.card.last4}} exp {{ctrl.card.exp_month}}/{{ctrl.card.exp_year}}

@@ -39,3 +39,7 @@ module.exports =
 
     stripeId:
       type: 'string'
+
+    isSubscribed:
+      description: 'Is user currently paying for a subscription?'
+      type: 'boolean'

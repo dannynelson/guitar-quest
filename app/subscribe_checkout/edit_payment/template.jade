@@ -7,14 +7,7 @@
         stripe-form='handleStripe'
         name='paymentForm'
       )
-
-        .panel-heading(ng-if='ctrl.savedCard')
-          .panel-title Saved Payment
-        .panel-body(ng-if='ctrl.savedCard')
-          gq-card-summary(card='ctrl.savedCard')
-        .panel-heading(ng-if='ctrl.savedCard')
-          .panel-title New Payment Info
-        .panel-heading(ng-if='!ctrl.savedCard')
+        .panel-heading
           .panel-title Payment Info
         .panel-body
           alert(ng-if='ctrl.error' type='danger' close='ctrl.error = null') {{ctrl.error}}

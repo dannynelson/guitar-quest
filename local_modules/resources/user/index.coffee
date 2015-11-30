@@ -54,8 +54,11 @@ angular.module __filename, ['ngResource']
 
   User.saveCreditCard = ({stripeToken}) ->
     $http.post('/users/save_credit_card', {stripeToken}).then (response) ->
-      loggedInUser = new User response.data
-      return loggedInUser
+      return response.data # stripe card resource
+
+  User.getCard = ->
+    $http.get('/users/card').then (response) ->
+      return response.data
 
   User.getLoggedInUser = -> loggedInUser
 
