@@ -86,6 +86,7 @@
     "serve-static": "^1.10.0",
     "stripe": "^4.0.0",
     "unionized": "^4.4.0",
-    "vinyl-paths": "^1.0.0"
+    "vinyl-paths": "^1.0.0",
+    "wildcard": "^1.1.2"
   }
 }

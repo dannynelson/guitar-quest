@@ -21,7 +21,7 @@ module.exports =
       type: 'array'
       items:
         type: 'string'
-        enum: ['teacher']
+        enum: ['teacher', 'professional']
 
     level:
       description: 'users current level'
@@ -39,7 +39,3 @@ module.exports =
 
     stripeId:
       type: 'string'
-
-    isSubscribed:
-      description: 'Is user currently paying for a subscription?'
-      type: 'boolean'

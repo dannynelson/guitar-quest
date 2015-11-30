@@ -17,5 +17,4 @@ schema.index({'email': 1}, { unique: true })
 
 model = database.mongooseConnection.model 'User', schema
 
-
 module.exports = model

@@ -6,7 +6,7 @@
     .challenge.col-sm-4(ng-repeat='challenge in ctrl.challenges')
       .challenge-panel.panel.panel-default
         .challenge-panel-body.panel-body.text-center
-          h5.challenge-title {{ctrl.challengeHelpers.getTitle(challenge)}}
+          h4.challenge-title {{ctrl.challengeHelpers.getTitle(challenge)}}
           .reward.text-warning(ng-if='challenge.reward.credits')
             i.reward-credits-icon.fa.fa-money.fa-3x
             .reward-text ${{challenge.reward.credits}} lesson credits
@@ -14,4 +14,4 @@
             i.reward-points-icon.fa.fa-star.fa-3x
             .reward-text {{challenge.reward.points}} points
           .description {{ctrl.challengeHelpers.getDescription(challenge)}}
-          .quantity-complete {{challenge.quantityCompleted}} / {{challenge.quantityToComplete}} Complete
+          h5.quantity-complete {{challenge.quantityCompleted}} / {{challenge.quantityToComplete}} Complete

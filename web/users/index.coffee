@@ -123,7 +123,11 @@ router.post '/subscribe', (req, res, next) ->
   return res.status(400).send('User does not have a credit card associated with account') unless req.user?.stripeId?
   stripe.customers.createSubscription(req.user.stripeId, {plan: req.body.plan})
   .then (subscription) ->
+    user.roles.push 'professionalAccount'
+    user.save()
+  .then ->
     return res.status(200).send({})
+  .then null, next
 
 router.post '/change_password', (req, res, next) ->
   {oldPassword, newPassword} = req.body

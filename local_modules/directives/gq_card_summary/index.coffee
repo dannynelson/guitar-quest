@@ -7,3 +7,5 @@ angular.module __filename, []
   controllerAs: 'ctrl'
   bindToController: true
   template: require './template'
+  controller: ngInject ->
+    return @

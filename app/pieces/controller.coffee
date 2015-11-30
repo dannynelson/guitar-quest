@@ -1,6 +1,7 @@
 _ = require 'lodash'
 level = require 'local_modules/level'
 userPieceHelers = require 'local_modules/models/user_piece/helpers'
+roles = require 'local_modules/roles'
 
 module.exports = ngInject (User, UserPiece, Piece) ->
   @level = level
@@ -17,6 +18,7 @@ module.exports = ngInject (User, UserPiece, Piece) ->
     @userPieceByPieceId = _.indexBy(userPieces, 'pieceId')
 
   setPieces = (level) =>
+    @userCanLearnPieces = level is 1 or roles.can(@user.roles, 'learnAdvancedPieces')
     @pieces = Piece.query({level})
     @levelPoints =
       piece: @levelHelper.getPointsPerPiece(@selectedLevel)

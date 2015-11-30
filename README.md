@@ -20,6 +20,8 @@ x how does user enter credit card info if they are still a temp user
 - lessons checkout (and use credits)
 
 Eventually Features
+- access denied or redirect if user does not have permission
+- allow formatting user feedback
 - saving one card then changin it??
 - handle expired credit cards
 - opt into no auth rather than opt into auth (so that I don't forget to secure pages)
@@ -73,6 +75,7 @@ Bug proof
 - recruit previous students to try the app (especially mitch)
 
 Later release
+- allow sending video feedback?
 ------------------------------------
 tutorials (public or internal?)
 - make landing page more mobile friendly (100% width image, relative units instead of pixels. Like google wallet landing page)

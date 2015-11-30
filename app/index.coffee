@@ -10,6 +10,7 @@ require 'angular-bootstrap'
 angular.module 'app', [
   'ui.bootstrap'
   require 'local_modules/services/require_auth'
+  require 'local_modules/services/require_permission'
   require 'local_modules/directives/gq_navbar'
   require 'local_modules/directives/gq_piece_status'
   require 'local_modules/ui_router'
