@@ -1,5 +1,6 @@
 geomoment = require 'geomoment'
 _ = require 'lodash'
+joi = require 'joi'
 level = require 'local_modules/level'
 userPieceHelpers = require 'local_modules/models/user_piece/helpers'
 
@@ -32,14 +33,14 @@ module.exports = ngInject (UserPiece, Piece, User, $stateParams) ->
     updatePercent(@userGrade)
 
   @submitGrade = =>
+    if not @userGrade?
+      return @error = 'Grade required'
+    if joi.validate(@comment, joi.string().min(1).required()).error
+      return @error = 'Comment required'
     grade = @userGrade / 10
-    @userPiece.$grade({grade})
+    @userPiece.$grade({grade, @comment}).then =>
+      @comment = null
 
-  @submitComment = =>
-    return unless typeof @comment is 'string' and @comment.length
-    @userPiece.comment = @comment
-    @comment = null
-    @userPiece.$update()
 
   videoPreview = document.querySelector('video')
 

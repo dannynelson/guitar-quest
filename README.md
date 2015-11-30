@@ -20,6 +20,7 @@ x how does user enter credit card info if they are still a temp user
 - lessons checkout (and use credits)
 
 Eventually Features
+- add json schema validation to all requests
 - access denied or redirect if user does not have permission
 - allow formatting user feedback
 - saving one card then changin it??
@@ -75,6 +76,7 @@ Bug proof
 - recruit previous students to try the app (especially mitch)
 
 Later release
+- dynamic height textarea (not user facing so not a big deal)
 - allow sending video feedback?
 ------------------------------------
 tutorials (public or internal?)

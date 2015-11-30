@@ -1,7 +1,7 @@
 .review-submitted-piece.container
   .col-md-12
     .clearfix
-      h5.pull-left {{ctrl.piece.name}} - {{ctrl.piece.composer}} ({{ctrl.piece.era}})
+      h4.pull-left {{ctrl.piece.name}} - {{ctrl.piece.composer}} ({{ctrl.piece.era}})
       .points-to-next-level.pull-right <strong>{{ctrl.level.displayPiecePoints(ctrl.userPiece.grade, ctrl.piece.level)}}</strong> points
     .row
       .col-xs-12
@@ -18,6 +18,7 @@
   .col-md-4
     .panel.panel-default
       .panel-body.text-center.text-info
+        alert(type='danger' ng-if='ctrl.error' close='ctrl.error = null') {{ctrl.error}}
         h3.percent {{ctrl.percent}}%
         rating(
           ng-model='ctrl.userGrade'
@@ -28,9 +29,8 @@
           state-on="'fa fa-star fa-2x'"
           state-off="'fa fa-star-o fa-2x'"
         )
-        span.submit-grade-btn.btn.btn-default.btn-block(ng-click='ctrl.submitGrade()') submit
-
-    .panel.panel-default
-      .panel-body.text-center.text-info
-        textarea.comment(placeholder='Leave a comment...' ng-model='ctrl.comment')
-        span.btn.btn-default.btn-block(ng-click='ctrl.submitComment()') submit
+        textarea.comment.form-control.margin-top(
+          placeholder='Leave a comment...'
+          ng-model='ctrl.comment'
+        )
+        span.margin-top.btn.btn-primary.btn-block(ng-click='ctrl.submitGrade()') submit
