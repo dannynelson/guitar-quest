@@ -3,7 +3,7 @@ angularBrowserify = require 'goodeggs-angular-browserify/src'
 async = require 'async'
 
 module.exports = (gulp) ->
-  externalModules = ['angular', 'angular-bootstrap', 'angular-resource', 'angular-ui-router']
+  externalModules = ['angular', 'angular-bootstrap-npm', 'angular-resource', 'angular-ui-router']
 
   gulp.task 'assets:browserify', (done) ->
     async.parallel([

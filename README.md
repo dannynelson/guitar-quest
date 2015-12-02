@@ -21,6 +21,8 @@ x how does user enter credit card info if they are still a temp user
 - lessons checkout (and use credits)
 
 Eventually Features
+- normalize user fist name, last name and email
+- when to use mongo vs sql?
 - setup email
 - hide notifactions when clicking away
 - way to cancel subscription once subscribed
@@ -43,6 +45,7 @@ Eventually Features
 - login in link underlines after click
 - forgot password (and email?) flow
 - hide most of submission guidelines (since once they know once, they won't need to see it again)
+- clean up duplicate loading of piece in pre save and post save hooks
 
 BugFixes / Security
 - what happens if we can't connect to stripe

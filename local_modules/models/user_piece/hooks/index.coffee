@@ -67,5 +67,14 @@ module.exports = (schema) ->
     # Note, we do not need to clear updatedAt b/c we know it will always be updated by mongoose timestamps
     next()
 
-  return schema
+  schema.post 'save', (next) ->
+    # This should always come after notificaiton is fully updated
+    Piece.findById(@pieceId).then (piece) ->
+      Notification.createNew 'pieceGraded', {piece, userPiece: @}
+    .then =>
+      next()
+    .then null, (err) =>
+      next()
+
+    return schema
 

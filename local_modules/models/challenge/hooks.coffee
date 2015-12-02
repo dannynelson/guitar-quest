@@ -18,41 +18,25 @@ module.exports = (schema) ->
 
     if @isModified('quantityCompleted')
       Promise.try =>
-        if 0 < @quantityCompleted < @quantityToComplete
-          return Notification.send
-            userId: @userId
-            category: 'challenge'
-            type: 'info'
-            title: 'GuitarQuest challenge progress'
-            text: "You completed #{@quantityCompleted}/#{@quantityToComplete} of the challenge \"#{challengeHelpers.getTitle(@type)}\""
-
-        else if @quantityCompleted is @quantityToComplete
-          User.findById(@userId).then (user) =>
+        if @quantityCompleted is @quantityToComplete
+          return User.findById(@userId).then (user) =>
             @completed = true
-
             if @reward.credits?
               user.credits += @reward.credits
-              return Notification.send
-                userId: @userId
-                category: 'challenge'
-                type: 'success'
-                title: 'GuitarQuest challenge progress'
-                text: "Congratulations! You completed the challenge \"#{challengeHelpers.getTitle(@type)}\" and earned #{@reward.credits} credits."
-
             if @reward.points?
               user.points += @reward.points if @reward.points?
-              return Notification.send
-                userId: @userId
-                category: 'challenge'
-                type: 'success'
-                title: 'GuitarQuest challenge progress'
-                text: "Congratulations! You completed the challenge \"#{challengeHelpers.getTitle(@type)}\" and earned #{@reward.points} points."
-
-      .then =>
-        user.save()
+            user.save()
       .then =>
         next()
       .then null, (err) =>
         next()
     else
+      next()
+
+  schema.post 'save', (next) ->
+    # This should always come after notificaiton is fully updated
+    Notification.createNew 'challengeProgressed', {notification: @}
+    .then =>
+      next()
+    .then null, (err) =>
       next()

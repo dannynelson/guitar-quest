@@ -1,5 +1,5 @@
 _ = require 'lodash'
-
+notificationHelpers = require 'local_modules/models/notification/helpers'
 module.exports = __filename
 
 ###
@@ -21,6 +21,11 @@ angular.module __filename, [
       return unless user?
       @notifications = Notification.query({userId: user._id})
     @setNotifications()
+
+    @getDescription = ({notification}) ->
+      notificationHelpers.getDescription({notification})
+    @getLink = ({notification}) ->
+      notificationHelpers.getLink({notification})
 
     @acknowledge = (notification) =>
       notification.$acknowledge().then =>
