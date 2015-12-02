@@ -5,7 +5,7 @@
       .points-to-next-level.pull-right <strong>{{ctrl.level.displayPiecePoints(ctrl.userPiece.grade, ctrl.piece.level)}}</strong> points
     .row
       .col-xs-12
-        progressbar(
+        uib-progressbar(
           animate="false"
           value="ctrl.userPiece.grade * 100"
         )
@@ -18,7 +18,7 @@
   .col-md-4
     .panel.panel-default
       .panel-body.text-center.text-info
-        alert(type='danger' ng-if='ctrl.error' close='ctrl.error = null') {{ctrl.error}}
+        uib-alert(type='danger' ng-if='ctrl.error' close='ctrl.error = null') {{ctrl.error}}
         h3.percent {{ctrl.percent}}%
         rating(
           ng-model='ctrl.userGrade'

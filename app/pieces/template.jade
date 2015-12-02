@@ -1,7 +1,6 @@
 .guitar-quest-pieces.container
-
-  gq-notifications(category='piece')
-
+  //- .row
+  //-   gq-notifications
   .row.previous-and-next
     .col-xs-12
       .pull-left(ng-if='ctrl.selectedLevel > 1')
@@ -17,7 +16,7 @@
     .points-to-next-level.pull-right <strong>{{ctrl.levelPoints.completed}} / {{ctrl.levelPoints.total}}</strong> points to next level
   .row
     .col-xs-12
-      progressbar(
+      uib-progressbar(
         animate="false"
         value="(ctrl.levelPoints.completed / ctrl.levelPoints.total) * 100"
       )
@@ -42,7 +41,7 @@
           .pull-left.piece-points <strong>{{ctrl.levelHelper.displayPiecePoints(ctrl.userPieceByPieceId[piece._id].grade, piece.level)}}</strong> points
           .pull-right
             gq-piece-status(user-piece='ctrl.userPieceByPieceId[piece._id]')
-        progressbar.panel-progressbar(
+        uib-progressbar.panel-uib-progressbar(
           animate="false"
           value="ctrl.userPieceByPieceId[piece._id].grade * 100"
         )

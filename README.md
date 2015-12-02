@@ -11,7 +11,8 @@ Deployment
 - heroku scheduler for challenges
 
 Immediate Features
-- send comment and grade in one request. Include comment in email that is sent to user
+x send comment and grade in one request.
+- Include comment in email that is sent to user
 - password reset email
 - subscription checkout
 - flow of upgrading
@@ -20,6 +21,12 @@ x how does user enter credit card info if they are still a temp user
 - lessons checkout (and use credits)
 
 Eventually Features
+- setup email
+- hide notifactions when clicking away
+- way to cancel subscription once subscribed
+- upgrade to latest ui bootstrap
+- add rollbar
+- add sumo logic
 - add json schema validation to all requests
 - access denied or redirect if user does not have permission
 - allow formatting user feedback

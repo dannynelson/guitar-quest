@@ -5,7 +5,7 @@ window.jQuery = require 'jquery'
 window.angular = require 'angular'
 
 require 'angular-resource'
-require 'angular-bootstrap'
+require 'angular-bootstrap-npm'
 
 angular.module 'app', [
   'ui.bootstrap'

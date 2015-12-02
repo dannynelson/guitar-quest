@@ -17,7 +17,7 @@
         .panel-heading(ng-if='!ctrl.savedCard')
           .panel-title Payment Info
         .panel-body
-          alert(ng-if='ctrl.error' type='danger' close='ctrl.error = null') {{ctrl.error}}
+          uib-alert(ng-if='ctrl.error' type='danger' close='ctrl.error = null') {{ctrl.error}}
           .clearfix
             .pull-left All major credit cards accepted.
             .pull-right

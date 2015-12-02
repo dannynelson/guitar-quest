@@ -31,23 +31,10 @@ module.exports = (schema) ->
       Piece.findById(@pieceId)
     ]).then ([user, piece]) =>
       user.points += level.getPointsPerPiece(piece.level) * userPiece.grade
-      user.level = level.calculateCurrentLevel(user.points)
-
-      notification =
-        userId: @userId
-        category: 'piece'
-        type: 'success'
-        title: 'GuitarQuest video submission graded'
-        text: "
-          Your video submission for #{piece.name} was graded
-          #{userPiece.grade * 100}% and you earned #{level.getPointsPerPiece(piece.level) * userPiece.grade} points.
-        "
-
-      Notification.send(notification, {sendEmail: true})
-
-      # save notification before user so that level up notifications come afterwards
-      .then =>
-        user.save()
+      newLevel = level.calculateCurrentLevel(user.points)
+      # user can never go below current level
+      user.level = newLevel if newLevel > user.level
+      user.save()
     .then ->
       next()
     .then null, next

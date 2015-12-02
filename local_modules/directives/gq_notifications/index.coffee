@@ -11,16 +11,15 @@ angular.module __filename, [
 ]
 
 .directive 'gqNotifications', ->
-  scope:
-    category: '@'
-  controllerAs: 'notificationsCtrl'
+  restrict: 'E'
+  controllerAs: 'ctrl'
   bindToController: true
   template: require './template'
   controller: ngInject (User, Notification, $rootScope, $state) ->
     @setNotifications = =>
       user = User.getLoggedInUser()
       return unless user?
-      @notifications = Notification.query({userId: user._id, category: @category, acknowledged: false})
+      @notifications = Notification.query({userId: user._id})
     @setNotifications()
 
     @acknowledge = (notification) =>

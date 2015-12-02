@@ -1,3 +1,7 @@
+//- register template for use for notifications
+script(type="text/ng-template" id="notifications.html")
+  gq-notifications
+
 .gq-navbar
   nav.navbar.navbar-default.navbar-static-top
     .container
@@ -42,8 +46,16 @@
               a(ui-sref='guitarQuest.managePieces') Manage Pieces
 
           ul.nav.navbar-nav.navbar-right(ng-if='ctrl.isLoggedIn()')
-            li(dropdown)
-              a.icon-link(dropdown-toggle)
+            li
+              //- notifications.html template comes from gq-notifications directive
+              a.icon-link(
+                uib-popover-template='"notifications.html"'
+                popover-title='Notifications'
+                popover-placement='bottom'
+              )
+                i.fa.fa-bell
+            li(uib-dropdown)
+              a.icon-link(uib-dropdown-toggle)
                 i.fa.fa-user
                 i.caret
               ul.dropdown-menu(role="menu" aria-labelledby="single-button")

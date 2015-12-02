@@ -1,6 +1,6 @@
 module.exports =
   type: 'object'
-  required: ['userId', 'category', 'type', 'text', 'title', 'acknowledged']
+  required: ['userId', 'type', 'acknowledged']
   properties:
     _id:
       type: 'string'
@@ -10,22 +10,13 @@ module.exports =
       type: 'string'
       format: 'objectid'
 
-    category:
-      type: 'string'
-      enum: ['piece', 'challenge']
-
     type:
       type: 'string'
-      enum: ['info', 'danger', 'success']
 
-    title:
-      description: 'Subject sent in email if an email is sent.'
-      type: 'string'
+    params:
+      description: 'generic object that can hold any parameters necessary for a notification'
+      type: 'object'
 
-    text:
-      type: 'string'
-
-    # did the user dismiss this notification already?
-    acknowledged:
+    isRead:
       type: 'boolean'
       default: false

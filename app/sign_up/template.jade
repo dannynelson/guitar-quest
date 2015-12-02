@@ -6,7 +6,7 @@
           .create-account-panel.panel.panel-default
             .panel-body.padded-panel
               h4.text-center.title Sign up for free
-              alert(type='danger' ng-if='ctrl.error' close='ctrl.error = undefined') {{ctrl.error}}
+              uib-alert(type='danger' ng-if='ctrl.error' close='ctrl.error = undefined') {{ctrl.error}}
               form(ng-submit='ctrl.register()')
                 input.form-control(id='firstName' type='text' placeholder='first name' ng-model='ctrl.form.firstName')
                 input.form-control(id='lastName' type='text' placeholder='last name' ng-model='ctrl.form.lastName')

@@ -9,7 +9,7 @@
         .points-to-next-level.pull-right <strong>{{ctrl.level.displayPiecePoints(ctrl.userPiece.grade, ctrl.piece.level)}}</strong> points
       .row
         .col-xs-12
-          progressbar(
+          uib-progressbar(
             animate="false"
             value="ctrl.userPiece.grade * 100"
           )
@@ -18,7 +18,7 @@
         .video-panel-body.loading.row.text-center(ng-show='ctrl.uploading')
           h5 Uploading...
           .col-xs-8.col-xs-offset-2
-            progressbar(
+            uib-progressbar(
               max="100"
               value="ctrl.progressPercentage"
             )

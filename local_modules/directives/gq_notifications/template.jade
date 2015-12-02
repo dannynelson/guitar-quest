@@ -1,8 +1,9 @@
-.gq-alerts
+.gq-notifications
   //- .test Hello {{notificationsCtrl.notifications.length}}
   //- .test Hello2 {{navbarCtrl.notificationCount.challenge}}
-  alert.alert(
-    ng-repeat='notification in notificationsCtrl.notifications'
-    type='{{notification.type}}'
-    close='notificationsCtrl.acknowledge(notification)'
-  ) {{notification.text}}
+  div hello world {{ctrl.notifications.length}}
+  //- alert.alert(
+  //-   ng-repeat='notification in notificationsCtrl.notifications'
+  //-   type='{{notification.type}}'
+  //-   close='notificationsCtrl.acknowledge(notification)'
+  //- ) {{notification.text}}

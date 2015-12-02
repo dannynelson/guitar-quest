@@ -6,7 +6,7 @@
           .login-panel.panel.panel-default
             .panel-body.padded-panel
               h4.text-center.title Log in to your account
-              alert(type='danger' ng-if='ctrl.error' close='ctrl.error = null') {{ctrl.error}}
+              uib-alert(type='danger' ng-if='ctrl.error' close='ctrl.error = null') {{ctrl.error}}
               form(ng-submit='ctrl.login()')
                 input.form-control(id='inputEmail' type='email' placeholder='email' ng-model='ctrl.form.email')
                 input.form-control(type='password' placeholder='password' ng-model='ctrl.form.password')

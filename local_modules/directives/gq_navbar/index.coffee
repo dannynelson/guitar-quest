@@ -5,6 +5,7 @@ module.exports = __filename
 angular.module __filename, [
   require 'local_modules/resources/user'
   require 'local_modules/resources/notification'
+  require 'local_modules/directives/gq_notifications'
 ]
 
 .directive 'gqNavbar', ->
