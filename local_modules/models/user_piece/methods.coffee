@@ -1,6 +1,7 @@
 Promise = require 'bluebird'
 _ = require 'lodash'
-Promise = require 'bluebird'
+Notification = require 'local_modules/models/notification'
+Piece = require 'local_modules/models/piece'
 sendgrid = require 'local_modules/sendgrid'
 settings = require 'local_modules/settings'
 
@@ -13,6 +14,9 @@ module.exports = (schema) ->
     userPiece.grade = grade
     userPiece.comment = comment
     userPiece.waitingToBeGraded = false
-    userPiece.save()
+    Piece.findById(userPiece.pieceId).then (piece) ->
+      Notification.createNew('pieceGraded', {piece, userPiece}, {sendEmail: true})
+    .then ->
+      userPiece.save()
 
   return schema

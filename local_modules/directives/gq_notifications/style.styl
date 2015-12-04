@@ -1,4 +1,15 @@
-// .gq-notifications
-//   .alerts
-//     .alert:not(:last-child)
-//       margin-bottom 15px
+.gq-notifications
+  .notification
+    display block
+    padding 10px
+    &:hover
+      background-color #FBFBFB
+      cursor pointer
+    &:not(:last-child)
+      border-bottom: 1px solid #F5F5F5
+
+  .header
+    padding 7px 10px
+    text-transform uppercase
+    font-weight 500
+    background-color #F5F5F5

@@ -8,65 +8,64 @@ script(type="text/ng-template" id="notifications.html")
       .navbar-container
         //- .navbar-container
         .navbar-header
-          button.navbar-toggle(type='button', ng-click='ctrl.navbarVisible = !ctrl.navbarVisible')
+          button.navbar-toggle(type='button', ng-click='myCtrl.navbarVisible = !myCtrl.navbarVisible')
             span.icon-bar
             span.icon-bar
             span.icon-bar
-          a.navbar-brand(ng-if='!ctrl.isLoggedIn()' ui-sref='guitarQuest.landing') GuitarQuest
-          a.navbar-brand(ng-if='ctrl.isLoggedIn()' ui-sref='guitarQuest.pieces') GuitarQuest
-        .collapse.navbar-collapse(ng-class="{'navbar-menu-show': ctrl.navbarVisible}")
+          a.navbar-brand(ng-if='!myCtrl.isLoggedIn()' ui-sref='guitarQuest.landing') GuitarQuest
+          a.navbar-brand(ng-if='myCtrl.isLoggedIn()' ui-sref='guitarQuest.pieces') GuitarQuest
+        .collapse.navbar-collapse(ng-class="{'navbar-menu-show': myCtrl.navbarVisible}")
           ul.nav.navbar-nav(
-            ng-click='ctrl.navbarVisible = !ctrl.navbarVisible'
-            ng-if='ctrl.isLoggedIn()'
+            ng-click='myCtrl.navbarVisible = !myCtrl.navbarVisible'
+            ng-if='myCtrl.isLoggedIn()'
           )
-            li.pieces(ng-class="{active: ctrl.stateIncludes('guitarQuest.pieces')}")
+            li.pieces(ng-class="{active: myCtrl.stateIncludes('guitarQuest.pieces')}")
               a(ui-sref='guitarQuest.pieces')
                 span Pieces
-                span.badge.link-badge.badge-warning(ng-if='ctrl.notificationCount.piece') {{ctrl.notificationCount.piece}}
 
-            li.challenges(ng-class="{active: ctrl.stateIncludes('guitarQuest.challenges')}")
+            li.challenges(ng-class="{active: myCtrl.stateIncludes('guitarQuest.challenges')}")
               a(ui-sref='guitarQuest.challenges')
                 span Challenges
-                span.badge.link-badge.badge-warning(ng-if='ctrl.notificationCount.challenge') {{ctrl.notificationCount.challenge}}
 
-            li.challenges(ng-class="{active: ctrl.stateIncludes('guitarQuest.lessons')}")
+            li.challenges(ng-class="{active: myCtrl.stateIncludes('guitarQuest.lessons')}")
               a(ui-sref='guitarQuest.lessons')
                 span Lessons
 
             li(
-              ng-if='ctrl.hasRole("teacher")'
-              ng-class="{active: ctrl.stateIncludes('guitarQuest.submittedPieces')}"
+              ng-if='myCtrl.hasRole("teacher")'
+              ng-class="{active: myCtrl.stateIncludes('guitarQuest.submittedPieces')}"
             )
               a(ui-sref='guitarQuest.submittedPieces') Submitted
 
             li(
-              ng-if='ctrl.hasRole("teacher")'
-              ng-class="{active: ctrl.stateIncludes('guitarQuest.managePieces')}"
+              ng-if='myCtrl.hasRole("teacher")'
+              ng-class="{active: myCtrl.stateIncludes('guitarQuest.managePieces')}"
             )
               a(ui-sref='guitarQuest.managePieces') Manage Pieces
 
-          ul.nav.navbar-nav.navbar-right(ng-if='ctrl.isLoggedIn()')
+          ul.nav.navbar-nav.navbar-right(ng-if='myCtrl.isLoggedIn()')
             li
-              //- notifications.html template comes from gq-notifications directive
-              a.icon-link(
-                uib-popover-template='"notifications.html"'
-                popover-title='Notifications'
-                popover-placement='bottom'
-              )
-                i.fa.fa-bell
             li(uib-dropdown)
-              a.icon-link(uib-dropdown-toggle)
-                i.fa.fa-user
-                i.caret
+              a(uib-dropdown-toggle)
+                span.icon-link
+                  i.fa.fa-bell.icon-link
+                span.badge.notification-badge.badge-primary {{myCtrl.notificationCount}}
+              ul.dropdown-menu.notifications-dropdown(role="menu" aria-labelledby="single-button")
+                gq-notifications
+            li(uib-dropdown)
+              a(uib-dropdown-toggle)
+                span.icon-link
+                  i.fa.fa-user
+                  i.caret
               ul.dropdown-menu(role="menu" aria-labelledby="single-button")
                 li(role="menuitem")
                   a(href="#" ui-sref='guitarQuest.account') Account
-                  a(href="#" ng-click='ctrl.logout()') Logout
-          .navbar-text.navbar-right(ng-if='ctrl.isLoggedIn()')
+                  a(href="#" ng-click='myCtrl.logout()') Logout
+          .navbar-text.navbar-right(ng-if='myCtrl.isLoggedIn()')
             //- span.credit-summary.label.label-warning $20 Credit
-            //- span.text-warning ${{ctrl.getUser().credits}} lesson credits
-            span.level-summary {{ctrl.levelHelper.getLevelName(ctrl.getUser().level)}}
+            //- span.text-warning ${{myCtrl.getUser().credits}} lesson credits
+            span.level-summary {{myCtrl.levelHelper.getLevelName(myCtrl.getUser().level)}}
 
-          .nav.navbar-nav.navbar-right(ng-if='!ctrl.isLoggedIn()')
+          .nav.navbar-nav.navbar-right(ng-if='!myCtrl.isLoggedIn()')
             a.btn-flat.login(ui-sref='guitarQuest.logIn') Log in
             a.btn.btn-primary.navbar-btn(ui-sref='guitarQuest.signUp') Sign up

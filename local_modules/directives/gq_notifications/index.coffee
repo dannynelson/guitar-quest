@@ -22,10 +22,11 @@ angular.module __filename, [
       @notifications = Notification.query({userId: user._id})
     @setNotifications()
 
-    @getDescription = ({notification}) ->
-      notificationHelpers.getDescription({notification})
-    @getLink = ({notification}) ->
-      notificationHelpers.getLink({notification})
+    @getDescription = (notification) ->
+      debugger
+      notificationHelpers.getDescription(notification)
+    @getLink = (notification) ->
+      notificationHelpers.getLink({notification, serverUrl: window.settings.server.url})
 
     @acknowledge = (notification) =>
       notification.$acknowledge().then =>

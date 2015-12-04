@@ -43,7 +43,7 @@
             gq-piece-status(user-piece='ctrl.userPieceByPieceId[piece._id]')
         uib-progressbar.panel-uib-progressbar(
           animate="false"
-          value="ctrl.userPieceByPieceId[piece._id].grade * 100"
+          value="(ctrl.userPieceByPieceId[piece._id].grade || 0) * 100"
         )
         .panel-body
           h5.piece-title {{piece.name}}

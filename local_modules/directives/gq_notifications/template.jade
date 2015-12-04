@@ -1,9 +1,11 @@
 .gq-notifications
-  //- .test Hello {{notificationsCtrl.notifications.length}}
-  //- .test Hello2 {{navbarCtrl.notificationCount.challenge}}
-  div hello world {{ctrl.notifications.length}}
-  //- alert.alert(
-  //-   ng-repeat='notification in notificationsCtrl.notifications'
-  //-   type='{{notification.type}}'
-  //-   close='notificationsCtrl.acknowledge(notification)'
-  //- ) {{notification.text}}
+  .header Notifications
+  a.notification(
+    ng-href='{{ctrl.getLink(notification)}}'
+    ng-repeat='notification in ctrl.notifications'
+  )
+    .row
+      .col-xs-2.text-right
+        i.fa.fa-check.text-success.fa-2x
+      .col-xs-10
+        div {{ctrl.getDescription(notification)}}

@@ -5,185 +5,114 @@ challengeEnums = require 'local_modules/models/challenge/enums'
 userFactory = require 'local_modules/models/user/factory'
 pieceFactory = require 'local_modules/models/piece/factory'
 userPieceFactory = require 'local_modules/models/user_piece/factory'
-challengeHelpers = require './index'
+challengeFactory = require 'local_modules/models/challenge/factory'
+notificationHelpers = require './index'
 
-describe 'challengeHelpers', ->
-  describe '.generateChallenge()', ->
-    it 'creates a challenge object', ->
+describe 'notificationHelpers', ->
+  describe '.generateNotification()', ->
+    it 'creates "pieceGraded"', ->
       userId = objectIdString()
-      user = userFactory.create({_id: userId})
-      challenge = challengeHelpers.generateChallenge('firstVideo', {user})
-      expect(challenge).to.deep.equal
+      pieceId = objectIdString()
+      piece = pieceFactory.create({_id: pieceId, name: 'Romanza'})
+      userPiece = userPieceFactory.create({grade: 0.7, comment: 'Good job!', userId: userId})
+      notification = notificationHelpers.generateNotification('pieceGraded', {piece, userPiece})
+      expect(notification).to.deep.equal
         userId: userId
-        type: 'firstVideo'
-        quantityToComplete: 1
-        completed: false
-        params: {}
-        reward:
-          credits: 10
+        type: 'pieceGraded'
+        isRead: false
+        params:
+          pieceId: piece._id.toString()
+          pieceName: 'Romanza'
+          grade: 0.7
+          comment: 'Good job!'
 
-    it 'does not error for all challenge types', ->
-      user = userFactory.create({_id: objectIdString()})
-      challengeEnums.challengeTypes.forEach (challengeType) ->
-        challengeHelpers.generateChallenge(challengeType, {user})
+    it 'creates "challengeProgressed"', ->
+      userId = objectIdString()
+      challenge = challengeFactory.create({userId})
+      notification = notificationHelpers.generateNotification('challengeProgressed', {challenge})
+      expect(notification).to.deep.equal
+        userId: userId
+        type: 'challengeProgressed'
+        isRead: false
+        params:
+          challenge: challenge
 
   describe '.getTitle()', ->
-    it 'works', ->
-      user = userFactory.create({_id: objectIdString()})
-      challenge = challengeHelpers.generateChallenge('firstVideo', {user})
-      expect(challengeHelpers.getTitle(challenge)).to.equal 'Submit First Video'
+    it '"pieceGraded"', ->
+      userId = objectIdString()
+      pieceId = objectIdString()
+      piece = pieceFactory.create({_id: pieceId, name: 'Romanza'})
+      userPiece = userPieceFactory.create({grade: 0.7, comment: 'Good job!', userId: userId})
+      notification = notificationHelpers.generateNotification('pieceGraded', {piece, userPiece})
+      title = notificationHelpers.getTitle(notification)
+      expect(title).to.equal "Video submission for Romanza graded 70%"
 
-    it 'does not error for all challenge types', ->
-      user = userFactory.create({_id: objectIdString()})
-      challengeEnums.challengeTypes.forEach (challengeType) ->
-        challenge = challengeHelpers.generateChallenge(challengeType, {user})
-        challengeHelpers.getTitle(challenge)
+    it '"challengeProgressed"', ->
+      userId = objectIdString()
+      challenge = challengeFactory.create({userId, type: 'firstVideo', quantityCompleted: 1, quantityToComplete: 3})
+      notification = notificationHelpers.generateNotification('challengeProgressed', {challenge})
+      title = notificationHelpers.getTitle(notification)
+      expect(title).to.equal 'Completed 1/3 of challenge "Submit First Video"'
+
+  describe '.getTitle()', ->
+    it '"pieceGraded"', ->
+      userId = objectIdString()
+      pieceId = objectIdString()
+      piece = pieceFactory.create({_id: pieceId, name: 'Romanza'})
+      userPiece = userPieceFactory.create({grade: 0.7, comment: 'Good job!', userId: userId})
+      notification = notificationHelpers.generateNotification('pieceGraded', {piece, userPiece})
+      title = notificationHelpers.getTitle(notification)
+      expect(title).to.equal "Video submission for Romanza graded 70%"
+
+    it '"challengeProgressed"', ->
+      userId = objectIdString()
+      challenge = challengeFactory.create({userId, type: 'firstVideo', quantityCompleted: 1, quantityToComplete: 3})
+      notification = notificationHelpers.generateNotification('challengeProgressed', {challenge})
+      title = notificationHelpers.getTitle(notification)
+      expect(title).to.equal 'Completed 1/3 of challenge "Submit First Video"'
 
   describe '.getDescription()', ->
-    it 'works', ->
-      user = userFactory.create({_id: objectIdString()})
-      challenge = challengeHelpers.generateChallenge('firstVideo', {user})
-      expect(challengeHelpers.getDescription(challenge)).to.equal 'Submit a video for any guitar piece.'
-
-    it 'does not error for all challenge types', ->
-      user = userFactory.create({_id: objectIdString()})
-      challengeEnums.challengeTypes.forEach (challengeType) ->
-        challenge = challengeHelpers.generateChallenge(challengeType, {user})
-        challengeHelpers.getDescription(challenge)
-
-  describe '.generateInitialChallenges()', ->
-    it 'works', ->
+    it '"pieceGraded"', ->
       userId = objectIdString()
-      user = userFactory.create({_id: userId})
-      challenges = challengeHelpers.generateInitialChallenges({user})
-      expect(challenges).to.have.length 1
-      expect(challenges[0]).to.deep.equal
+      pieceId = objectIdString()
+      piece = pieceFactory.create({_id: pieceId, name: 'Romanza'})
+      userPiece = userPieceFactory.create({grade: 0.7, comment: 'Good job!', userId: userId})
+      notification = notificationHelpers.generateNotification('pieceGraded', {piece, userPiece})
+      description = notificationHelpers.getDescription(notification)
+      expect(description).to.equal "Your video submission for Romanza was graded 70% and you received a teacher comment."
+
+    it '"challengeProgressed"', ->
+      userId = objectIdString()
+      challenge = challengeFactory.create
         userId: userId
         type: 'firstVideo'
-        quantityToComplete: 1
-        completed: false
-        params: {}
+        quantityCompleted: 3
+        quantityToComplete: 3
         reward:
           credits: 10
+      notification = notificationHelpers.generateNotification('challengeProgressed', {challenge})
+      description = notificationHelpers.getDescription(notification)
+      expect(description).to.equal 'Completed 3/3 of challenge "Submit First Video" and earned $10 lesson credits'
 
-  describe '.generateRandomChallenge()', ->
-    it 'works', ->
+  describe '.getLink()', ->
+    it '"pieceGraded"', ->
       userId = objectIdString()
-      user = userFactory.create({_id: userId})
-      challenge = challengeHelpers.generateRandomChallenge({user})
-      expect(challenge).to.have.property 'userId', userId
-      expect(challenge).to.have.property 'quantityToComplete'
+      pieceId = objectIdString()
+      piece = pieceFactory.create({_id: pieceId, name: 'Romanza'})
+      userPiece = userPieceFactory.create({grade: 0.7, comment: 'Good job!', userId: userId})
+      notification = notificationHelpers.generateNotification('pieceGraded', {piece, userPiece})
+      title = notificationHelpers.getLink({notification, serverUrl: 'http://guitarquest.com'})
+      expect(title).to.equal "http://guitarquest.com/#/pieces/#{pieceId}"
 
-    it 'allows excludes types', ->
+    it '"challengeProgressed"', ->
       userId = objectIdString()
-      user = userFactory.create({_id: userId})
-      challenge = challengeHelpers.generateRandomChallenge({user, excludeChallengeTypes: ['level', 'era', 'perfectGrade']})
-      expect(challenge).to.have.property 'type', 'sightReading'
-
-  describe '.matchesConditions()', ->
-    it 'returns true if piece and userPiece meet conditions', ->
-      user = userFactory.create({_id: objectIdString()})
-      piece = pieceFactory.create()
-      userPiece = userPieceFactory.create()
-      challenge = challengeHelpers.generateChallenge('sightReading', {user})
-      expect(challengeHelpers.matchesConditions(challenge, {piece, userPiece, user})).to.equal true
-
-    it 'returns false if piece and userPiece do not meet conditions', ->
-      user = userFactory.create({_id: objectIdString()})
-      piece = pieceFactory.create()
-      piece.grade = 0.2 # below condition requirement
-      userPiece = userPieceFactory.create()
-      challenge = challengeHelpers.generateChallenge('level', {user})
-      expect(challengeHelpers.matchesConditions(challenge, {piece, userPiece, user})).to.equal false
-
-    describe 'challenge types', ->
-      itMatchesConditions = (trueOrFalse, challengeType, {piece, userPiece, user, challenge, challengeParams}={}) ->
-        it "#{if trueOrFalse then "matches" else "does not match"} conditions for #{challengeType}", ->
-          user._id = objectIdString()
-          user = userFactory.create(user)
-          piece = pieceFactory.create(piece)
-          piece._id = objectIdString()
-          userPiece = userPieceFactory.create(userPiece)
-          userPiece.pieceId = piece._id
-          userPiece.userId = user._id
-          generatedChallenge = challengeHelpers.generateChallenge(challengeType, {piece, userPiece, user})
-          generatedChallenge = _.merge(generatedChallenge, {params: challengeParams}) # override any custom params
-          expect(challengeHelpers.matchesConditions(generatedChallenge, {piece, userPiece, user})).to.equal trueOrFalse
-
-      itMatchesConditions true, 'firstVideo',
-        user: {}
-        piece: {}
-        userPiece: {}
-        challengeParams: {}
-
-      itMatchesConditions true, 'level',
-        user: {level: 1}
-        piece: {level: 1}
-        userPiece: {grade: 0.8}
-        challengeParams: {}
-
-      # grade too low
-      itMatchesConditions false, 'level',
-        user: {level: 1}
-        piece: {level: 1}
-        userPiece: {grade: 0.7}
-        challengeParams: {}
-
-      # wrong level
-      itMatchesConditions false, 'level',
-        user: {level: 2}
-        piece: {level: 2}
-        userPiece: {grade: 0.8}
-        challengeParams: {level: 1}
-
-      itMatchesConditions true, 'era',
-        user: {level: 1}
-        piece: {level: 1, era: 'baroque'}
-        userPiece: {grade: 0.8}
-        challengeParams: {era: 'baroque'}
-
-      # not current level
-      itMatchesConditions false, 'era',
-        user: {level: 2}
-        piece: {level: 1, era: 'baroque'}
-        userPiece: {grade: 0.8}
-        challengeParams: {era: 'baroque'}
-
-      # not correct era
-      itMatchesConditions false, 'era',
-        user: {level: 1}
-        piece: {level: 1, era: 'baroque'}
-        userPiece: {grade: 0.8}
-        challengeParams: {era: 'classical'}
-
-      # grade too low
-      itMatchesConditions false, 'era',
-        user: {level: 1}
-        piece: {level: 1, era: 'baroque'}
-        userPiece: {grade: 0.7}
-        challengeParams: {era: 'baroque'}
-
-      itMatchesConditions true, 'sightReading',
-        user: {}
-        piece: {}
-        userPiece: {}
-        challengeParams: {}
-
-      itMatchesConditions true, 'perfectGrade',
-        user: {level: 1}
-        piece: {level: 1}
-        userPiece: {grade: 1}
-        challengeParams: {}
-
-      # not current level
-      itMatchesConditions false, 'perfectGrade',
-        user: {level: 2}
-        piece: {level: 1}
-        userPiece: {grade: 1}
-        challengeParams: {}
-
-      itMatchesConditions false, 'perfectGrade',
-        user: {level: 1}
-        piece: {level: 1}
-        userPiece: {grade: 0.9}
-        challengeParams: {}
+      challenge = challengeFactory.create
+        userId: userId
+        type: 'firstVideo'
+        quantityCompleted: 3
+        quantityToComplete: 3
+        reward:
+          credits: 10
+      notification = notificationHelpers.generateNotification('challengeProgressed', {challenge})
+      link = notificationHelpers.getLink({notification, serverUrl: 'http://guitarquest.com'})
+      expect(link).to.equal "http://guitarquest.com/#/challenges"

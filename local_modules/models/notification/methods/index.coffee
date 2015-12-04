@@ -1,7 +1,7 @@
 Promise = require 'bluebird'
 sendgrid = require 'local_modules/sendgrid'
 settings = require 'local_modules/settings'
-notificationHelpers = 'local_modules/notification/helpers'
+notificationHelpers = require 'local_modules/models/notification/helpers'
 
 capitalize = (string) ->
   string.charAt(0).toUpperCase() + string.slice(1)
@@ -12,19 +12,14 @@ module.exports = (schema) ->
     User = require 'local_modules/models/user'
     Notification = @
 
-    Notification.create(notificationHelpers.generate(type, params)).then ->
+    Notification.create(notificationHelpers.generateNotification(type, params)).then (notification) ->
       if sendEmail is true
         return User.findById(notification.userId).then (user) ->
-          description = notificationHelpers.getDescription({description})
-          link = notificationHelpers.getLink({description})
+          description = notificationHelpers.getDescription({notification})
+          link = notificationHelpers.getLink({notification, serverUrl: settings.server.url})
           sendgrid.send
             to: user.email
             from: settings.guitarQuestEmail
             subject: notificationHelpers.getTitle({notification})
-            html: "
-              Hello #{capitalize(user.firstName)},<br><br>
-              #{description}.<br>
-              #{link}<br><br>
-              Thanks,<br>
-              The GuitarQuest Team
-            "
+            html: "#{description}.<br>#{link}"
+      return notification

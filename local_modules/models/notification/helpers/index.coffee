@@ -3,7 +3,6 @@ Helpers for working with notifications
 ###
 
 _ = require 'lodash'
-# serverUrl = require('local_modules/settings').server.url
 joi = require 'joi'
 joi.objectId = require('joi-objectid')(joi)
 notificationEnums = require 'local_modules/models/notification/enums'
@@ -31,7 +30,7 @@ notificationDefinitions =
         Your video submission for #{notification.params.pieceName} was graded
         #{notification.params.grade * 100}% and you received a teacher comment.
       "
-    link: ({notification}) ->
+    link: ({notification, serverUrl}) ->
       "#{serverUrl}/#/pieces/#{notification.params.pieceId}"
     notification: ({piece, userPiece}={}) ->
       buildNotification
@@ -54,20 +53,20 @@ notificationDefinitions =
       challenge = notification.params.challenge
       rewardText =
         if challenge.quantityCompleted is challenge.quantityToComplete
-          credits = challenge.rewards.credits
-          " and you earned $#{credits} lesson credits"
+          credits = challenge.reward.credits
+          " and earned $#{credits} lesson credits"
         else
           ''
       return "
         Completed #{challenge.quantityCompleted}/#{challenge.quantityToComplete}
         of challenge \"#{challengeHelpers.getTitle(challenge)}\"#{rewardText}
       "
-    link: ({notification}) ->
+    link: ({notification, serverUrl}) ->
       "#{serverUrl}/#/challenges"
     notification: ({challenge}={}) ->
       buildNotification
         userId: challenge.userId.toString()
-        type: 'pieceGraded'
+        type: 'challengeProgressed'
         params:
           challenge: challenge
 
@@ -80,10 +79,11 @@ module.exports = notificationHelpers =
     joi.assert notification, joi.object().required(), 'notification'
     notificationDefinitions[notification.type]?.description({notification})
 
-  getLink: (notification) ->
+  getLink: ({notification, serverUrl}) ->
     joi.assert notification, joi.object().required(), 'notification'
-    notificationDefinitions[notification.type]?.link({notification})
+    notificationDefinitions[notification.type]?.link({notification, serverUrl})
 
   generateNotification: (type, params) ->
-    joi.assert user, joi.object().required(), 'user'
+    joi.assert type, joi.string().valid(notificationEnums.notificationTypes).required(), 'type'
+    joi.assert params, joi.object().required(), 'params'
     notificationDefinitions[type].notification(params)

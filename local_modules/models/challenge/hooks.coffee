@@ -13,7 +13,6 @@ module.exports = (schema) ->
 
   # Notify if progress made on challenge, and if a challenge is completed, give the user credit
   schema.pre 'save', (next) ->
-    Notification = require 'local_modules/models/notification'
     User = require 'local_modules/models/user'
 
     if @isModified('quantityCompleted')
@@ -31,12 +30,4 @@ module.exports = (schema) ->
       .then null, (err) =>
         next()
     else
-      next()
-
-  schema.post 'save', (next) ->
-    # This should always come after notificaiton is fully updated
-    Notification.createNew 'challengeProgressed', {notification: @}
-    .then =>
-      next()
-    .then null, (err) =>
       next()

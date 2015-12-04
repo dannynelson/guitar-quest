@@ -18,7 +18,6 @@ module.exports = ngInject (User, UserPiece, Piece) ->
     @userPieceByPieceId = _.indexBy(userPieces, 'pieceId')
 
   setPieces = (level) =>
-    debugger
     @userCanLearnPieces = level is 1 or roles.can(@user.roles, 'learnAdvancedPieces')
     @pieces = Piece.query({level})
     @levelPoints =

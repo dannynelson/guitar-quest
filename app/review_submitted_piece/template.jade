@@ -7,7 +7,7 @@
       .col-xs-12
         uib-progressbar(
           animate="false"
-          value="ctrl.userPiece.grade * 100"
+          value="(ctrl.userPiece.grade || 0) * 100"
         )
   .col-md-8
     .panel.panel-default.piece-panel

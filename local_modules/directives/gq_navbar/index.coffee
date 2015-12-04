@@ -9,7 +9,7 @@ angular.module __filename, [
 ]
 
 .directive 'gqNavbar', ->
-  controllerAs: 'ctrl'
+  controllerAs: 'myCtrl' # controller named differently so we dont conflict with ui.bootstrap
   bindToController: true
   template: require './template'
   controller: ngInject ($state, User, Notification, $rootScope) ->
@@ -23,11 +23,9 @@ angular.module __filename, [
     @updateNotificationCount = =>
       user = User.getLoggedInUser()
       if user?
-        Notification.query({userId: user._id, acknowledged: false}).$promise.then (notifications) =>
-          @notificationCount = {}
-          for notification in notifications
-            @notificationCount[notification.category] ?= 0
-            @notificationCount[notification.category]++
+        Notification.query({isRead: false}).$promise.then (notifications) =>
+          console.log 'test', @notificationCount, notifications.length
+          @notificationCount = notifications.length
     @updateNotificationCount()
 
     @logout = ->

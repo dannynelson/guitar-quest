@@ -12,7 +12,8 @@ userPieceFactory = require 'local_modules/models/user_piece/factory'
 describe 'UserPiece hooks', ->
   beforeEach database.reset
 
-  it 'denormalizes points and level onto user', ->
+  describe 'piece graded', ->
+  it 'denormalizes points and level onto user if piece graded', ->
     user = null
     challenge = null
     piece = null

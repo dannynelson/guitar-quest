@@ -45,6 +45,7 @@ module.exports = (schema) ->
   schema.static 'progressMatchingChallenges', (userId, {userPiece}) ->
     Piece = require 'local_modules/models/piece'
     User = require 'local_modules/models/user'
+    Notification = require 'local_modules/models/notification'
 
     Challenge = @
     Promise.all([
@@ -56,4 +57,8 @@ module.exports = (schema) ->
         return unless challengeHelpers.matchesConditions(challenge, {piece, userPiece, user})
         challenge.piecesCompleted ?= []
         challenge.piecesCompleted = _(challenge.piecesCompleted.concat(userPiece.pieceId)).invoke('toString').uniq().value()
-        challenge.save()
+        challenge.save().then (challenge) ->
+          Notification.createNew('challengeProgressed', {challenge})
+         .then ->
+            return challenge
+

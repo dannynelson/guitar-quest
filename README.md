@@ -11,6 +11,15 @@ Deployment
 - heroku scheduler for challenges
 
 Immediate Features
+- notifications
+  - figure out clearing isRead for notifications (by clicking link or mark all as read)
+    - also, how to highlight that a notification is unread?
+  - notification for progressing to next level
+  - unique icon for each notification
+  - sort notifications newest first
+  - limit number queried and paginate them (show more)
+- grade when waitingToBeGraded changes to false, not when grade changes
+- if piece graded multiple times, user gets too much experience
 x send comment and grade in one request.
 - Include comment in email that is sent to user
 - password reset email
