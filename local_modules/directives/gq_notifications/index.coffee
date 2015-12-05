@@ -15,7 +15,7 @@ angular.module __filename, [
   controllerAs: 'ctrl'
   bindToController: true
   template: require './template'
-  controller: ngInject (User, Notification, $rootScope, $state) ->
+  controller: ngInject (User, Notification, $rootScope, $state, $sce) ->
     @setNotifications = =>
       user = User.getLoggedInUser()
       return unless user?
@@ -24,7 +24,7 @@ angular.module __filename, [
 
     @getDescription = (notification) ->
       debugger
-      notificationHelpers.getDescription(notification)
+      $sce.trustAsHtml notificationHelpers.getDescription(notification)
     @getLink = (notification) ->
       notificationHelpers.getLink({notification, serverUrl: window.settings.server.url})
 

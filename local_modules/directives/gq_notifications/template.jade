@@ -6,6 +6,8 @@
   )
     .row
       .col-xs-2.text-right
-        i.fa.fa-check.text-success.fa-2x
-      .col-xs-10
-        div {{ctrl.getDescription(notification)}}
+        i.fa.fa-check.text-success.fa-2x(ng-if='notification.type === "pieceGraded"')
+        i.fa.fa-trophy.text-warning.fa-2x(ng-if='notification.type === "challengeProgressed"')
+        i.fa.fa-trophy.text-arrow-up.fa-2x(ng-if='notification.type === "levelUp"')
+      .col-xs-10.description-col
+        div(ng-bind-html='ctrl.getDescription(notification)')

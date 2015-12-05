@@ -30,6 +30,7 @@ x how does user enter credit card info if they are still a temp user
 - lessons checkout (and use credits)
 
 Eventually Features
+- sign up, sign in, and confirm email should not display navigation (just brand link)
 - normalize user fist name, last name and email
 - when to use mongo vs sql?
 - setup email

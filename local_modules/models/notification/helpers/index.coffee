@@ -27,8 +27,8 @@ notificationDefinitions =
       "Video submission for #{notification.params.pieceName} graded #{notification.params.grade * 100}%"
     description: ({notification}) ->
       "
-        Your video submission for #{notification.params.pieceName} was graded
-        #{notification.params.grade * 100}% and you received a teacher comment.
+        <strong>Danny Nelson</strong> graded your video submission for <em>#{notification.params.pieceName}</em>
+        <strong>#{notification.params.grade * 100}%</strong> and left a comment.
       "
     link: ({notification, serverUrl}) ->
       "#{serverUrl}/#/pieces/#{notification.params.pieceId}"
@@ -54,12 +54,12 @@ notificationDefinitions =
       rewardText =
         if challenge.quantityCompleted is challenge.quantityToComplete
           credits = challenge.reward.credits
-          " and earned $#{credits} lesson credits"
+          " and earned <strong>$#{credits} lesson credits</strong>"
         else
           ''
       return "
-        Completed #{challenge.quantityCompleted}/#{challenge.quantityToComplete}
-        of challenge \"#{challengeHelpers.getTitle(challenge)}\"#{rewardText}
+        Completed <strong>#{challenge.quantityCompleted}/#{challenge.quantityToComplete}</strong>
+        of challenge <strong>#{challengeHelpers.getTitle(challenge)}</strong>#{rewardText}
       "
     link: ({notification, serverUrl}) ->
       "#{serverUrl}/#/challenges"
