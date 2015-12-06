@@ -16,8 +16,8 @@ Immediate Features
     x also, how to highlight that a notification is unread?
   - notification for progressing to next level
   - unique icon for each notification
-  - sort notifications newest first
-  - limit number queried and paginate them (show more)
+  x sort notifications newest first
+  x limit number queried and paginate them (show more)
 - dont query for every userPiece on each level
 - grade when waitingToBeGraded changes to false, not when grade changes
 - if piece graded multiple times, user gets too much experience
@@ -32,6 +32,8 @@ x send comment and grade in one request.
 - be able to buy a lesson from a teacher
 x how does user enter credit card info if they are still a temp user
 - lessons checkout (and use credits)
+- 0 index levels (so that level name matches what we see)
+- ghost item in piece history
 
 Eventually Features
 - sign up, sign in, and confirm email should not display navigation (just brand link)
@@ -60,6 +62,7 @@ Eventually Features
 - forgot password (and email?) flow
 - hide most of submission guidelines (since once they know once, they won't need to see it again)
 - clean up duplicate loading of piece in pre save and post save hooks
+- infinite scroll for notifications
 
 BugFixes / Security
 - what happens if we can't connect to stripe

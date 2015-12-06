@@ -28,14 +28,12 @@ module.exports = ngInject (User, UserPiece, Piece, $stateParams, $state) ->
       completed: @levelHelper.calculatePointsIntoLevel(@user.points, @currentLevel)
       total: @levelHelper.getTotalLevelPoints(@currentLevel)
 
-  setPieces(@currentLevel)
+  setPieces()
 
   @goToNextLevel = =>
-    @currentLevel++
-    setPieces(@currentLevel)
+    $state.go $state.current.name, {level: @currentLevel + 1}
 
   @goToPreviousLevel = =>
-    @currentLevel--
-    setPieces(@currentLevel)
+    $state.go $state.current.name, {level: @currentLevel - 1}
 
   return @ # http://stackoverflow.com/challengeions/28953289/using-controller-as-with-the-ui-router-isnt-working-as-expected

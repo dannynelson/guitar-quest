@@ -12,7 +12,23 @@ userPieceFactory = require 'local_modules/models/user_piece/factory'
 describe 'UserPiece hooks', ->
   beforeEach database.reset
 
-  describe 'piece graded', ->
+  it 'sets waitingToBeGraded: true if video submitted', ->
+    userPiece = userPieceFactory.create({submissionVideoURL: 'http://test.com'})
+    delete userPiece.waitingToBeGraded
+    UserPiece.create(userPiece)
+    .then (userPiece) ->
+      expect(userPiece).to.have.property 'waitingToBeGraded', true
+      userPiece.waitingToBeGraded = false
+      userPiece.updatedBy = objectIdString()
+      userPiece.save()
+    .then (userPiece) ->
+      expect(userPiece).to.have.property 'waitingToBeGraded', false
+      userPiece.submissionVideoURL = 'http://test2.com'
+      userPiece.updatedBy = objectIdString()
+      userPiece.save()
+    .then (userPiece) ->
+      expect(userPiece).to.have.property 'waitingToBeGraded', true
+
   it 'denormalizes points and level onto user if piece graded', ->
     user = null
     challenge = null
@@ -59,23 +75,6 @@ describe 'UserPiece hooks', ->
       Challenge.findById(challenge.id)
     .then (challenge) ->
       expect(challenge).to.have.property 'quantityCompleted', 1
-
-  it 'sets waitingToBeGraded: true if video submitted', ->
-    userPiece = userPieceFactory.create({submissionVideoURL: 'http://test.com'})
-    delete userPiece.waitingToBeGraded
-    UserPiece.create(userPiece)
-    .then (userPiece) ->
-      expect(userPiece).to.have.property 'waitingToBeGraded', true
-      userPiece.waitingToBeGraded = false
-      userPiece.updatedBy = objectIdString()
-      userPiece.save()
-    .then (userPiece) ->
-      expect(userPiece).to.have.property 'waitingToBeGraded', false
-      userPiece.submissionVideoURL = 'http://test2.com'
-      userPiece.updatedBy = objectIdString()
-      userPiece.save()
-    .then (userPiece) ->
-      expect(userPiece).to.have.property 'waitingToBeGraded', true
 
   it 'copies any changes to history', ->
 

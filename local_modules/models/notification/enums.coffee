@@ -1,2 +1,2 @@
 module.exports =
-  notificationTypes: ['pieceGraded', 'challengeProgressed']
+  notificationTypes: ['pieceGraded', 'challengeProgressed', 'levelUp']

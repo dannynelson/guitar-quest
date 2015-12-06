@@ -88,5 +88,8 @@
     "unionized": "^4.4.0",
     "vinyl-paths": "^1.0.0",
     "wildcard": "^1.1.2"
+  },
+  "devDependencies": {
+    "chai-as-promised": "^5.1.0"
   }
 }

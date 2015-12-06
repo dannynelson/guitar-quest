@@ -24,7 +24,10 @@ module.exports =
         enum: ['teacher', 'professional']
 
     level:
-      description: 'users current level'
+      description: '
+        Users current level. Note this is denormalized rather than being a virtual
+        so that we can guarantee that level can go up but can never go down
+      '
       type: 'integer'
       default: 1
 

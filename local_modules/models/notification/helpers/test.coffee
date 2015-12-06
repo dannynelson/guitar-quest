@@ -10,7 +10,7 @@ notificationHelpers = require './index'
 
 describe 'notificationHelpers', ->
   describe '.generateNotification()', ->
-    it 'creates "pieceGraded"', ->
+    it '"pieceGraded"', ->
       userId = objectIdString()
       pieceId = objectIdString()
       piece = pieceFactory.create({_id: pieceId, name: 'Romanza'})
@@ -26,7 +26,7 @@ describe 'notificationHelpers', ->
           grade: 0.7
           comment: 'Good job!'
 
-    it 'creates "challengeProgressed"', ->
+    it '"challengeProgressed"', ->
       userId = objectIdString()
       challenge = challengeFactory.create({userId})
       notification = notificationHelpers.generateNotification('challengeProgressed', {challenge})
@@ -37,22 +37,16 @@ describe 'notificationHelpers', ->
         params:
           challenge: challenge
 
-  describe '.getTitle()', ->
-    it '"pieceGraded"', ->
+    it '"levelUp"', ->
       userId = objectIdString()
-      pieceId = objectIdString()
-      piece = pieceFactory.create({_id: pieceId, name: 'Romanza'})
-      userPiece = userPieceFactory.create({grade: 0.7, comment: 'Good job!', userId: userId})
-      notification = notificationHelpers.generateNotification('pieceGraded', {piece, userPiece})
-      title = notificationHelpers.getTitle(notification)
-      expect(title).to.equal "Video submission for Romanza graded 70%"
-
-    it '"challengeProgressed"', ->
-      userId = objectIdString()
-      challenge = challengeFactory.create({userId, type: 'firstVideo', quantityCompleted: 1, quantityToComplete: 3})
-      notification = notificationHelpers.generateNotification('challengeProgressed', {challenge})
-      title = notificationHelpers.getTitle(notification)
-      expect(title).to.equal 'Completed 1/3 of challenge "Submit First Video"'
+      user = userFactory.create({_id: userId, level: 2})
+      notification = notificationHelpers.generateNotification('levelUp', {user})
+      expect(notification).to.deep.equal
+        userId: userId
+        type: 'levelUp'
+        isRead: false
+        params:
+          level: 2
 
   describe '.getTitle()', ->
     it '"pieceGraded"', ->
@@ -70,6 +64,13 @@ describe 'notificationHelpers', ->
       notification = notificationHelpers.generateNotification('challengeProgressed', {challenge})
       title = notificationHelpers.getTitle(notification)
       expect(title).to.equal 'Completed 1/3 of challenge "Submit First Video"'
+
+    it '"levelUp"', ->
+      userId = objectIdString()
+      user = userFactory.create({_id: userId, level: 2})
+      notification = notificationHelpers.generateNotification('levelUp', {user})
+      title = notificationHelpers.getTitle(notification)
+      expect(title).to.equal 'Advanced to Level 1'
 
   describe '.getDescription()', ->
     it '"pieceGraded"', ->
@@ -79,7 +80,7 @@ describe 'notificationHelpers', ->
       userPiece = userPieceFactory.create({grade: 0.7, comment: 'Good job!', userId: userId})
       notification = notificationHelpers.generateNotification('pieceGraded', {piece, userPiece})
       description = notificationHelpers.getDescription(notification)
-      expect(description).to.equal "Your video submission for Romanza was graded 70% and you received a teacher comment."
+      expect(description).to.equal "Video submission for <em>Romanza</em> graded <strong>70%</strong> and received a comment."
 
     it '"challengeProgressed"', ->
       userId = objectIdString()
@@ -92,7 +93,14 @@ describe 'notificationHelpers', ->
           credits: 10
       notification = notificationHelpers.generateNotification('challengeProgressed', {challenge})
       description = notificationHelpers.getDescription(notification)
-      expect(description).to.equal 'Completed 3/3 of challenge "Submit First Video" and earned $10 lesson credits'
+      expect(description).to.equal 'Completed <strong>3/3</strong> of challenge <strong>Submit First Video</strong> and earned <strong>$10 lesson credits</strong>'
+
+    it '"levelUp"', ->
+      userId = objectIdString()
+      user = userFactory.create({_id: userId, level: 2})
+      notification = notificationHelpers.generateNotification('levelUp', {user})
+      description = notificationHelpers.getDescription(notification)
+      expect(description).to.equal 'You advanced to <strong>Level 1</strong> and unlocked new pieces.'
 
   describe '.getLink()', ->
     it '"pieceGraded"', ->
@@ -116,3 +124,11 @@ describe 'notificationHelpers', ->
       notification = notificationHelpers.generateNotification('challengeProgressed', {challenge})
       link = notificationHelpers.getLink({notification, serverUrl: 'http://guitarquest.com'})
       expect(link).to.equal "http://guitarquest.com/#/challenges"
+
+    it '"levelUp"', ->
+      userId = objectIdString()
+      user = userFactory.create({_id: userId, level: 2})
+      notification = notificationHelpers.generateNotification('levelUp', {user})
+      link = notificationHelpers.getLink({notification, serverUrl: 'http://guitarquest.com'})
+      expect(link).to.equal "http://guitarquest.com/#/pieces_by_level/2"
+

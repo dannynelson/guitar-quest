@@ -7,6 +7,7 @@ joi = require 'joi'
 joi.objectId = require('joi-objectid')(joi)
 notificationEnums = require 'local_modules/models/notification/enums'
 challengeHelpers = require 'local_modules/models/challenge/helpers'
+levelHelpers = require 'local_modules/level'
 
 buildNotification = ({userId, type, params}={}) ->
   joi.assert userId, joi.objectId().required(), 'userId'
@@ -28,7 +29,7 @@ notificationDefinitions =
     description: ({notification}) ->
       "
         Video submission for <em>#{notification.params.pieceName}</em>
-        graded <strong>#{notification.params.grade * 100}%</strong> and has a new comment.
+        graded <strong>#{notification.params.grade * 100}%</strong> and received a comment.
       "
     link: ({notification, serverUrl}) ->
       "#{serverUrl}/#/pieces/#{notification.params.pieceId}"
@@ -44,17 +45,14 @@ notificationDefinitions =
 
   'levelUp':
     title: ({notification}) ->
-      "Video submission for #{notification.params.pieceName} graded #{notification.params.grade * 100}%"
+      "Advanced to #{levelHelpers.getLevelName(notification.params.level)}"
     description: ({notification}) ->
-      "
-        Video submission for <em>#{notification.params.pieceName}</em>
-        graded <strong>#{notification.params.grade * 100}%</strong> and has a new comment.
-      "
+      "You advanced to <strong>#{levelHelpers.getLevelName(notification.params.level)}</strong> and unlocked new pieces."
     link: ({notification, serverUrl}) ->
-      "#{serverUrl}/#/pieces/#{notification.params.pieceId}"
+      "#{serverUrl}/#/pieces_by_level/#{notification.params.level}"
     notification: ({user}={}) ->
       buildNotification
-        userId: userPiece.userId.toString()
+        userId: user._id.toString()
         type: 'levelUp'
         params:
           level: user.level

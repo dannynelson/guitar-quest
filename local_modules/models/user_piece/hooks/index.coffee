@@ -17,7 +17,7 @@ module.exports = (schema) ->
       next new Error "Must set updatedBy whenever userPiece is saved."
     next()
 
-  # if piece grade changes, add experience
+  # if piece grade changes, give points to user
   schema.pre 'save', (next) ->
     User = require 'local_modules/models/user'
     Notification = require 'local_modules/models/notification'
@@ -31,9 +31,6 @@ module.exports = (schema) ->
       Piece.findById(@pieceId)
     ]).then ([user, piece]) =>
       user.points += level.getPointsPerPiece(piece.level) * userPiece.grade
-      newLevel = level.calculateCurrentLevel(user.points)
-      # user can never go below current level
-      user.level = newLevel if newLevel > user.level
       user.save()
     .then =>
       next()
