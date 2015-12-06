@@ -7,8 +7,8 @@ module.exports = ngInject (User, $state) ->
     email: null
     password: null
 
-  @register = =>
-    ctrl = @
+  @register = (form) =>
+    return unless form.$valid
     User.register(@form)
     .then =>
       $state.go 'guitarQuest.confirmEmail'
