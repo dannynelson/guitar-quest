@@ -41,7 +41,7 @@ angular.module __filename, [
     @setNotifications()
 
     @logout = ->
-      User.logout().then -> $state.go 'guitarQuest.landing'
+      User.logout().then -> $state.go 'guitarQuest.logIn'
     @stateIncludes = (possibleStates) ->
       possibleStates = [possibleStates] if not Array.isArray(possibleStates)
       for state in possibleStates

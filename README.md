@@ -9,11 +9,23 @@ Deployment
 - setup https
 - download font awesome
 - heroku scheduler for challenges
+- private github repo?
+- rollbar and sumo logic
 
 Immediate Features
-- add loading indicators to every page
-- saving roles does not work correctly
-- relax password requirements, validate on client and add helper text
+- 8 character password minimum, no validation
+- store TempUser as simplified version of real user, just copy all fields over.
+- fix account page (first name last name)
+- submit initial video challenge didn't pass until it was graded
+- don't ever save raw username and password
+- I don't get emailed after a piece is graded
+- decide on pricing (research competitors, calculate costs)
+- build flow for buying a private lesson
+- test checkout flow for upgrading and buying lessons
+- test all business logic on server, use angular validated resource
+- deploy and populate Level 1, Level 2 pieces
+- update submission guideline text
+- test everything for bad inputs, work through the basic workflows
 
 x notifications
   x figure out clearing isRead for notifications (by clicking link or mark all as read)
@@ -43,10 +55,10 @@ x how does user enter credit card info if they are still a temp user
 - link to submitted video should actually allow you to see the submitted video on the webiste
 - move everything into domains
 - returning to confirm email after you have already confirmed should redirect you if you are logged in, or user already exists
-- submit initial video quest didn't pass
 - still a delay in updating points when return to home page...
 
 Eventually Features
+- lock account if there are too many failed password attempts
 - clean up dependencies that should really be dev dependencies
 - sign up, sign in, and confirm email should not display navigation (just brand link)
 - normalize user fist name, last name and email
@@ -76,6 +88,7 @@ Eventually Features
 - clean up duplicate loading of piece in pre save and post save hooks
 - infinite scroll for notifications
 - will query param length for userPieces ever go beyond url limit on piecesByLevel page?
+- notification that let's users know there has been an update
 
 BugFixes / Security
 - what happens if we can't connect to stripe
