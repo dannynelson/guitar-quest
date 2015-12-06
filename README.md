@@ -13,11 +13,9 @@ Deployment
 - rollbar and sumo logic
 
 Immediate Features
-- 8 character password minimum, no validation
 - store TempUser as simplified version of real user, just copy all fields over.
 - fix account page (first name last name)
 - submit initial video challenge didn't pass until it was graded
-- don't ever save raw username and password
 - I don't get emailed after a piece is graded
 - decide on pricing (research competitors, calculate costs)
 - build flow for buying a private lesson
@@ -26,7 +24,6 @@ Immediate Features
 - deploy and populate Level 1, Level 2 pieces
 - update submission guideline text
 - test everything for bad inputs, work through the basic workflows
-- remove my hardcoded email from tests
 - host images on S3, clear git history
 
 x notifications

@@ -51,4 +51,7 @@
                     ng-model='ctrl.form.password'
                   )
                   .input-helper-text 8 characters minimum
-                button.action-btn.btn.btn-primary.btn-block(type='submit') Sign up
+                button.action-btn.btn.btn-primary.btn-block(
+                  type='submit'
+                  ng-disabled='ctrl.isLoading'
+                ) Sign up

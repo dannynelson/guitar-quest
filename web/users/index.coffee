@@ -88,6 +88,12 @@ router.post '/confirm/:tempUserId', (req, res, next) ->
   .then null, next
 
 router.post '/login',
+  (req, res, next) ->
+    if joi.validate(req.body.email, joi.string().email().required()).error
+      return res.status(400).send 'invalid email'
+    if joi.validate(req.body.password, joi.string().min(1).required()).error
+      return res.status(400).send 'invalid password'
+    next()
   passport.authenticate('local')
   (req, res, next) ->
     resourceConverter.createResourceFromModel(req.user, {req, res, next}).then (resource) ->

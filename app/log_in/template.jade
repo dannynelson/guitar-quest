@@ -7,7 +7,32 @@
             .panel-body.padded-panel
               h4.text-center.title Log in to your account
               uib-alert(type='danger' ng-if='ctrl.error' close='ctrl.error = null') {{ctrl.error}}
-              form(ng-submit='ctrl.login()')
-                input.form-control(id='inputEmail' type='email' placeholder='email' ng-model='ctrl.form.email')
-                input.form-control(type='password' placeholder='password' ng-model='ctrl.form.password')
-                button.action-btn.btn.btn-primary.btn-block(type='submit') Log in
+              form(
+                novalidate
+                name='logInForm'
+                ng-submit='ctrl.login(logInForm)'
+              )
+                div(ng-class='{"has-error": logInForm.$submitted && !logInForm.email.$valid}')
+                  input.form-control(
+                    name='email'
+                    type='email'
+                    placeholder='email'
+                    ng-required='true'
+                    ng-minlength='1'
+                    ng-model='ctrl.form.email'
+                  )
+                  .input-helper-text(ng-if='logInForm.$submitted && !logInForm.email.$valid') must be a valid email address
+                div(ng-class='{"has-error": logInForm.$submitted && !logInForm.password.$valid}')
+                  input.form-control(
+                    name='password'
+                    type='password'
+                    placeholder='password'
+                    ng-required='true'
+                    ng-minlength='1'
+                    ng-model='ctrl.form.password'
+                  )
+                  .input-helper-text(ng-if='logInForm.$submitted && !logInForm.password.$valid') password required
+                button.action-btn.btn.btn-primary.btn-block(
+                  type='submit'
+                  ng-disabled='ctrl.isLoading'
+                ) Log in

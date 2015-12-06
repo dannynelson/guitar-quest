@@ -7,7 +7,7 @@ angular.module __filename, [
 
 .config ($stateProvider) ->
   $stateProvider.state 'guitarQuest.logIn',
-    url: '/login'
+    url: '/log_in'
     controllerAs: 'ctrl'
     template: require './template'
     controller: require './controller'

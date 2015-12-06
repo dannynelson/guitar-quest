@@ -23,6 +23,26 @@ describe '/users', ->
   before (done) -> @serverUp(done)
   after (done) -> @serverDown(done)
 
+  describe 'POST /login', ->
+    describe 'validation', ->
+      it 'validates email', ->
+        request.postPromised "#{guitarQuestUrl}/users/login",
+          json:
+            email: 'bream'
+            password: '1234abcde!'
+        .spread (response) ->
+          expect(response).to.have.property 'statusCode', 400
+          expect(response.body).to.equal 'invalid email'
+
+      it 'validates password', ->
+        request.postPromised "#{guitarQuestUrl}/users/login",
+          json:
+            email: 'bream@guitarquest.com'
+            password: ''
+        .spread (response) ->
+          expect(response).to.have.property 'statusCode', 400
+          expect(response.body).to.equal 'invalid password'
+
   describe 'POST /register', ->
     describe 'validation', ->
       it 'validates firstName', ->
@@ -125,3 +145,5 @@ describe '/users', ->
         expect(user).to.have.property 'email', 'bream@guitarquest.com'
         expect(user).to.have.property 'hash', originalTempUser.hash
         expect(user).to.have.property 'salt', originalTempUser.salt
+
+
