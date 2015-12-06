@@ -60,6 +60,10 @@ angular.module __filename, ['ngResource']
     $http.get('/users/card').then (response) ->
       return response.data
 
+  User.markAllNotificationsRead = ->
+    $http.post('/users/mark_all_notifications_read').then (response) ->
+      return response.data
+
   User.getLoggedInUser = -> loggedInUser
 
   User

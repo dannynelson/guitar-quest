@@ -20,13 +20,25 @@ angular.module __filename, [
       user.roles ?= []
       role in user.roles
     @getUser = -> User.getLoggedInUser()
-    @updateNotificationCount = =>
+
+    @markNotificationsRead = =>
+      debugger
+      user = User.getLoggedInUser()
+      User.markAllNotificationsRead()
+      .then =>
+        @setNotifications()
+
+    @setNotifications = =>
       user = User.getLoggedInUser()
       if user?
-        Notification.query({isRead: false}).$promise.then (notifications) =>
-          console.log 'test', @notificationCount, notifications.length
-          @notificationCount = notifications.length
-    @updateNotificationCount()
+        @notifications = Notification.query
+          userId: user._id
+          $limit: 20
+          $sort: '-createdAt'
+        @notifications.$promise.then (notifications) =>
+          @unreadNotificationCount = _.filter(notifications, {isRead: false}).length
+
+    @setNotifications()
 
     @logout = ->
       User.logout().then -> $state.go 'guitarQuest.landing'
@@ -34,10 +46,10 @@ angular.module __filename, [
       $state.includes(state)
 
     $rootScope.$on '$stateChangeSuccess', =>
-      @updateNotificationCount()
+      @setNotifications()
 
     $rootScope.$on 'notificationsUpdated', =>
-      @updateNotificationCount()
+      @setNotifications()
 
     @navbarVisible = false
 

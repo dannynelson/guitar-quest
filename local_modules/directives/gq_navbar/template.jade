@@ -46,12 +46,15 @@ script(type="text/ng-template" id="notifications.html")
           ul.nav.navbar-nav.navbar-right(ng-if='myCtrl.isLoggedIn()')
             li
             li(uib-dropdown)
-              a(uib-dropdown-toggle)
+              a(
+                uib-dropdown-toggle
+                ng-click='myCtrl.markNotificationsRead()'
+              )
                 span.icon-link
                   i.fa.fa-bell.icon-link
-                span.badge.notification-badge.badge-warning {{myCtrl.notificationCount}}
+                span.badge.notification-badge.badge-warning(ng-if='myCtrl.unreadNotificationCount > 0') {{myCtrl.unreadNotificationCount}}
               ul.dropdown-menu.notifications-dropdown(role="menu" aria-labelledby="single-button")
-                gq-notifications
+                gq-notifications(notifications='myCtrl.notifications')
             li(uib-dropdown)
               a(uib-dropdown-toggle)
                 span.icon-link

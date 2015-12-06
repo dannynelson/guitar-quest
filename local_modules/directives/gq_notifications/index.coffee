@@ -12,36 +12,20 @@ angular.module __filename, [
 ]
 
 .directive 'gqNotifications', ->
+  scope:
+    notifications: '='
   restrict: 'E'
   controllerAs: 'ctrl'
   bindToController: true
   template: require './template'
-  controller: ngInject (User, Notification, $rootScope, $state, $sce) ->
-    @setNotifications = =>
-      user = User.getLoggedInUser()
-      return unless user?
-      @notifications = Notification.query
-        userId: user._id
-        $limit: 20
-        $sort: '-createdAt'
-    @setNotifications()
-
+  controller: ngInject ($rootScope, $sce) ->
     @getDescription = (notification) ->
       $sce.trustAsHtml notificationHelpers.getDescription(notification)
+
     @getLink = (notification) ->
       notificationHelpers.getLink({notification, serverUrl: window.settings.server.url})
 
-    @acknowledge = (notification) =>
-      notification.$acknowledge().then =>
-        $rootScope.$broadcast 'notificationsUpdated'
-
     @getTimeFromNow = (date) ->
       geomoment(date).from(new Date())
-
-    $rootScope.$on '$stateChangeSuccess', =>
-      @setNotifications()
-
-    $rootScope.$on 'notificationsUpdated', =>
-      @setNotifications()
 
     return @

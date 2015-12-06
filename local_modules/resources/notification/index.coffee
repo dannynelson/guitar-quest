@@ -6,9 +6,6 @@ angular.module __filename, ['ngResource']
     query:
       method: 'GET'
       isArray: true
-    acknowledge:
-      method: 'PUT'
-      url: '/notifications/:_id/acknowledge'
 
   Notification
 

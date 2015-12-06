@@ -3,6 +3,7 @@ Promise = require 'bluebird'
 settings = require 'local_modules/settings'
 joi = require 'joi'
 User = require 'local_modules/models/user'
+Notification = require 'local_modules/models/notification'
 TempUser = require 'local_modules/models/temp_user'
 passport = require 'local_modules/passport'
 stripe = require 'local_modules/stripe'
@@ -142,6 +143,18 @@ router.post '/change_password', (req, res, next) ->
         resourceConverter.createResourceFromModel(user, {req, res, next})
       .then (resource) =>
         return res.status(200).send resource
+
+router.post '/mark_all_notifications_read', (req, res, next) ->
+  user = req.user
+  return res.status(401).send('unauthorized') unless req.user?
+  Notification.find({userId: user._id, isRead: {$ne: true}})
+  .then (notifications) ->
+    notifications.forEach (notification) ->
+      notification.isRead = true
+      notification.save()
+  .then ->
+    res.send(200, {})
+  .then null, next
 
 router.post '/assert_logged_in', (req, res, next) ->
   if not req.user?
