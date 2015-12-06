@@ -13,9 +13,8 @@ Deployment
 - rollbar and sumo logic
 
 Immediate Features
-- store TempUser as simplified version of real user, just copy all fields over.
-- fix account page (first name last name)
 - submit initial video challenge didn't pass until it was graded
+- remove all PUTs (except user)
 - I don't get emailed after a piece is graded
 - decide on pricing (research competitors, calculate costs)
 - build flow for buying a private lesson
@@ -25,6 +24,7 @@ Immediate Features
 - update submission guideline text
 - test everything for bad inputs, work through the basic workflows
 - host images on S3, clear git history
+- normalize email address when loggin in
 
 x notifications
   x figure out clearing isRead for notifications (by clicking link or mark all as read)
@@ -57,7 +57,16 @@ x how does user enter credit card info if they are still a temp user
 - still a delay in updating points when return to home page...
 
 Eventually Features
-- multiple login attempts with the same email
+- how to authenticate and test server side with request?
+- registering when piece already exists
+- beef up profile/account page
+  - name, current level, current points, photo?
+  - current subscription level
+  - # pieces submitted
+  - # challenges completed
+  - card info
+- full height and width images on login page
+- prevent brute forcing login
 - lock account if there are too many failed password attempts
 - clean up dependencies that should really be dev dependencies
 - sign up, sign in, and confirm email should not display navigation (just brand link)

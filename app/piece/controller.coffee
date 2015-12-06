@@ -18,11 +18,10 @@ module.exports = ngInject (Upload, $http, User, $stateParams, Piece, UserPiece, 
   .then ([userPieces, @piece]) =>
     @userPiece =
       if userPieces.length is 0
-        new UserPiece
+        userPiece = new UserPiece
           _id: new ObjectId().toString()
           pieceId: $stateParams.pieceId
           userId: user._id
-          status: 'unfinished'
           historyChanges: [] # so that server will return the changes when we first submit a video
       else
         userPieces[0]
@@ -65,13 +64,9 @@ module.exports = ngInject (Upload, $http, User, $stateParams, Piece, UserPiece, 
         @progressPercentage = 0
         @uploading = false
         videoUploadSrc = "#{s3Params.bucketURL}/user_#{user._id}/#{fileName}"
-        @userPiece.submissionVideoURL = videoUploadSrc
+        @userPiece.$submitVideo({submissionVideoURL: videoUploadSrc})
         loadVideo(videoUploadSrc)
         console.log('file ' + config.file.name + 'uploaded. Response: ' + data)
-
-        @userPiece.$update()
-        # ngToast.success 'Thanks! Your video has been submitted. We will review it and give you feedback  within 24 hours.'
-
       .error (data, status, headers, config) ->
         @progressPercentage = 0
         @uploading = false

@@ -1,4 +1,6 @@
 Promise = require 'bluebird'
+joi = require 'joi'
+joi.objectId = require('joi-objectid')(joi)
 User = require 'local_modules/models/user'
 passport = require 'local_modules/passport'
 resourceConverter = require './resource_converter'

@@ -8,24 +8,48 @@
             .col-xs-12
               .row
                 .col-xs-3
-                  strong Name:
+                  strong First Name:
                 .col-xs-9
-                  div(ng-if='!accountCtrl.editing.name')
-                    span {{accountCtrl.user.name || 'New User'}}
+                  div(ng-if='!ctrl.editing.firstName')
+                    span {{ctrl.user.firstName}}
                     span &nbsp;
-                    a(href='' ng-click='accountCtrl.edit("name")') edit
+                    a(href='' ng-click='ctrl.edit("firstName")') edit
                   form(
-                    ng-if='accountCtrl.editing.name'
-                    ng-submit='accountCtrl.save("name")'
+                    ng-if='ctrl.editing.firstName'
+                    ng-submit='ctrl.save("firstName")'
                   )
                     .edit-input
                       input.form-control.edit-input(
-                        ng-model='accountCtrl.form.name'
+                        ng-model='ctrl.form.firstName'
                         placeholder='John Smith'
                       )
                     button.btn.btn-primary.btn-sm.btn-confirm-change(type='submit')
                       i.fa.fa-check
-                    .btn.btn-default.btn-sm(ng-click='accountCtrl.cancelEdit("name")')
+                    .btn.btn-default.btn-sm(ng-click='ctrl.cancelEdit("firstName")')
+                      i.fa.fa-times
+
+              hr.info-divider
+
+              .row
+                .col-xs-3
+                  strong Last Name:
+                .col-xs-9
+                  div(ng-if='!ctrl.editing.lastName')
+                    span {{ctrl.user.lastName}}
+                    span &nbsp;
+                    a(href='' ng-click='ctrl.edit("lastName")') edit
+                  form(
+                    ng-if='ctrl.editing.lastName'
+                    ng-submit='ctrl.save("lastName")'
+                  )
+                    .edit-input
+                      input.form-control.edit-input(
+                        ng-model='ctrl.form.lastName'
+                        placeholder='John Smith'
+                      )
+                    button.btn.btn-primary.btn-sm.btn-confirm-change(type='submit')
+                      i.fa.fa-check
+                    .btn.btn-default.btn-sm(ng-click='ctrl.cancelEdit("lastName")')
                       i.fa.fa-times
 
               hr.info-divider
@@ -33,22 +57,22 @@
                 .col-xs-3
                   strong Email:
                 .col-xs-9
-                  div(ng-if='!accountCtrl.editing.email')
-                    span {{accountCtrl.user.email || 'New User'}}
+                  div(ng-if='!ctrl.editing.email')
+                    span {{ctrl.user.email || 'New User'}}
                     span &nbsp;
-                    a(href='' ng-click='accountCtrl.edit("email")') edit
+                    a(href='' ng-click='ctrl.edit("email")') edit
                   form(
-                    ng-if='accountCtrl.editing.email'
-                    ng-submit='accountCtrl.save("email")'
+                    ng-if='ctrl.editing.email'
+                    ng-submit='ctrl.save("email")'
                   )
                     .edit-input
                       input.form-control.edit-input(
-                        ng-model='accountCtrl.form.email'
+                        ng-model='ctrl.form.email'
                         placeholder='name@example.com'
                       )
                     button.btn.btn-primary.btn-sm.btn-confirm-change(type='submit')
                       i.fa.fa-check
-                    .btn.btn-default.btn-sm(ng-click='accountCtrl.cancelEdit("email")')
+                    .btn.btn-default.btn-sm(ng-click='ctrl.cancelEdit("email")')
                       i.fa.fa-times
               hr.info-divider
               .row
@@ -57,4 +81,4 @@
                 .col-xs-9
                   span (Hidden)
                   span  &nbsp;
-                  a(href='' ng-click='accountCtrl.changePassword()') edit
+                  a(href='' ng-click='ctrl.changePassword()') edit

@@ -17,4 +17,11 @@ angular.module __filename, ['ngResource']
       angular.copy(response.data, userPiece)
       return userPiece
 
+  UserPiece::$submitVideo = (requestBodyParams) ->
+    userPiece = @
+    requestBodyParams.pieceId = userPiece.pieceId
+    $http.post("/user_pieces/#{userPiece._id}/submit_video", requestBodyParams).then (response) ->
+      angular.copy(response.data, userPiece)
+      return userPiece
+
   UserPiece

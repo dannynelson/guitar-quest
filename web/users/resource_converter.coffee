@@ -3,7 +3,8 @@ User = require 'local_modules/models/user'
 
 module.exports = new ResourceSchema User, {
   '_id'
-  'name'
+  'firstName'
+  'lastName'
   'email'
   'level'
   'points'

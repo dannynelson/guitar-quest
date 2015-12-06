@@ -94,6 +94,8 @@
     "chai-as-promised": "^5.1.0",
     "request": "^2.67.0",
     "sinon": "^1.17.2",
-    "sinon-chai": "^2.8.0"
+    "sinon-chai": "^2.8.0",
+    "superagent": "^1.5.0",
+    "superagent-bluebird-promise": "^2.1.1"
   }
 }

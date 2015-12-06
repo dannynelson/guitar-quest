@@ -5,12 +5,6 @@ geomoment = require 'geomoment'
 
 module.exports = (schema) ->
 
-  # if changing submissing url, notify that the piece needs to be graded
-  schema.pre 'validate', (next) ->
-    if @isModified('submissionVideoURL')
-      @waitingToBeGraded = true
-    next()
-
   # copy current data to history
   schema.pre 'validate', (next) ->
     if not @get('updatedBy')?

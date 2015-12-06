@@ -16,6 +16,38 @@ userFactory = require 'local_modules/models/user/factory'
 describe 'UserPiece', ->
   beforeEach database.reset
 
+  describe '.submitVideo()', ->
+    beforeEach ->
+      sinon.spy Challenge, 'progressMatchingChallenges'
+    afterEach ->
+      Challenge.progressMatchingChallenges.restore()
+
+    it 'validates video url', ->
+      UserPiece.create(userPieceFactory.create())
+      .then (userPiece) ->
+        submitPromise = userPiece.submitVideo
+          submissionVideoURL: 'bam'
+          updatedBy: objectIdString()
+        expect(submitPromise).to.eventually.be.rejectedWith 'must be video updloaded to guitarquest s3 account'
+
+    it 'submits video and progresses challenges', ->
+      updatedBy = objectIdString()
+      UserPiece.create  userPieceFactory.create
+        waitingToBeGraded: false
+      .then (userPiece) ->
+        userPiece.submitVideo
+          submissionVideoURL: 'https://guitar-quest-videos.s3-us-west-2.amazonaws.com/user_566496bff5401a666a5edb78/piece_55d8a2696ce78dc3156ca8d0_56649caa7ce0472729000001.33 PM'
+          updatedBy: updatedBy
+      .then (userPiece) ->
+        UserPiece.findById userPiece._id
+      .then (userPiece) ->
+        expect(Challenge.progressMatchingChallenges).to.have.been.calledOnce # will fail if invalid args
+        expect(userPiece).to.have.property 'submissionVideoURL', 'https://guitar-quest-videos.s3-us-west-2.amazonaws.com/user_566496bff5401a666a5edb78/piece_55d8a2696ce78dc3156ca8d0_56649caa7ce0472729000001.33 PM'
+        expect(userPiece).to.have.property 'waitingToBeGraded', true
+        expect(_.last(userPiece.history)).to.have.property 'submissionVideoURL', 'https://guitar-quest-videos.s3-us-west-2.amazonaws.com/user_566496bff5401a666a5edb78/piece_55d8a2696ce78dc3156ca8d0_56649caa7ce0472729000001.33 PM'
+        expect(_.last(userPiece.history)).to.have.property 'waitingToBeGraded', true
+        expect(_.last(userPiece.history).updatedBy.toString()).to.equal updatedBy
+
   describe '.gradePiece()', ->
     beforeEach ->
       sinon.spy Challenge, 'progressMatchingChallenges'

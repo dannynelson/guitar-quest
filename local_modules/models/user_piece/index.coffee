@@ -21,6 +21,20 @@ JSONSchemaClone = do ->
 
 schema = JSONSchemaConverter.toMongooseSchema(JSONSchemaClone, mongoose)
 
+schema.methods.submitVideo = Promise.method ({submissionVideoURL, updatedBy}={}) ->
+  Challenge = require 'local_modules/models/challenge'
+  if submissionVideoURL.indexOf('https://guitar-quest-videos.s3-us-west-2.amazonaws.com') is -1
+    throw new Error 'must be video updloaded to guitarquest s3 account'
+
+  @waitingToBeGraded = true
+  @submissionVideoURL = submissionVideoURL
+  @updatedBy = updatedBy
+
+  Challenge.progressMatchingChallenges @userId, {userPiece: @} # intentionally here because we do not want to accidentally progress challenges via a migration
+  .then =>
+    console.log 'hello', {test: @}
+    @save()
+
 # named gradePiece b/c you cannot name method the same as a property
 # https://github.com/Automattic/mongoose/issues/1383
 schema.methods.gradePiece = Promise.method ({grade, comment, updatedBy}={}) ->
@@ -50,7 +64,7 @@ schema.methods.gradePiece = Promise.method ({grade, comment, updatedBy}={}) ->
     Promise.all [
       user.addPoints(pointsEarned)
       Notification.createNew('pieceGraded', {piece, userPiece: @}, {sendEmail: true})
-      Challenge.progressMatchingChallenges @userId, {userPiece: @}
+      Challenge.progressMatchingChallenges @userId, {userPiece: @} # intentionally here because we do not want to accidentally progress challenges via a migration
     ]
   .then =>
     @save()
