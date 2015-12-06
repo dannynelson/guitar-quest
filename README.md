@@ -14,15 +14,15 @@ Immediate Features
 - notifications
   x figure out clearing isRead for notifications (by clicking link or mark all as read)
     x also, how to highlight that a notification is unread?
-  - notification for progressing to next level
-  - unique icon for each notification
+  x notification for progressing to next level
+  x unique icon for each notification
   x sort notifications newest first
   x limit number queried and paginate them (show more)
 - dont query for every userPiece on each level
-- grade when waitingToBeGraded changes to false, not when grade changes
-- if piece graded multiple times, user gets too much experience
+x grade when waitingToBeGraded changes to false, not when grade changes
+x if piece graded multiple times, user gets too much experience
 x send comment and grade in one request.
-- Include comment in email that is sent to user
+x Include comment in email that is sent to user
 - password reset email
 - subscription checkout
 - flow of upgrading
@@ -34,6 +34,7 @@ x how does user enter credit card info if they are still a temp user
 - lessons checkout (and use credits)
 - 0 index levels (so that level name matches what we see)
 - ghost item in piece history
+- get rid of all pre save hooks that only execute under certain conditions
 
 Eventually Features
 - clean up dependencies that should really be dev dependencies
