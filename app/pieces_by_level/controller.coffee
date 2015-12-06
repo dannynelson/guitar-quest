@@ -11,7 +11,7 @@ module.exports = ngInject (User, UserPiece, Piece, $stateParams, $state) ->
   if $stateParams.level is 'default'
     $state.go $state.current.name, {level: @user.level}
   else
-    @currentLevel = $stateParams.level
+    @currentLevel = Number($stateParams.level)
 
   @getStatus = (userPiece) ->
     return unless userPiece?

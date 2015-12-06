@@ -26,6 +26,7 @@ x Include comment in email that is sent to user
 - password reset email
 - subscription checkout
 - flow of upgrading
+- breadcrumbs on piece page
 - use back button for navigating through pieces
   - pieces_by_level/:level
   - pieces/:pieceId
@@ -35,6 +36,8 @@ x how does user enter credit card info if they are still a temp user
 - 0 index levels (so that level name matches what we see)
 - ghost item in piece history
 - get rid of all pre save hooks that only execute under certain conditions
+- relax password requirements, validate on client and add helper text
+- stack level and points, and add more padding
 
 Eventually Features
 - clean up dependencies that should really be dev dependencies

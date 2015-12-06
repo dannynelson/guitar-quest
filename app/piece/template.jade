@@ -1,12 +1,15 @@
 .guitar-quest-piece.container
-
+  ol.breadcrumb.custom-breadcrumb
+    li
+      a(href='' ui-sref='guitarQuest.piecesByLevel({level: ctrl.piece.level})') {{ctrl.levelHelper.getLevelName(ctrl.piece.level)}} Pieces
+    li.active {{ctrl.piece.name}}
   .row
     .col-md-12
       .clearfix
         h4.pull-left
           span.piece-name {{ctrl.piece.name}}
           span.composer by {{ctrl.piece.composer}}
-        .points-to-next-level.pull-right <strong>{{ctrl.level.displayPiecePoints(ctrl.userPiece.grade, ctrl.piece.level)}}</strong> points
+        .points-to-next-level.pull-right <strong>{{ctrl.levelHelper.displayPiecePoints(ctrl.userPiece.grade, ctrl.piece.level)}}</strong> points
       .row
         .col-xs-12
           uib-progressbar(

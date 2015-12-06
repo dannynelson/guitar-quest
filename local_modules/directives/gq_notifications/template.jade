@@ -1,15 +1,18 @@
 .gq-notifications
   .header Notifications
   .notifications
-    a.notification(
-      ng-href='{{ctrl.getLink(notification)}}'
-      ng-repeat='notification in ctrl.notifications'
-    )
-      .row
-        .col-xs-2.text-right
-          i.fa.fa-check.text-success.fa-2x(ng-if='notification.type === "pieceGraded"')
-          i.fa.fa-trophy.text-warning.fa-2x(ng-if='notification.type === "challengeProgressed"')
-          i.fa.text-arrow-up.text-primary.fa-2x(ng-if='notification.type === "levelUp"')
-        .col-xs-10.description-col
-          div(ng-bind-html='ctrl.getDescription(notification)')
-          .time-ago {{ctrl.getTimeFromNow(notification.createdAt)}}
+    .panel-body(ng-if='!ctrl.notifications.length') No notifications yet
+
+    div(ng-if='ctrl.notifications.length')
+      a.notification(
+        ng-href='{{ctrl.getLink(notification)}}'
+        ng-repeat='notification in ctrl.notifications'
+      )
+        .row
+          .col-xs-2.text-right
+            i.fa.fa-check.text-success.fa-2x(ng-if='notification.type === "pieceGraded"')
+            i.fa.fa-trophy.text-warning.fa-2x(ng-if='notification.type === "challengeProgressed"')
+            i.fa.text-arrow-up.text-primary.fa-2x(ng-if='notification.type === "levelUp"')
+          .col-xs-10.description-col
+            div(ng-bind-html='ctrl.getDescription(notification)')
+            .time-ago {{ctrl.getTimeFromNow(notification.createdAt)}}
