@@ -8,7 +8,7 @@ module.exports = ngInject ($state, User) ->
   @login = =>
     @loading = true
     User.login(@form).then =>
-      $state.go 'guitarQuest.pieces'
+      $state.go 'guitarQuest.piecesByLevel', {level: 'default'}
     .catch (rejection) =>
       if rejection.status is 401
         @error = 'Invalid username or password.'

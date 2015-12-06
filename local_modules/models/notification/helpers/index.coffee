@@ -42,6 +42,23 @@ notificationDefinitions =
           grade: userPiece.grade
           comment: userPiece.comment
 
+  'levelUp':
+    title: ({notification}) ->
+      "Video submission for #{notification.params.pieceName} graded #{notification.params.grade * 100}%"
+    description: ({notification}) ->
+      "
+        Video submission for <em>#{notification.params.pieceName}</em>
+        graded <strong>#{notification.params.grade * 100}%</strong> and has a new comment.
+      "
+    link: ({notification, serverUrl}) ->
+      "#{serverUrl}/#/pieces/#{notification.params.pieceId}"
+    notification: ({user}={}) ->
+      buildNotification
+        userId: userPiece.userId.toString()
+        type: 'levelUp'
+        params:
+          level: user.level
+
   'challengeProgressed':
     title: ({notification}) ->
       challenge = notification.params.challenge

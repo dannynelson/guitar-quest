@@ -6,7 +6,7 @@ module.exports = ngInject (User, $stateParams, $state) ->
     User.confirmEmail({tempUserId: $stateParams.id}).then ({email, password}) =>
       User.login({email, password})
     .then =>
-      $state.go 'guitarQuest.pieces'
+      $state.go 'guitarQuest.piecesByLevel', {level: 'default'}
     .finally =>
       @loading = false
 

@@ -12,12 +12,13 @@ Deployment
 
 Immediate Features
 - notifications
-  - figure out clearing isRead for notifications (by clicking link or mark all as read)
-    - also, how to highlight that a notification is unread?
+  x figure out clearing isRead for notifications (by clicking link or mark all as read)
+    x also, how to highlight that a notification is unread?
   - notification for progressing to next level
   - unique icon for each notification
   - sort notifications newest first
   - limit number queried and paginate them (show more)
+- dont query for every userPiece on each level
 - grade when waitingToBeGraded changes to false, not when grade changes
 - if piece graded multiple times, user gets too much experience
 x send comment and grade in one request.
@@ -25,6 +26,9 @@ x send comment and grade in one request.
 - password reset email
 - subscription checkout
 - flow of upgrading
+- use back button for navigating through pieces
+  - pieces_by_level/:level
+  - pieces/:pieceId
 - be able to buy a lesson from a teacher
 x how does user enter credit card info if they are still a temp user
 - lessons checkout (and use credits)

@@ -7,7 +7,7 @@
         .challenge-panel-body.panel-body.text-center
           h4.challenge-title {{ctrl.challengeHelpers.getTitle(challenge)}}
           .reward.text-warning(ng-if='challenge.reward.credits')
-            i.reward-credits-icon.fa.fa-money.fa-3x
+            i.reward-credits-icon.fa.fa-trophy.fa-3x
             .reward-text ${{challenge.reward.credits}} lesson credits
           .reward.text-warning(ng-if='challenge.reward.points')
             i.reward-points-icon.fa.fa-star.fa-3x

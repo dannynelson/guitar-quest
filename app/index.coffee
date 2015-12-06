@@ -18,7 +18,7 @@ angular.module 'app', [
   require 'local_modules/directives/gq_card_summary'
   require 'local_modules/services/error_helper'
   require './challenges'
-  require './pieces'
+  require './pieces_by_level'
   require './piece'
   require './landing'
   require './log_in'

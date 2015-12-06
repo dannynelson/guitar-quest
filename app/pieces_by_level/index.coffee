@@ -8,9 +8,9 @@ angular.module __filename, [
 
 .config ($stateProvider) ->
 
-  $stateProvider.state 'guitarQuest.pieces',
+  $stateProvider.state 'guitarQuest.piecesByLevel',
     requireAuth: true
-    url: '/pieces'
+    url: '/pieces_by_level/:level'
     controllerAs: 'ctrl'
     template: require './template'
     controller: require './controller'

@@ -13,14 +13,14 @@ script(type="text/ng-template" id="notifications.html")
             span.icon-bar
             span.icon-bar
           a.navbar-brand(ng-if='!myCtrl.isLoggedIn()' ui-sref='guitarQuest.landing') GuitarQuest
-          a.navbar-brand(ng-if='myCtrl.isLoggedIn()' ui-sref='guitarQuest.pieces') GuitarQuest
+          a.navbar-brand(ng-if='myCtrl.isLoggedIn()' ui-sref='guitarQuest.piecesByLevel({level: "default"})') GuitarQuest
         .collapse.navbar-collapse(ng-class="{'navbar-menu-show': myCtrl.navbarVisible}")
           ul.nav.navbar-nav(
             ng-click='myCtrl.navbarVisible = !myCtrl.navbarVisible'
             ng-if='myCtrl.isLoggedIn()'
           )
-            li.pieces(ng-class="{active: myCtrl.stateIncludes('guitarQuest.pieces')}")
-              a(ui-sref='guitarQuest.pieces')
+            li.pieces(ng-class="{active: myCtrl.stateIncludes('guitarQuest.piecesByLevel')}")
+              a(ui-sref='guitarQuest.piecesByLevel({level: "default"})')
                 span Pieces
 
             li.challenges(ng-class="{active: myCtrl.stateIncludes('guitarQuest.challenges')}")
