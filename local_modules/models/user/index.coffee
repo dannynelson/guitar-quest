@@ -2,7 +2,6 @@ mongoose = require 'mongoose'
 joi = require 'joi'
 Promise = require 'bluebird'
 passportLocalMongoose = require 'passport-local-mongoose'
-# require('mongoose-extensions')(mongoose)
 JSONSchemaConverter = require 'goodeggs-json-schema-converter'
 JSONSchema = require './schema'
 database = require 'local_modules/database'

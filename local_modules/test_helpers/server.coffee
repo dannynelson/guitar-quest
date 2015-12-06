@@ -20,4 +20,5 @@ before ->
     server.start callback
 
   @serverDown = (callback) ->
+    server = require "#{process.cwd()}/web/server"
     server.stop callback

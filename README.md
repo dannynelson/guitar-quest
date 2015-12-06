@@ -26,6 +26,8 @@ Immediate Features
 - deploy and populate Level 1, Level 2 pieces
 - update submission guideline text
 - test everything for bad inputs, work through the basic workflows
+- remove my hardcoded email from tests
+- host images on S3, clear git history
 
 x notifications
   x figure out clearing isRead for notifications (by clicking link or mark all as read)
@@ -58,6 +60,7 @@ x how does user enter credit card info if they are still a temp user
 - still a delay in updating points when return to home page...
 
 Eventually Features
+- multiple login attempts with the same email
 - lock account if there are too many failed password attempts
 - clean up dependencies that should really be dev dependencies
 - sign up, sign in, and confirm email should not display navigation (just brand link)

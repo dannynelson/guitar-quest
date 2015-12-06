@@ -24,7 +24,7 @@ angular.module __filename, ['ngResource']
       angular.copy updatedUser, user
 
   User.confirmEmail = ({tempUserId}) ->
-    $http.post("/users/confirm_email/#{tempUserId}").then (response) ->
+    $http.post("/users/confirm/#{tempUserId}").then (response) ->
       return response.data # {email, password}
 
   User.login = ({email, password}) ->

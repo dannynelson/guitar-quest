@@ -1,10 +1,10 @@
 .guitar-quest-confirm_email
-  .row.content(ng-if='!ctrl.loading')
+  .row.content(ng-if='!ctrl.isLoading')
     .col-md-6.col-md-offset-3
       .panel.panel-default
         .panel-body
           h5 Confirm Your Email Address
           p Thanks for signing up for GuitarQuest! We just sent a confirmation email to your registration email address. Click on the confirmation link in that email to complete your sign up.
-  .row.content(ng-if='ctrl.loading')
+  .row.content(ng-if='ctrl.isLoading')
     .text-center
       i.loader.fa.fa-refresh.fa-spin.fa-4x.full-page-loader

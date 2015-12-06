@@ -2,6 +2,7 @@ _ = require 'lodash'
 Promise = require 'bluebird'
 settings = require 'local_modules/settings'
 joi = require 'joi'
+joi.objectId = require('joi-objectid')(joi)
 User = require 'local_modules/models/user'
 Notification = require 'local_modules/models/notification'
 TempUser = require 'local_modules/models/temp_user'
@@ -34,20 +35,21 @@ router.put '/:_id',
   resourceConverter.send
 
 router.post '/register', (req, res, next) ->
+  if joi.validate(req.body.firstName, joi.string().min(1).required()).error
+    return res.status(400).send 'invalid firstName'
+  if joi.validate(req.body.lastName, joi.string().min(1).required()).error
+    return res.status(400).send 'invalid lastName'
   if joi.validate(req.body.email, joi.string().email().required()).error
-    return res.status(400).send 'Invalid email.'
-  if req.body.password.length < 8
-    return res.status(400).send 'Password must be at least 8 characters long.'
-  # http://stackoverflow.com/questions/19605150/regex-for-password-must-be-contain-at-least-8-characters-least-1-number-and-bot
-  if not /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/.test(req.body.password)
-    return res.status(400).send 'Password must contain at least 1 letter, 1 number, and 1 special character.'
+    return res.status(400).send 'invalid email'
+  if joi.validate(req.body.password, joi.string().min(8).required()).error
+    return res.status(400).send 'password must be at least 8 characters long'
 
-  TempUser.create
+  tempUser = new TempUser
     firstName: req.body.firstName
     lastName: req.body.lastName
     email: req.body.email
-    password: req.body.password
-  .then (tempUser) ->
+  TempUser.register tempUser, req.body.password, (err, tempUser) ->
+    return next(err) if err?
     sendgrid.send
       to: tempUser.email
       from: settings.guitarQuestEmail
@@ -60,32 +62,30 @@ router.post '/register', (req, res, next) ->
         The GuitarQuest Team
       "
     , (err) ->
-    res.status(201)
-    res.send({})
-  .then null, next
+    return res.status(201).send({})
 
-router.post '/confirm_email/:tempUserId', (req, res, next) ->
-  TempUser.findById(req.params.tempUserId)
+router.post '/confirm/:tempUserId', (req, res, next) ->
+  if joi.validate(req.params.tempUserId, joi.objectId().required()).error
+    return res.status(400).send 'invalid tempUserId'
+  TempUser
+    .findById(req.params.tempUserId)
+    .select('firstName lastName email hash salt') # explicitly need to select hash and salt
+    .exec()
   .then (tempUser) ->
     return res.send({}) unless tempUser
-    {email, password} = tempUser
-    # FIXME why cant this be promisified??
-    user = new User
-      firstName: tempUser.firstName
-      lastName: tempUser.lastName
-      email: tempUser.email
-    User.register user, tempUser.password, (err, user) ->
-      Promise.try ->
-        throw err if err
-      .then ->
-        tempUser.remove()
-      .then ->
-        resourceConverter.createResourceFromModel(user, {req, res, next})
-      .then (resource) ->
-        res.status(201)
-        res.send({email, password}) # so that we can immediately log in
-      .then null, (err) ->
-        next(err)
+    user = new User(tempUser)
+    Promise.all [
+      user.save()
+      tempUser.remove()
+    ]
+  .tap ([user]) ->
+    reqLoginPromised = Promise.promisify(req.login).bind(req)
+    reqLoginPromised(user)
+  .then ->
+    resourceConverter.createResourceFromModel(req.user, {req, res, next})
+  .then (resource) ->
+    res.status(201).send(resource)
+  .then null, next
 
 router.post '/login',
   passport.authenticate('local')
