@@ -19,7 +19,7 @@ script(type="text/ng-template" id="notifications.html")
             ng-click='myCtrl.navbarVisible = !myCtrl.navbarVisible'
             ng-if='myCtrl.isLoggedIn()'
           )
-            li.pieces(ng-class="{active: myCtrl.stateIncludes('guitarQuest.piecesByLevel')}")
+            li.pieces(ng-class="{active: myCtrl.stateIncludes(['guitarQuest.piecesByLevel', 'guitarQuest.piece'])}")
               a(ui-sref='guitarQuest.piecesByLevel({level: "default"})')
                 span Pieces
 

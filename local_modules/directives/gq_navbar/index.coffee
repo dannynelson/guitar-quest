@@ -42,8 +42,11 @@ angular.module __filename, [
 
     @logout = ->
       User.logout().then -> $state.go 'guitarQuest.landing'
-    @stateIncludes = (state) ->
-      $state.includes(state)
+    @stateIncludes = (possibleStates) ->
+      possibleStates = [possibleStates] if not Array.isArray(possibleStates)
+      for state in possibleStates
+        return true if $state.includes(state)
+      return false
 
     $rootScope.$on '$stateChangeSuccess', =>
       @setNotifications()
