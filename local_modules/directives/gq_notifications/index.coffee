@@ -1,4 +1,5 @@
 _ = require 'lodash'
+geomoment = require 'geomoment'
 notificationHelpers = require 'local_modules/models/notification/helpers'
 module.exports = __filename
 
@@ -19,11 +20,13 @@ angular.module __filename, [
     @setNotifications = =>
       user = User.getLoggedInUser()
       return unless user?
-      @notifications = Notification.query({userId: user._id})
+      @notifications = Notification.query
+        userId: user._id
+        $limit: 20
+        $sort: '-createdAt'
     @setNotifications()
 
     @getDescription = (notification) ->
-      debugger
       $sce.trustAsHtml notificationHelpers.getDescription(notification)
     @getLink = (notification) ->
       notificationHelpers.getLink({notification, serverUrl: window.settings.server.url})
@@ -31,6 +34,9 @@ angular.module __filename, [
     @acknowledge = (notification) =>
       notification.$acknowledge().then =>
         $rootScope.$broadcast 'notificationsUpdated'
+
+    @getTimeFromNow = (date) ->
+      geomoment(date).from(new Date())
 
     $rootScope.$on '$stateChangeSuccess', =>
       @setNotifications()
