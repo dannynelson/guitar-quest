@@ -1,13 +1,17 @@
 .gq-notifications
-  .notification
-    color #666666
-    display block
-    padding 10px
-    &:hover
-      background-color #FBFBFB
-      cursor pointer
-    &:not(:last-child)
-      border-bottom: 1px solid #F5F5F5
+  .notifications
+    max-height 375px
+    overflow-y scroll
+
+    .notification
+      color #666666
+      display block
+      padding 10px
+      &:hover
+        background-color #FBFBFB
+        cursor pointer
+      &:not(:last-child)
+        border-bottom: 1px solid #F5F5F5
 
   .header
     padding 7px 10px
