@@ -34,6 +34,8 @@ notificationDefinitions =
     link: ({notification, serverUrl}) ->
       "#{serverUrl}/#/pieces/#{notification.params.pieceId}"
     notification: ({piece, userPiece}={}) ->
+      joi.assert piece, joi.object().required(), 'piece'
+      joi.assert userPiece, joi.object().required(), 'userPiece'
       buildNotification
         userId: userPiece.userId.toString()
         type: 'pieceGraded'
@@ -51,6 +53,7 @@ notificationDefinitions =
     link: ({notification, serverUrl}) ->
       "#{serverUrl}/#/pieces_by_level/#{notification.params.level}"
     notification: ({user}={}) ->
+      joi.assert user, joi.object().required(), 'user'
       buildNotification
         userId: user._id.toString()
         type: 'levelUp'
@@ -79,6 +82,7 @@ notificationDefinitions =
     link: ({notification, serverUrl}) ->
       "#{serverUrl}/#/challenges"
     notification: ({challenge}={}) ->
+      joi.assert challenge, joi.object().required(), 'challenge'
       buildNotification
         userId: challenge.userId.toString()
         type: 'challengeProgressed'

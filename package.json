@@ -90,6 +90,8 @@
     "wildcard": "^1.1.2"
   },
   "devDependencies": {
-    "chai-as-promised": "^5.1.0"
+    "chai-as-promised": "^5.1.0",
+    "sinon": "^1.17.2",
+    "sinon-chai": "^2.8.0"
   }
 }

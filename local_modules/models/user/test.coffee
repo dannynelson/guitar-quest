@@ -15,8 +15,10 @@ describe 'User', ->
         level: 1
         points: 250
       .then (user) ->
-        expect(user.addPoints()).to.eventually.be.rejectedWith 'points'
-        expect(user.addPoints(10.000001)).to.eventually.be.rejectedWith 'points'
+        Promise.all [
+          expect(user.addPoints()).to.eventually.be.rejectedWith 'points'
+          expect(user.addPoints(10.000001)).to.eventually.be.rejectedWith 'points'
+        ]
 
     it 'adds points to user', ->
       User.create userFactory.create

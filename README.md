@@ -36,6 +36,7 @@ x how does user enter credit card info if they are still a temp user
 - ghost item in piece history
 
 Eventually Features
+- clean up dependencies that should really be dev dependencies
 - sign up, sign in, and confirm email should not display navigation (just brand link)
 - normalize user fist name, last name and email
 - when to use mongo vs sql?
