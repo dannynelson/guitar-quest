@@ -11,14 +11,18 @@ Deployment
 - heroku scheduler for challenges
 
 Immediate Features
-- notifications
+- add loading indicators to every page
+- saving roles does not work correctly
+- relax password requirements, validate on client and add helper text
+
+x notifications
   x figure out clearing isRead for notifications (by clicking link or mark all as read)
     x also, how to highlight that a notification is unread?
   x notification for progressing to next level
   x unique icon for each notification
   x sort notifications newest first
   x limit number queried and paginate them (show more)
-- dont query for every userPiece on each level
+x dont query for every userPiece on each level
 x grade when waitingToBeGraded changes to false, not when grade changes
 x if piece graded multiple times, user gets too much experience
 x send comment and grade in one request.
@@ -26,18 +30,21 @@ x Include comment in email that is sent to user
 - password reset email
 - subscription checkout
 - flow of upgrading
-- breadcrumbs on piece page
-- use back button for navigating through pieces
-  - pieces_by_level/:level
-  - pieces/:pieceId
+x breadcrumbs on piece page
+x use back button for navigating through pieces
+  x pieces_by_level/:level
+  x pieces/:pieceId
 - be able to buy a lesson from a teacher
 x how does user enter credit card info if they are still a temp user
 - lessons checkout (and use credits)
 - 0 index levels (so that level name matches what we see)
 - ghost item in piece history
 - get rid of all pre save hooks that only execute under certain conditions
-- relax password requirements, validate on client and add helper text
-- stack level and points, and add more padding
+- link to submitted video should actually allow you to see the submitted video on the webiste
+- move everything into domains
+- returning to confirm email after you have already confirmed should redirect you if you are logged in, or user already exists
+- submit initial video quest didn't pass
+- still a delay in updating points when return to home page...
 
 Eventually Features
 - clean up dependencies that should really be dev dependencies
@@ -68,6 +75,7 @@ Eventually Features
 - hide most of submission guidelines (since once they know once, they won't need to see it again)
 - clean up duplicate loading of piece in pre save and post save hooks
 - infinite scroll for notifications
+- will query param length for userPieces ever go beyond url limit on piecesByLevel page?
 
 BugFixes / Security
 - what happens if we can't connect to stripe

@@ -1,6 +1,4 @@
 .guitar-quest-pieces.container
-  //- .row
-  //-   gq-notifications
   .row.previous-and-next
     .col-xs-12
       .pull-left(ng-if='ctrl.currentLevel > 1')
@@ -21,31 +19,35 @@
         value="(ctrl.levelPoints.completed / ctrl.levelPoints.total) * 100"
       )
 
-  .row(ng-if='!ctrl.userCanLearnPieces')
-    .col-sm-6.col-sm-offset-3.col-md-4.col-md-offset-4
-      .panel.panel-primary.pricing-panel
-        .panel-heading.pricing-name Professional Account
-        .panel-body
-          .pricing-dollars $35
-          .price-subtext per month
-          .pricing-description You cannot access these pieces with a free account. Upgrade to a professional account to advance up to level 8, the highest level.
-          a.btn.btn-primary.btn-block(href='' ui-sref='subscribeCheckout.payment') upgrade now
+  .text-center(ng-if='ctrl.isLoadingPieces')
+    i.loader.fa.fa-refresh.fa-spin.fa-4x.full-page-loader
 
-  .row(ng-if='ctrl.userCanLearnPieces')
-    .col-sm-4.piece(ng-repeat='piece in ctrl.pieces')
-      .piece-panel.panel.panel-default(
-        ui-sref='guitarQuest.piece({pieceId: piece._id})'
-        ng-class='{"panel-warning": ctrl.getStatus(userPieceByPieceId[piece._id]) === "submitted", "panel-warning": ctrl.getStatus(userPieceByPieceId[piece._id]) === "submitted"}'
-      )
-        .panel-heading.piece-heading.clearfix
-          .pull-left.piece-points <strong>{{ctrl.levelHelper.displayPiecePoints(ctrl.userPieceByPieceId[piece._id].grade, piece.level)}}</strong> points
-          .pull-right
-            gq-piece-status(user-piece='ctrl.userPieceByPieceId[piece._id]')
-        uib-progressbar.panel-uib-progressbar(
-          animate="false"
-          value="(ctrl.userPieceByPieceId[piece._id].grade || 0) * 100"
+  div(ng-if='!ctrl.isLoadingPieces')
+    .row(ng-if='!ctrl.userCanLearnPieces')
+      .col-sm-6.col-sm-offset-3.col-md-4.col-md-offset-4
+        .panel.panel-primary.pricing-panel
+          .panel-heading.pricing-name Professional Account
+          .panel-body
+            .pricing-dollars $35
+            .price-subtext per month
+            .pricing-description You cannot access these pieces with a free account. Upgrade to a professional account to advance up to level 8, the highest level.
+            a.btn.btn-primary.btn-block(href='' ui-sref='subscribeCheckout.payment') upgrade now
+
+    .row(ng-if='ctrl.userCanLearnPieces')
+      .col-sm-4.piece(ng-repeat='piece in ctrl.pieces')
+        .piece-panel.panel.panel-default(
+          ui-sref='guitarQuest.piece({pieceId: piece._id})'
+          ng-class='{"panel-warning": ctrl.getStatus(userPieceByPieceId[piece._id]) === "submitted", "panel-warning": ctrl.getStatus(userPieceByPieceId[piece._id]) === "submitted"}'
         )
-        .panel-body
-          h5.piece-title {{piece.name}}
-          .piece-composer {{piece.composer}}
-          .piece-era <em>{{piece.era}} era</em>
+          .panel-heading.piece-heading.clearfix
+            .pull-left.piece-points <strong>{{ctrl.levelHelper.displayPiecePoints(ctrl.userPieceByPieceId[piece._id].grade, piece.level)}}</strong> points
+            .pull-right
+              gq-piece-status(user-piece='ctrl.userPieceByPieceId[piece._id]')
+          uib-progressbar.panel-uib-progressbar(
+            animate="false"
+            value="(ctrl.userPieceByPieceId[piece._id].grade || 0) * 100"
+          )
+          .panel-body
+            h5.piece-title {{piece.name}}
+            .piece-composer {{piece.composer}}
+            .piece-era <em>{{piece.era}} era</em>

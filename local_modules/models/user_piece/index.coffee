@@ -34,7 +34,7 @@ schema.methods.gradePiece = Promise.method ({grade, comment, updatedBy}={}) ->
   Challenge = require 'local_modules/models/challenge'
 
   @updatedBy = updatedBy
-  previousGrade = @grade
+  previousGrade = @grade or 0
   @grade = grade
   @comment = comment
   @waitingToBeGraded = false

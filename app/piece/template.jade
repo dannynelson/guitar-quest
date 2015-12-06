@@ -1,102 +1,105 @@
 .guitar-quest-piece.container
-  ol.breadcrumb.custom-breadcrumb
-    li
-      a(href='' ui-sref='guitarQuest.piecesByLevel({level: ctrl.piece.level})') {{ctrl.levelHelper.getLevelName(ctrl.piece.level)}} Pieces
-    li.active {{ctrl.piece.name}}
-  .row
-    .col-md-12
-      .clearfix
-        h4.pull-left
-          span.piece-name {{ctrl.piece.name}}
-          span.composer by {{ctrl.piece.composer}}
-        .points-to-next-level.pull-right <strong>{{ctrl.levelHelper.displayPiecePoints(ctrl.userPiece.grade, ctrl.piece.level)}}</strong> points
-      .row
-        .col-xs-12
-          uib-progressbar(
-            animate="false"
-            value="(ctrl.userPiece.grade || 0) * 100"
-          )
-    .col-md-8
-      .panel.panel-default.piece-panel.video-submission-panel
-        .video-panel-body.loading.row.text-center(ng-show='ctrl.uploading')
-          h5 Uploading...
-          .col-xs-8.col-xs-offset-2
+  .text-center(ng-if='ctrl.loadingPiece')
+    i.loader.fa.fa-refresh.fa-spin.fa-4x.full-page-loader
+  div(ng-if='!ctrl.loadingPiece')
+    ol.breadcrumb.custom-breadcrumb
+      li
+        a(href='' ui-sref='guitarQuest.piecesByLevel({level: ctrl.piece.level})') {{ctrl.levelHelper.getLevelName(ctrl.piece.level)}} Pieces
+      li.active {{ctrl.piece.name}}
+    .row
+      .col-md-12
+        .clearfix
+          h4.pull-left
+            span.piece-name {{ctrl.piece.name}}
+            span.composer by {{ctrl.piece.composer}}
+          .points-to-next-level.pull-right <strong>{{ctrl.levelHelper.displayPiecePoints(ctrl.userPiece.grade, ctrl.piece.level)}}</strong> points
+        .row
+          .col-xs-12
             uib-progressbar(
-              max="100"
-              value="ctrl.progressPercentage"
+              animate="false"
+              value="(ctrl.userPiece.grade || 0) * 100"
+            )
+      .col-md-8
+        .panel.panel-default.piece-panel.video-submission-panel
+          .video-panel-body.loading.row.text-center(ng-show='ctrl.uploading')
+            h5 Uploading...
+            .col-xs-8.col-xs-offset-2
+              uib-progressbar(
+                max="100"
+                value="ctrl.progressPercentage || 0"
+              )
+
+          div(ng-show='!ctrl.uploading')
+            .video-panel-body.select-video.text-center(ng-if='!ctrl.userPiece.submissionVideoURL' ngf-select="ctrl.upload($file)")
+              div
+                i.fa.fa-upload.fa-5x
+              h5.upload-video Upload video submission
+
+            .video-submission-overlay.select-video.clearfix(ng-if='ctrl.userPiece.submissionVideoURL' ngf-select="ctrl.upload($file)")
+              .pull-left
+                strong.text-info Click to submit another video
+              .pull-right
+                gq-piece-status(user-piece='ctrl.userPiece')
+
+            .submission-successful.text-center(ng-show='ctrl.userPiece.submissionVideoURL')
+              video.video-preview(controls)
+
+        gq-piece-history(ng-if='ctrl.userPiece && ctrl.piece.level' user-piece='ctrl.userPiece' level='ctrl.piece.level')
+
+      .col-md-4
+        .panel.panel-default.buy-sheet-music-panel
+          .panel-body
+            p <strong>SUBMISSION GUIDELINES</strong>
+            p Submit a video of you performing <em>{{ctrl.piece.name}}</em> from beginning to end. Make sure both of your hands are visible throughout the entire video.
+
+            p After submission, a GuitarQuest teacher will give you a grade and personalized feedback within 24 hours. You will receive points based on your grade.
+
+            p You can then resubmit another video at any time.
+
+        .panel.panel-default.listen-to-the-recording
+          .panel-body
+            p <strong>LISTEN TO THE RECORDING</strong>
+            iframe(
+              ng-src="{{ctrl.getSpotifySrc()}}"
+              width="100%"
+              height="80"
+              frameborder="0"
+              allowtransparency="true"
             )
 
-        div(ng-show='!ctrl.uploading')
-          .video-panel-body.select-video.text-center(ng-if='!ctrl.userPiece.submissionVideoURL' ngf-select="ctrl.upload($file)")
-            div
-              i.fa.fa-upload.fa-5x
-            h5.upload-video Upload video submission
+        //- .panel.panel-default
+        //-   .panel-body
+        //-     strong RECOMMENDED TUTORIALS
+        //-     ul
+        //-       li
+        //-         a Slurs
+        //-       li
+        //-         a Guide Fingers
+        //-       li
+        //-         a Memorizing music
+        //-       li
+        //-         a Playing Musically
 
-          .video-submission-overlay.select-video.clearfix(ng-if='ctrl.userPiece.submissionVideoURL' ngf-select="ctrl.upload($file)")
-            .pull-left
-              strong.text-info Click to submit another video
-            .pull-right
-              gq-piece-status(user-piece='ctrl.userPiece')
+        //- .panel.panel-default
+        //-   .panel-body
+        //-     strong REQUEST A PRIVATE LESSON
+        //-     .row
+        //-       .col-xs-3.text-info.text-center
+        //-         i.link-panel-icon.fa.fa-users.fa-3x
+        //-       .col-xs-9
+        //-         div Need help? Get a private video lesson from one of our teachers?
+        //-         a(ui-sref='guitarQuest.lessons')
+        //-           span View Teachers&nbsp;
+        //-           span.fa.fa-angle-double-right
 
-          .submission-successful.text-center(ng-show='ctrl.userPiece.submissionVideoURL')
-            video.video-preview(controls)
-
-      gq-piece-history(ng-if='ctrl.userPiece && ctrl.piece.level' user-piece='ctrl.userPiece' level='ctrl.piece.level')
-
-    .col-md-4
-      .panel.panel-default.buy-sheet-music-panel
-        .panel-body
-          p <strong>SUBMISSION GUIDELINES</strong>
-          p Submit a video of you performing <em>{{ctrl.piece.name}}</em> from beginning to end. Make sure both of your hands are visible throughout the entire video.
-
-          p After submission, a GuitarQuest teacher will give you a grade and personalized feedback within 24 hours. You will receive points based on your grade.
-
-          p You can then resubmit another video at any time.
-
-      .panel.panel-default.listen-to-the-recording
-        .panel-body
-          p <strong>LISTEN TO THE RECORDING</strong>
-          iframe(
-            ng-src="{{ctrl.getSpotifySrc()}}"
-            width="100%"
-            height="80"
-            frameborder="0"
-            allowtransparency="true"
-          )
-
-      //- .panel.panel-default
-      //-   .panel-body
-      //-     strong RECOMMENDED TUTORIALS
-      //-     ul
-      //-       li
-      //-         a Slurs
-      //-       li
-      //-         a Guide Fingers
-      //-       li
-      //-         a Memorizing music
-      //-       li
-      //-         a Playing Musically
-
-      //- .panel.panel-default
-      //-   .panel-body
-      //-     strong REQUEST A PRIVATE LESSON
-      //-     .row
-      //-       .col-xs-3.text-info.text-center
-      //-         i.link-panel-icon.fa.fa-users.fa-3x
-      //-       .col-xs-9
-      //-         div Need help? Get a private video lesson from one of our teachers?
-      //-         a(ui-sref='guitarQuest.lessons')
-      //-           span View Teachers&nbsp;
-      //-           span.fa.fa-angle-double-right
-
-      .panel.panel-default.buy-sheet-music-panel
-        .panel-body
-          strong BUY THE SHEET MUSIC
-          .row
-            .col-xs-3.text-info.text-center
-              i.link-panel-icon.fa.fa-book.fa-3x
-            .col-xs-9
-              div Find every GuitarQuest level 1 piece in <em>Bridges (Preparatory Level)</em>
-              a
-                span Read More&nbsp;
-                span.fa.fa-angle-double-right
+        .panel.panel-default.buy-sheet-music-panel
+          .panel-body
+            strong BUY THE SHEET MUSIC
+            .row
+              .col-xs-3.text-info.text-center
+                i.link-panel-icon.fa.fa-book.fa-3x
+              .col-xs-9
+                div Find every GuitarQuest level 1 piece in <em>Bridges (Preparatory Level)</em>
+                a
+                  span Read More&nbsp;
+                  span.fa.fa-angle-double-right

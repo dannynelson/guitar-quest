@@ -1,5 +1,7 @@
 .guitar-quest-challenges.container
-  .row
+  .text-center(ng-if='ctrl.isLoadingChallenges')
+    i.loader.fa.fa-refresh.fa-spin.fa-4x.full-page-loader
+  .row(ng-if='!ctrl.isLoadingChallenges')
     .no-challenges.text-center(ng-if='!ctrl.challenges.length')
       h5 You do not have any challenges right now. Check again next week.
     .challenge.col-sm-4(ng-repeat='challenge in ctrl.challenges')

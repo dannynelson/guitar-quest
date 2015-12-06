@@ -13,21 +13,29 @@ module.exports = ngInject (User, UserPiece, Piece, $stateParams, $state) ->
   else
     @currentLevel = Number($stateParams.level)
 
+  @levelPoints =
+    piece: @levelHelper.getPointsPerPiece(@currentLevel)
+    completed: @levelHelper.calculatePointsIntoLevel(@user.points, @currentLevel)
+    total: @levelHelper.getTotalLevelPoints(@currentLevel)
+
   @getStatus = (userPiece) ->
     return unless userPiece?
     userPieceHelers.getStatus()
 
-  UserPiece.query({userId: @user._id}).$promise.then (userPieces) =>
-    @userPieceByPieceId = _.indexBy(userPieces, 'pieceId')
-
   setPieces = =>
+    @isLoadingPieces = true
     @userCanLearnPieces = @currentLevel is 1 or roles.can(@user.roles, 'learnAdvancedPieces')
-    @pieces = Piece.query({level: @currentLevel})
-    @levelPoints =
-      piece: @levelHelper.getPointsPerPiece(@currentLevel)
-      completed: @levelHelper.calculatePointsIntoLevel(@user.points, @currentLevel)
-      total: @levelHelper.getTotalLevelPoints(@currentLevel)
-
+    Piece.query({level: @currentLevel}).$promise
+    .then (pieces) =>
+      @pieces = pieces
+      UserPiece.query
+        userId: @user._id
+        pieceId: _.map(@pieces, '_id')
+      .$promise
+    .then (userPieces) =>
+      @userPieceByPieceId = _.indexBy(userPieces, 'pieceId')
+    .finally =>
+      @isLoadingPieces = false
   setPieces()
 
   @goToNextLevel = =>

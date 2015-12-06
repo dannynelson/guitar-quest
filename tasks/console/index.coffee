@@ -36,10 +36,6 @@ module.exports = (gulp) ->
     # (apps w/o mongodb should export `null` here)
     database = require "#{process.cwd()}/local_modules/database"
 
-    models = require "#{process.cwd()}/local_modules/models"
-    for name, model of models
-      GLOBAL[name] = model
-
     require('fibrous').run ->
       database?.sync.connect()
       goodEggsRepl(fibrous: true).sync.on 'exit' # Pause this fiber in the connected state until the exit signal

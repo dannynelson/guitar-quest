@@ -19,11 +19,12 @@ router.put '/:_id',
 
 router.post '/:_id/grade',
   (req, res, next) ->
+    res.status(400).send('unauthorized') if not req.user?
     UserPiece.findById(req.params._id).then (userPiece) =>
       userPiece.gradePiece
         grade: req.body.grade
         comment: req.body.comment
-        updatedBy: req.user._id
+        updatedBy: req.user._id.toString()
     .then (userPiece) =>
       req.query.$add = ['historyChanges'] # hack
       resourceConverter.createResourceFromModel(userPiece, {req, res, next})
