@@ -1,6 +1,7 @@
 Promise = require 'bluebird'
 sendgrid = require 'local_modules/sendgrid'
 settings = require 'local_modules/settings'
+logger = require 'local_modules/logger'
 notificationHelpers = require 'local_modules/models/notification/helpers'
 
 capitalize = (string) ->
@@ -13,13 +14,19 @@ module.exports = (schema) ->
     Notification = @
 
     Notification.create(notificationHelpers.generateNotification(type, params)).then (notification) ->
+      console.log 'notification'
       if sendEmail is true
+        console.log 'sendEmail true'
         return User.findById(notification.userId).then (user) ->
-          description = notificationHelpers.getDescription({notification})
+          console.log 'found user'
+          description = notificationHelpers.getDescription(notification)
           link = notificationHelpers.getLink({notification, serverUrl: settings.server.url})
+          console.log 'sending', notificationHelpers.getTitle({notification}), notification
           sendgrid.send
             to: user.email
             from: settings.guitarQuestEmail
-            subject: notificationHelpers.getTitle({notification})
+            subject: notificationHelpers.getTitle(notification)
             html: "#{description}.<br>#{link}"
+          , (err) ->
+            logger.error({err}, 'failed to send email') if err?
       return notification

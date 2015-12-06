@@ -16,7 +16,7 @@ module.exports = (schema) ->
       previous = history[i-1] ? {}
 
        # submitted
-      if snapshot.submissionVideoURL isnt previous.submissionVideoURL
+      if  snapshot.submissionVideoURL? and snapshot.submissionVideoURL isnt previous.submissionVideoURL
         _addDiff {submissionVideoURL: snapshot.submissionVideoURL}, snapshot
 
        # graded
@@ -26,7 +26,7 @@ module.exports = (schema) ->
         _addDiff {grade: snapshot.grade}, snapshot
 
       # commented
-      if snapshot.comment isnt previous.comment
+      if snapshot.comment? and snapshot.comment isnt previous.comment
         _addDiff {comment: snapshot.comment}, snapshot
 
     diffs

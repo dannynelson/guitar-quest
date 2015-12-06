@@ -32,7 +32,6 @@ schema.methods.submitVideo = Promise.method ({submissionVideoURL, updatedBy}={})
 
   Challenge.progressMatchingChallenges @userId, {userPiece: @} # intentionally here because we do not want to accidentally progress challenges via a migration
   .then =>
-    console.log 'hello', {test: @}
     @save()
 
 # named gradePiece b/c you cannot name method the same as a property

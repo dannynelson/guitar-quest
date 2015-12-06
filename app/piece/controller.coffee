@@ -24,7 +24,7 @@ module.exports = ngInject (Upload, $http, User, $stateParams, Piece, UserPiece, 
           userId: user._id
           historyChanges: [] # so that server will return the changes when we first submit a video
       else
-        userPieces[0]
+        _.first(userPieces)
   .finally =>
     @loadingPiece = false
     loadVideo(@userPiece.submissionVideoURL) if @userPiece.submissionVideoURL?
@@ -59,18 +59,15 @@ module.exports = ngInject (Upload, $http, User, $stateParams, Piece, UserPiece, 
         file: file
       .progress (evt) =>
         @progressPercentage = progressPercentage = parseInt(100.0 * evt.loaded / evt.total)
-        console.log('progress: ' + progressPercentage + '% ' + evt.config.file.name)
       .success (data, status, headers, config) =>
         @progressPercentage = 0
         @uploading = false
         videoUploadSrc = "#{s3Params.bucketURL}/user_#{user._id}/#{fileName}"
         @userPiece.$submitVideo({submissionVideoURL: videoUploadSrc})
         loadVideo(videoUploadSrc)
-        console.log('file ' + config.file.name + 'uploaded. Response: ' + data)
       .error (data, status, headers, config) ->
         @progressPercentage = 0
         @uploading = false
         # ngToast.success 'Oops! Something went wrong uploading the video. Please try another file.'
-        console.log('error status: ' + status)
 
   return @ # http://stackoverflow.com/challengeions/28953289/using-controller-as-with-the-ui-router-isnt-working-as-expected

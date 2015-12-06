@@ -13,8 +13,6 @@ Deployment
 - rollbar and sumo logic
 
 Immediate Features
-- submit initial video challenge didn't pass until it was graded
-- remove all PUTs (except user)
 - I don't get emailed after a piece is graded
 - decide on pricing (research competitors, calculate costs)
 - build flow for buying a private lesson
@@ -25,6 +23,8 @@ Immediate Features
 - test everything for bad inputs, work through the basic workflows
 - host images on S3, clear git history
 - normalize email address when loggin in
+- setup real guitarquest email address
+- quick pass to make sure everything looks ok on mobile
 
 x notifications
   x figure out clearing isRead for notifications (by clicking link or mark all as read)

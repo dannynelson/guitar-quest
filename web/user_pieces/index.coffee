@@ -25,9 +25,7 @@ router.post '/:_id/submit_video',
       return res.status(400).send('invalid pieceId')
     if joi.validate(req.body.submissionVideoURL, joi.string().required()).error
       return res.status(400).send('invalid submissionVideoURL')
-    UserPiece.findOne
-      pieceId: req.params._id
-      userId: req.user._id
+    UserPiece.findById(req.params._id)
     .then (userPiece) =>
       userPiece ?= new UserPiece
         _id: req.params._id

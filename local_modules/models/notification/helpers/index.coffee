@@ -29,7 +29,7 @@ notificationDefinitions =
     description: ({notification}) ->
       "
         Video submission for <em>#{notification.params.pieceName}</em>
-        graded <strong>#{notification.params.grade * 100}%</strong> and received a comment.
+        graded <strong>#{notification.params.grade * 100}%</strong> and received a comment
       "
     link: ({notification, serverUrl}) ->
       "#{serverUrl}/#/pieces/#{notification.params.pieceId}"
@@ -49,7 +49,7 @@ notificationDefinitions =
     title: ({notification}) ->
       "Advanced to #{levelHelpers.getLevelName(notification.params.level)}"
     description: ({notification}) ->
-      "You advanced to <strong>#{levelHelpers.getLevelName(notification.params.level)}</strong> and unlocked new pieces."
+      "You advanced to <strong>#{levelHelpers.getLevelName(notification.params.level)}</strong> and unlocked new pieces"
     link: ({notification, serverUrl}) ->
       "#{serverUrl}/#/pieces_by_level/#{notification.params.level}"
     notification: ({user}={}) ->
