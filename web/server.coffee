@@ -11,10 +11,13 @@ logger = require 'local_modules/logger'
 database = require 'local_modules/database'
 settings = require 'local_modules/settings'
 passport = require 'local_modules/passport'
+enforce = require 'express-sslify'
 
 require './fixtures'
 
 module.exports = app = express()
+
+app.use(enforce.HTTPS({ trustProtoHeader: true }))
 
 # app.use require('express-bunyan-logger')()
 #

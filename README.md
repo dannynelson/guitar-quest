@@ -44,6 +44,7 @@ Immediate Features
 - still a delay in updating points when return to home page...
 
 Eventually Features
+- display the SSL badge that I was emailed in the navbar?
 - editing stripe card should not overwrite existing stripe user
 - some emphasis on learn as you go in the tutorial
 - some kind of user terms for signing up / taking lessons?

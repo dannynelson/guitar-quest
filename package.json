@@ -45,6 +45,7 @@
     "express": "^4.13.3",
     "express-bunyan-logger": "^1.1.1",
     "express-session": "^1.12.1",
+    "express-sslify": "^1.0.1",
     "fibrous": "^0.4.0",
     "geomoment": "^0.6.1",
     "glob": "^5.0.14",
