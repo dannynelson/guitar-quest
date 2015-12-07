@@ -13,8 +13,6 @@ settings = require 'local_modules/settings'
 passport = require 'local_modules/passport'
 enforce = require 'express-sslify'
 
-require './fixtures'
-
 module.exports = app = express()
 
 app.use(enforce.HTTPS({ trustProtoHeader: true }))
