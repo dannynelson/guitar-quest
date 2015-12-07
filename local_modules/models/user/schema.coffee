@@ -21,7 +21,7 @@ module.exports =
       type: 'array'
       items:
         type: 'string'
-        enum: ['teacher', 'professional']
+        enum: ['teacher', 'subscriber']
 
     level:
       description: '

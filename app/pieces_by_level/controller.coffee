@@ -4,6 +4,7 @@ userPieceHelers = require 'local_modules/models/user_piece/helpers'
 roles = require 'local_modules/roles'
 
 module.exports = ngInject (User, UserPiece, Piece, $stateParams, $state) ->
+  @settings = window.settings
   @user = User.getLoggedInUser()
   @user.$reload() # reload whenever we come back to this page for latest level/points/credits
   @levelHelper = levelHelper

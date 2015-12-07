@@ -13,15 +13,18 @@
           .panel-title Order Summary
         .panel-body
           .clearfix
-            .pull-left <strong>Professional Monthly Subscription</strong>
-            .pull-right <strong>$35</strong>
+            .pull-left <strong>Professional Account (Renews Monthly)</strong>
+            .pull-right <strong>${{ctrl.settings.subscription.price}}</strong>
           hr.order-divider
           .clearfix
             .pull-left <strong>Total:
-            .pull-right <strong>$35</strong>
+            .pull-right <strong>${{ctrl.settings.subscription.price}}</strong>
 
         .panel-footer.panel-footer-white
           .clearfix
-            .btn.btn-primary.pull-right(ng-click='ctrl.submit()') Subscribe
+            .btn.btn-primary.pull-right(
+              ng-click='ctrl.submit()'
+              ng-disabled='ctrl.isLoading'
+            ) Subscribe
 
 

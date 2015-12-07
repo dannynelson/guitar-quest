@@ -13,13 +13,17 @@ resourceConverter = require './resource_converter'
 
 module.exports = router = require('express').Router()
 
+# assuming only one card allowed per user, retrieve the users card if available
 router.get '/card', (req, res, next) ->
   user = req.user
   return res.status(401).send('unauthorized') unless req.user?
   return res.status(404).send('No credit card available') unless user.stripeId
   stripe.customers.retrieve(user.stripeId).then (customer) ->
-    creditCardInfo = _.first(customer.sources.data)
-    res.send(creditCardInfo)
+    card = _.first(customer.sources?.data)
+    if card?
+      res.send(card)
+    else
+      res.status(404).send('no card available for user')
   .then null, next
 
 router.get '/',
@@ -105,32 +109,40 @@ router.post '/logout', (req, res) ->
   req.logout()
   res.status(200).send('Logout successful')
 
-router.post '/save_credit_card', (req, res, next) ->
+router.post '/save_card', (req, res, next) ->
   stripeCustomer = null
   user = req.user
   return res.status(401).send('unauthorized') unless req.user?
-  return res.status(400).send('stripe token required') unless req.body?.stripeToken?
-  stripeToken = req.body.stripeToken
-  stripe.customers.create
-    source: stripeToken
-    description: 'payinguser@example.com'
-  .then (customer) ->
-    stripeCustomer = customer
-    user.stripeId = stripeCustomer.id
-    user.save()
-  .then ->
-    creditCardInfo = _.first(stripeCustomer.sources.data)
-    res.status(201).send(creditCardInfo)
+  return res.status(400).send('stripeToken required') unless req.body.stripeToken?
+  Promise.try ->
+    # if user exists, remove existing cards and add a new one
+    if req.user.stripeId?
+      return stripe.customers.listCards(req.user.stripeId).then (cards) ->
+        Promise.map cards.data, (card) ->
+          stripe.customers.deleteCard(req.user.stripeId, card.id)
+      .then ->
+        stripe.customers.createSource(req.user.stripeId, {source: req.body.stripeToken})
+    # otherwise save new stripe user with provided source
+    else
+      return stripe.customers.create
+        source: req.body.stripeToken
+        description: req.user._id.toString()
+      .then (customer) ->
+        user.stripeId = customer.id
+        user.save()
+      .then ->
+        card = _.first(stripeCustomer.sources.data)
+  .then (card) ->
+    return res.status(201).send(card)
   .then null, next
 
 router.post '/subscribe', (req, res, next) ->
   user = req.user
   return res.status(401).send('unauthorized') unless req.user?
-  return res.status(400).send('Must specify a plan') unless req.body?.plan?
   return res.status(400).send('User does not have a credit card associated with account') unless req.user?.stripeId?
-  stripe.customers.createSubscription(req.user.stripeId, {plan: req.body.plan})
+  stripe.customers.createSubscription(req.user.stripeId, {plan: settings.subscription.id})
   .then (subscription) ->
-    user.roles.push 'professionalAccount'
+    user.roles.push 'subscriber'
     user.save()
   .then ->
     return res.status(200).send({})

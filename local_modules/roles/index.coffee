@@ -7,7 +7,7 @@ roles =
     title: 'Teacher'
     permissions: ['*']
 
-  'professional':
+  'subscriber':
     permissions: [
       'learnAdvancedPieces'
     ]

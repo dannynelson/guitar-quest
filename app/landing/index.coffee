@@ -7,6 +7,6 @@ angular.module __filename, [
 .config ($stateProvider) ->
   $stateProvider.state 'guitarQuest.landing',
     url: ''
-    controllerAs: 'landingCtrl'
+    controllerAs: 'ctrl'
     template: require './template'
     controller: require './controller'

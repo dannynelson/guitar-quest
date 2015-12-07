@@ -13,8 +13,7 @@ Deployment
 - rollbar and sumo logic
 
 Immediate Features
-- I don't get emailed after a piece is graded
-- decide on pricing (research competitors, calculate costs)
+- is professional account the right name?
 - build flow for buying a private lesson
 - test checkout flow for upgrading and buying lessons
 - test all business logic on server, use angular validated resource
@@ -23,30 +22,18 @@ Immediate Features
 - test everything for bad inputs, work through the basic workflows
 - host images on S3, clear git history
 - normalize email address when loggin in
-- setup real guitarquest email address
 - quick pass to make sure everything looks ok on mobile
+- setup real guitarquest email address - pending (try again at 5:30)
+  - probably want to eventually buy an account so that I can send emails directly from there
+  - does this allow me to set the sender name
+  - eventually the email should look like pivotat, meetup, or facebook
+  - https://sendgrid.com/docs/User_Guide/Legacy_Features/Marketing_Emails/sender_address.html
 
-x notifications
-  x figure out clearing isRead for notifications (by clicking link or mark all as read)
-    x also, how to highlight that a notification is unread?
-  x notification for progressing to next level
-  x unique icon for each notification
-  x sort notifications newest first
-  x limit number queried and paginate them (show more)
-x dont query for every userPiece on each level
-x grade when waitingToBeGraded changes to false, not when grade changes
-x if piece graded multiple times, user gets too much experience
-x send comment and grade in one request.
-x Include comment in email that is sent to user
+- ng-disabled on payments for after submitting
 - password reset email
 - subscription checkout
 - flow of upgrading
-x breadcrumbs on piece page
-x use back button for navigating through pieces
-  x pieces_by_level/:level
-  x pieces/:pieceId
 - be able to buy a lesson from a teacher
-x how does user enter credit card info if they are still a temp user
 - lessons checkout (and use credits)
 - 0 index levels (so that level name matches what we see)
 - ghost item in piece history
@@ -57,6 +44,10 @@ x how does user enter credit card info if they are still a temp user
 - still a delay in updating points when return to home page...
 
 Eventually Features
+- editing stripe card should not overwrite existing stripe user
+- some emphasis on learn as you go in the tutorial
+- some kind of user terms for signing up / taking lessons?
+- be able to unsubscribe
 - how to authenticate and test server side with request?
 - registering when piece already exists
 - beef up profile/account page

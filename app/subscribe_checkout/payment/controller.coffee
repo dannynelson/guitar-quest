@@ -24,7 +24,9 @@ module.exports = ngInject ($state, $scope, lessonCheckoutData, User) ->
       @error = 'Could not connect to our payment processor. Please try again later.'
       @savingCard = false
     else
-      User.saveCreditCard({stripeToken: response.id}).then (card) ->
+      User.saveCard
+        stripeToken: response.id
+      .then (card) ->
         cacheCardIfExistsAndContinue(card)
       .finally ->
         @savingCard = false

@@ -9,7 +9,7 @@ module.exports = ngInject (User, Challenge) ->
   Challenge.query
     userId: user._id
     completed: false
-  .$promise.then (callenges) =>
+  .$promise.then (challenges) =>
     @challenges = challenges
   .finally =>
     @isLoadingChallenges = false

@@ -84,8 +84,20 @@ module.exports =
   guitarQuestEmail:
     doc: 'from email for all guitarquest emails'
     format: '*'
-    default: 'danny.edward.nelson@gmail.com'
+    default: 'admin@guitarquest.com'
     env: 'GUITAR_QUEST_EMAIL'
+
+  subscription:
+    id:
+      doc: 'monthly price for a PRO subscription'
+      format: '*'
+      default: 'professional'
+      env: 'SUBSCRIPTION_ID'
+    price:
+      doc: 'monthly price for a PRO subscription'
+      format: '*'
+      default: 39
+      env: 'SUBSCRIPTION_PRICE'
 
   stripe:
     secretKey:
