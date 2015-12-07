@@ -4,11 +4,11 @@ A game for learning classical guitar
 
 TODO:
 Deployment
-- download font awesome
-- heroku scheduler for challenges
 - rollbar and sumo logic
 
 Immediate Features
+- missing piece history in production
+- don't show spotify url if there is no recording
 - build flow for buying a private lesson
   - for applying credits to lessons
   - http://stackoverflow.com/questions/22895725/how-can-i-give-a-customer-a-non-refundable-credit-towards-their-subscription-usi
@@ -25,6 +25,7 @@ Immediate Features
   - eventually the email should look like pivotat, meetup, or facebook
   - https://sendgrid.com/docs/User_Guide/Legacy_Features/Marketing_Emails/sender_address.html
 - is professional account the right name?
+- add accents to composer names. Are accents searchable in the same way?
 
 - ng-disabled on payments for after submitting
 - password reset email
@@ -40,6 +41,8 @@ Immediate Features
 - still a delay in updating points when return to home page...
 
 Eventually Features
+- heroku scheduler for challenges
+- download font awesome
 - setup mongolab backups http://docs.mongolab.com/backups/
 - display the SSL badge that I was emailed in the navbar?
 - editing stripe card should not overwrite existing stripe user
