@@ -13,7 +13,7 @@ module.exports = ngInject ($state, User, errorHelper) ->
     @isLoading = true
     User.subscribe()
     .then =>
-      $state.go('guitarQuest.piecesByLevel')
+      $state.go('guitarQuest.piecesByLevel', {level: 'default'})
     .catch (rejection) =>
       @error = errorHelper.processError(rejection)
     .finally =>

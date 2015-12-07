@@ -89,6 +89,8 @@ Eventually Features
 - infinite scroll for notifications
 - will query param length for userPieces ever go beyond url limit on piecesByLevel page?
 - notification that let's users know there has been an update
+- allow noavigating through levels even if user does not have access yet? (so that navigation always remains the same)
+- clarify text when user already finished level
 
 BugFixes / Security
 - what happens if we can't connect to stripe

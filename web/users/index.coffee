@@ -144,8 +144,10 @@ router.post '/subscribe', (req, res, next) ->
   .then (subscription) ->
     user.roles.push 'subscriber'
     user.save()
-  .then ->
-    return res.status(200).send({})
+  .then (user) ->
+    resourceConverter.createResourceFromModel(user, {req, res, next})
+  .then (resource) =>
+    return res.status(200).send(resource)
   .then null, next
 
 router.post '/change_password', (req, res, next) ->
