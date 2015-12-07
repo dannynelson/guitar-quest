@@ -27,9 +27,9 @@ script(type="text/ng-template" id="notifications.html")
               a(ui-sref='guitarQuest.challenges')
                 span Challenges
 
-            li.challenges(ng-class="{active: myCtrl.stateIncludes('guitarQuest.lessons')}")
-              a(ui-sref='guitarQuest.lessons')
-                span Lessons
+            //- li.challenges(ng-class="{active: myCtrl.stateIncludes('guitarQuest.lessons')}")
+            //-   a(ui-sref='guitarQuest.lessons')
+            //-     span Lessons
 
             li(
               ng-if='myCtrl.hasRole("teacher")'

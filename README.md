@@ -13,9 +13,9 @@ Deployment
 - rollbar and sumo logic
 
 Immediate Features
-- is professional account the right name?
 - build flow for buying a private lesson
-- test checkout flow for upgrading and buying lessons
+  - for applying credits to lessons
+  - http://stackoverflow.com/questions/22895725/how-can-i-give-a-customer-a-non-refundable-credit-towards-their-subscription-usi
 - test all business logic on server, use angular validated resource
 - deploy and populate Level 1, Level 2 pieces
 - update submission guideline text
@@ -28,6 +28,7 @@ Immediate Features
   - does this allow me to set the sender name
   - eventually the email should look like pivotat, meetup, or facebook
   - https://sendgrid.com/docs/User_Guide/Legacy_Features/Marketing_Emails/sender_address.html
+- is professional account the right name?
 
 - ng-disabled on payments for after submitting
 - password reset email
@@ -36,7 +37,6 @@ Immediate Features
 - be able to buy a lesson from a teacher
 - lessons checkout (and use credits)
 - 0 index levels (so that level name matches what we see)
-- ghost item in piece history
 - get rid of all pre save hooks that only execute under certain conditions
 - link to submitted video should actually allow you to see the submitted video on the webiste
 - move everything into domains
