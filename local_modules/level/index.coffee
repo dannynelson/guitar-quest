@@ -52,10 +52,10 @@ module.exports = level =
 
   getLevelName: (level) ->
     level = Number(level)
-    if level is 1
+    if level is 0
       return 'Preparatory Level'
     else
-      return "Level #{level - 1}"
+      return "Level #{level}"
 
   calculateCurrentLevel: (totalUserPoints) ->
     level = null
