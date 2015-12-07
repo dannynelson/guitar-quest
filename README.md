@@ -4,12 +4,8 @@ A game for learning classical guitar
 
 TODO:
 Deployment
-- shared cluster vs single
-  - database backups?
-- setup https
 - download font awesome
 - heroku scheduler for challenges
-- private github repo?
 - rollbar and sumo logic
 
 Immediate Features
@@ -44,6 +40,7 @@ Immediate Features
 - still a delay in updating points when return to home page...
 
 Eventually Features
+- setup mongolab backups http://docs.mongolab.com/backups/
 - display the SSL badge that I was emailed in the navbar?
 - editing stripe card should not overwrite existing stripe user
 - some emphasis on learn as you go in the tutorial

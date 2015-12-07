@@ -21,16 +21,16 @@ _ = require 'lodash'
 perfectPiecesRequiredToProgressToNextLevel = 20
 
 piecePointsByLevel =
-  "1": 100 # each piece 100 points
-  "2": 140 # each piece about 140 points
-  "3": 200 # each piece about 200 points
-  "4": 280 # each piece about 280 points
-  "5": 400 # each piece about 400 points
-  "6": 560 # each piece about 560 points
-  "7": 800 # each piece about 800 points
-  "8": 1120 # each piece about 1120 points
-  "9": 1600 # each piece about 1600 points
-  "10": 2240 # each piece about 2240 points
+  "0": 100 # each piece 100 points
+  "1": 140 # each piece about 140 points
+  "2": 200 # each piece about 200 points
+  "3": 280 # each piece about 280 points
+  "4": 400 # each piece about 400 points
+  "5": 560 # each piece about 560 points
+  "6": 800 # each piece about 800 points
+  "7": 1120 # each piece about 1120 points
+  "8": 1600 # each piece about 1600 points
+  "9": 2240 # each piece about 2240 points
 
 pointsByLevel = _.mapValues piecePointsByLevel, (pointsPerPiece) ->
   pointsPerPiece * perfectPiecesRequiredToProgressToNextLevel
