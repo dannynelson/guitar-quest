@@ -4,10 +4,13 @@ A game for learning classical guitar
 
 TODO:
 Deployment
-- rollbar and sumo logic
 
 Immediate Features
 - missing piece history in production
+- convert all challenges to have 5 credits
+- availability of challenges will be an issue (especially on earlier levels)
+  - should challenges be staged?
+- rollbar and sumo logic
 - don't show spotify url if there is no recording
 - build flow for buying a private lesson
   - for applying credits to lessons
