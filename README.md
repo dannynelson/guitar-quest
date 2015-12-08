@@ -6,22 +6,18 @@ TODO:
 Deployment
 
 Immediate Features
+- normalize email address when loggin in
 - change pricing to $29 for chuck? upgrade later once it is fixed?
-- missing piece history in production
-- convert all challenges to have 5 credits
 - availability of challenges will be an issue (especially on earlier levels)
   - should challenges be staged?
 - rollbar and sumo logic
-- don't show spotify url if there is no recording
 - build flow for buying a private lesson
   - for applying credits to lessons
   - http://stackoverflow.com/questions/22895725/how-can-i-give-a-customer-a-non-refundable-credit-towards-their-subscription-usi
 - test all business logic on server, use angular validated resource
 - deploy and populate Level 1, Level 2 pieces
 - update submission guideline text
-- test everything for bad inputs, work through the basic workflows
 - host images on S3, clear git history
-- normalize email address when loggin in
 - quick pass to make sure everything looks ok on mobile
 - setup real guitarquest email address - pending (try again at 5:30)
   - probably want to eventually buy an account so that I can send emails directly from there
@@ -99,6 +95,7 @@ Eventually Features
 - notification that let's users know there has been an update
 - allow noavigating through levels even if user does not have access yet? (so that navigation always remains the same)
 - clarify text when user already finished level
+- clean up CSS
 
 BugFixes / Security
 - what happens if we can't connect to stripe

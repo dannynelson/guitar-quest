@@ -20,6 +20,17 @@ _ = require 'lodash'
 
 perfectPiecesRequiredToProgressToNextLevel = 20
 
+sheetMusicPlusLinkByLevel =
+  "0": 'http://www.sheetmusicplus.com/title/bridges-a-comprehensive-guitar-series-preparatory-guitar-repertoire-and-studies-sheet-music/19528889?aff_id=465759'
+  "1": 'http://www.sheetmusicplus.com/title/bridges-a-comprehensive-guitar-series-guitar-repertoire-and-studies-1-sheet-music/19528890?aff_id=465759'
+  "2": 'http://www.sheetmusicplus.com/title/bridges-a-comprehensive-guitar-series-guitar-repertoire-and-studies-2-sheet-music/19528891?aff_id=465759'
+  "3": 'http://www.sheetmusicplus.com/title/bridges-a-comprehensive-guitar-series-guitar-repertoire-and-studies-3-sheet-music/19528892?aff_id=465759'
+  "4": 'http://www.sheetmusicplus.com/title/bridges-a-comprehensive-guitar-series-guitar-repertoire-and-studies-4-sheet-music/19528893?aff_id=465759'
+  "5": 'http://www.sheetmusicplus.com/title/bridges-a-comprehensive-guitar-series-guitar-repertoire-and-studies-5-sheet-music/19528894?aff_id=465759'
+  "6": 'http://www.sheetmusicplus.com/title/bridges-a-comprehensive-guitar-series-guitar-repertoire-and-studies-6-sheet-music/19528895?aff_id=465759'
+  "7": 'http://www.sheetmusicplus.com/title/bridges-a-comprehensive-guitar-series-guitar-repertoire-and-studies-7-sheet-music/19528896?aff_id=465759'
+  "8": 'http://www.sheetmusicplus.com/title/bridges-a-comprehensive-guitar-series-guitar-repertoire-and-studies-8-sheet-music/19528897?aff_id=465759'
+
 piecePointsByLevel =
   "0": 100 # each piece 100 points
   "1": 140 # each piece about 140 points
@@ -37,7 +48,7 @@ pointsByLevel = _.mapValues piecePointsByLevel, (pointsPerPiece) ->
 
 cumulativePointsByLevel = _.mapValues pointsByLevel, (points, _level) ->
   level = Number(_level)
-  _(_.range(1, level+1))
+  _(_.range(0, level+1))
     .map (l) -> pointsByLevel[l]
     .sum()
 
@@ -56,6 +67,9 @@ module.exports = level =
       return 'Preparatory Level'
     else
       return "Level #{level}"
+
+  getSheetMusicURL: (level) ->
+    sheetMusicPlusLinkByLevel[level]
 
   calculateCurrentLevel: (totalUserPoints) ->
     level = null

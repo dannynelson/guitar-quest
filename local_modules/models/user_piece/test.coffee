@@ -70,7 +70,7 @@ describe 'UserPiece', ->
           email: 'danny.edward.nelson@gmail.com'
           points: 200
         piece: Piece.create pieceFactory.create
-          level: 1
+          level: 0
       .then ({user, piece}) ->
         UserPiece.create userPieceFactory.create
           userId: user._id

@@ -12,7 +12,7 @@ describe 'User', ->
   describe '.addPoints()', ->
     it 'validates', ->
       User.create userFactory.create
-        level: 1
+        level: 0
         points: 250
       .then (user) ->
         Promise.all [
@@ -22,7 +22,7 @@ describe 'User', ->
 
     it 'adds points to user', ->
       User.create userFactory.create
-        level: 1
+        level: 0
         points: 250
       .then (user) ->
         user.addPoints(30)
@@ -30,13 +30,13 @@ describe 'User', ->
         User.findById(user._id)
       .then (user) ->
         expect(user).to.have.property 'points', 280
-        expect(user).to.have.property 'level', 1
+        expect(user).to.have.property 'level', 0
 
     it 'levels up, and notifies if user has sufficient points', ->
       userId = objectIdString()
       User.create userFactory.create
         _id: userId
-        level: 1
+        level: 0
         points: 250
       .then (user) ->
         Notification.count().then (notificationCount) ->
@@ -45,10 +45,10 @@ describe 'User', ->
       .then (user) ->
         User.findById(user._id)
       .then (user) ->
-        expect(user).to.have.property 'level', 2
+        expect(user).to.have.property 'level', 1
         Notification.find()
       .then (notifications) ->
         expect(notifications).to.have.length 1
         expect(_.first(notifications)).to.have.property 'type', 'levelUp'
-        expect(_.first(notifications)).to.have.deep.property 'params.level', 2
+        expect(_.first(notifications)).to.have.deep.property 'params.level', 1
 

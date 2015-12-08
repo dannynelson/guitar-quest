@@ -20,7 +20,7 @@ describe 'challengeHelpers', ->
         completed: false
         params: {}
         reward:
-          credits: 10
+          credits: 5
 
     it 'does not error for all challenge types', ->
       user = userFactory.create({_id: objectIdString()})
@@ -64,7 +64,7 @@ describe 'challengeHelpers', ->
         completed: false
         params: {}
         reward:
-          credits: 10
+          credits: 5
 
   describe '.generateRandomChallenge()', ->
     it 'works', ->

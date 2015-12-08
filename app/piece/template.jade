@@ -56,7 +56,7 @@
 
             p You can then resubmit another video at any time.
 
-        .panel.panel-default.listen-to-the-recording
+        .panel.panel-default.listen-to-the-recording(ng-if='ctrl.getSpotifySrc()')
           .panel-body
             p <strong>LISTEN TO THE RECORDING</strong>
             iframe(
@@ -99,7 +99,7 @@
               .col-xs-3.text-info.text-center
                 i.link-panel-icon.fa.fa-book.fa-3x
               .col-xs-9
-                div Find every GuitarQuest level 1 piece in <em>Bridges (Preparatory Level)</em>
-                a
-                  span Read More&nbsp;
+                div Find all GuitarQuest {{ctrl.levelHelper.getLevelName(ctrl.piece.level)}} pieces in <em>Bridges: {{ctrl.levelHelper.getLevelName(ctrl.piece.level)}}</em>
+                a(ng-href='{{ctrl.levelHelper.getSheetMusicURL(ctrl.piece.level)}}')
+                  span Buy Now&nbsp;
                   span.fa.fa-angle-double-right

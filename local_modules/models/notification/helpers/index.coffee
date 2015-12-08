@@ -28,8 +28,7 @@ notificationDefinitions =
       "Video submission for #{notification.params.pieceName} graded #{notification.params.grade * 100}%"
     description: ({notification}) ->
       "
-        Video submission for <em>#{notification.params.pieceName}</em>
-        graded <strong>#{notification.params.grade * 100}%</strong> and received a comment
+        Video submission for <em>#{notification.params.pieceName}</em> graded <strong>#{notification.params.grade * 100}%</strong> and received a comment
       "
     link: ({notification, serverUrl}) ->
       "#{serverUrl}/#/pieces/#{notification.params.pieceId}"

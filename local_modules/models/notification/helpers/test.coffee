@@ -70,7 +70,7 @@ describe 'notificationHelpers', ->
       user = userFactory.create({_id: userId, level: 2})
       notification = notificationHelpers.generateNotification('levelUp', {user})
       title = notificationHelpers.getTitle(notification)
-      expect(title).to.equal 'Advanced to Level 1'
+      expect(title).to.equal 'Advanced to Level 2'
 
   describe '.getDescription()', ->
     it '"pieceGraded"', ->
@@ -80,7 +80,7 @@ describe 'notificationHelpers', ->
       userPiece = userPieceFactory.create({grade: 0.7, comment: 'Good job!', userId: userId})
       notification = notificationHelpers.generateNotification('pieceGraded', {piece, userPiece})
       description = notificationHelpers.getDescription(notification)
-      expect(description).to.equal "Video submission for <em>Romanza</em> graded <strong>70%</strong> and received a comment."
+      expect(description).to.equal "Video submission for <em>Romanza</em> graded <strong>70%</strong> and received a comment"
 
     it '"challengeProgressed"', ->
       userId = objectIdString()
@@ -100,7 +100,7 @@ describe 'notificationHelpers', ->
       user = userFactory.create({_id: userId, level: 2})
       notification = notificationHelpers.generateNotification('levelUp', {user})
       description = notificationHelpers.getDescription(notification)
-      expect(description).to.equal 'You advanced to <strong>Level 1</strong> and unlocked new pieces.'
+      expect(description).to.equal 'You advanced to <strong>Level 2</strong> and unlocked new pieces'
 
   describe '.getLink()', ->
     it '"pieceGraded"', ->

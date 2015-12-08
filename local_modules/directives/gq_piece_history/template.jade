@@ -3,7 +3,8 @@
     .history-panel-heading.panel-heading
       .panel-title Piece History
     .list-group
-      .list-group-item(ng-if='!ctrl.userPiece.historyChanges || ctrl.userPiece.historyChanges.length === 0') No history yet.
+      .list-group-item(ng-if='!ctrl.userPiece.historyChanges || ctrl.userPiece.historyChanges.length === 0')
+        em View teacher comments, grades, and old video submissions here
       .list-group-item(
         ng-if='ctrl.userPiece.historyChanges.length > 0'
         ng-repeat='historyItem in ctrl.userPiece.historyChanges.slice().reverse()'

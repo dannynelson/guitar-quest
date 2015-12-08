@@ -14,14 +14,10 @@ module.exports = (schema) ->
     Notification = @
 
     Notification.create(notificationHelpers.generateNotification(type, params)).then (notification) ->
-      console.log 'notification'
       if sendEmail is true
-        console.log 'sendEmail true'
         return User.findById(notification.userId).then (user) ->
-          console.log 'found user'
           description = notificationHelpers.getDescription(notification)
           link = notificationHelpers.getLink({notification, serverUrl: settings.server.url})
-          console.log 'sending', notificationHelpers.getTitle({notification}), notification
           sendgrid.send
             to: user.email
             from: settings.guitarQuestEmail

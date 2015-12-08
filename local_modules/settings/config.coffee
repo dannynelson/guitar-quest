@@ -96,7 +96,7 @@ module.exports =
     price:
       doc: 'monthly price for a PRO subscription'
       format: '*'
-      default: 39
+      default: 29
       env: 'SUBSCRIPTION_PRICE'
 
   stripe:

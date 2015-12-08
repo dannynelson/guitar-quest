@@ -48,7 +48,7 @@ challengeDefinitions =
         type: 'firstVideo'
         quantityToComplete: 1
         params: {}
-        credits: 10
+        credits: 5
     conditions: ({challenge, piece, userPiece, user}) ->
       userPiece.submissionVideoURL?
 
@@ -64,7 +64,7 @@ challengeDefinitions =
         quantityToComplete: 3
         params:
           'level': challengeLevel
-        credits: chooseRandom([5, 10])
+        credits: 5
     conditions: ({challenge, piece, userPiece, user}) ->
       userPiece.grade >= 0.8 and piece.level is challenge.params.level
 
@@ -76,7 +76,7 @@ challengeDefinitions =
         userId: user._id.toString()
         type: 'era'
         quantityToComplete: 2
-        credits: chooseRandom([5, 10])
+        credits: 5
         params:
           'era': chooseRandom(pieceEnums.musicalEras)
     conditions: ({challenge, piece, userPiece, user}) ->
@@ -94,7 +94,7 @@ challengeDefinitions =
         type: 'sightReading'
         quantityToComplete: 6
         params: {}
-        credits: chooseRandom([5, 10])
+        credits: 5
     conditions: ({challenge, piece, userPiece, user}) ->
       isSubmitted = userPiece.submissionVideoURL?
       return isSubmitted
@@ -108,7 +108,7 @@ challengeDefinitions =
         type: 'perfectGrade'
         quantityToComplete: 2
         params: {}
-        credits: chooseRandom([5, 10])
+        credits: 5
     conditions: ({challenge, piece, userPiece, user}) ->
       isCurrentLevel = piece.level is user.level
       isPerfectGrade = userPiece.grade is 1
