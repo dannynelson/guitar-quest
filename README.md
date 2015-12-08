@@ -6,6 +6,7 @@ TODO:
 Deployment
 
 Immediate Features
+- change pricing to $29 for chuck? upgrade later once it is fixed?
 - missing piece history in production
 - convert all challenges to have 5 credits
 - availability of challenges will be an issue (especially on earlier levels)
@@ -29,6 +30,9 @@ Immediate Features
   - https://sendgrid.com/docs/User_Guide/Legacy_Features/Marketing_Emails/sender_address.html
 - is professional account the right name?
 - add accents to composer names. Are accents searchable in the same way?
+- 'earn points based on how you did'
+- confirmation email after subscribing
+- something on landing page about the pieces they will learn in the curriculum
 
 - ng-disabled on payments for after submitting
 - password reset email

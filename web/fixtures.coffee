@@ -8,7 +8,7 @@ Piece.remove({}).then ->
       name: 'Malaguena'
       composer: 'Anonymous'
       era: 'contemporary'
-      level: 1
+      level: 0
       points: 5
       sheetMusicURL: 'http://imslp.org/wiki/Fantasie,_Op.7_(Sor,_Fernando)'
       spotifyURI: 'spotify:track:1gFOPRH492kvYMN19xnMoJ'
@@ -19,7 +19,7 @@ Piece.remove({}).then ->
       name: 'B minor Study - Op. 35, No. 22'
       composer: 'Fernando Sor'
       era: 'classical'
-      level: 1
+      level: 0
       points: 6
       sheetMusicURL: 'http://imslp.org/wiki/Fantasie,_Op.7_(Sor,_Fernando)'
       spotifyURI: 'spotify:track:1gFOPRH492kvYMN19xnMoJ'
@@ -30,7 +30,7 @@ Piece.remove({}).then ->
       name: 'Adelita (Mazurka)'
       composer: 'Francisco Tarrega'
       era: 'romantic'
-      level: 2
+      level: 1
       points: 10
       sheetMusicURL: 'http://imslp.org/wiki/Fantasie,_Op.7_(Sor,_Fernando)'
       spotifyURI: 'spotify:track:1zomhC5U7x5kRuSu10YQ8j'

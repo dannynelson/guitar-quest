@@ -25,7 +25,7 @@ module.exports = ngInject (User, UserPiece, Piece, $stateParams, $state) ->
 
   setPieces = =>
     @isLoadingPieces = true
-    @userCanLearnPieces = @currentLevel is 1 or roles.can(@user.roles, 'learnAdvancedPieces')
+    @userCanLearnPieces = @currentLevel is 0 or roles.can(@user.roles, 'learnAdvancedPieces')
     Piece.query({level: @currentLevel}).$promise
     .then (pieces) =>
       @pieces = pieces

@@ -1,4 +1,3 @@
-
 module.exports =
   type: 'object'
   required: ['firstName', 'lastName', 'email', 'level', 'credits']
@@ -29,7 +28,7 @@ module.exports =
         so that we can guarantee that level can go up but can never go down
       '
       type: 'integer'
-      default: 1
+      default: 0
 
     points:
       description: 'total number of points user has accumulated'
