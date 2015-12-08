@@ -6,6 +6,16 @@ TODO:
 Deployment
 
 Immediate Features
+- compress video to transfer?
+- page title and icon
+- generates level 1 challenges even when user is level 0
+- show percentage indicator when uploading
+- video validation and text helper
+  - restrict upload to only be video
+  - restrict video upload size
+- cancel video upload
+- notification that email has been confirmed
+- notifications flash twice when initially displaying
 - normalize email address when loggin in
 - change pricing to $29 for chuck? upgrade later once it is fixed?
 - availability of challenges will be an issue (especially on earlier levels)

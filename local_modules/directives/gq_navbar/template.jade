@@ -58,15 +58,20 @@ script(type="text/ng-template" id="notifications.html")
             li(uib-dropdown)
               a(uib-dropdown-toggle)
                 span.icon-link
-                  i.fa.fa-user
+                  i.fa.fa-cog
                   i.caret
               ul.dropdown-menu(role="menu" aria-labelledby="single-button")
                 li(role="menuitem")
                   a(href="#" ui-sref='guitarQuest.account') Account
                   a(href="#" ng-click='myCtrl.logout()') Logout
           .user-summary.navbar-right(ng-if='myCtrl.isLoggedIn()')
-            .level-summary {{myCtrl.levelHelper.getLevelName(myCtrl.getUser().level)}}
-            .credit-summary.text-warning ${{myCtrl.getUser().credits}} lesson credits
+            .user-icon
+              span.fa-stack.user-profile-placeholder
+                i.fa.fa-square-o.fa-stack-2x
+                i.fa.fa-user.fa-stack-1x
+            .user-profile-info
+              .level-summary {{myCtrl.levelHelper.getLevelName(myCtrl.getUser().level)}}
+              .credit-summary.text-warning ${{myCtrl.getUser().credits}} lesson credits
 
           .nav.navbar-nav.navbar-right(ng-if='!myCtrl.isLoggedIn()')
             a.btn-flat.login(ui-sref='guitarQuest.logIn') Log in
