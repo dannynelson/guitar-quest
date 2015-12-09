@@ -8,8 +8,6 @@ Deployment
 Immediate Features
 - notification that email has been confirmed
 - notifications flash twice when initially displaying
-- normalize email address when loggin in
-- change pricing to $29 for chuck? upgrade later once it is fixed?
 - availability of challenges will be an issue (especially on earlier levels)
   - should challenges be staged?
 - rollbar and sumo logic
