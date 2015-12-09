@@ -56,6 +56,9 @@ app.use helmet.noCache()
 app.set 'view engine', 'jade'
 app.set 'views', path.resolve(process.cwd(), 'web')
 
+if settings.env is 'production'
+  # necessary for secure cookies
+  app.set 'trust proxy', 1
 app.use session
   secret: 'julian bream'
   store: new MongoStore({ url: settings.mongo.url })
