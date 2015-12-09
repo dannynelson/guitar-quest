@@ -4,8 +4,9 @@ levelHelper = require 'local_modules/level'
 ObjectId = require 'objectid-browser'
 userPieceHelpers = require 'local_modules/models/user_piece/helpers'
 
-module.exports = ngInject (Upload, $http, User, $stateParams, Piece, UserPiece, $state, $q, $timeout) ->
+module.exports = ngInject (Upload, $http, User, $stateParams, Piece, UserPiece, $state, $q, $timeout, errorHelper) ->
   @levelHelper = levelHelper
+  uploadPromise = null
   @getStatus = (userPiece) ->
     userPieceHelpers.getStatus(userPiece)
   user = User.getLoggedInUser()
@@ -38,15 +39,27 @@ module.exports = ngInject (Upload, $http, User, $stateParams, Piece, UserPiece, 
   @getSpotifySrc = =>
     "https://embed.spotify.com/?uri=#{@piece.spotifyURI}"
 
+  @abortUpload = =>
+    uploadPromise?.abort()
+
   @upload = (file) =>
     return unless file?
-    @uploading = true
+    s3Params = null
     [fileName, fileSuffix] = file.name.split('.')
     fileName = file.name = "piece_#{@piece._id}_#{new ObjectId().toString()}.#{fileSuffix}"
 
-    $http.get('/s3_policy?mimeType='+ file.type).then (response) =>
+    Upload.mediaDuration(file).then (durationInSeconds) =>
+      oneGB = 1000000000 # in bites
+      if file.size > oneGB
+        throw new errorHelper.UserInputError 'Video must be smaller than 1 GB'
+      fifteenMinutes = 900 # seconds
+      if durationInSeconds > fifteenMinutes
+        throw new errorHelper.UserInputError 'Video must be under 15 minutes'
+      @uploading = true
+      $http.get('/s3_policy?mimeType='+ file.type)
+    .then (response) =>
       s3Params = response.data
-      Upload.upload
+      uploadPromise = Upload.upload
         url: s3Params.bucketURL
         method: 'POST'
         fields:
@@ -57,17 +70,22 @@ module.exports = ngInject (Upload, $http, User, $stateParams, Piece, UserPiece, 
           signature: s3Params.signature
           "Content-Type": if file.type isnt '' then file.type else 'application/octet-stream'
         file: file
-      .progress (evt) =>
-        @progressPercentage = progressPercentage = parseInt(100.0 * evt.loaded / evt.total)
-      .success (data, status, headers, config) =>
-        @progressPercentage = 0
-        @uploading = false
-        videoUploadSrc = "#{s3Params.bucketURL}/user_#{user._id}/#{fileName}"
-        @userPiece.$submitVideo({submissionVideoURL: videoUploadSrc})
-        loadVideo(videoUploadSrc)
-      .error (data, status, headers, config) ->
-        @progressPercentage = 0
-        @uploading = false
-        # ngToast.success 'Oops! Something went wrong uploading the video. Please try another file.'
+    .then null, null, (evt) => # progress
+      @progressPercentage = progressPercentage = parseInt(100.0 * evt.loaded / evt.total)
+    .then =>
+      videoUploadSrc = "#{s3Params.bucketURL}/user_#{user._id}/#{fileName}"
+      loadVideo(videoUploadSrc)
+      @userPiece.$submitVideo({submissionVideoURL: videoUploadSrc})
+    .catch errorHelper.UserInputError, (err) =>
+      debugger
+      @videoUploadError = err.message
+    .catch (err) =>
+      debugger
+      @videoUploadError = 'Something went wrong uploading the video to our server. Please try again later.'
+    .finally =>
+      debugger
+      @progressPercentage = 0
+      @uploading = false
+      uploadPromise = null
 
   return @ # http://stackoverflow.com/challengeions/28953289/using-controller-as-with-the-ui-router-isnt-working-as-expected

@@ -12,7 +12,6 @@ Immediate Features
 - video validation and text helper
   - restrict upload to only be video
   - restrict video upload size
-- cancel video upload
 - notification that email has been confirmed
 - notifications flash twice when initially displaying
 - normalize email address when loggin in
@@ -53,6 +52,7 @@ Immediate Features
 - still a delay in updating points when return to home page...
 
 Eventually Features
+- a more obvious link for submitting another video
 - add page icon
 - heroku scheduler for challenges
 - download font awesome

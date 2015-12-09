@@ -10,10 +10,17 @@ small, easily achievable goals, based on the user's current level
 option to decline quest, so that they can get rid of more difficult ones?
 - higher credit awarded with each level, since higher level pieces usually take longer to learn
 reward - lesson credit
+- why not experience?
+  - b/c realistically, experience only comes from learning pieces
+  - other argument is challenges make them a more well-rounded guitarist, so should give them experience.
+  - this would be my next alternative of what I would try
 - why not pieces? - b/c workflow is confusing (how do they see which piece they unlocked? what if the piece was an earlier level? And if they don't like the piece, it is not really an award. Easiest if pieces are only unlocked by leveling up).
-- why not experience? - b/c realistically, experience only comes from learning pieces
+  - advantage is that it would make each level less overwhelming (but a little confusing)
+  - could be pieces that are not in the book?
 - why not tutorials? - b/c realistically, experience only comes from learning pieces
-- why not arbitrary money that they can use to buy subscriptions? - b/c I want them to focus on getting lessons.
+- why not arbitrary money that they can use to buy subscriptions? - b/c I want to upsell lessons
+- why not tips/tutorials? - b/c not that interesting
+- why not badges? - b/c they do not help you learn guitar
 
 user can have up to three challenges.
 - randomly assigned a new challenge every day based on their current level

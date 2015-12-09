@@ -73,7 +73,7 @@
     "mongoose-connection-manager": "http://registry.npmjs.org/mongoose-connection-manager/-/mongoose-connection-manager-1.0.2.tgz",
     "mongoose-querystream-worker": "0.0.2",
     "mongoose-timestamp": "^0.4.0",
-    "ng-file-upload": "^6.2.1",
+    "ng-file-upload": "^10.1.9",
     "ngToast": "tameraydin/ngToast#1.5.3",
     "nib": "^1.1.0",
     "normalize-email": "^1.0.0",

@@ -67,8 +67,8 @@ script(type="text/ng-template" id="notifications.html")
           .user-summary.navbar-right(ng-if='myCtrl.isLoggedIn()')
             .user-icon
               span.fa-stack.user-profile-placeholder
-                i.fa.fa-square-o.fa-stack-2x
-                i.fa.fa-user.fa-stack-1x
+                i.fa.fa-circle.fa-stack-2x
+                i.fa.fa-user.fa-stack-1x.fa-inverse
             .user-profile-info
               .level-summary {{myCtrl.levelHelper.getLevelName(myCtrl.getUser().level)}}
               .credit-summary.text-warning ${{myCtrl.getUser().credits}} lesson credits

@@ -20,22 +20,33 @@
               value="(ctrl.userPiece.grade || 0) * 100"
             )
       .col-md-8
-        .panel.panel-default.piece-panel.video-submission-panel
+        form.panel.panel-default.piece-panel.video-submission-panel(name='videoSubmissionForm')
           .video-panel-body.loading.row.text-center(ng-show='ctrl.uploading')
-            h5 Uploading...
-            .col-xs-8.col-xs-offset-2
-              uib-progressbar(
-                max="100"
-                value="ctrl.progressPercentage || 0"
-              )
+            h5.uploading-percent Uploading {{ctrl.progressPercentage || 0}}%
+            .row
+              .col-xs-8.col-xs-offset-2
+                uib-progressbar(
+                  max="100"
+                  value="ctrl.progressPercentage || 0"
+                )
+            .row.text-center
+              a.cancel-upload(href='' ng-click='ctrl.abortUpload()') cancel upload
 
           div(ng-show='!ctrl.uploading')
-            .video-panel-body.select-video.text-center(ng-if='!ctrl.userPiece.submissionVideoURL' ngf-select="ctrl.upload($file)")
+            .video-panel-body.select-video.text-center(
+              type='file'
+              ng-if='!ctrl.userPiece.submissionVideoURL'
+              ngf-select="ctrl.upload($file)"
+              accept="video/*"
+            )
               div
                 i.fa.fa-upload.fa-5x
               h5.upload-video Upload video submission
 
-            .video-submission-overlay.select-video.clearfix(ng-if='ctrl.userPiece.submissionVideoURL' ngf-select="ctrl.upload($file)")
+            .video-submission-overlay.select-video.clearfix(
+              ng-if='ctrl.userPiece.submissionVideoURL'
+              ngf-select="ctrl.upload($file)"
+            )
               .pull-left
                 strong.text-info Click to submit another video
               .pull-right
