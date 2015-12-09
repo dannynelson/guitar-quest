@@ -56,7 +56,12 @@ app.use helmet.noCache()
 app.set 'view engine', 'jade'
 app.set 'views', path.resolve(process.cwd(), 'web')
 
-app.use session({secret: 'julian bream', store: new MongoStore({ url: settings.mongo.url })})
+app.use session
+  secret: 'julian bream'
+  store: new MongoStore({ url: settings.mongo.url })
+  cookie:
+    # only in production because must be over https
+    secure: if settings.env is 'production' then true else undefined
 
 # passport
 app.use passport.initialize()

@@ -6,6 +6,7 @@ TODO:
 Deployment
 
 Immediate Features
+- never log out
 - generates level 1 challenges even when user is level 0
 - video validation and text helper
   - restrict upload to only be video
@@ -57,6 +58,7 @@ Immediate Features
 - still a delay in updating points when return to home page...
 
 Eventually Features
+- rolling deploys
 - add tips to help them learn the site while the video is uploading
 - consider allowing more than 1GB and more than 15 minutes?
   - what is a reasonable upper limit we can expect
