@@ -11,9 +11,9 @@ module.exports =
       description: 'note, email is not unique so that user can have multiple login attempts'
       type: 'string'
 
-    emailId:
-      description: 'note, email is not unique so that user can have multiple login attempts'
-      type: 'string'
+    # emailId:
+    #   description: 'note, email is not unique so that user can have multiple login attempts'
+    #   type: 'string'
 
     firstName:
       type: 'string'

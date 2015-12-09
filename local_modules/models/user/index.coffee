@@ -9,12 +9,7 @@ JSONSchema = require './schema'
 database = require 'local_modules/database'
 levelHelper = require 'local_modules/level'
 
-JSONSchemaClone = _.cloneDeep(JSONSchema)
-JSONSchemaClone.required.push ['emailId']
-JSONSchemaClone.properties.emailId =
-  type: 'string'
-
-schema = JSONSchemaConverter.toMongooseSchema(JSONSchemaClone, mongoose)
+schema = JSONSchemaConverter.toMongooseSchema(JSONSchema, mongoose)
 
 schema.plugin require('mongoose-timestamp')
 schema.plugin passportLocalMongoose,
@@ -38,8 +33,6 @@ schema.pre 'save', (next) ->
   if @isModified 'email'
     @emailId = normalizeEmail(@email)
   next()
-
-schema.index({'emailId': 1}, { unique: true })
 
 model = database.mongooseConnection.model 'User', schema
 
