@@ -10,6 +10,7 @@ database = require 'local_modules/database'
 User = require 'local_modules/models/user'
 TempUser = require 'local_modules/models/temp_user'
 Piece = require 'local_modules/models/piece'
+User = require 'local_modules/models/user'
 UserPiece = require 'local_modules/models/user_piece'
 Notification = require 'local_modules/models/notification'
 Challenge = require 'local_modules/models/challenge'
@@ -17,6 +18,7 @@ userPieceFactory = require 'local_modules/models/user_piece/factory'
 pieceFactory = require 'local_modules/models/piece/factory'
 userFactory = require 'local_modules/models/user/factory'
 guitarQuestUrl = settings.server.url
+superAgentRequest = require('superagent-bluebird-promise')
 
 describe '/users', ->
   beforeEach database.reset
@@ -37,11 +39,22 @@ describe '/users', ->
       it 'validates password', ->
         request.postPromised "#{guitarQuestUrl}/users/login",
           json:
-            email: 'bream@guitarquest.com'
+            email: 'bream@gmail.com'
             password: ''
         .spread (response) ->
           expect(response).to.have.property 'statusCode', 400
           expect(response.body).to.equal 'invalid password'
+
+    it 'logs in to existing account', ->
+      @authenticate().then ([@request, @user]) ->
+        newAgent = superAgentRequest.agent()
+          .post("#{guitarQuestUrl}/users/login")
+          .send
+            email:'julian.bream@Gmail.com'
+            password: '1234abc!'
+      .then (response) ->
+        expect(response).to.have.property 'statusCode', 200
+        expect(response.body.email).to.equal 'Julian.Bream+guitarquest@Gmail.com'
 
   describe 'POST /register', ->
     describe 'validation', ->
@@ -50,7 +63,7 @@ describe '/users', ->
           json:
             firstName: ''
             lastName: 'Bream'
-            email: 'bream@guitarquest.com'
+            email: 'bream@gmail.com'
             password: '1234abcde!'
         .spread (response) ->
           expect(response).to.have.property 'statusCode', 400
@@ -61,7 +74,7 @@ describe '/users', ->
           json:
             firstName: 'Julian'
             lastName: ''
-            email: 'bream@guitarquest.com'
+            email: 'bream@gmail.com'
             password: '1234abcde!'
         .spread (response) ->
           expect(response).to.have.property 'statusCode', 400
@@ -83,7 +96,7 @@ describe '/users', ->
           json:
             firstName: 'Julian'
             lastName: 'Bream'
-            email: 'bream@guitarquest.com'
+            email: 'bream@gmail.com'
             password: '1234'
         .spread (response) ->
           expect(response).to.have.property 'statusCode', 400
@@ -94,18 +107,21 @@ describe '/users', ->
         json:
           firstName: 'Julian'
           lastName: 'Bream'
-          email: 'bream@guitarquest.com'
+          email: 'Bream+promotions@Gmail.com'
           password: '1234abc!'
       .spread (response) ->
         expect(response).to.have.property 'statusCode', 201
         expect(response.body).to.deep.equal {}
-        TempUser.find({email: 'bream@guitarquest.com'})
+        TempUser.find()
+      .then (users) ->
+        TempUser.find({emailId: 'bream@gmail.com'})
       .then (tempUsers) ->
         expect(tempUsers).to.have.length 1
         tempUser = _.first(tempUsers)
         expect(tempUser).to.have.property 'firstName', 'Julian'
         expect(tempUser).to.have.property 'lastName', 'Bream'
-        expect(tempUser).to.have.property 'email', 'bream@guitarquest.com'
+        expect(tempUser).to.have.property 'email', 'Bream+promotions@Gmail.com'
+        expect(tempUser).to.have.property 'emailId', 'bream@gmail.com'
 
   describe 'POST /confirm/:tempUserId', ->
     it 'validates', ->
@@ -120,12 +136,12 @@ describe '/users', ->
         json:
           firstName: 'Julian'
           lastName: 'Bream'
-          email: 'bream@guitarquest.com'
+          email: 'Bream+promotions@Gmail.com'
           password: '1234abc!'
       .spread (response) ->
         expect(response).to.have.property 'statusCode', 201
         expect(response.body).to.deep.equal {}
-        TempUser.find({email: 'bream@guitarquest.com'}).select('firstName lastName email hash salt').exec()
+        TempUser.find({emailId: 'bream@gmail.com'}).select('firstName lastName email hash salt').exec()
       .then (tempUsers) ->
         expect(tempUsers).to.have.length 1
         originalTempUser = _.first tempUsers
@@ -136,13 +152,14 @@ describe '/users', ->
         expect(returnedUser).not.to.have.property 'hash'
         expect(returnedUser).not.to.have.property 'salt'
         Promise.props
-          user: User.findById(returnedUser._id).select('firstName lastName email hash salt').exec()
-          updatedTempUser: TempUser.find({email: 'bream@guitarquest.com'})
+          user: User.findById(returnedUser._id).select('firstName lastName email emailId hash salt').exec()
+          updatedTempUser: TempUser.find({emailId: 'bream@gmail.com'})
       .then ({user, updatedTempUser}) ->
         expect(updatedTempUser).to.deep.equal [] # deletes original
         expect(user).to.have.property 'firstName', 'Julian'
         expect(user).to.have.property 'lastName', 'Bream'
-        expect(user).to.have.property 'email', 'bream@guitarquest.com'
+        expect(user).to.have.property 'email', 'Bream+promotions@Gmail.com'
+        expect(user).to.have.property 'emailId', 'bream@gmail.com'
         expect(user).to.have.property 'hash', originalTempUser.hash
         expect(user).to.have.property 'salt', originalTempUser.salt
 

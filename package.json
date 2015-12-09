@@ -76,6 +76,7 @@
     "ng-file-upload": "^6.2.1",
     "ngToast": "tameraydin/ngToast#1.5.3",
     "nib": "^1.1.0",
+    "normalize-email": "^1.0.0",
     "objectid": "^1.1.0",
     "objectid-browser": "0.0.1",
     "once-upon": "0.0.2",

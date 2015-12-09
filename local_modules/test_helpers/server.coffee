@@ -41,7 +41,8 @@ before ->
 
   @serverDown = (callback) ->
     server = require "#{process.cwd()}/web/server"
-    server.stop callback
+    server.stop ->
+      callback()
 
   @authenticate = (callback) ->
     customRequest = request.agent()
@@ -51,12 +52,12 @@ before ->
       .send
         firstName: 'Julian'
         lastName: 'Bream'
-        email: 'bream@guitarquest.com'
+        email: 'Julian.Bream+guitarquest@Gmail.com'
         password: '1234abc!'
     .then (response) ->
       expect(response).to.have.property 'statusCode', 201
       expect(response.body).to.deep.equal {}
-      TempUser.find({email: 'bream@guitarquest.com'}).select('firstName lastName email hash salt').exec()
+      TempUser.find({emailId: 'julianbream@gmail.com'}).select('firstName lastName email emailId hash salt').exec()
     .then (tempUsers) ->
       expect(tempUsers).to.have.length 1
       originalTempUser = _.first tempUsers
@@ -67,13 +68,14 @@ before ->
       expect(returnedUser).not.to.have.property 'hash'
       expect(returnedUser).not.to.have.property 'salt'
       Promise.props
-        user: User.findById(returnedUser._id).select('firstName lastName email hash salt').exec()
-        updatedTempUser: TempUser.find({email: 'bream@guitarquest.com'})
+        user: User.findById(returnedUser._id).select('firstName lastName email emailId hash salt').exec()
+        updatedTempUser: TempUser.find({emailId: 'julianbream@gmail.com'})
     .then ({user, updatedTempUser}) ->
       expect(updatedTempUser).to.deep.equal [] # deletes original
       expect(user).to.have.property 'firstName', 'Julian'
       expect(user).to.have.property 'lastName', 'Bream'
-      expect(user).to.have.property 'email', 'bream@guitarquest.com'
+      expect(user).to.have.property 'email', 'Julian.Bream+guitarquest@Gmail.com'
+      expect(user).to.have.property 'emailId', 'julianbream@gmail.com'
       expect(user).to.have.property 'hash', originalTempUser.hash
       expect(user).to.have.property 'salt', originalTempUser.salt
       return [customRequest, user]

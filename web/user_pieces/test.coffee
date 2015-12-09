@@ -52,9 +52,10 @@ describe '/user_pieces', ->
         sinon.stub UserPiece::, 'submitVideo', -> Promise.resolve userPiece
         @request
           .post("#{guitarQuestUrl}/user_pieces/#{userPiece._id}/submit_video")
-          .send
+          .send(
             submissionVideoURL: 'https://guitar-quest-videos.s3-us-west-2.amazonaws.com/user_566496bff5401a666a5edb78/piece_55d8a2696ce78dc3156ca8d0_56649caa7ce0472729000001.33 PM'
             pieceId: objectIdString()
+          )
       .then (response) =>
         expect(response).to.be.ok
         expect(UserPiece::submitVideo).to.have.been.calledWith

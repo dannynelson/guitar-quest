@@ -8,6 +8,7 @@ module.exports =
 
     # note, email added by passportLocalMongoose
     email:
+      description: 'Display email, and email used for communicating.'
       type: 'string'
 
     firstName:

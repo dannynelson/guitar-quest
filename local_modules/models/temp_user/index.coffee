@@ -7,7 +7,7 @@ database = require 'local_modules/database'
 schema = JSONSchemaConverter.toMongooseSchema(JSONSchema, mongoose)
 schema.plugin require('mongoose-timestamp')
 schema.plugin passportLocalMongoose,
-  usernameField: 'email'
+  usernameField: 'emailId'
 
 model = database.mongooseConnection.model 'TempUser', schema
 

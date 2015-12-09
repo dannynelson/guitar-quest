@@ -1,17 +1,24 @@
 mongoose = require 'mongoose'
 joi = require 'joi'
+_ = require 'lodash'
 Promise = require 'bluebird'
+normalizeEmail = require 'normalize-email'
 passportLocalMongoose = require 'passport-local-mongoose'
 JSONSchemaConverter = require 'goodeggs-json-schema-converter'
 JSONSchema = require './schema'
 database = require 'local_modules/database'
 levelHelper = require 'local_modules/level'
 
-schema = JSONSchemaConverter.toMongooseSchema(JSONSchema, mongoose)
+JSONSchemaClone = _.cloneDeep(JSONSchema)
+JSONSchemaClone.required.push ['emailId']
+JSONSchemaClone.properties.emailId =
+  type: 'string'
+
+schema = JSONSchemaConverter.toMongooseSchema(JSONSchemaClone, mongoose)
 
 schema.plugin require('mongoose-timestamp')
 schema.plugin passportLocalMongoose,
-  usernameField: 'email'
+  usernameField: 'emailId'
 
 schema.methods.addPoints = Promise.method (points) ->
   Notification = require 'local_modules/models/notification'
@@ -26,7 +33,13 @@ schema.methods.addPoints = Promise.method (points) ->
 
 require('./hooks')(schema)
 
-schema.index({'email': 1}, { unique: true })
+# normalize email
+schema.pre 'save', (next) ->
+  if @isModified 'email'
+    @emailId = normalizeEmail(@email)
+  next()
+
+schema.index({'emailId': 1}, { unique: true })
 
 model = database.mongooseConnection.model 'User', schema
 

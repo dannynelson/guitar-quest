@@ -31,7 +31,7 @@ module.exports = (gulp) ->
       karmaFiles: globAsync('**/*karma.coffee', {ignore: 'node_modules/**'})
       mochaFiles: globAsync('**/*test.coffee', {ignore: 'node_modules/**'})
     }).then ({karmaFiles, mochaFiles}) ->
-      tasks.push 'test:karma' if karmaFiles.length
+      # tasks.push 'test:karma' if karmaFiles.length
       tasks.push 'test:mocha' if mochaFiles.length
       runSequence tasks, (args...) ->
         if gutil.env.watch is false

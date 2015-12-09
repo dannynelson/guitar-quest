@@ -12,6 +12,7 @@ database = require 'local_modules/database'
 settings = require 'local_modules/settings'
 passport = require 'local_modules/passport'
 enforce = require 'express-sslify'
+server = null
 
 # require './fixtures'
 
@@ -85,7 +86,7 @@ app.use (req, res, next) ->
 
 # app.use logger.middleware.error
 app.use (err, req, res, next) ->
-  logger.error err
+  logger.error err, "internal server error: #{err.message}"
   next()
 app.use crashpad()
 

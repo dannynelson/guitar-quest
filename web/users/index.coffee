@@ -10,6 +10,7 @@ passport = require 'local_modules/passport'
 stripe = require 'local_modules/stripe'
 sendgrid = require 'local_modules/sendgrid'
 resourceConverter = require './resource_converter'
+normalizeEmail = require 'normalize-email'
 
 module.exports = router = require('express').Router()
 
@@ -52,6 +53,7 @@ router.post '/register', (req, res, next) ->
     firstName: req.body.firstName
     lastName: req.body.lastName
     email: req.body.email
+    emailId: normalizeEmail(req.body.email)
   TempUser.register tempUser, req.body.password, (err, tempUser) ->
     return next(err) if err?
     sendgrid.send
@@ -73,7 +75,7 @@ router.post '/confirm/:tempUserId', (req, res, next) ->
     return res.status(400).send 'invalid tempUserId'
   TempUser
     .findById(req.params.tempUserId)
-    .select('firstName lastName email hash salt') # explicitly need to select hash and salt
+    .select('firstName lastName email emailId hash salt') # explicitly need to select hash and salt
     .exec()
   .then (tempUser) ->
     return res.send({}) unless tempUser
@@ -97,6 +99,7 @@ router.post '/login',
       return res.status(400).send 'invalid email'
     if joi.validate(req.body.password, joi.string().min(1).required()).error
       return res.status(400).send 'invalid password'
+    req.body.emailId = normalizeEmail(req.body.email)
     next()
   passport.authenticate('local')
   (req, res, next) ->

@@ -9,6 +9,13 @@ userFactory = require 'local_modules/models/user/factory'
 describe 'User', ->
   beforeEach database.reset
 
+  it 'normalizes email to emailId when email saved', ->
+    User.create userFactory.create
+      email: 'Julian.Bream+promotions@Gmail.com'
+    .then (user) ->
+      expect(user).to.have.property 'email', 'Julian.Bream+promotions@Gmail.com'
+      expect(user).to.have.property 'emailId', 'julianbream@gmail.com'
+
   describe '.addPoints()', ->
     it 'validates', ->
       User.create userFactory.create
