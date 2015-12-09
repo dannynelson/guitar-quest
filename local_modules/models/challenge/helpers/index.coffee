@@ -55,7 +55,7 @@ challengeDefinitions =
   # ==================== generic ==========================
   'level':
     title: ({challenge}) -> "#{levelHelper.getLevelName(challenge.params.level)} Practice"
-    description: ({challenge}) -> "Complete any 3 pieces from level #{challenge.params.level} with at least an 80% grade."
+    description: ({challenge}) -> "Complete any 3 pieces from level #{levelHelper.getLevelName(challenge.params.level)} with at least an 80% grade."
     challenge: ({user}) ->
       challengeLevel = _.random(0, user.level)
       buildChallenge
