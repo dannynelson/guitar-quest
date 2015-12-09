@@ -7,7 +7,6 @@ Deployment
 
 Immediate Features
 - compress video to transfer?
-- page title and icon
 - generates level 1 challenges even when user is level 0
 - show percentage indicator when uploading
 - video validation and text helper
@@ -54,6 +53,7 @@ Immediate Features
 - still a delay in updating points when return to home page...
 
 Eventually Features
+- add page icon
 - heroku scheduler for challenges
 - download font awesome
 - setup mongolab backups http://docs.mongolab.com/backups/
