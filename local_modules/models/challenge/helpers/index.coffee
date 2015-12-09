@@ -57,7 +57,7 @@ challengeDefinitions =
     title: ({challenge}) -> "Level #{challenge.params.level} Practice"
     description: ({challenge}) -> "Complete any 3 pieces from level #{challenge.params.level} with at least an 80% grade."
     challenge: ({user}) ->
-      challengeLevel = _.random(1, user.level)
+      challengeLevel = _.random(0, user.level)
       buildChallenge
         userId: user._id.toString()
         type: 'level'

@@ -117,8 +117,8 @@ describe 'challengeHelpers', ->
         challengeParams: {}
 
       itMatchesConditions true, 'level',
-        user: {level: 1}
-        piece: {level: 1}
+        user: {level: 0}
+        piece: {level: 0}
         userPiece: {grade: 0.8}
         challengeParams: {}
 

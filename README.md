@@ -6,11 +6,6 @@ TODO:
 Deployment
 
 Immediate Features
-- never log out
-- generates level 1 challenges even when user is level 0
-- video validation and text helper
-  - restrict upload to only be video
-  - restrict video upload size
 - notification that email has been confirmed
 - notifications flash twice when initially displaying
 - normalize email address when loggin in
@@ -56,8 +51,11 @@ Immediate Features
 - move everything into domains
 - returning to confirm email after you have already confirmed should redirect you if you are logged in, or user already exists
 - still a delay in updating points when return to home page...
+- emailId not indexed in mongolab?
 
 Eventually Features
+- restrict video upload on S3 side - also test upload restrictions in UI
+- set cookie max age so it persists pass browser session? - also, try to understand how the cookies work
 - rolling deploys
 - add tips to help them learn the site while the video is uploading
 - consider allowing more than 1GB and more than 15 minutes?
