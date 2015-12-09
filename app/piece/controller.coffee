@@ -49,11 +49,13 @@ module.exports = ngInject (Upload, $http, User, $stateParams, Piece, UserPiece, 
     fileName = file.name = "piece_#{@piece._id}_#{new ObjectId().toString()}.#{fileSuffix}"
 
     Upload.mediaDuration(file).then (durationInSeconds) =>
-      oneGB = 1000000000 # in bites
-      if file.size > oneGB
+      # ng-file-upload has built in validation, but works the best with a form
+      # revisit to see if there is some way to get the built-in validation to work
+      oneGBInBytes = 1000000000 # in bites
+      if file.size > oneGBInBytes
         throw new errorHelper.UserInputError 'Video must be smaller than 1 GB'
-      fifteenMinutes = 900 # seconds
-      if durationInSeconds > fifteenMinutes
+      fifteenMinutesInSeconds = 900 # seconds
+      if durationInSeconds > fifteenMinutesInSeconds
         throw new errorHelper.UserInputError 'Video must be under 15 minutes'
       @uploading = true
       $http.get('/s3_policy?mimeType='+ file.type)
@@ -76,14 +78,14 @@ module.exports = ngInject (Upload, $http, User, $stateParams, Piece, UserPiece, 
       videoUploadSrc = "#{s3Params.bucketURL}/user_#{user._id}/#{fileName}"
       loadVideo(videoUploadSrc)
       @userPiece.$submitVideo({submissionVideoURL: videoUploadSrc})
-    .catch errorHelper.UserInputError, (err) =>
-      debugger
-      @videoUploadError = err.message
-    .catch (err) =>
-      debugger
-      @videoUploadError = 'Something went wrong uploading the video to our server. Please try again later.'
+    .catch (rejectionOrError) =>
+      if rejectionOrError.status is -1 # assume this is because they cancelled
+        return
+      else if rejectionOrError instanceof errorHelper.UserInputError
+        @videoUploadError = rejectionOrError.message
+      else
+        @videoUploadError = 'Something went wrong uploading the video to our server. Please try again later.'
     .finally =>
-      debugger
       @progressPercentage = 0
       @uploading = false
       uploadPromise = null

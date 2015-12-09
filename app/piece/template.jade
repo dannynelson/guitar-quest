@@ -20,6 +20,7 @@
               value="(ctrl.userPiece.grade || 0) * 100"
             )
       .col-md-8
+        alert(type='danger' ng-if='ctrl.videoUploadError' close='ctrl.videoUploadError = null') {{ctrl.videoUploadError}}
         form.panel.panel-default.piece-panel.video-submission-panel(name='videoSubmissionForm')
           .video-panel-body.loading.row.text-center(ng-show='ctrl.uploading')
             h5.uploading-percent Uploading {{ctrl.progressPercentage || 0}}%

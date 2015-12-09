@@ -6,9 +6,7 @@ TODO:
 Deployment
 
 Immediate Features
-- compress video to transfer?
 - generates level 1 challenges even when user is level 0
-- show percentage indicator when uploading
 - video validation and text helper
   - restrict upload to only be video
   - restrict video upload size
@@ -37,6 +35,13 @@ Immediate Features
 - 'earn points based on how you did'
 - confirmation email after subscribing
 - something on landing page about the pieces they will learn in the curriculum
+- update subscription to be $29
+- Piece page should be
+  - piece notes?
+  - example submission / recording (of me playing)
+  - recommended tutorials for that piece (or for that level)
+  - sheet music
+  - record video for all Preparatory level pieces
 
 - ng-disabled on payments for after submitting
 - password reset email
@@ -52,6 +57,9 @@ Immediate Features
 - still a delay in updating points when return to home page...
 
 Eventually Features
+- add tips to help them learn the site while the video is uploading
+- consider allowing more than 1GB and more than 15 minutes?
+  - what is a reasonable upper limit we can expect
 - a more obvious link for submitting another video
 - add page icon
 - heroku scheduler for challenges
@@ -106,6 +114,9 @@ Eventually Features
 - allow noavigating through levels even if user does not have access yet? (so that navigation always remains the same)
 - clarify text when user already finished level
 - clean up CSS
+- provide help for all errors (especially video upload) - if problem persists, please contact, we've been notified
+- compress video to transfer?
+- validate video upload with built-in validation
 
 BugFixes / Security
 - what happens if we can't connect to stripe
