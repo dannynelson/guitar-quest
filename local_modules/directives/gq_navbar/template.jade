@@ -15,7 +15,7 @@ script(type="text/ng-template" id="notifications.html")
           a.navbar-brand(ng-if='!myCtrl.isLoggedIn()' ui-sref='guitarQuest.landing') GuitarQuest
           a.navbar-brand(ng-if='myCtrl.isLoggedIn()' ui-sref='guitarQuest.piecesByLevel({level: "default"})') GuitarQuest
         .collapse.navbar-collapse(ng-class="{'in': myCtrl.navbarVisible}")
-          ul.nav.navbar-nav(
+          ul.nav.navbar-nav.visible-xs(
             ng-click='myCtrl.navbarVisible = !myCtrl.navbarVisible'
             ng-if='!myCtrl.isLoggedIn()'
           )
