@@ -72,7 +72,7 @@ router.post '/register', (req, res, next) ->
         from: settings.guitarQuestEmail
         subject: 'Confirm GuitarQuest Email'
         html: "
-          Hello,<br><br>
+          Hello #{tempUser.firstName},<br><br>
           Welcome to GuitarQuest! Click the link below to confirm your email.<br>
           #{settings.server.url}/#/confirm_email?id=#{tempUser._id}<br><br>
           Thanks,<br>

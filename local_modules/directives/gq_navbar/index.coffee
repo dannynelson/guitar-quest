@@ -22,23 +22,23 @@ angular.module __filename, [
     @getUser = -> User.getLoggedInUser()
 
     @markNotificationsRead = =>
-      debugger
       user = User.getLoggedInUser()
       User.markAllNotificationsRead()
       .then =>
-        @setNotifications()
+        @unreadNotificationCount = 0
 
-    @setNotifications = =>
+    setNotifications = =>
       user = User.getLoggedInUser()
       if user?
-        @notifications = Notification.query
+        Notification.query
           userId: user._id
           $limit: 20
           $sort: '-createdAt'
-        @notifications.$promise.then (notifications) =>
+        .$promise.then (notifications) =>
+          @notifications = notifications
           @unreadNotificationCount = _.filter(notifications, {isRead: false}).length
 
-    @setNotifications()
+    setNotifications()
 
     @logout = ->
       User.logout().then -> $state.go 'guitarQuest.logIn'
@@ -48,11 +48,11 @@ angular.module __filename, [
         return true if $state.includes(state)
       return false
 
-    $rootScope.$on '$stateChangeSuccess', =>
-      @setNotifications()
+    # $rootScope.$on '$stateChangeSuccess', =>
+    #   @setNotifications()
 
-    $rootScope.$on 'notificationsUpdated', =>
-      @setNotifications()
+    # $rootScope.$on 'notificationsUpdated', =>
+    #   @setNotifications()
 
     @navbarVisible = false
 
