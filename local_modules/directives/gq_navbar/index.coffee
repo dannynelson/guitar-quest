@@ -48,11 +48,8 @@ angular.module __filename, [
         return true if $state.includes(state)
       return false
 
-    # $rootScope.$on '$stateChangeSuccess', =>
-    #   @setNotifications()
-
-    # $rootScope.$on 'notificationsUpdated', =>
-    #   @setNotifications()
+    $rootScope.$on '$stateChangeSuccess', =>
+      setNotifications()
 
     @navbarVisible = false
 
