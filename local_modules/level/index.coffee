@@ -18,7 +18,8 @@ FIXME: this needs refinement if someone ever maxes out level 10
 ###
 _ = require 'lodash'
 
-perfectPiecesRequiredToProgressToNextLevel = 20
+# assuming average finished grade of 20%, it will take them 20 to get to the next level
+perfectPiecesRequiredToProgressToNextLevel = 15
 
 sheetMusicPlusLinkByLevel =
   "0": 'http://www.sheetmusicplus.com/title/bridges-a-comprehensive-guitar-series-preparatory-guitar-repertoire-and-studies-sheet-music/19528889?aff_id=465759'
