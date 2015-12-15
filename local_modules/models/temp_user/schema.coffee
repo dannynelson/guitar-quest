@@ -1,7 +1,7 @@
 module.exports =
   type: 'object'
   description: 'temporary holding object until the user confirms their email'
-  required: ['firstName', 'lastName', 'email', 'emailId']
+  required: ['firstName', 'lastName', 'email']
   properties:
     _id:
       type: 'string'

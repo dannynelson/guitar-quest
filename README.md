@@ -52,6 +52,7 @@ Immediate Features
 - emailId not indexed in mongolab?
 
 Eventually Features
+- throw different error for each of the status codes
 - restrict video upload on S3 side - also test upload restrictions in UI
 - set cookie max age so it persists pass browser session? - also, try to understand how the cookies work
 - rolling deploys

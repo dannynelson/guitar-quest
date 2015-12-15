@@ -49,26 +49,37 @@ router.post '/register', (req, res, next) ->
   if joi.validate(req.body.password, joi.string().min(8).required()).error
     return res.status(400).send 'password must be at least 8 characters long'
 
-  tempUser = new TempUser
-    firstName: req.body.firstName
-    lastName: req.body.lastName
-    email: req.body.email
-    emailId: normalizeEmail(req.body.email)
-  TempUser.register tempUser, req.body.password, (err, tempUser) ->
-    return next(err) if err?
-    sendgrid.send
-      to: tempUser.email
-      from: settings.guitarQuestEmail
-      subject: 'Confirm GuitarQuest Email'
-      html: "
-        Hello,<br><br>
-        Welcome to GuitarQuest! Click the link below to confirm your email.<br>
-        #{settings.server.url}/#/confirm_email?id=#{tempUser._id}<br><br>
-        Thanks,<br>
-        The GuitarQuest Team
-      "
-    , (err) ->
-    return res.status(201).send({})
+  Promise.all([
+    User.findOne({emailId: normalizeEmail(req.body.email)})
+    TempUser.findOne({emailId: normalizeEmail(req.body.email)})
+  ]).then ([user, tempUser]) ->
+    if user?
+      return res.status(400).send 'user already exists'
+    Promise.try =>
+      # remove previous register attempt first
+      return tempUser.remove() if tempUser?
+    .then =>
+      tempUser = new TempUser
+        firstName: req.body.firstName
+        lastName: req.body.lastName
+        email: req.body.email
+        emailId: normalizeEmail(req.body.email)
+      registerPromised = Promise.promisify(TempUser.register).bind(TempUser)
+      return registerPromised(tempUser, req.body.password)
+    .then (tempUser) ->
+      sendgrid.send
+        to: tempUser.email
+        from: settings.guitarQuestEmail
+        subject: 'Confirm GuitarQuest Email'
+        html: "
+          Hello,<br><br>
+          Welcome to GuitarQuest! Click the link below to confirm your email.<br>
+          #{settings.server.url}/#/confirm_email?id=#{tempUser._id}<br><br>
+          Thanks,<br>
+          The GuitarQuest Team
+        "
+      return res.status(201).send({})
+  .then null, next
 
 router.post '/confirm/:tempUserId', (req, res, next) ->
   if joi.validate(req.params.tempUserId, joi.objectId().required()).error

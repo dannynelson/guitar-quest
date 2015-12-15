@@ -17,6 +17,7 @@ Challenge = require 'local_modules/models/challenge'
 userPieceFactory = require 'local_modules/models/user_piece/factory'
 pieceFactory = require 'local_modules/models/piece/factory'
 userFactory = require 'local_modules/models/user/factory'
+tempUserFactory = require 'local_modules/models/temp_user/factory'
 guitarQuestUrl = settings.server.url
 superAgentRequest = require('superagent-bluebird-promise')
 
@@ -122,6 +123,39 @@ describe '/users', ->
         expect(tempUser).to.have.property 'lastName', 'Bream'
         expect(tempUser).to.have.property 'email', 'Bream+promotions@Gmail.com'
         expect(tempUser).to.have.property 'emailId', 'bream@gmail.com'
+
+    it 'responds 400 if user already exists', ->
+      @authenticate().then ([_, user]) ->
+        request.postPromised "#{guitarQuestUrl}/users/register",
+          json:
+            firstName: 'Julian'
+            lastName: 'Bream'
+            email: user.email
+            password: '1234abc!'
+      .spread (response) ->
+        expect(response).to.have.property 'statusCode', 400
+        expect(response.body).to.equal 'user already exists'
+
+    it 'creates a new temp user if one already exists', ->
+      originalTempUserId = null
+      tempUser = tempUserFactory.create()
+      TempUser.create(tempUser).then (tempUser) ->
+        originalTempUserId = tempUser._id.toString()
+        tempUser.emailId = 'bream@gmail.com'
+        tempUser.save()
+      .then ->
+        request.postPromised "#{guitarQuestUrl}/users/register",
+          json:
+            firstName: 'Julian'
+            lastName: 'Bream'
+            email: 'Bream+promotions@Gmail.com'
+            password: '1234abc!'
+      .spread (response) ->
+        expect(response).to.have.property 'statusCode', 201
+        expect(response.body).to.deep.equal {}
+        TempUser.findOne({emailId: 'bream@gmail.com'})
+      .then (tempUser) ->
+        expect(tempUser.emailId.toString()).not.to.equal originalTempUserId.toString()
 
   describe 'POST /confirm/:tempUserId', ->
     it 'validates', ->
