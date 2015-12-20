@@ -12,6 +12,7 @@ import { createHistory } from 'history'
 import { syncReduxAndRouter, routeReducer } from 'redux-simple-router'
 import configureStore from './store'
 import Navbar from './containers/Navbar'
+import DevTools from './DevTools'
 import PiecesByLevel from './containers/PiecesByLevel'
 import Hello from './containers/Hello'
 import * as todoActions from './actions'
@@ -20,8 +21,6 @@ const store = configureStore()
 const history = createHistory()
 
 syncReduxAndRouter(history, store)
-
-console.log({PiecesByLevel, Navbar})
 
 render(
   // ... and to provide our Redux store to our Root component as a prop so that Redux

@@ -117,7 +117,7 @@ app.start = (cb) ->
     server = app.listen settings.server.port, settings.server.bind
     server.once 'listening', ->
       logger.info "#{settings.name} is listening at #{server.address().address}:#{server.address().port} in #{settings.env} mode"
-      cb()
+      cb?()
 
 app.stop = (cb) ->
   server?.close()

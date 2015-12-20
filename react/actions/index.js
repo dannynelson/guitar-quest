@@ -1,12 +1,25 @@
+import superagent from 'superagent-bluebird-promise'
+
+function requestPieces() {
+  return {type: 'REQUEST_PIECES'}
+}
+
+function receivePieces(pieces) {
+  debugger
+  return {type: 'RECEIVE_PIECES', payload: pieces}
+}
+
 // Action creators are pure functions so that they are easy to unit test
-export function addTodo(text) {
-  return {type: 'ADD_TODO', text}
+export function loadLevelPieces(level) {
+  return dispatch => {
+    dispatch(requestPieces())
+    return superagent.get(`/pieces`).query({level: 0})
+    .then(res => {
+      debugger
+      dispatch(receivePieces(res.body))
+    }).then(null, err => {
+    })
+  }
 }
 
-export function toggleTodo(id) {
-  return {type: 'TOGGLE_TODO', id}
-}
 
-export function setVisibilityFilter(filter) {
-  return {type: 'SET_VISIBILITY_FILTER', filter}
-}

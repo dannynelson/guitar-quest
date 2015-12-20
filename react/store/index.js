@@ -1,8 +1,16 @@
-import { createStore } from 'redux'
+import { createStore, applyMiddleware, compose } from 'redux'
 import rootReducer from '../reducers/index.js'
+import thunk from 'redux-thunk'
+import DevTools from '../DevTools';
 
 export default function configureStore(initialState) {
-  var store = createStore(rootReducer, initialState)
+  const finalCreateStore = compose(
+    // Middleware you want to use in development:
+    applyMiddleware(thunk),
+    // Required! Enable Redux DevTools with the monitors you chose
+    DevTools.instrument()
+  )(createStore);
+  var store = finalCreateStore(rootReducer, initialState)
 
   if (module.hot) {
     // Enable Webpack hot module replacement for reducers

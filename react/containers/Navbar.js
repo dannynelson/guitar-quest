@@ -1,26 +1,31 @@
 import React, { Component, PropTypes } from 'react'
 import * as todoActions from '../actions'
 import { bindActionCreators } from 'redux'
-import { Link } from 'react-router'
-
-
+import { pushPath } from 'redux-simple-router'
+import { Navbar, Nav, NavItem } from 'react-bootstrap'
 import { connect } from 'react-redux'
+import DevTools from '../DevTools'
 
-class Navbar extends Component {
+class AppNavigation extends Component {
   render() {
     return (
       <div>
-        <div>Navbar</div>
-        <ul>
-          <li><Link to="/pieces_by_level/1">Pieces</Link></li>
-          <li><Link to="/hello">Hello</Link></li>
-        </ul>
+        <DevTools />
+        <Navbar>
+          <Navbar.Header>
+            <Navbar.Brand>GuitarQuest</Navbar.Brand>
+          </Navbar.Header>
+          <Nav>
+            <NavItem eventKey={1} onClick={() => this.props.pushPath('/pieces_by_level/1')}>Pieces</NavItem>
+            <NavItem eventKey={1} onClick={() => this.props.pushPath('/hello')}>Hello</NavItem>
+          </Nav>
+        </Navbar>
         {this.props.children}
       </div>
     )
   }
 }
-Navbar.propTypes = {}
+AppNavigation.propTypes = {}
 
 function mapStateToProps(state) {
   return {
@@ -30,8 +35,9 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    todoActions: bindActionCreators(todoActions, dispatch)
+    todoActions: bindActionCreators(todoActions, dispatch),
+    pushPath: bindActionCreators(pushPath, dispatch)
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Navbar)
+export default connect(mapStateToProps, mapDispatchToProps)(AppNavigation)
