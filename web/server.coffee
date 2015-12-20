@@ -83,14 +83,9 @@ clientSettingsWhitelist = _.union clientSettingsWhitelist, ['env', 'stripe.publi
 sharedSettings = {}
 for settingPath in clientSettingsWhitelist
   _.set(sharedSettings, settingPath, _.get(settings, settingPath))
-app.get '/', (req, res, next) ->
+app.get '*', (req, res, next) ->
   res.locals.sharedSettings = sharedSettings
   res.render 'layout'
-
-
-# assume all other req are looking for static files; if they get here, they don't exist.
-app.use (req, res, next) ->
-  res.status(404).send 'File not found' unless res.headersSent
 
 # app.use logger.middleware.error
 app.use (err, req, res, next) ->

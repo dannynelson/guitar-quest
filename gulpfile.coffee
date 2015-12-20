@@ -7,5 +7,8 @@ require('./tasks/build_assets')(gulp, {
 })
 require('./tasks/test')(gulp)
 require('./tasks/console')(gulp)
+require('./tasks/webpack')(gulp)
 
-gulp.task 'default', ['build_assets', 'boot_processes']
+gulp.task 'default', ['webpack', 'boot_processes']
+
+

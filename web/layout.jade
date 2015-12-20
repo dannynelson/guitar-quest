@@ -23,10 +23,9 @@ html(
       window.settings = JSON.parse(decodeURIComponent('!{encodeURIComponent(JSON.stringify(sharedSettings))}'));
 
   body
-    ui-view
+    #root
 
     script(type="text/javascript" src="https://js.stripe.com/v2/")
     script.
       Stripe.setPublishableKey(settings.stripe.publishableKey)
-    script(src=assets('/externals.js'))
     script(src=assets('/app.js'))
