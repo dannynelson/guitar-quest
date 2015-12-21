@@ -1,9 +1,8 @@
 import React, { Component, PropTypes } from 'react'
-import * as todoActions from '../actions'
 import { bindActionCreators } from 'redux'
 import { Row, Col } from 'react-bootstrap'
 
-import PiecePanel from './PiecePanel'
+import PiecePanel from '../PiecePanel'
 
 class PiecesList extends Component {
   render() {

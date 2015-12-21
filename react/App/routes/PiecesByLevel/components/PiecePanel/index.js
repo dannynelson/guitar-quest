@@ -1,11 +1,7 @@
 import React, { Component, PropTypes } from 'react'
-import * as todoActions from '../../actions'
 import { bindActionCreators } from 'redux'
 import { Panel, ProgressBar } from 'react-bootstrap'
 import styles from './style.css'
-
-console.log('TEST', styles.progressbar)
-debugger
 
 import { connect } from 'react-redux'
 

@@ -34,7 +34,10 @@ module.exports = function (webpackDevPort) {
         {
           test: /\.jsx?$/,
           loader: 'babel?presets[]=react,presets[]=es2015',
-          include: path.join(process.cwd(), 'react')
+          include: [
+            path.join(process.cwd(), 'react'),
+            path.join(process.cwd(), 'local_modules')
+          ]
         },
         {
           test: /\.css$/,

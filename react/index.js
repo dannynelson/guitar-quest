@@ -10,28 +10,21 @@ import { render } from 'react-dom'
 import { Router, Route, IndexRoute } from 'react-router'
 import { createHistory } from 'history'
 import { syncReduxAndRouter, routeReducer } from 'redux-simple-router'
-import configureStore from './store'
-import Navbar from './containers/Navbar'
-import DevTools from './DevTools'
-import PiecesByLevel from './containers/PiecesByLevel'
-import Hello from './containers/Hello'
-import * as todoActions from './actions'
+import configureStore from 'local_modules/store'
+import AppRoute from './App'
 
 const store = configureStore()
 const history = createHistory()
-
 syncReduxAndRouter(history, store)
+const routeConfig = [
+  AppRoute
+]
 
 render(
   // ... and to provide our Redux store to our Root component as a prop so that Redux
   // Provider can do its job.
   <Provider store={store}>
-    <Router history={history}>
-      <Route path="/" component={Navbar}>
-        <Route path="pieces_by_level/:level" component={PiecesByLevel}/>
-        <Route path="hello" component={Hello}/>
-      </Route>
-    </Router>
+    <Router history={history} routes={routeConfig} />
   </Provider>,
   document.getElementById('root')
 )
