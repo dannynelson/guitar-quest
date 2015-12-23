@@ -3,7 +3,7 @@ import Navbar from './index'
 import TestUtils from 'react-addons-test-utils'
 
 describe('Navbar', () => {
-  it('renders', () => {
+  it('calls onNavItemClick with new path when clicked', () => {
     var routeActions = {pushPath: sinon.stub()}
     var $el = renderComponent(<Navbar onNavItemClick={routeActions.pushPath}/>)
     $el.find('.pieces a').click()

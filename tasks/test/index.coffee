@@ -9,15 +9,16 @@ _ = require 'lodash'
 glob = require 'glob'
 Promise = require 'bluebird'
 
-TEST_FILES = ['**/*test.coffee', '!node_modules/**']
+TEST_FILES = ['**/*test.coffee', '**/*test.js', '!node_modules/**']
 
 mochaOptions = (opts) ->
   _.extend {}, {
       require: 'local_modules/boot'
       compilers: [
         'coffee:coffee-script/register'
-        'js:babel-register'
+        'js:babel-core/register'
       ]
+      recursive: true
       reporter: 'spec'
     }, opts
 

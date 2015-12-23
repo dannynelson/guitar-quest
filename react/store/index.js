@@ -4,7 +4,7 @@ import { apiMiddleware } from 'redux-api-middleware';
 import DevTools from 'local_modules/components/DevTools';
 import { combineReducers } from 'redux'
 import { routeReducer } from 'redux-simple-router'
-import piecesReducer from './pieces'
+import piecesReducer from 'local_modules/ducks/pieces'
 
 const rootReducer = combineReducers({
   routing: routeReducer,

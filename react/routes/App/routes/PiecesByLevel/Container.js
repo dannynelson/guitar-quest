@@ -2,7 +2,7 @@ import _ from 'lodash'
 import React, { Component, PropTypes } from 'react'
 import { Row, Col, Grid } from 'react-bootstrap'
 import { bindActionCreators } from 'redux'
-import { loadLevelPieces } from 'local_modules/actions/pieces'
+import { loadLevelPieces } from 'local_modules/ducks/pieces'
 import PiecesList from './components/PiecesList'
 import { connect } from 'react-redux'
 
