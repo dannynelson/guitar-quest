@@ -94,7 +94,6 @@ app.use (err, req, res, next) ->
 app.use crashpad()
 
 ### other middlewares could hook here w/ sub-app/router ###
-
 app.connect = (cb) ->
   async.parallel [
     # (next) ->
@@ -108,7 +107,6 @@ app.connect = (cb) ->
   ], cb
 
 app.disconnect = (cb) -> cb()
-
 
 app.start = (cb) ->
   app.connect (err) ->

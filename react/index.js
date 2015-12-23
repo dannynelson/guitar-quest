@@ -10,8 +10,8 @@ import { render } from 'react-dom'
 import { Router, Route, IndexRoute } from 'react-router'
 import { createHistory } from 'history'
 import { syncReduxAndRouter, routeReducer } from 'redux-simple-router'
-import configureStore from 'local_modules/store'
-import AppRoute from './App'
+import configureStore from './store'
+import AppRoute from './routes/App'
 
 const store = configureStore()
 const history = createHistory()

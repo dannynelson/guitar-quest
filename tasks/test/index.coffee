@@ -14,7 +14,10 @@ TEST_FILES = ['**/*test.coffee', '!node_modules/**']
 mochaOptions = (opts) ->
   _.extend {}, {
       require: 'local_modules/boot'
-      compilers: 'coffee:coffee-script/register'
+      compilers: [
+        'coffee:coffee-script/register'
+        'js:babel-register'
+      ]
       reporter: 'spec'
     }, opts
 
@@ -42,7 +45,7 @@ module.exports = (gulp) ->
     null # don't return the promise, otherwise gulp won't know to wait for the done callback
 
   gulp.task 'test:karma', (done) ->
-    karma = require 'goodeggs-karma'
+    karma = require 'goodeggs-react-karma'
     gutil = require 'gulp-util'
     process.env.NODE_ENV = 'test'
     # run karma if we find *karma.coffee files

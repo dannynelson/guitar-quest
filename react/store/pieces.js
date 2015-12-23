@@ -1,23 +1,29 @@
 import _ from 'lodash'
+import {PIECES_REQUEST, PIECES_SUCCESS, PIECES_FAILURE} from 'local_modules/actions/pieces'
 
 const INITIAL_STATE = {
   isFetching: false,
-  hasFetchFailed: null,
+  error: null,
   piecesById: {}
 }
+
 export default function piecesReducer(state=INITIAL_STATE, action) {
   switch (action.type) {
-    case 'REQUEST_PIECES':
+    case PIECES_REQUEST:
       return Object.assign({}, state, {
         isFetching: true,
-        hasFetchFailed: false,
+        error: null
       })
-    case 'RECEIVE_PIECES':
-      debugger
+    case PIECES_SUCCESS:
       return Object.assign({}, state, {
         isFetching: false,
-        hasFetchFailed: false,
+        error: null,
         piecesById: _.indexBy(action.payload, '_id')
+      })
+    case PIECES_FAILURE:
+      return Object.assign({}, state, {
+        isFetching: false,
+        error: action.payload,
       })
     default:
       return state

@@ -9,7 +9,6 @@ module.exports = function (webpackDevPort) {
     devtool: 'eval',
     entry: [
       'webpack-dev-server/client?http://' + webpackDevHost + ':' + webpackDevPort,
-      // 'webpack/hot/only-dev-server',
       './react/index.js'
     ],
     output: {
@@ -33,7 +32,7 @@ module.exports = function (webpackDevPort) {
       loaders: [
         {
           test: /\.jsx?$/,
-          loader: 'babel?presets[]=react,presets[]=es2015',
+          loader: 'babel',
           include: [
             path.join(process.cwd(), 'react'),
             path.join(process.cwd(), 'local_modules')
