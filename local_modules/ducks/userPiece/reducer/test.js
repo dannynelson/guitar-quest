@@ -3,11 +3,10 @@ var pieceFactory = require('local_modules/models/piece/factory.js')
 import piecesReducer from './index'
 import * as piecesActions from './index'
 import configureMockStore from 'redux-mock-store'
-import { apiMiddleware } from 'redux-api-middleware';
 import nock from 'nock'
 import thunk from 'redux-thunk'
 
-const middlewares = [ apiMiddleware, thunk ]
+const middlewares = [ thunk ]
 const mockStore = configureMockStore(middlewares)
 
 describe('pieces duck', () => {

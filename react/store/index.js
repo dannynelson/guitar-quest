@@ -1,13 +1,12 @@
 import { createStore, applyMiddleware, compose } from 'redux'
 import thunk from 'redux-thunk'
-import { apiMiddleware } from 'redux-api-middleware';
 import DevTools from 'local_modules/components/DevTools';
 import rootReducer from 'local_modules/ducks'
 
 export default function configureStore(initialState) {
   const finalCreateStore = compose(
     // Middleware you want to use in development:
-    applyMiddleware(apiMiddleware, thunk),
+    applyMiddleware(thunk),
     // Required! Enable Redux DevTools with the monitors you chose
     DevTools.instrument()
   )(createStore);

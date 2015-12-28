@@ -17,16 +17,15 @@ export default function reduxFetch(config) {
       finalUrl += qs.stringify(config.qs)
     }
 
-    const fetchConfig = {
-      method: config.method
+    const fetchConfig = config.fetchConfig || {}
+    const meta =  {
+      url: finalUrl,
+      config: fetchConfig
     }
 
     dispatch({
       type: config.types[0],
-      meta: {
-        url: finalUrl,
-        config: fetchConfig
-      }
+      meta: meta
     })
 
     return fetch(finalUrl, fetchConfig)
@@ -41,14 +40,16 @@ export default function reduxFetch(config) {
       }
       dispatch({
         type: config.types[1],
-        payload: normalizedResponse
+        payload: normalizedResponse,
+        meta: meta
       })
       return json
     }).then(null, err => {
       dispatch({
         type: config.types[2],
         error: true,
-        payload: err
+        payload: err,
+        meta: meta
       })
       throw err
     })

@@ -7,13 +7,22 @@ var pieceSchema = new Schema('pieces', {idAttribute: '_id'})
 
 const MODULE_NAME = 'piece'
 
+const INITIAL_STATE = {
+  isFetching: false,
+  pieceIdsByLevel: {},
+  error: null,
+  entities: {
+    pieces: {}
+  }
+}
+
 const FETCH_FOR_LEVEL_REQUEST = `${MODULE_NAME}/FETCH_FOR_LEVEL_REQUEST`
 const FETCH_FOR_LEVEL_SUCCESS = `${MODULE_NAME}/FETCH_FOR_LEVEL_SUCCESS`
 const FETCH_FOR_LEVEL_FAILURE = `${MODULE_NAME}/FETCH_FOR_LEVEL_FAILURE`
 export function fetchForLevel(level) {
   return reduxFetch({
     method: 'GET',
-    url: `http://127.0.0.1:8075/pieces`,
+    url: `/pieces`,
     qs: {level},
     types: [FETCH_FOR_LEVEL_REQUEST, FETCH_FOR_LEVEL_SUCCESS, FETCH_FOR_LEVEL_FAILURE]
   })
@@ -25,19 +34,11 @@ const FETCH_BY_ID_FAILURE = `${MODULE_NAME}/FETCH_BY_ID_FAILURE`
 export function fetchById(pieceId) {
   return reduxFetch({
     method: 'GET',
-    url: `http://127.0.0.1:8075/pieces/${pieceId}`,
+    url: `/pieces/${pieceId}`,
     types: [FETCH_BY_ID_REQUEST, FETCH_BY_ID_SUCCESS, FETCH_BY_ID_FAILURE]
   })
 }
 
-const INITIAL_STATE = {
-  isFetching: false,
-  pieceIdsByLevel: {},
-  error: null,
-  entities: {
-    pieces: {}
-  }
-}
 export default function piecesReducer(state=INITIAL_STATE, action) {
   state = Object.assign({}, state, {
     isFetching: false,
