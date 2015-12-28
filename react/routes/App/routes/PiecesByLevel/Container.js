@@ -27,20 +27,17 @@ class Container extends Component {
 }
 Container.propTypes = {}
 
-var piecesByIdSelector = state => state.piece.entities.pieces
-var currentLevelSelector = (state, props) => +props.params.level
-var piecesByLevelSelector = createSelector(
-  piecesByIdSelector,
-  piecesById => _(piecesById).values().groupBy('level').value()
-)
-var selectedPiecesSelector = createSelector(
-  piecesByLevelSelector,
-  currentLevelSelector,
-  (piecesByLevel, currentLevel) => piecesByLevel[currentLevel]
-)
 var selector = createStructuredSelector({
   isFetching: state => state.piece.isFetching,
   error: state => state.piece.error,
-  pieces: selectedPiecesSelector
+  pieces: createSelector(
+    state => state.piece.pieceIdsByLevel,
+    (state, props) => +props.params.level,
+    state => state.piece.entities.pieces,
+    (pieceIdsByLevel, currentLevel, piecesById) => {
+      var pieceIds = pieceIdsByLevel[currentLevel] || []
+      return pieceIds.map(pieceId => piecesById[pieceId])
+    }
+  )
 })
 export default connect(selector)(Container)

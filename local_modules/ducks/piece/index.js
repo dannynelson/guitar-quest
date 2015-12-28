@@ -32,7 +32,7 @@ export function fetchById(pieceId) {
 
 const INITIAL_STATE = {
   isFetching: false,
-  fetchedLevels: {},
+  pieceIdsByLevel: {},
   error: null,
   entities: {
     pieces: {}
@@ -53,8 +53,8 @@ export default function piecesReducer(state=INITIAL_STATE, action) {
       return Object.assign({}, state, {
         isFetching: false,
         error: null,
-        fetchedLevels: {
-          [fetchedLevel]: true
+        pieceIdsByLevel: {
+          [fetchedLevel]: normalizedPieces.result
         },
         entities: normalizedPieces.entities
       })
