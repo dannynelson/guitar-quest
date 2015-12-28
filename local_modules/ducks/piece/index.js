@@ -39,20 +39,21 @@ const INITIAL_STATE = {
   }
 }
 export default function piecesReducer(state=INITIAL_STATE, action) {
+  state = Object.assign({}, state, {
+    isFetching: false,
+    error: null
+  })
   switch (action.type) {
     case FETCH_FOR_LEVEL_REQUEST:
     case FETCH_BY_ID_REQUEST:
       return Object.assign({}, state, {
         isFetching: true,
-        error: null
       })
     case FETCH_FOR_LEVEL_SUCCESS:
       const fetchedPieces = action.payload
       const fetchedLevel = fetchedPieces[0].level
       var normalizedPieces = normalize(fetchedPieces, arrayOf(pieceSchema))
       return Object.assign({}, state, {
-        isFetching: false,
-        error: null,
         pieceIdsByLevel: {
           [fetchedLevel]: normalizedPieces.result
         },
@@ -62,14 +63,11 @@ export default function piecesReducer(state=INITIAL_STATE, action) {
       const fetchedPiece = action.payload
       var normalizedPieces = normalize(fetchedPiece, pieceSchema)
       return Object.assign({}, state, {
-        isFetching: false,
-        error: null,
         entities: normalizedPieces.entities
       })
     case FETCH_FOR_LEVEL_FAILURE:
     case FETCH_BY_ID_FAILURE:
       return Object.assign({}, state, {
-        isFetching: false,
         error: action.payload,
       })
     default:
