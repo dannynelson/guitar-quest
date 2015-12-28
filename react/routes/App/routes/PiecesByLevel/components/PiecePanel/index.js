@@ -1,7 +1,8 @@
 import React, { Component, PropTypes } from 'react'
 import { bindActionCreators } from 'redux'
 import { Panel, ProgressBar } from 'react-bootstrap'
-import styles from './style.css'
+// import styles from './style.css'
+const styles = {}
 
 import { connect } from 'react-redux'
 
@@ -18,7 +19,7 @@ class PiecePanel extends Component {
         <div className='panel-body'>
           <h5 className={styles.pieceTitle}>{piece.name}</h5>
           <div>{piece.composer}</div>
-          <div className={styles.pieceEra}>{piece.era} era</div>
+          <div className={styles.pieceEra}>{`${piece.era} era`}</div>
         </div>
       </div>
     )

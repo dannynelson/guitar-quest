@@ -1,24 +1,13 @@
-// import {expect} from 'chai'
-// import React from 'react'
-// import pieceFactory from 'local_modules/models/piece/factory'
-// import TestUtils from 'react-addons-test-utils'
-// import PiecePanel from './index'
-//
-var expect = require('chai').expect
-var React = require('react')
-var pieceFactory = require('local_modules/models/piece/factory')
-var TestUtils = require('react-addons-test-utils')
-var PiecePanel = require('./index')
+import 'local_modules/test_helpers/chai_config'
+import React from 'react'
+import TestUtils from 'react-addons-test-utils'
+import PiecePanel from './index'
+import pieceFactory from 'local_modules/models/piece/factory'
 
-function setup(piece) {
-  var props = {
-    addTodo: expect.createSpy()
-  }
-
-  var renderer = TestUtils.createRenderer()
-  renderer.render(<Header {...props} />)
-  var output = renderer.getRenderOutput()
-
+function setup(props) {
+  let renderer = TestUtils.createRenderer()
+  renderer.render(<PiecePanel {...props} />)
+  let output = renderer.getRenderOutput()
   return {
     props,
     output,
@@ -26,22 +15,18 @@ function setup(piece) {
   }
 }
 
-describe('PiecePanel', () => {
-  it('renders piece', () => {
-    var piece = pieceFactory.create()
-    var output = setup(piece).output
-    console.log(output)
-
-    // expect(output.type).toBe('header')
-    // expect(output.props.className).toBe('header')
-
-    // let [ h1, input ] = output.props.children
-
-    // expect(h1.type).toBe('h1')
-    // expect(h1.props.children).toBe('todos')
-
-    // expect(input.type).toBe(TodoTextInput)
-    // expect(input.props.newTodo).toBe(true)
-    // expect(input.props.placeholder).toBe('What needs to be done?')
+describe('PiecePanel component', function() {
+  it('renders correctly', () => {
+    const piece = pieceFactory.create({
+      name: 'Study in B Minor',
+      composer: 'Fernando Sor',
+      era: 'classical'
+    })
+    const {output} = setup({piece})
+    let [panelHeading, progressbar, panelBody] = output.props.children
+    let [pieceName, composer, era] = panelBody.props.children
+    expect(pieceName.props.children).to.equal('Study in B Minor')
+    expect(composer.props.children).to.equal('Fernando Sor')
+    expect(era.props.children).to.equal('classical era')
   })
 })
