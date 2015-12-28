@@ -52,6 +52,7 @@
     "express-session": "^1.12.1",
     "express-sslify": "^1.0.1",
     "extract-text-webpack-plugin": "^0.9.1",
+    "fetch-mock": "^3.1.3",
     "fibrous": "^0.4.0",
     "geomoment": "^0.6.1",
     "glob": "^5.0.14",

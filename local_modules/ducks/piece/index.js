@@ -2,6 +2,7 @@ import _ from 'lodash'
 import { createAction, handleAction, handleActions } from 'redux-actions'
 import { normalize, Schema, arrayOf } from 'normalizr';
 import reduxFetch from 'local_modules/redux_fetch'
+import SERVER_URL from 'local_modules/settings/server_url'
 
 var pieceSchema = new Schema('pieces', {idAttribute: '_id'})
 
@@ -16,25 +17,25 @@ const INITIAL_STATE = {
   }
 }
 
-const FETCH_FOR_LEVEL_REQUEST = `${MODULE_NAME}/FETCH_FOR_LEVEL_REQUEST`
-const FETCH_FOR_LEVEL_SUCCESS = `${MODULE_NAME}/FETCH_FOR_LEVEL_SUCCESS`
-const FETCH_FOR_LEVEL_FAILURE = `${MODULE_NAME}/FETCH_FOR_LEVEL_FAILURE`
+export const FETCH_FOR_LEVEL_REQUEST = `${MODULE_NAME}/FETCH_FOR_LEVEL_REQUEST`
+export const FETCH_FOR_LEVEL_SUCCESS = `${MODULE_NAME}/FETCH_FOR_LEVEL_SUCCESS`
+export const FETCH_FOR_LEVEL_FAILURE = `${MODULE_NAME}/FETCH_FOR_LEVEL_FAILURE`
 export function fetchForLevel(level) {
   return reduxFetch({
     method: 'GET',
-    url: `/pieces`,
+    url: `${SERVER_URL}/pieces`,
     qs: {level},
     types: [FETCH_FOR_LEVEL_REQUEST, FETCH_FOR_LEVEL_SUCCESS, FETCH_FOR_LEVEL_FAILURE]
   })
 }
 
-const FETCH_BY_ID_REQUEST = `${MODULE_NAME}/FETCH_BY_ID_REQUEST`
-const FETCH_BY_ID_SUCCESS = `${MODULE_NAME}/FETCH_BY_ID_SUCCESS`
-const FETCH_BY_ID_FAILURE = `${MODULE_NAME}/FETCH_BY_ID_FAILURE`
+export const FETCH_BY_ID_REQUEST = `${MODULE_NAME}/FETCH_BY_ID_REQUEST`
+export const FETCH_BY_ID_SUCCESS = `${MODULE_NAME}/FETCH_BY_ID_SUCCESS`
+export const FETCH_BY_ID_FAILURE = `${MODULE_NAME}/FETCH_BY_ID_FAILURE`
 export function fetchById(pieceId) {
   return reduxFetch({
     method: 'GET',
-    url: `/pieces/${pieceId}`,
+    url: `${SERVER_URL}/pieces/${pieceId}`,
     types: [FETCH_BY_ID_REQUEST, FETCH_BY_ID_SUCCESS, FETCH_BY_ID_FAILURE]
   })
 }

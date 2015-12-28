@@ -49,10 +49,20 @@ module.exports = (gulp) ->
     karma = require 'goodeggs-react-karma'
     gutil = require 'gulp-util'
     process.env.NODE_ENV = 'test'
+    config = {}
+    config.singleRun = if gutil.env.watch then false else true
+    # run single file
+    if gutil.env.file?
+      # this is duplicating file logic from goodeggs-karma
+      config.files = [
+        # load css so that we can do some basic visual testing
+        'build/public/app.css'
+        {pattern: 'build/public/fonts/**', watched: false, included: false, served: true}
+        gutil.env.file
+      ]
+
     # run karma if we find *karma.coffee files
-    karma.run
-      singleRun: if gutil.env.watch then false else true
-    , done
+    karma.run config, done
 
   gulp.task 'test:mocha', ->
     process.env.NODE_ENV = 'test'
