@@ -1,10 +1,8 @@
 import React, { Component, PropTypes } from 'react'
 import { bindActionCreators } from 'redux'
 import { Panel, ProgressBar } from 'react-bootstrap'
-// import styles from './style.css'
-const styles = {}
-
 import { connect } from 'react-redux'
+import styles from './styles.css'
 
 class PiecePanel extends Component {
   render() {

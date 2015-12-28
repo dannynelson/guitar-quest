@@ -2,7 +2,9 @@ import _ from 'lodash'
 import { createAction, handleAction, handleActions } from 'redux-actions'
 import { normalize, Schema, arrayOf } from 'normalizr';
 import reduxFetch from 'local_modules/redux_fetch'
-import SERVER_URL from 'local_modules/settings/server_url'
+import settings from 'local_modules/settings'
+
+const SERVER_URL = settings.server.url
 
 var pieceSchema = new Schema('pieces', {idAttribute: '_id'})
 

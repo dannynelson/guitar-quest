@@ -1,4 +1,4 @@
-import 'local_modules/test_helpers/chai_config'
+import 'local_modules/test_helpers/react_shallow_render'
 import React from 'react'
 import TestUtils from 'react-addons-test-utils'
 import PiecePanel from './index'

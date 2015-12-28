@@ -8,8 +8,8 @@ import thunk from 'redux-thunk'
 import Promise from 'bluebird'
 import nock from 'nock'
 import sinon from 'sinon'
-import SERVER_URL from 'local_modules/settings/server_url'
-fetch.Promise = Promise
+import settings from 'local_modules/settings'
+const SERVER_URL = settings.server.url
 
 const mockStore = configureMockStore([thunk])
 
