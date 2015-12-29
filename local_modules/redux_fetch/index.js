@@ -45,20 +45,20 @@ export default function reduxFetch(config) {
 
     return fetch(url, fetchConfig)
     .then(response => {
-      return response.json()
-    }).then((json) => {
-      let normalizedResponse = null
-      if (config.normalizeSchema) {
-        normalizedResponse = normalize(json, config.normalizeSchema)
+      if (response.status >= 400) {
+        return response.text().then(errText => {
+          throw new Error(errText)
+        })
       } else {
-        normalizedResponse = json
+        return response.json()
       }
+    }).then((data) => {
       dispatch({
         type: config.types[1],
-        payload: normalizedResponse,
+        payload: data,
         meta: meta
       })
-      return json
+      return data
     }).then(null, err => {
       dispatch({
         type: config.types[2],

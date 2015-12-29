@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux'
 import Container from './Container'
 
 const route = {
-  path: 'login',
+  path: 'sign_up',
   component: Container
 }
 
