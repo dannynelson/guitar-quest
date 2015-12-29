@@ -6,20 +6,35 @@ import { normalize, Schema, arrayOf } from 'normalizr'
 //    method: ''
 //    url: ''
 //    qs: {}
+//    body: {}
 //    types: [USER_REQUEST, USER_SUCCESS, USER_FAILURE]
 // }
 export default function reduxFetch(config) {
   return dispatch => {
+    const url = (() => {
+      let result = config.url
+      if (config.qs) {
+        result += '?'
+        result += qs.stringify(config.qs)
+      }
+      return result
+    })()
 
-    var finalUrl = config.url
-    if (config.qs) {
-      finalUrl += '?'
-      finalUrl += qs.stringify(config.qs)
-    }
+    const fetchConfig = (() => {
+      let result = {}
+      if (config.method) result.method = config.method
+      if (config.body) result.body = JSON.stringify(config.body)
+      if (config.method && config.method !== 'GET') {
+        result.headers = {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        }
+      }
+      return result
+    })()
 
-    const fetchConfig = config.fetchConfig || {}
     const meta =  {
-      url: finalUrl,
+      url: url,
       config: fetchConfig
     }
 
@@ -28,11 +43,11 @@ export default function reduxFetch(config) {
       meta: meta
     })
 
-    return fetch(finalUrl, fetchConfig)
+    return fetch(url, fetchConfig)
     .then(response => {
       return response.json()
     }).then((json) => {
-      var normalizedResponse = null
+      let normalizedResponse = null
       if (config.normalizeSchema) {
         normalizedResponse = normalize(json, config.normalizeSchema)
       } else {
