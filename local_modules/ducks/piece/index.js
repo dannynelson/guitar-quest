@@ -89,7 +89,7 @@ export default function piecesReducer(state=INITIAL_STATE, action) {
     case FETCH_FOR_LEVEL_FAILURE:
     case FETCH_BY_ID_FAILURE:
       return Object.assign({}, state, {
-        error: action.payload,
+        error: action.payload.message,
       })
     default:
       return state

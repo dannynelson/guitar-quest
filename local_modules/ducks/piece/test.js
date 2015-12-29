@@ -10,7 +10,8 @@ import nock from 'nock'
 import sinon from 'sinon'
 import settings from 'local_modules/settings'
 const SERVER_URL = settings.server.url
-const INITIAL_STATE = {piece: pieceActions.INITIAL_STATE}
+const PIECE_INITIAL_STATE = pieceActions.INITIAL_STATE
+const INITIAL_STATE = {piece: PIECE_INITIAL_STATE}
 
 const mockStore = configureMockStore([thunk])
 
@@ -130,6 +131,114 @@ describe('redux pieces', function() {
         return store.dispatch(pieceActions.fetchById(PIECE_ID)).then(piece => {
           expect(piece).to.deep.equal(PIECE)
         })
+      })
+    })
+  })
+
+  describe('reducer', () => {
+    it('FETCH_FOR_LEVEL_REQUEST', () => {
+      const ACTION = {
+        type: pieceActions.FETCH_FOR_LEVEL_REQUEST
+      }
+      const state = piecesReducer(PIECE_INITIAL_STATE, ACTION)
+      expect(state).to.deep.equal({
+        isFetching: true,
+        error: null,
+        pieceIdsByLevel: {},
+        entities: {
+          pieces: {}
+        }
+      })
+    })
+
+    it('FETCH_FOR_LEVEL_SUCCESS', () => {
+      const PIECE = pieceFactory.create({level: 1})
+      const ACTION = {
+        type: pieceActions.FETCH_FOR_LEVEL_SUCCESS,
+        payload: [PIECE]
+      }
+      const state = piecesReducer(PIECE_INITIAL_STATE, ACTION)
+      expect(state).to.deep.equal({
+        isFetching: false,
+        error: null,
+        pieceIdsByLevel: {
+          [1]: [PIECE._id]
+        },
+        entities: {
+          pieces: {
+            [PIECE._id]: PIECE
+          }
+        }
+      })
+    })
+
+    it('FETCH_FOR_LEVEL_FAILURE', () => {
+      const PIECE = pieceFactory.create({level: 1})
+      const ACTION = {
+        type: pieceActions.FETCH_FOR_LEVEL_FAILURE,
+        error: true,
+        payload: new Error('internal server error')
+      }
+      const state = piecesReducer(PIECE_INITIAL_STATE, ACTION)
+      expect(state).to.deep.equal({
+        isFetching: false,
+        error: 'internal server error',
+        pieceIdsByLevel: {},
+        entities: {
+          pieces: {}
+        }
+      })
+    })
+
+    it('FETCH_BY_ID_REQUEST', () => {
+      const ACTION = {
+        type: pieceActions.FETCH_BY_ID_REQUEST
+      }
+      const state = piecesReducer(PIECE_INITIAL_STATE, ACTION)
+      expect(state).to.deep.equal({
+        isFetching: true,
+        error: null,
+        pieceIdsByLevel: {},
+        entities: {
+          pieces: {}
+        }
+      })
+    })
+
+    it('FETCH_BY_ID_SUCCESS', () => {
+      const PIECE = pieceFactory.create({level: 1})
+      const ACTION = {
+        type: pieceActions.FETCH_BY_ID_SUCCESS,
+        payload: PIECE
+      }
+      const state = piecesReducer(PIECE_INITIAL_STATE, ACTION)
+      expect(state).to.deep.equal({
+        isFetching: false,
+        error: null,
+        pieceIdsByLevel: {},
+        entities: {
+          pieces: {
+            [PIECE._id]: PIECE
+          }
+        }
+      })
+    })
+
+    it('FETCH_BY_ID_FAILURE', () => {
+      const PIECE = pieceFactory.create({level: 1})
+      const ACTION = {
+        type: pieceActions.FETCH_BY_ID_FAILURE,
+        error: true,
+        payload: new Error('internal server error')
+      }
+      const state = piecesReducer(PIECE_INITIAL_STATE, ACTION)
+      expect(state).to.deep.equal({
+        isFetching: false,
+        error: 'internal server error',
+        pieceIdsByLevel: {},
+        entities: {
+          pieces: {}
+        }
       })
     })
   })
