@@ -1,5 +1,5 @@
-import _ from 'lodash'
 import React, { Component, PropTypes } from 'react'
+import { pushPath } from 'redux-simple-router'
 import { Row, Col, Grid } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import * as userActions from 'local_modules/ducks/user'
@@ -9,6 +9,9 @@ class Container extends Component {
   handleSubmit(formData) {
     const { dispatch } = this.props
     return dispatch(userActions.register(formData))
+    .then(() => {
+      return dispatch(pushPath('/confirm_email'))
+    })
     .catch(err => {
       throw({_error: err.message})
     })
@@ -17,7 +20,9 @@ class Container extends Component {
   render() {
     return (
       <Grid>
-        <SignUpForm onSubmit={this.handleSubmit.bind(this)}/>
+        <Col sm={6} smOffset={3} lg={4} lgOffset={4}>
+          <SignUpForm onSubmit={this.handleSubmit.bind(this)}/>
+        </Col>
       </Grid>
     )
   }

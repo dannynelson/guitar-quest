@@ -16,7 +16,6 @@ class Container extends Component {
 
   render() {
     const { pieces, isFetching } = this.props
-
     return (
       <Grid>
         {!pieces && isFetching && <PageLoader />}

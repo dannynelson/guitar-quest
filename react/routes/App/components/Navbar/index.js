@@ -12,7 +12,7 @@ class AppNavigation extends Component {
         </Navbar.Header>
         <Nav>
           <NavItem className="pieces" eventKey={1} onClick={this.props.onNavItemClick.bind(null, '/pieces_by_level/1')}>Pieces</NavItem>
-          <NavItem className="hello" eventKey={1} onClick={this.props.onNavItemClick.bind(null, '/hello')}>Hello</NavItem>
+          <NavItem className="confirm email" eventKey={1} onClick={this.props.onNavItemClick.bind(null, '/confirm_email')}>Hello</NavItem>
         </Nav>
       </Navbar>
     )
