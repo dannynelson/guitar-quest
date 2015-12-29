@@ -16,7 +16,7 @@ function setup(props) {
 }
 
 describe('PiecePanel component', function() {
-  it('renders correctly', () => {
+  it('renders correctly', function() {
     const piece = pieceFactory.create({
       name: 'Study in B Minor',
       composer: 'Fernando Sor',
