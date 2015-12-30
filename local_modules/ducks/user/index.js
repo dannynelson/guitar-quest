@@ -34,7 +34,6 @@ export function confirmEmail({tempUserId}={}) {
   return createFetchAction({
     url: `${SERVER_URL}/users/confirm/${tempUserId}`,
     method: 'POST',
-    body: params,
     types: [CONFIRM_EMAIL_REQUEST, CONFIRM_EMAIL_SUCCESS, CONFIRM_EMAIL_FAILURE]
   })
 }
@@ -75,27 +74,10 @@ export default function userReducer(state=initialState, action) {
       return Object.assign({}, state, {
         isFetching: true,
       })
-    // case FETCH_FOR_LEVEL_SUCCESS:
-    //   const fetchedPieces = action.payload
-    //   const fetchedLevel = fetchedPieces[0].level
-    //   var normalizedPieces = normalize(fetchedPieces, arrayOf(pieceSchema))
-    //   return Object.assign({}, state, {
-    //     pieceIdsByLevel: {
-    //       [fetchedLevel]: normalizedPieces.result
-    //     },
-    //     entities: normalizedPieces.entities
-    //   })
-    // case FETCH_BY_ID_SUCCESS:
-    //   const fetchedPiece = action.payload
-    //   var normalizedPieces = normalize(fetchedPiece, pieceSchema)
-    //   return Object.assign({}, state, {
-    //     entities: normalizedPieces.entities
-    //   })
-    // case FETCH_FOR_LEVEL_FAILURE:
-    // case FETCH_BY_ID_FAILURE:
-    //   return Object.assign({}, state, {
-    //     error: action.payload.message,
-    //   })
+    case CONFIRM_EMAIL_SUCCESS:
+      return Object.assign({}, state, {
+        user: action.payload,
+      })
     default:
       return state
   }

@@ -30,9 +30,9 @@ var selector = createStructuredSelector({
   isFetching: state => state.piece.isFetching,
   error: state => state.piece.error,
   pieces: createSelector(
-    state => state.piece.pieceIdsByLevel,
+    (state) => state.piece.pieceIdsByLevel,
     (state, props) => +props.params.level,
-    state => state.piece.entities.pieces,
+    (state) => state.piece.entities.pieces,
     (pieceIdsByLevel, currentLevel, piecesById) => {
       var pieceIds = pieceIdsByLevel[currentLevel] || []
       return pieceIds.map(pieceId => piecesById[pieceId])
