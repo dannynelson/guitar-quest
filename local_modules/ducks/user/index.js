@@ -61,6 +61,17 @@ export function logout() {
   })
 }
 
+export const ASSERT_LOGGED_IN_REQUEST = `${MODULE_NAME}/ASSERT_LOGGED_IN_REQUEST`
+export const ASSERT_LOGGED_IN_SUCCESS = `${MODULE_NAME}/ASSERT_LOGGED_IN_SUCCESS`
+export const ASSERT_LOGGED_IN_FAILURE = `${MODULE_NAME}/ASSERT_LOGGED_IN_FAILURE`
+export function assertLoggedIn() {
+  return createFetchAction({
+    url: `${SERVER_URL}/users/assert_logged_in`,
+    method: 'POST',
+    types: [ASSERT_LOGGED_IN_REQUEST, ASSERT_LOGGED_IN_SUCCESS, ASSERT_LOGGED_IN_FAILURE]
+  })
+}
+
 export default function userReducer(state=initialState, action) {
   state = Object.assign({}, state, {
     isFetching: false,
@@ -71,10 +82,12 @@ export default function userReducer(state=initialState, action) {
     case CONFIRM_EMAIL_REQUEST:
     case LOGIN_REQUEST:
     case LOGOUT_REQUEST:
+    case ASSERT_LOGGED_IN_REQUEST:
       return Object.assign({}, state, {
         isFetching: true,
       })
     case CONFIRM_EMAIL_SUCCESS:
+    case ASSERT_LOGGED_IN_SUCCESS:
       return Object.assign({}, state, {
         user: action.payload,
       })

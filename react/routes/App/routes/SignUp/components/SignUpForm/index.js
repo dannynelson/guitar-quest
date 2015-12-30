@@ -55,11 +55,11 @@ class SignUpForm extends Component {
             bsStyle={password.touched && password.error && "error"}
             {...password}/>
           <Button
+            type="submit"
             className={styles.signUpButton}
             disabled={submitting}
             bsStyle="primary"
-            block
-            onClick={handleSubmit}>
+            block>
             Sign Up
           </Button>
         </form>

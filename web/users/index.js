@@ -280,6 +280,7 @@
   });
 
   router.post('/assert_logged_in', function(req, res, next) {
+    console.log('TEST', req.user)
     if (req.user == null) {
       return res.status(401).send({
         message: 'Not Logged In'

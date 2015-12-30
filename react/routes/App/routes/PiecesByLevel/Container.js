@@ -16,10 +16,11 @@ class Container extends Component {
 
   render() {
     const { pieces, isFetching } = this.props
+    debugger
     return (
       <Grid>
-        {!pieces && isFetching && <PageLoader />}
-        {!!pieces && <PiecesList pieces={pieces} />}
+        {!pieces.length && isFetching && <PageLoader />}
+        {!!pieces.length && <PiecesList pieces={pieces} />}
       </Grid>
     )
   }
@@ -27,8 +28,8 @@ class Container extends Component {
 Container.propTypes = {}
 
 var selector = createStructuredSelector({
-  isFetching: state => state.piece.isFetching,
-  error: state => state.piece.error,
+  isFetching: (state) => state.piece.isFetching,
+  error: (state) => state.piece.error,
   pieces: createSelector(
     (state) => state.piece.pieceIdsByLevel,
     (state, props) => +props.params.level,

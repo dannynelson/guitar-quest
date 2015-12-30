@@ -22,6 +22,8 @@ export default function reduxFetch(config) {
 
     const fetchConfig = (() => {
       let result = {}
+      // send cookies for all requests to the same origin
+      result.credentials = 'same-origin'
       if (config.method) result.method = config.method
       if (config.body) result.body = JSON.stringify(config.body)
       if (config.method && config.method !== 'GET') {

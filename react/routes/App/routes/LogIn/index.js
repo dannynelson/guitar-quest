@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux'
 import Container from './Container'
 
 const route = {
-  path: 'sign_up',
+  path: 'log_in',
   bypassAuth: true,
   component: Container
 }

@@ -103,6 +103,40 @@ describe('redux user', () => {
         store.dispatch(userActions.confirmEmail({tempUserId: TEMP_USER_ID}))
       })
     })
+
+    describe('.assertLoggedIn()', () => {
+      it('handles successful request', (done) => {
+        const user = userFactory.create()
+        nock(SERVER_URL)
+          .post('/users/assert_logged_in')
+          .reply(200, user)
+
+        const meta = {
+          url: `${SERVER_URL}/users/assert_logged_in`,
+          config: {
+            method: 'POST',
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+            }
+          }
+        }
+
+        const expectedActions = [
+          {
+            type: userActions.ASSERT_LOGGED_IN_REQUEST,
+            meta: meta
+          },
+          {
+            type: userActions.ASSERT_LOGGED_IN_SUCCESS,
+            payload: user,
+            meta: meta
+          }
+        ]
+        const store = mockStore(initialState, expectedActions, done)
+        store.dispatch(userActions.assertLoggedIn())
+      })
+    })
   })
 
   describe('reducer', () => {
@@ -134,6 +168,32 @@ describe('redux user', () => {
       const user = userFactory.create()
       const ACTION = {
         type: userActions.CONFIRM_EMAIL_SUCCESS,
+        payload: user
+      }
+      const state = usersReducer(userInitialState, ACTION)
+      expect(state).to.deep.equal({
+        isFetching: false,
+        error: null,
+        user: user
+      })
+    })
+
+    it('ASSERT_LOGGED_IN_REQUEST', () => {
+      const ACTION = {
+        type: userActions.ASSERT_LOGGED_IN_REQUEST,
+      }
+      const state = usersReducer(userInitialState, ACTION)
+      expect(state).to.deep.equal({
+        isFetching: true,
+        error: null,
+        user: {}
+      })
+    })
+
+    it('ASSERT_LOGGED_IN_SUCCESS', () => {
+      const user = userFactory.create()
+      const ACTION = {
+        type: userActions.ASSERT_LOGGED_IN_SUCCESS,
         payload: user
       }
       const state = usersReducer(userInitialState, ACTION)

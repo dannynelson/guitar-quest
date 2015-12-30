@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux'
 import Container from './Container'
 import PiecesByLevelRoute from './routes/PiecesByLevel'
 import SignUpRoute from './routes/SignUp'
+import LogInRoute from './routes/LogIn'
 import ConfirmEmailRoute from './routes/ConfirmEmail'
 
 const route = {
@@ -12,6 +13,7 @@ const route = {
   childRoutes: [
     PiecesByLevelRoute,
     SignUpRoute,
+    LogInRoute,
     ConfirmEmailRoute
   ]
 }

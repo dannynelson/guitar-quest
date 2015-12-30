@@ -10,21 +10,28 @@ import { render } from 'react-dom'
 import { Router, Route, IndexRoute } from 'react-router'
 import { createHistory } from 'history'
 import { syncReduxAndRouter, routeReducer } from 'redux-simple-router'
-import configureStore from './store'
+import Container from './Container'
+import store from './store'
 import AppRoute from './routes/App'
+import handleOnEnter from './handleOnEnter'
 
-const store = configureStore()
 const history = createHistory()
 syncReduxAndRouter(history, store)
-const routeConfig = [
-  AppRoute
-]
+
+const route = {
+  path: '/',
+  component: Container,
+  onEnter: handleOnEnter,
+  childRoutes: [
+    AppRoute,
+  ]
+}
 
 render(
   // ... and to provide our Redux store to our Root component as a prop so that Redux
   // Provider can do its job.
   <Provider store={store}>
-    <Router history={history} routes={routeConfig} />
+    <Router history={history} routes={route} />
   </Provider>,
   document.getElementById('root')
 )
