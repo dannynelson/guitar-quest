@@ -10,7 +10,10 @@ module.exports = ngInject (UserPiece, Piece, User, $stateParams) ->
     _id: $stateParams.userPieceId
     $add: ['user', 'piece', 'historyChanges']
   @userPiece.$promise.then =>
+    console.log 'arrived'
     @piece = Piece.get({_id: @userPiece.pieceId})
+    @piece.$promise.then ->
+      console.log 'loaded'
     loadVideo(@userPiece.submissionVideoURL)
     @userGrade = (@userPiece.grade || 0) * 10
     updatePercent(@userGrade)

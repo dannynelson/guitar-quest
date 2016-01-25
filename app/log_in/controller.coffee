@@ -12,7 +12,7 @@ module.exports = ngInject ($state, User) ->
       $state.go 'guitarQuest.piecesByLevel', {level: 'default'}
     .catch (rejection) =>
       if rejection.status is 401
-        @error = 'Invalid username or password'
+        @error = 'Invalid email or password'
       else
         @error = rejection.data?.message or rejection.data
     .finally =>

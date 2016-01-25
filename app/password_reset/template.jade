@@ -5,7 +5,7 @@
         .col-sm-6.col-sm-offset-3.col-lg-4.col-lg-offset-4
           .login-panel.panel.panel-default
             .panel-body.padded-panel
-              h4.panel-title Password Reset
+              h4.panel-title-lg Password Reset
               div(ng-if='!ctrl.requestSent')
                 p We'll email you instructions on how to reset your password.
                 uib-alert(type='danger' ng-if='ctrl.error' close='ctrl.error = null') {{ctrl.error}}
