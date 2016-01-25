@@ -1,0 +1,36 @@
+.forgot-password
+  .guitar-background-white
+    .container
+      .row
+        .col-sm-6.col-sm-offset-3.col-lg-4.col-lg-offset-4
+          .login-panel.panel.panel-default
+            .panel-body.padded-panel
+              h4.panel-title Password Reset
+              div(ng-if='!ctrl.requestSent')
+                p We'll email you instructions on how to reset your password.
+                uib-alert(type='danger' ng-if='ctrl.error' close='ctrl.error = null') {{ctrl.error}}
+                form(
+                  novalidate
+                  name='forgotPasswordForm'
+                  ng-submit='ctrl.login(forgotPasswordForm)'
+                )
+                  div(ng-class='{"has-error": forgotPasswordForm.$submitted && !forgotPasswordForm.email.$valid}')
+                    input.form-control.email(
+                      name='email'
+                      type='email'
+                      placeholder='email'
+                      ng-required='true'
+                      ng-minlength='1'
+                      ng-model='ctrl.form.email'
+                    )
+                    .input-helper-text(ng-if='forgotPasswordForm.$submitted && !forgotPasswordForm.email.$valid') must be a valid email address
+                  button.action-btn.btn.btn-primary(
+                    type='submit'
+                    ng-disabled='ctrl.isLoading'
+                  ) Submit
+                  a.cancel.btn-flat(ui-sref='guitarQuest.logIn') Cancel
+              div(ng-if='ctrl.requestSent')
+                p.success Success! We sent you an email with reset instructions. If your email does not arrive soon. Check your spam folder. It was sent from <strong>admin@guitarquest.com</strong>
+                button.action-btn.btn.btn-primary(
+                  ui-sref='guitarQuest.logIn'
+                ) Return to Login

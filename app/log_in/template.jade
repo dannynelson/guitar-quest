@@ -5,7 +5,7 @@
         .col-sm-6.col-sm-offset-3.col-lg-4.col-lg-offset-4
           .login-panel.panel.panel-default
             .panel-body.padded-panel
-              h4.text-center.title Log in to your account
+              h4.text-center.panel-title Log in to your account
               uib-alert(type='danger' ng-if='ctrl.error' close='ctrl.error = null') {{ctrl.error}}
               form(
                 novalidate
@@ -36,3 +36,5 @@
                   type='submit'
                   ng-disabled='ctrl.isLoading'
                 ) Log in
+                .text-center
+                  a(href='' ui-sref='guitarQuest.passwordReset') Forgot your password?

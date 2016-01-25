@@ -1,6 +1,6 @@
 _ = require 'lodash'
 
-module.exports = ngInject (Upload, User, ngToast, $log, changePasswordModal) ->
+module.exports = ngInject (Upload, User, ngToast, $log, $state) ->
   @user = User.getLoggedInUser()
 
   @editing = {}
@@ -25,7 +25,6 @@ module.exports = ngInject (Upload, User, ngToast, $log, changePasswordModal) ->
     @editing[field] = false
 
   @changePassword = ->
-    changePasswordModal.open().then ->
-      ngToast.success "Password updated!"
+    $state.go 'guitarQuest.accountChangePassword'
 
   return @ # http://stackoverflow.com/challengeions/28953289/using-controller-as-with-the-ui-router-isnt-working-as-expected

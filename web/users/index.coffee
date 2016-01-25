@@ -4,6 +4,7 @@ settings = require 'local_modules/settings'
 joi = require 'joi'
 joi.objectId = require('joi-objectid')(joi)
 User = require 'local_modules/models/user'
+LoginRequest = require 'local_modules/models/login_request'
 Notification = require 'local_modules/models/notification'
 TempUser = require 'local_modules/models/temp_user'
 passport = require 'local_modules/passport'
@@ -164,19 +165,63 @@ router.post '/subscribe', (req, res, next) ->
     return res.status(200).send(resource)
   .then null, next
 
-router.post '/change_password', (req, res, next) ->
-  {oldPassword, newPassword} = req.body
-  user = req.user
-  # FIXME this can't be promisified -- Unhandled rejection TypeError: Object #<Object> has no method 'get'
-  # this is changed somehow?
-  user.authenticate oldPassword, (err) ->
-    return next(err) if err
-    user.setPassword newPassword, (err, user) ->
-      return next(err) if err
-      user.save().then =>
+router.post '/request_password_reset', (req, res, next) ->
+  {email} = req.body
+  return res.status(400).send('email required') unless email?
+  User.findOne({emailId: normalizeEmail(req.body.email)})
+  .then (user) ->
+    if not user?
+      return res.status(404).send('User does not exist')
+    else
+      return LoginRequest.create({emailId: user.emailId})
+      .then (loginRequest) ->
+        sendgrid.send
+          to: email
+          from: settings.guitarQuestEmail
+          subject: 'Reset GuitarQuest Password'
+          html: "
+            Click the link below to update your GuitarQuest password.<br>
+            #{settings.server.url}/#/password_reset_confirm/#{loginRequest._id}<br><br>
+            Best regards,<br>
+            The GuitarQuest Team
+          "
+      .then ->
+        return res.status(201).send({})
+  .then null, (err) ->
+    return next()
+
+router.post '/login_once', (req, res, next) ->
+  {loginRequestId} = req.body
+  LoginRequest.findById(loginRequestId)
+  .then (loginRequest) ->
+    if not loginRequest?
+      return res.status(404).send('Not found')
+    else
+      Promise.resolve(User.findOne({emailId: loginRequest.emailId}))
+      .tap (user) =>
+        reqLoginPromised = Promise.promisify(req.login).bind(req)
+        reqLoginPromised(user)
+      .tap (user) =>
+        loginRequest.remove()
+      .then (user) =>
         resourceConverter.createResourceFromModel(user, {req, res, next})
       .then (resource) =>
         return res.status(200).send resource
+
+router.post '/change_password', (req, res, next) ->
+  {newPassword} = req.body
+  user = req.user
+  return res.status(401).send('unauthorized') unless user?
+  if joi.validate(newPassword, joi.string().min(8).required()).error
+    return res.status(400).send 'password must be at least 8 characters long'
+  Promise.promisify(user.setPassword).bind(user)(newPassword)
+  .then (user) ->
+    user.save()
+  .then (user) ->
+    resourceConverter.createResourceFromModel(user, {req, res, next})
+  .then (resource) =>
+    return res.status(200).send resource
+  .then null, next
 
 router.post '/mark_all_notifications_read', (req, res, next) ->
   user = req.user
@@ -188,7 +233,8 @@ router.post '/mark_all_notifications_read', (req, res, next) ->
       notification.save()
   .then ->
     res.send(200, {})
-  .then null, next
+  .then null, (err) ->
+    res.send(500, 'Internal server error.')
 
 router.post '/assert_logged_in', (req, res, next) ->
   if not req.user?

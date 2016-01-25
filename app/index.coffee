@@ -25,13 +25,15 @@ angular.module 'app', [
   require './sign_up'
   require './submitted_pieces'
   require './account'
-  require './how_it_works'
+  require './account_change_password'
   require './review_submitted_piece'
   require './lessons'
   require './lesson_checkout'
   require './subscribe_checkout'
   require './manage_pieces'
   require './confirm_email'
+  require './password_reset'
+  require './password_reset_confirm'
 ]
 
 .constant 'settings', window.settings

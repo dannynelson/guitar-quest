@@ -6,8 +6,8 @@ angular.module __filename, [
 ]
 
 .config ($stateProvider) ->
-  $stateProvider.state 'guitarQuest.howItWorks',
-    url: '/how_it_works'
+  $stateProvider.state 'guitarQuest.passwordReset',
+    url: '/password_reset'
     controllerAs: 'ctrl'
     template: require './template'
     controller: require './controller'

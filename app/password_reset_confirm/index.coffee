@@ -1,16 +1,13 @@
-require 'ng-file-upload'
 module.exports = __filename
 angular.module __filename, [
   'ui.bootstrap'
   require 'local_modules/ui_router'
-  'ngFileUpload'
-  require 'local_modules/services/ng_toast'
+  require 'local_modules/resources/user'
 ]
 
 .config ($stateProvider) ->
-  $stateProvider.state 'guitarQuest.account',
-    requireAuth: true
-    url: '/account'
+  $stateProvider.state 'guitarQuest.passwordResetConfirm',
+    url: '/password_reset_confirm/:loginRequestId'
     controllerAs: 'ctrl'
     template: require './template'
     controller: require './controller'

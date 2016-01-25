@@ -36,6 +36,7 @@ Immediate Features
   - recommended tutorials for that piece (or for that level)
   - sheet music
   - record video for all Preparatory level pieces
+- share password and email validation logic?
 
 - ng-disabled on payments for after submitting
 - password reset email

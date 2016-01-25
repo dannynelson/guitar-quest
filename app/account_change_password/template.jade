@@ -1,0 +1,32 @@
+.guitar-quest-account-change-password.container
+  .row
+    .col-md-6.col-md-offset-3
+      .panel.panel-default
+        .panel-body
+          h4.panel-title Change Password
+          div(ng-if='ctrl.isPasswordChanged')
+            .change-success You successfully changed your password.
+            button.submit.btn.btn-primary(ui-sref='guitarQuest.account') Return to Account
+          div(ng-if='!ctrl.isPasswordChanged')
+            uib-alert(type='danger' ng-if='ctrl.error' close='ctrl.error = undefined') {{ctrl.error}}
+            form(
+              name='changePasswordForm'
+              ng-submit='ctrl.submit(changePasswordForm)'
+              novalidate
+            )
+              .new-password-group(ng-class='{"has-error": changePasswordForm.$submitted && !changePasswordForm.password.$valid}')
+                input.new-password.form-control(
+                  name='password'
+                  type='password'
+                  placeholder='new password'
+                  ng-model='ctrl.form.newPassword'
+                  ng-minlength='8'
+                  ng-required='true'
+                )
+                .input-helper-text 8 characters minimum
+
+              button.submit.btn.btn-primary(
+                type='submit'
+                ng-disabled='ctrl.isLoading'
+              ) Submit
+              a.cancel.btn-flat(ui-sref='guitarQuest.account') Cancel

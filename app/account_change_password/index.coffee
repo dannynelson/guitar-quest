@@ -8,9 +8,9 @@ angular.module __filename, [
 ]
 
 .config ($stateProvider) ->
-  $stateProvider.state 'guitarQuest.account',
+  $stateProvider.state 'guitarQuest.accountChangePassword',
     requireAuth: true
-    url: '/account'
+    url: '/account/change_password'
     controllerAs: 'ctrl'
     template: require './template'
     controller: require './controller'

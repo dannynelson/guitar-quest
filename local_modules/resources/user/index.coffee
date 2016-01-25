@@ -32,13 +32,26 @@ angular.module __filename, ['ngResource']
       loggedInUser = new User response.data
       return loggedInUser
 
+  User.loginOnce = ({loginRequestId}) ->
+    $http.post('/users/login_once', {loginRequestId}).then (response) ->
+      loggedInUser = new User response.data
+      return loggedInUser
+
+  User.requestPasswordReset = ({email}) ->
+    $http.post('/users/request_password_reset', {email})
+
   User.logout = ->
     $http.post('/users/logout').then (response) ->
       loggedInUser = null
       return null
 
-  User.changePassword = ({oldPassword, newPassword}) ->
-    $http.post('/users/change_password', {oldPassword, newPassword}).then (response) ->
+  User.changePassword = (requestBody) ->
+    $http.post('/users/change_password', requestBody).then (response) ->
+      loggedInUser = new User response.data
+      return loggedInUser
+
+  User.changePasswordWithResetRequest = ({oldPassword, newPassword}) ->
+    $http.post('/users/change_password_with_reset_request', {passwordResetRequestId, newPassword}).then (response) ->
       loggedInUser = new User response.data
       return loggedInUser
 
