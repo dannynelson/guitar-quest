@@ -14,7 +14,7 @@
                   name='forgotPasswordForm'
                   ng-submit='ctrl.login(forgotPasswordForm)'
                 )
-                  div(ng-class='{"has-error": forgotPasswordForm.$submitted && !forgotPasswordForm.email.$valid}')
+                  .email-group(ng-class='{"has-error": forgotPasswordForm.$submitted && !forgotPasswordForm.email.$valid}')
                     input.form-control.email(
                       name='email'
                       type='email'
