@@ -37,6 +37,7 @@ Immediate Features
   - sheet music
   - record video for all Preparatory level pieces
 - share password and email validation logic?
+- show error for old/invalid login request token
 
 - ng-disabled on payments for after submitting
 - password reset email
