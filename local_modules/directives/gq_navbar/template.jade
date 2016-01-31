@@ -83,14 +83,6 @@ script(type="text/ng-template" id="notifications.html")
                 li(role="menuitem")
                   a(href="#" ui-sref='guitarQuest.account') Account
                   a(href="#" ng-click='myCtrl.logout()') Logout
-          .user-summary.navbar-right.hidden-xs(ng-if='myCtrl.isLoggedIn()')
-            .user-icon
-              span.fa-stack.user-profile-placeholder
-                i.fa.fa-circle.fa-stack-2x
-                i.fa.fa-user.fa-stack-1x.fa-inverse
-            .user-profile-info
-              .level-summary {{myCtrl.levelHelper.getLevelName(myCtrl.getUser().level)}}
-              .credit-summary.text-warning ${{myCtrl.getUser().credits}} lesson credits
 
           .nav.navbar-nav.navbar-right.hidden-xs(ng-if='!myCtrl.isLoggedIn()')
             a.btn-flat.login(ui-sref='guitarQuest.logIn') Log in
