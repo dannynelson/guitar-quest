@@ -2,6 +2,21 @@
 
 A game for learning classical guitar
 
+Do we need challenges?
+- Yes, it helps people **decide what to work on next** when they have so many options available
+- Helps people become well-rounded musicians. Encourages them to work on pieces they might otherwise skip
+What is the reward for challenges? Something that will help them learn pieces.
+* access to music
+  - unlock pieces - we already unlock pieces with points. Maybe unlock special pieces that you couldn't normally access in the book
+  - earn points - to help you progress to the next level faster. Completing challenges helps you progress as a musician
+* access to private lessons
+  - free lessons - too time consuming and valuable
+  - credits for free lessons - was not motiviating to Chuck. Also, feels weird associating rewards with real money
+* access to tutorials and video recordings
+  - unlock special tips and tutorials - could be nice, but I need to create them first ;)
+* access to physical resources (strings, guitar, etc)
+  - I ship them strings, etc. - there's no way
+
 TODO:
 Deployment
 

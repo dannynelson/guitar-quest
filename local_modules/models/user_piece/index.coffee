@@ -9,6 +9,9 @@ userPieceEnums = require './enums'
 joi = require 'joi'
 joi.objectId = require('joi-objectid')(joi)
 database = require 'local_modules/database'
+sendgrid = require 'local_modules/sendgrid'
+settings = require 'local_modules/settings'
+logger = require 'local_modules/logger'
 levelHelper = require 'local_modules/level'
 JSONSchemaConverter = require 'goodeggs-json-schema-converter'
 JSONSchema = require './schema'
@@ -29,6 +32,15 @@ schema.methods.submitVideo = Promise.method ({submissionVideoURL, updatedBy}={})
   @waitingToBeGraded = true
   @submissionVideoURL = submissionVideoURL
   @updatedBy = updatedBy
+
+  # send myself a email
+  sendgrid.send
+    to: settings.myEmail
+    from: settings.guitarQuestEmail
+    subject: 'GuitarQuest piece submitted'
+    html: "#{settings.server.url}/#/review_submitted_piece/#{@_id}"
+  , (err) ->
+    logger.error({err}, 'failed to send email') if err?
 
   Challenge.progressMatchingChallenges @userId, {userPiece: @} # intentionally here because we do not want to accidentally progress challenges via a migration
   .then =>

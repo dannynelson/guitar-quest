@@ -87,6 +87,12 @@ module.exports =
     default: 'admin@guitarquest.com'
     env: 'GUITAR_QUEST_EMAIL'
 
+  myEmail:
+    doc: 'My personal email for sending myself updates'
+    format: '*'
+    default: null
+    env: 'MY_EMAIL'
+
   subscription:
     id:
       doc: 'monthly price for a PRO subscription'

@@ -36,8 +36,8 @@ Complete any 2 level 3 pieces with at least an 80% grade.
 
 Examples
 - Submit First Video - submit a video for any guitar piece
-- Sight Reading - submit 3 videos in one day
-- Level {X} Practice - complete (80% or higher) any 3 level x pieces
+x Sight Reading - encourages sloppier videos, which discourages
+- Level {X} Practice - complete (80% or higher) any 3 level x pieces - for practicing pieces from earlier levels
 - Perfect Grade - get a perfect grade (100%) on any 3 level x pieces
 - {Era} Era Practice - complete (score 80% or higher) 3 level x pieces from the x era
 - {Technique} Practice - complete 2 pieces with the 3 technique
